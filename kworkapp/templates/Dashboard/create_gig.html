@@ -1,0 +1,3261 @@
+{% include  'base.html' %}
+{% load static %}
+{% block contentarea%}
+<title>Letworkbedone - {{request.user.username}} / Create a New Gig</title>
+<div class="all_page page-flex__content pt0 m0">
+    <div id="event_list" class="event-list js-event-list"></div>
+    <div id="fox_notification_block"></div>
+    <div class="row justify-content-center mt-0" id="create_gig">
+       <div class="col-11 text-center p-0 mt-3 mb-2">
+          <div class="card px-0 pt-4 pb-0 mb-3">
+             <div class="row">
+                <div class="col-md-12 mx-0">
+                   <div id="create_form">
+                      <!-- progressbar -->
+                      <ul id="progressbar">
+                         <li class="active" id="overview"><div class="circle"><span>1</span></div><strong class="span_txt">Overview</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                         <li id="pricing"><div class="circle"><span>2</span></div><strong class="span_txt">Pricing</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                         <li id="description"><div class="circle"><span>3</span></div><strong class="span_txt" >Description & FAQ</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                         <li id="requirments"><div class="circle"><span>4</span></div><strong class="span_txt">Requirements</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                         <li id="gallery"><div class="circle"><span>5</span></div><strong class="span_txt">Gallery</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                         <li id="publish"><div class="circle"><span>6</span></div><strong class="span_txt">Publish</strong><span><i class="fa fa-chevron-right" aria-hidden="true"></i></span></li>
+                      </ul>
+                      <fieldset id="overview_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_overview">
+                                    <div class="row">
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4">
+                                            <h3>Gig title</h3>
+                                            <p class="mt-2">As your Gig storefront, your <strong>title is the most important place</strong> to include keywords that buyers would likely use to search for a service like yours.</p>
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="input-wrapper">
+                                                <div class="gig-title-input">
+                                                   <span class="title-prefix" style="transform: translateY(0px);">I will</span>
+                                                   <div class="fit-textarea gig-title-textarea"><textarea maxlength="80" placeholder="do something I'm really good at"></textarea></div>
+                                                   <div class="title-footer help_txt">
+                                                      <span>This is your Gig title. Choose wisely, you can only use 80 characters.</span>
+                                                   </div>
+                                                   <div class="title-footer">
+                                                      <span class="title-status-msg alert gig-upcrate-validation-error">
+                                                         <span>Create a title with 15 characters minimum. Your title should have at least 4 words</span>
+                                                      </span>
+                                                      <span class="chars-count">0 / 80 max</span>
+                                                   </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-lg-1">
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="row tab2" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4">
+                                            <h3>Category</h3>
+                                            <p class="mt-2">Choose the category and sub-category most suitable for your Gig.</p>
+                                        </div>
+                                        <div class="col-lg-3 right_pan pt-4">
+                                            <select class="gig_category">
+                                                <option value="">Select Categroy</option>
+                                                <option value="option1"> Option 1</option>
+                                            </select>
+                                            <div class="title-footer help_txt" style="width: 150%;">
+                                             <span>Please choose the category and sub-category most suitable for your Gig.                                             </span>
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-3 right_pan pt-4">
+                                            <select class="gig_subcategory">
+                                                <option value="">Select Sub Category </option>
+                                                <option value="option1"> Option 1</option>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                    <div class="row tab5" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4">
+                                            <h3>Search tags</h3>
+                                            <p class="mt-2">Tag your Gig with buzz words that are relevant to the services you offer. Use all 5 tags to get found.</p>
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <h3>Positive keywords</h3>
+                                            <p class="mt-2">Enter search terms you feel your buyers will use when looking for your service.</p>
+                                            <div class="react-tags" contenteditable="true">
+
+                                            </div>
+                                            <div class="footer">
+                                                <span class="note">5 tags maximum. Use letters and numbers only.</span>
+                                                <div class="search-tags-status-msg"></div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-1">
+                                         
+                                        </div>
+                                    </div>
+                                    <div class="row tab6" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4">
+                                            
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="general-note">
+                                             <span class="fit-icon icn-info" style="width: 16px; height: 16px; fill: rgb(252, 131, 43);"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 0.25C3.72009 0.25 0.25 3.72134 0.25 8C0.25 12.2812 3.72009 15.75 8 15.75C12.2799 15.75 15.75 12.2812 15.75 8C15.75 3.72134 12.2799 0.25 8 0.25ZM8 3.6875C8.72487 3.6875 9.3125 4.27513 9.3125 5C9.3125 5.72487 8.72487 6.3125 8 6.3125C7.27513 6.3125 6.6875 5.72487 6.6875 5C6.6875 4.27513 7.27513 3.6875 8 3.6875ZM9.75 11.625C9.75 11.8321 9.58209 12 9.375 12H6.625C6.41791 12 6.25 11.8321 6.25 11.625V10.875C6.25 10.6679 6.41791 10.5 6.625 10.5H7V8.5H6.625C6.41791 8.5 6.25 8.33209 6.25 8.125V7.375C6.25 7.16791 6.41791 7 6.625 7H8.625C8.83209 7 9 7.16791 9 7.375V10.5H9.375C9.58209 10.5 9.75 10.6679 9.75 10.875V11.625Z"></path></svg>
+                                             </span><b class="please-note">Please note:</b>
+                                             Some categories require that sellers verify their skills.
+                                          </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                           
+                                        </div>
+                                    </div>
+                                    <div class="row tab7" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4"> 
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="sub-actions js-next-back">
+                                                <section class="btns mb-2">
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="overview_gig" data-next="pricing_gig" type="button">Save &amp; Continue</button>
+                                                </section>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </fieldset>
+                      <fieldset id="pricing_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_pricing">
+                                 <div class="row tab1" >
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                       <header class="pricing-header">
+                                          <h3>Scope &amp; Pricing</h3>
+                                          <div class="flex pkg-count-wrapper">
+                                             <div class="switch-container m-l-8">Offer packages<label class="fit-switch pkgs-toggler fit-switch-size-small"><input type="checkbox" checked=""><span class="fit-switch-toggle"></span></label></div>
+                                          </div>
+                                       </header>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+                                <div class="row tab2" >
+                                 <div class="col-lg-1">
+                                 </div>
+                                 <div class="col-lg-9 left_pan pt-4">
+                                    <section class="packages-pricing-factors-section">
+                                       <header><span>Packages</span></header>
+                                       <div class="packages-pfs-container">
+                                          <div class="row" id="table_pricing">
+                                             <div class="col-lg-12 left_pan pt-4">
+                                                <table class="packages-initial-pricing-blocks">
+                                                   <thead>
+                                                      <tr>
+                                                         <th class="first-table-col"></th>
+                                                         <th>Basic</th>
+                                                         <th>Standard</th>
+                                                         <th>Premium</th>
+                                                      </tr>
+                                                   </thead>
+                                                   <tbody>
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-title-container">
+                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                               <div class="help_div">
+                                                                  <div class="helptext_desc">Help & Resources</div>
+                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                                                               </div>                                                             
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-title-container">
+                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                               <div class="help_div">
+                                                                  <div class="helptext_desc">Help & Resources</div>
+                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                                                               </div>  
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-title-container">
+                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                               <div class="help_div">
+                                                                  <div class="helptext_desc">Help & Resources</div>
+                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
+                                                               </div> 
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                          
+                                                            
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-description-container">
+                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-description-container">
+                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-description-container">
+                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
+                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
+                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                          
+                                                            
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value=""> Delivery Time</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value=""> Delivery Time</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value=""> Delivery Time</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Revisions
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value=""> Select</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value=""> Select</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pkg-duration-container">
+                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
+                                                                  <select>
+                                                                     <option value="">Select</option>
+                                                                  </select>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Words included
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" value="">
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" value="">
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" value="">
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Proofreading
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Document formatting
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Language style guide
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Transcription
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr>
+                                                         <td class="first-table-col">
+                                                            Subtitling
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                         <td>
+                                                            <div class="pf-item">
+                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
+                                                                  <input type="checkbox">
+                                                                  <span class="checkmark-box">
+                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
+                                                                           </path>
+                                                                        </svg>
+                                                                     </span>
+                                                                  </span>
+                                                               </label>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+
+                                                      <tr class="pricing_row">
+                                                         <td class="first-table-col">
+                                                            Price
+                                                         </td>
+                                                         <td class="pkg-price-cell">
+                                                            <div class="pkg-price-container">
+                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
+                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
+                                                                        </span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td class="pkg-price-cell">
+                                                            <div class="pkg-price-container">
+                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
+                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
+                                                                        </span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                         <td class="pkg-price-cell">
+                                                            <div class="pkg-price-container">
+                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
+                                                                  <div class="fit-input-inner-wrapper">
+                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
+                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
+                                                                        </span>
+                                                                  </div>
+                                                               </div>
+                                                            </div>
+                                                         </td>
+                                                      </tr>
+                                                   </tbody>
+                                                </table>
+                                             </div>
+                                          </div>
+                                       </div>
+                                    </section>
+                                    <section class="extra-pricing-factors-section">
+                                       <header>Add extra services</header>
+                                       <div class="extra-border">
+                                          <ul class="extra-per-package-pricing-factors extra-pricing-factor-list">
+                                             <li class="pf-container">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                         <input type="checkbox">
+                                                         <span class="checkmark-box">
+                                                            <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                               <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                  <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                               </svg>
+                                                            </span>
+                                                         </span>
+                                                         Additional words
+                                                      </label>
+                                                   </li>
+                                                </ul>
+                                                
+                                                
+                                             </li>
+                                          </ul>
+                                          <ul class="extra-pricing-factor-list">
+                                             <li class="pf-container">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                         <input type="checkbox" checked="">
+                                                         <span class="checkmark-box">
+                                                            <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                               <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                  <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                               </svg>
+                                                            </span>
+                                                         </span>
+                                                         Extra fast delivery
+                                                      </label>
+                                                      <div class="fit-popover fit-popover-top fit-tooltip validations-cell-notification floating" data-position="top">
+                                                         <span class="fit-popover-content fit-popover-validations-content">
+                                                            <span class="fit-icon fit-tooltip validations-cell-notification floating" style="width: 14px; height: 14px; fill: rgb(149, 151, 157);">
+                                                               <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                                  <path d="M8 0.25C3.72009 0.25 0.25 3.72134 0.25 8C0.25 12.2812 3.72009 15.75 8 15.75C12.2799 15.75 15.75 12.2812 15.75 8C15.75 3.72134 12.2799 0.25 8 0.25ZM8 3.6875C8.72487 3.6875 9.3125 4.27513 9.3125 5C9.3125 5.72487 8.72487 6.3125 8 6.3125C7.27513 6.3125 6.6875 5.72487 6.6875 5C6.6875 4.27513 7.27513 3.6875 8 3.6875ZM9.75 11.625C9.75 11.8321 9.58209 12 9.375 12H6.625C6.41791 12 6.25 11.8321 6.25 11.625V10.875C6.25 10.6679 6.41791 10.5 6.625 10.5H7V8.5H6.625C6.41791 8.5 6.25 8.33209 6.25 8.125V7.375C6.25 7.16791 6.41791 7 6.625 7H8.625C8.83209 7 9 7.16791 9 7.375V10.5H9.375C9.58209 10.5 9.75 10.6679 9.75 10.875V11.625Z"></path>
+                                                               </svg>
+                                                            </span>
+                                                         </span>
+                                                      </div>
+                                                   </li>
+                                                   <li>
+                                                      <ul class="values-list">
+                                                         <li class="values-row">
+                                                            <span class="title">Basic</span>
+                                                            <div class="values-block">
+                                                               <span class="will-deliver">I'll deliver in only</span>
+                                                               <select>
+                                                                  <option value="">Select</option>
+                                                               </select>
+                                                               <span class="for-extra">for an extra</span>
+                                                               <div class="fit-input-wrapper price-stepper fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                               </div>
+                                                               <span class="for-extra-dollar left">$</span>
+                                                            </div>
+                                                         </li>
+                                                         <li class="values-row">
+                                                            <span class="title">Standard</span>
+                                                            <div class="values-block">
+                                                               <span class="will-deliver">I'll deliver in only</span>
+                                                               <select>
+                                                                  <option value="">Select</option>
+                                                               </select>
+                                                               <span class="for-extra">for an extra</span>
+                                                               <div class="fit-input-wrapper price-stepper fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                               </div>
+                                                               <span class="for-extra-dollar left">$</span>
+                                                            </div>
+                                                         </li>
+                                                         <li class="values-row">
+                                                            <span class="title">Premium</span>
+                                                            <div class="values-block">
+                                                               <span class="will-deliver">I'll deliver in only</span>
+                                                               <select>
+                                                                  <option value="">Select</option>
+                                                               </select>
+                                                               <span class="for-extra">for an extra</span>
+                                                               <div class="fit-input-wrapper price-stepper fit-input-icon-start">
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                               </div>
+                                                               <span class="for-extra-dollar left">$</span>
+                                                            </div>
+                                                         </li>
+                                                      </ul>
+                                                   </li>
+                                                </ul>
+                                             
+                                                
+                                             </li>
+                                          </ul>
+                                          <ul class="flex flex-col extra-factors extra-pricing-factor-list">
+                                             <li class="pf-container" style="order: 10;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox" checked="">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Additional revision
+                                                         </label>
+                                                      </div>
+                                                      <div class="extra-values m-r-28">
+                                                         <span class="for-extra">for an extra</span>
+                                                         <div class="fit-input-wrapper price-stepper fit-input-icon-start">
+                                                            <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                         </div>
+                                                         <span class="for-extra">$</span><span class="for-additional">and additional</span>
+                                                         <select>
+                                                            <option value="">Select</option>
+                                                         </select>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                            
+                                                
+                                             </li>
+                                             <li class="pf-container" style="order: 50;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Proofreading
+                                                         </label>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                               
+                                                
+                                             </li>
+                                             <li class="pf-container" style="order: 60;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Document formatting
+                                                         </label>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                               
+                                                
+                                             </li>
+                                             <li class="pf-container" style="order: 70;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Language style guide
+                                                         </label>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                                
+                                                
+                                             </li>
+                                             <li class="pf-container" style="order: 80;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Transcription
+                                                         </label>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                              
+                                                
+                                             </li>
+                                             <li class="pf-container" style="order: 90;">
+                                                <ul>
+                                                   <li class="pf-row">
+                                                      <div class="factor-title">
+                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                            <input type="checkbox">
+                                                            <span class="checkmark-box">
+                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                                  </svg>
+                                                               </span>
+                                                            </span>
+                                                            Subtitling
+                                                         </label>
+                                                      </div>
+                                                   </li>
+                                                </ul>
+                                               
+                                                
+                                             </li>
+                                          </ul>
+                                          <ul class="custom-extras-container">
+                                             <li class="custom-extra-row">
+                                                <ul class="extra-values">
+                                                   <li>
+                                                      <label class="fit-checkbox extra-active fit-checkbox-color-white fit-checkbox-shape-square">
+                                                         <input type="checkbox" checked="">
+                                                         <span class="checkmark-box">
+                                                            <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                               <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                                  <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                               </svg>
+                                                            </span>
+                                                         </span>
+                                                      </label>
+                                                      <span class="attr">Title</span>
+                                                      <div class="fit-input-wrapper title-input fit-input-icon-start">
+                                                         <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="Title your extra service" maxlength="20" minlength="3" value=""></div>
+                                                      </div>
+                                                      <i>0 / 20 max</i>
+                                                   </li>
+                                                   <li>
+                                                      <span class="attr">Description</span>
+                                                      <div class="description-container">
+                                                         <span class="i-will">I will</span>
+                                                         <div class="fit-input-wrapper description-input fit-input-icon-start">
+                                                            <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="describe your offering" value=""></div>
+                                                         </div>
+                                                      </div>
+                                                   </li>
+                                                   <li>
+                                                      <span class="attr for-extra">For an extra</span>
+                                                      <div class="fit-input-wrapper price-stepper fit-input-icon-start">
+                                                         <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                      </div>
+                                                      <span class="for-extra">$</span><span class="for-additional">and an additional</span>
+                                                      <select>
+                                                         <option value=""> Select Category</option>
+                                                     </select>
+                                                   </li>
+                                                </ul>
+                                             </li>
+                                             <li class="add-extra-row">
+                                                <span class="fit-icon" style="width: 16px; height: 16px; fill: rgb(74, 115, 232);">
+                                                   <svg width="12" height="16" viewBox="0 0 12 16" xmlns="http://www.w3.org/2000/svg">
+                                                      <path d="M11.5 7H7V2.5C7 2.22375 6.77625 2 6.5 2H5.5C5.22375 2 5 2.22375 5 2.5V7H0.5C0.22375 7 0 7.22375 0 7.5V8.5C0 8.77625 0.22375 9 0.5 9H5V13.5C5 13.7762 5.22375 14 5.5 14H6.5C6.77625 14 7 13.7762 7 13.5V9H11.5C11.7762 9 12 8.77625 12 8.5V7.5C12 7.22375 11.7762 7 11.5 7Z"></path>
+                                                   </svg>
+                                                </span>
+                                                Add Gig Extra
+                                             </li>
+                                          </ul>
+                                       </div>
+                                    </section>
+                                 </div>
+                                 <div class="col-lg-1">
+
+                                 </div>
+                             </div>
+                                 <div class="row tab7" >
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-3 left_pan pt-4"> 
+                                    </div>
+                                    <div class="col-lg-7 right_pan pt-4">
+                                        <div class="sub-actions js-next-back">
+                                          <section class="btns mb-2">
+                                             <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="pricing_gig" data-next="descrip_gig" type="button">Save &amp; Continue</button>
+                                          </section>
+                                          <button type="button" class="previous naked-button back co-green" data-label="pricing_gig" data-previous="overview_gig">back</button>
+                                         </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                      </fieldset>
+                      <fieldset id="descrip_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_descp">
+                                 <div class="row tab1">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                       <header class="pricing-header">
+                                          <h1>Description</h1>
+                                       </header>
+                                       <div class="description-wrapper">
+                                          <p>Briefly Describe Your Gig</p>
+                                          <textarea id="description_gig" minlength="0" maxlength="150"   placeholder="" cols="50" rows="60" class="form-control" required=""></textarea>
+                                          <p class="text-muted text-right"><span class="countDesc">150</span> characters left</p>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+
+                                <div class="row tab1">
+                                 <div class="col-lg-1">
+                                 </div>
+                                 <div class="col-lg-9 left_pan pt-4 mt-3">
+                                    <header class="pricing-header">
+                                       <h1>Frequently Asked Questions</h1>
+                                    </header>
+                                    <div class="description-wrapper faq_question mb-3">
+                                       <p>Add Questions & Answers for Your Buyers.</p>
+                                       <div class="faq-form add">
+                                          <div class="fit-input-wrapper faq-question fit-input-icon-start">
+                                             <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="Add a Question: i.e. Do you translate to English as well?" value=""></div>
+                                          </div>
+                                          <div class="fit-textarea faq-answer fit-textarea-has-counter"><textarea maxlength="300" placeholder="Add an Answer: i.e. Yes, I also translate from English to Hebrew."></textarea><span class="fit-counter fit-textarea-counter">0 / 300</span></div>
+                                          <button class="fit-button fit-button-color-grey fit-button-fill-ghost fit-button-size-small co-grey-1000 faq-cancel" type="button">Cancel</button><button class="fit-button fit-button-color-green fit-button-fill-full fit-button-size-small co-white faq-submit bg-co-green-700" type="button">Add</button>
+                                       </div>
+                                       
+                                       <div class="faq-add-btn-wrapper pb-4">
+                                          <button type="button" class="naked-button btn-add-faq co-green tbody-5">+ Add FAQ</button>
+                                       </div>
+                                    </div>
+                                 </div>
+                                 <div class="col-lg-1">
+                                    
+                                 </div>
+                             </div>
+                                    <div class="row tab7" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4"> 
+                                          
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="sub-actions js-next-back">
+                                                <section class="btns mb-2">
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="descrip_gig" data-next="requirements_gig" type="button">Save &amp; Continue</button>
+                                                </section>
+                                                <button type="button" class="previous naked-button back co-green" data-label="descrip_gig" data-previous="pricing_gig">back</button>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-1">    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </fieldset>
+                      <fieldset id="requirements_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_requirements">
+                                 <div class="row tab1">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                       <header class="pricing-header requirements">
+                                          <h1>Get all the information you need from buyers to get started</h1>
+                                          <p>Add questions to help buyers provide you with exactly what you need to start working on their order.</p>
+                                       </header>
+                                       <div class="description-wrapper">
+                                          <div class="hr-with-text"><hr><strong>Your Questions</strong></div>
+                                          <div class="requirement-item">
+                                             <div class="type-row">
+                                                <i class="icn-free-text"></i>
+                                                <span class="type-label">Multiple choice</span>
+                                             </div>
+                                             <b class="content">gerge</b>
+                                             <p class="content multi-options">rft, rtre, rgre</p>
+                                          </div>
+                                          <div class="requirement-edit-form">
+                                             <div class="label-row">
+                                                <label class="form-label">Add a question</label>
+                                                <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                   <input type="checkbox" checked="">
+                                                   <span class="checkmark-box">
+                                                      <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                         <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                         </svg>
+                                                      </span>
+                                                   </span>
+                                                   Required
+                                                </label>
+                                             </div>
+                                             <div class="question-textarea">
+                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="400" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
+                                             </div>
+                                             <label class="form-label">Get it in a form of:</label>
+                                             <div class="type-select-row">
+                                                <div class="fit-popover requirementtype" data-position="bottom-left">
+                                                   <span class="fit-select-value" style="min-width: 201px;">Free text</span>
+                                                </div>
+                                             </div>
+                                             <div class="buttons-row"><button class="fit-button fit-button-color-grey fit-button-fill-ghost fit-button-size-medium co-grey-1000 cancel" type="button">Cancel</button><button class="fit-button fit-button-color-green fit-button-fill-full fit-button-size-medium co-white save bg-co-green-700" type="button">Add</button></div>
+                                          </div>
+                                          <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium co-blue-700 btn-add-new-question" type="button">+ Add New Question</button>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+
+                                    <div class="row tab7" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4">
+                                          
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="sub-actions js-next-back">
+                                                <section class="btns mb-2">
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="requirements_gig" data-next="gallery_gig" type="button">Save &amp; Continue</button>
+                                                </section>
+                                                <button type="button" class="previous naked-button back co-green" data-label="requirements_gig" data-previous="descrip_gig">back</button>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                      </fieldset>
+                      <fieldset id="gallery_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_gallery">
+                                 <div class="row tab1">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                       <header class="pricing-header requirements">
+                                          <h1>Showcase Your Services In A Gig Gallery</h1>
+                                          <p>Encourage buyers to choose your Gig by featuring a variety of your work.</p>
+                                       </header>
+                                       <div class="description-wrapper">
+                                          <div class="message-disclaimer"><span class="fit-icon icn-info" style="width: 14px; height: 14px;"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 0.25C3.72009 0.25 0.25 3.72134 0.25 8C0.25 12.2812 3.72009 15.75 8 15.75C12.2799 15.75 15.75 12.2812 15.75 8C15.75 3.72134 12.2799 0.25 8 0.25ZM8 3.6875C8.72487 3.6875 9.3125 4.27513 9.3125 5C9.3125 5.72487 8.72487 6.3125 8 6.3125C7.27513 6.3125 6.6875 5.72487 6.6875 5C6.6875 4.27513 7.27513 3.6875 8 3.6875ZM9.75 11.625C9.75 11.8321 9.58209 12 9.375 12H6.625C6.41791 12 6.25 11.8321 6.25 11.625V10.875C6.25 10.6679 6.41791 10.5 6.625 10.5H7V8.5H6.625C6.41791 8.5 6.25 8.33209 6.25 8.125V7.375C6.25 7.16791 6.41791 7 6.625 7H8.625C8.83209 7 9 7.16791 9 7.375V10.5H9.375C9.58209 10.5 9.75 10.6679 9.75 10.875V11.625Z"></path></svg></span><p class="text-container">To comply with Fiverr’s terms of service, make sure to upload only content you either own or you have the permission or license to use.</p></div>
+                                          <button type="button" class="naked-button link tbody-6 text-bold p-t-12 co-grey-1200"><span>Gig image guidelines</span></button>
+
+                                          <article class="gallery-section portfolio-section">
+                                             <h3 class="gallary-title">
+                                                <p class="title">Images   (up to 3)</p>
+                                                <p class="subtitle">Get noticed by the right buyers with visual examples of your services.</p>
+                                                <p class="description"></p>
+                                             </h3>
+                                             <ul>
+                                                <div>
+                                                   <span class="gallery-item-wrapper">
+                                                      <li class="gallery-item-placeholder b-0  ">
+                                                         <div class="dropzone">
+                                                            <div class="dropzone-body image">Drag &amp; drop a Photo or<br><label for="image">Browse<input type="file" id="image" name="file" multiple=""></label></div>
+                                                         </div>
+                                                      </li>
+                                                   </span>
+                                                   <span class="gallery-item-wrapper">
+                                                      <li class="gallery-item-placeholder  "></li>
+                                                   </span>
+                                                   <span class="gallery-item-wrapper">
+                                                      <li class="gallery-item-placeholder  "></li>
+                                                   </span>
+                                                </div>
+                                             </ul>
+                                          </article>
+                                          <span class="disclaimer-checkbox-wrapper"><div class="disclaimer-checkbox"><label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square"><input type="checkbox"><span class="checkmark-box"><span class="fit-icon check-icon" style="width: 10px; height: 10px;"><svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"><path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path></svg></span></span><p class="checkbox-content">I declare that these materials were created by myself or by my team and do not infringe on any 3rd party rights. I understand that the illegal use of digital assets is against Fiverr’s <b>Terms of Service</b> and may result in blocking my account.</p></label><span><ul class="gig-upcrate-validation-error section-errors"><li>* Please confirm that you’ve read and agreed to our Terms of Service</li></ul></span></div></span>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+                                    <div class="row tab1">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                       <header class="pricing-header requirements">
+                                          <h1>Get all the information you need from buyers to get started</h1>
+                                          <p>Add questions to help buyers provide you with exactly what you need to start working on their order.</p>
+                                       </header>
+                                       <div class="description-wrapper">
+                                          <div class="hr-with-text"><hr><strong>Your Questions</strong></div>
+                                          <div class="requirement-item">
+                                             <div class="type-row">
+                                                <i class="icn-free-text"></i>
+                                                <span class="type-label">Multiple choice</span>
+                                             </div>
+                                             <b class="content">gerge</b>
+                                             <p class="content multi-options">rft, rtre, rgre</p>
+                                          </div>
+                                          <div class="requirement-edit-form">
+                                             <div class="label-row">
+                                                <label class="form-label">Add a question</label>
+                                                <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
+                                                   <input type="checkbox" checked="">
+                                                   <span class="checkmark-box">
+                                                      <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
+                                                         <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
+                                                         </svg>
+                                                      </span>
+                                                   </span>
+                                                   Required
+                                                </label>
+                                             </div>
+                                             <div class="question-textarea">
+                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="400" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
+                                             </div>
+                                             <label class="form-label">Get it in a form of:</label>
+                                             <div class="type-select-row">
+                                                <div class="fit-popover requirementtype" data-position="bottom-left">
+                                                   <span class="fit-select-value" style="min-width: 201px;">Free text</span>
+                                                </div>
+                                             </div>
+                                             <div class="buttons-row"><button class="fit-button fit-button-color-grey fit-button-fill-ghost fit-button-size-medium co-grey-1000 cancel" type="button">Cancel</button><button class="fit-button fit-button-color-green fit-button-fill-full fit-button-size-medium co-white save bg-co-green-700" type="button">Add</button></div>
+                                          </div>
+                                          <button class="fit-button fit-button-color-blue fit-button-fill-ghost fit-button-size-medium co-blue-700 btn-add-new-question" type="button">+ Add New Question</button>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+                                    <div class="row tab7" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4"> 
+                                          
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="sub-actions js-next-back">
+                                                <section class="btns mb-2">
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="gallery_gig" data-next="publish_gig" type="button">Save &amp; Continue</button>
+                                                </section>
+                                                <button type="button" class="previous naked-button back co-green" data-label="gallery_gig" data-previous="requirements_gig">back</button>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </fieldset>
+                     <fieldset id="publish_gig">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="div_create_publish">
+                                 <div class="row tab1">
+                                    <div class="col-lg-1">
+                                    </div>
+                                    <div class="col-lg-9 left_pan pt-4">
+                                      
+                                       <div class="almost-there publish-section"><h1>Almost there...</h1><p>Let's publish your Gig and get<br>some buyers rolling in.</p></div>
+                                    </div>
+                                    <div class="col-lg-1">
+                                       
+                                    </div>
+                                </div>
+                                    <div class="row tab7" >
+                                        <div class="col-lg-1">
+                                        </div>
+                                        <div class="col-lg-3 left_pan pt-4"> 
+                                          
+                                        </div>
+                                        <div class="col-lg-7 right_pan pt-4">
+                                            <div class="sub-actions js-next-back">
+                                                <section class="btns mb-2">
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="publish_gig" data-next="last" type="button">Publish Gig</button>
+                                                </section>
+                                                <button type="button" class="previous naked-button back co-green" data-label="publish_gig" data-previous="gallery_gig">back</button>
+                                             </div>
+                                        </div>
+                                        <div class="col-lg-1">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                     </fieldset>
+                    </div>
+                </div>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% include  'Dashboard/base_seller.html' %}
+<style>
+
+   .help_div
+   {
+      position: absolute;
+      right: 5px;
+      bottom: 0; 
+   }
+   .fa{
+      position: absolute;
+      right: 0;
+      bottom: 0;
+   }
+   #progressbar .fa{
+      position: absolute;
+      right: 5%;
+      bottom: 0;
+      top: 25%;
+   }
+   .help_txt
+   {
+      font-size: 12px;
+      color: green;
+      font-weight: 400;
+      text-align: left;
+   }
+ .gig-search-tags-group .positive-keywords-education {
+    top: -300px;
+}
+.generic-section-education {
+    width: 235px;
+    background: #fff;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dadbdd;
+    min-height: 285px;
+    padding: 16px 24px 24px;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    -webkit-transform: translateX(calc(100% + 60px));
+    transform: translateX(calc(100% + 60px));
+}
+.gig-search-tags-group .positive-keywords-education .hover-bridge {
+    margin-top: 270px;
+}
+.generic-section-education>header {
+    margin-bottom: 8px;
+}
+.generic-section-education .subtitle {
+    font-size: 12px;
+    line-height: 16px;
+}
+.gig-title-group .title-education, .gig-title-group:hover~.overview-education {
+    display: none;
+}
+.generic-section-education .hover-bridge {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    left: 60px;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    z-index: -1;
+}
+.generic-section-education>header {
+    margin-bottom: 8px;
+}
+.generic-section-education .subtitle {
+    font-size: 12px;
+    line-height: 16px;
+}
+.gig-title-group .title-education>.img {
+    background: url(https://fiverr-res.cloudinary.com/npm-assets/@fiverr/gig_management_perseus/apps/gig-edit-tooltip-collection.8cd272d.png) -7px 0 no-repeat;
+    width: 232px;
+    height: 231px;
+    margin-left: -23px;
+}
+.title-education,.categories-education,.service-type-education,.metadata-education,.positive-keywords-education{
+    display: none;
+    text-align: left;
+    display: block;
+}
+ h6 {
+    font-size: 16px;
+    font-weight: 600;
+}
+.generic-section-education:before {
+    content: "";
+    background: transparent url(https://fiverr-res.cloudinary.com/npm-assets/@fiverr/gig_management_perseus/apps/chip.88e56cb.svg) no-repeat 0 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    width: 10px;
+    height: 23px;
+    top: 47px;
+    left: -9px;
+}
+.generic-section-education {
+    width: 235px;
+    background: #fff;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid #dadbdd;
+    min-height: 285px;
+    padding: 16px 24px 24px;
+    position: absolute;
+    right: 0;
+    z-index: 10;
+    -webkit-transform: translateX(calc(100% + 60px));
+    transform: translateX(calc(100% + 60px));
+}
+
+.text-body-3, .tbody-7 {
+    font-size: 12px;
+    line-height: 20px;
+    text-align: left;
+}
+.co-text-medium {
+    color: #7a7d85;
+}
+.generic-section-education .hover-bridge {
+    display: block;
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    left: 60px;
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    z-index: -1;
+}
+.box-shadow-z4 {
+    box-shadow: 0 .266px 1.13052px rgba(0,0,0,.06866),0 .89345px 3.79717px rgba(0,0,0,.10134),0 5px 17px rgba(0,0,0,.17);
+}
+.education-tooltip .icn-lightbulb-wrapper .fa {
+    font-size: 24px;
+    color: #fff;
+}
+.education-tooltip>header>h6 {
+    margin-top: 8px;
+    font-weight: 600;
+    color: #222325;
+}
+.regular-gig-generic-education .img-education-video-thumbnail {
+    background: url(https://fiverr-res.cloudinary.com/npm-assets/@fiverr/gig_management_perseus/apps/overview-education.d427a9c.jpg);
+    width: 100%;
+    height: 118px;
+    background-size: contain;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.regular-gig-generic-education ul {
+    margin-left: 20px;
+    list-style-type: disc;
+}
+ .regular-gig-generic-education ul>li {
+    margin-bottom: 5px;
+}
+.regular-gig-generic-education .policy-video {
+    margin-top: 16px;
+    padding: 4px 12px 4px 0;
+    font-size: 12px;
+    color: #4a73e8;
+    border-radius: 14px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.education-tooltip:after {
+    top: 10.4px;
+    border-color: transparent #ecfcff transparent transparent;
+    border-width: 8px;
+}
+.education-tooltip:after, .education-tooltip:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+}
+ .regular-gig-generic-education .policy-video:before {
+    content: "\f03d";
+    background-color: #10727b;
+    margin-right: 5px;
+    padding: 6px;
+    font-family: fontawesome;
+    color: #fff;
+    border-radius: 50%;
+}
+.education-tooltip .icn-lightbulb-wrapper {
+    background-color: #3ad0e6;
+    position: absolute;
+    -webkit-transform: translateY(-40px);
+    transform: translateY(-40px);
+    height: 37px;
+    width: 37px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-item-align: center;
+    align-self: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+.education-tooltip>header {
+    margin-bottom: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.education-tooltip:after,.education-tooltip:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+}
+.education-tooltip:after, .education-tooltip:before {
+    content: "";
+    display: block;
+    position: absolute;
+    right: 100%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    z-index: 1;
+}
+.education-tooltip>header {
+    margin-bottom: 12px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+}
+.education-tooltip {
+    background-color: #ecfcff;
+    border-radius: 3px;
+    width: 250px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transform: translateX(calc(100% + 20px));
+    transform: translateX(calc(100% + 20px));
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    border: 1px solid #afedf7;
+    color: #222325;
+}
+.education-tooltip {
+    background-color: #ecfcff;
+    border-radius: 3px;
+    width: 250px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    -webkit-transform: translateX(calc(100% + 20px));
+    transform: translateX(calc(100% + 20px));
+    padding: 20px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 18px;
+    border: 1px solid #afedf7;
+    color: #222325;
+}
+.section-title-component .link {
+    font-weight: 700;
+    color: rgb(34, 35, 37);
+    text-decoration-line: underline;
+    padding: 12px 0px 0px;
+}
+.gallery-wrapper.regular-gig .portfolio-section {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+}
+.gallery-section h3.gallary-title {
+    position: relative;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    padding-bottom: 32px;
+}
+.gallery-section h3.gallary-title .title {
+    margin-bottom: 4px;
+    font-weight: 700;
+    font-size: 18px;
+}
+.gallery-section h3.gallary-title .subtitle {
+    font-size: 14px;
+}
+.gallery-section h3.gallary-title .description {
+    font-size: 12px;
+}
+.gallery-item-wrapper {
+    margin-right: 2%;
+}
+.gallery-item-placeholder {
+    background-color: rgb(255, 255, 255);
+    line-height: 100%;
+    font-size: 12px;
+    position: relative;
+    display: inline-block;
+    box-sizing: border-box;
+    height: 160px;
+    width: 31%;
+    overflow: hidden;
+    border: 1px solid rgb(218, 219, 221);
+    vertical-align: top;
+    margin-bottom: 16px;
+}
+.dropzone {
+    background-color: rgb(255, 255, 255);
+    height: 98%;
+    border: 1px dashed rgb(218, 219, 221);
+}
+.dropzone-body {
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(149, 151, 157);
+    font-weight: 500;
+    padding-top: 30px;
+}
+.dropzone-body.image::before {
+    background-position: 0px 0px;
+    height: 37px;
+    width: 50px;
+    content: ''
+}
+.dropzone-body::before {
+    content: "";
+    background: url("https://fiverr-res.cloudinary.com/npm-assets/@fiverr/gig_management_perseus/apps/sprite-gig-edit.c77a1a7.svg") 0px 0px / 300px 100px no-repeat transparent;
+    display: block;
+    margin: 0px auto;
+    padding-bottom: 10px;
+}
+.dropzone-body {
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(149, 151, 157);
+    font-weight: 500;
+    padding-top: 30px;
+}
+.dropzone-body label {
+    color: rgb(74, 115, 232);
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.section-title-component .link {
+    font-weight: 700;
+    color: rgb(34, 35, 37);
+    text-decoration-line: underline;
+    padding: 12px 0px 0px;
+}
+
+.dropzone-body label input[type="file"] {
+    visibility: hidden;
+}
+.message-disclaimer {
+    display: flex;
+    background: rgb(239, 239, 240);
+    border: 1px solid rgb(228, 229, 231);
+    border-radius: 4px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.message-disclaimer .icn-info {
+    margin-right: 12px;
+    margin-top: 2px;
+    min-width: 14px;
+}
+.message-disclaimer .text-container {
+    color: rgb(98, 100, 106);
+    font-size: 14px;
+    line-height: 22px;
+    text-transform: none;
+}
+   .requirementtype
+   {
+      background: white;
+      padding: 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #2E5DC5;
+      border: 1px solid #b5b6ba;
+   }
+
+.requirement-edit-form .buttons-row {
+    display: flex;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-top: 32px;
+}
+
+.requirement-edit-form .buttons-row button {
+    margin-left: 12px;
+}
+   .requirement-edit-form {
+      background-color: rgb(245, 245, 245);
+      border: 1px solid rgb(218, 219, 221);
+      padding: 24px 20px 20px;
+   }
+   .requirement-edit-form .label-row {
+      display: flex;
+      -webkit-box-pack: justify;
+      justify-content: space-between;
+      margin-bottom: 12px;
+   }
+   .requirement-edit-form .form-label {
+      font-weight: 700;
+      color: rgb(64, 65, 69);
+      font-size: 15px !important;
+   }
+   .requirement-edit-form .type-select-row {
+    margin-top: 12px;
+    margin-bottom: 20px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+   .requirement-edit-form .question-textarea {
+      margin-bottom: 32px;
+      position: relative;
+   }
+   .requirement-edit-form .question-textarea .fit-textarea {
+      width: 100%;
+      background-color: rgb(255, 255, 255);
+   }
+   .fit-textarea textarea {
+    position: static;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+    font: inherit;
+}
+.fit-textarea .fit-textarea-counter {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    font-size: 14px;
+    color: #95979d;
+    line-height: 1;
+}
+   .fit-button-color-green 
+   {
+      color: white !important;
+      border: none;
+   }
+.extra-pricing-factors-section .extra-border {
+   border-bottom: 1px solid #e4e5e7;
+   border-right: 1px solid #e4e5e7;
+   border-left: 1px solid #e4e5e7;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .values-list {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border-top: 1px solid #e4e5e7;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .values-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 7px 5px 7px 43px;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.extra-pricing-factors-section .extra-pricing-factor-list .values-block {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-right: 32px;
+    width: 50%;
+}
+.flex-col {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .pf-container {
+    position: relative;
+}
+.extra-factors .extra-values {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 50%;
+}
+.custom-extras-container .extra-values>li .description-container {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    position: relative;
+}
+
+.gig_management_perseus .fit-input {
+   height: 35px;
+    text-indent: 30px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #c5c6c9;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font: inherit;
+    color: #404145;
+    -webkit-transition: .15s ease-in-out;
+    -o-transition: .15s ease-in-out;
+    transition: .15s ease-in-out;
+}
+.seller-requirements .seller-req {
+    position: relative;
+}
+.requirement-item .type-row {
+    display: flex;
+    -webkit-box-align: baseline;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+.fit-button {
+   color: #2E5DC5;
+   margin-top: 8px;
+    font-size: 14px;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    padding: 12px 24px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    -webkit-transition: .15s ease-in-out;
+    -o-transition: .15s ease-in-out;
+    transition: .15s ease-in-out;
+}
+.fit-button.fit-button-fill-ghost {
+    background: none;
+    border-color: currentColor;
+}
+.requirement-item .icn-free-text {
+    background: url("https://fiverr-res.cloudinary.com/npm-assets/@fiverr/gig_management_perseus/apps/free-text-icon.67b067f.svg");
+    width: 7px;
+    height: 8px;
+    display: block;
+}
+.requirement-item {
+    border: 1px solid rgb(218, 219, 221);
+    box-sizing: border-box;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 4px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    padding: 20px;
+    position: relative;
+}
+.requirement-item .content {
+    color: rgb(64, 65, 69);
+    font-size: 14px;
+    line-height: 22px;
+}
+.requirement-item .type-label {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 11px;
+    line-height: 18px;
+    color: rgb(181, 182, 186);
+    margin-left: 8px;
+}
+.hr-with-text {
+    position: relative;
+    margin: 15px 0px 32px;
+}
+.hr-with-text > hr {
+    border-color: rgb(228, 229, 231);
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+.hr-with-text > strong {
+    position: absolute;
+    z-index: 1;
+    top: 0px;
+    transform: translateY(-50%) translateX(50%);
+    right: 50%;
+    background: rgb(255, 255, 255);
+    padding: 0px 32px;
+    text-transform: uppercase;
+    font-size: 12px;
+    line-height: 1;
+}
+.custom-extras-container .extra-values>li .description-container .i-will {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 10px;
+}
+.custom-extras-container .custom-extra-row {
+    position: relative;
+    border-top: 1px solid #e4e5e7;
+    padding: 20px 15px;
+}
+.custom-extras-container .extra-values>li .for-additional, .custom-extras-container .extra-values>li .for-extra {
+    margin-right: 10px;
+}
+.custom-extras-container .extra-values>li .for-additional, .custom-extras-container .extra-values>li .for-extra {
+    margin-right: 10px;
+}
+ .fit-input {
+   height:35px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #c5c6c9;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font: inherit;
+    color: #404145;
+    -webkit-transition: .15s ease-in-out;
+    -o-transition: .15s ease-in-out;
+    transition: .15s ease-in-out;
+}
+
+.custom-extras-container .extra-values>li {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: 2%;
+}
+.custom-extras-container .extra-values>li .attr {
+    width: 85px;
+    margin-right: 10px;
+    font-size: 13px !important;
+    font-weight: 600;
+    color: #62646a;
+}
+.custom-extras-container .extra-values>li .description-container .description-input
+{
+   width: 100%;
+   display: inline-block;
+   position: relative;
+}
+.custom-extras-container .extra-values>li .title-input {
+    margin-right: 10px;
+}
+.custom-extras-container .extra-values>li .title-input .fit-input {
+    width: 200px;
+    height: 35px;
+}
+.custom-extras-container .extra-values>li .description-container .description-input .fit-input {
+    height: 35px;
+    text-indent: 30px;
+    width: 100%;
+}
+.description-container .description-input .fit-input:focus
+{
+   outline: none;
+   border: none;
+}
+.custom-extras-container {
+    background: #fff;
+    font-size: 13px;
+}
+.custom-extras-container .add-extra-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-top: 1px solid #e4e5e7;
+    color: #2E5DC5;
+    padding: 23px 20px;
+    cursor: pointer;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .pf-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 15px;
+    background: #fff;
+    border-top: 1px solid #e4e5e7;
+    font-size: 13px;
+}
+.extra-factors .pf-row {
+    -webkit-box-orient: horizontal!important;
+    -webkit-box-direction: normal!important;
+    -ms-flex-direction: row!important;
+    flex-direction: row!important;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .values-row .fit-select-option, .extra-pricing-factors-section .extra-pricing-factor-list .values-row .fit-select-value {
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .for-additional, .extra-pricing-factors-section .extra-pricing-factor-list .for-extra,.extra-pricing-factors-section .extra-pricing-factor-list .price-dropdown,.extra-pricing-factors-section .extra-pricing-factor-list .will-charge, .extra-pricing-factors-section .extra-pricing-factor-list .will-deliver,.extra-pricing-factors-section select
+{
+   margin-right: 10px;
+}
+.extra-pricing-factors-section select
+{
+   width: 25%;
+   height: 30px;
+   border: 1px solid #c5c6c9;
+   border-radius: 3px;
+   padding: 5px;
+   font-size: 13px !important;
+}
+.fit-select-caret {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    -webkit-transition: .15s ease-in-out;
+    -o-transition: .15s ease-in-out;
+    transition: .15s ease-in-out;
+    pointer-events: none;
+}
+
+.extra-pricing-factors-section .extra-pricing-factor-list .values-block .fit-select {
+    background: #fff;
+    padding: 7px;
+    width: 100%;
+}
+
+.extra-pricing-factors-section .extra-pricing-factor-list .for-additional, .extra-pricing-factors-section .extra-pricing-factor-list .for-extra, .extra-pricing-factors-section .extra-pricing-factor-list .price-dropdown, .extra-pricing-factors-section .extra-pricing-factor-list .will-charge, .extra-pricing-factors-section .extra-pricing-factor-list .will-deliver {
+    margin-right: 10px;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .values-block .fit-select-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.extra-pricing-factor-list .for-extra, .extra-pricing-factors-section .extra-pricing-factor-list .price-dropdown, .extra-pricing-factors-section .extra-pricing-factor-list .will-charge, .extra-pricing-factors-section .extra-pricing-factor-list .will-deliver {
+    margin-right: 10px;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .values-row .title {
+    position: relative;
+    font-size: 13px !important;
+    font-weight: 600;
+    color: #62646a;
+}
+.extra-border ul{
+   list-style: none;
+    list-style-image: none;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .pf-container {
+    position: relative;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .pf-container {
+    position: relative;
+}
+.extra-pricing-factors-section .extra-pricing-factor-list .pf-row {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 15px;
+    background: #fff;
+    border-top: 1px solid #e4e5e7;
+    font-size: 13px;
+}
+   .packages-initial-pricing-blocks
+   {
+      table-layout: fixed;
+      width: 100%;
+      border-collapse: collapse; 
+      border-spacing: 0;
+      font-size: inherit;
+   }
+   .pkg-price-container .fit-input
+   {
+      height: 40px;
+      border: none !important;
+      width: 90% !important;
+   }
+   .pricing_row .first-table-col
+   {
+      border: 1px solid #dadbdd !important;
+   }
+   .packages-initial-pricing-blocks .first-table-col
+   {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 220px;
+      background-color: #fafafa;
+      position: relative;
+      padding: 20px 15px;
+      font-size: 13px !important;
+      border-bottom: none;
+      font-weight: 600;
+      color:#62646a ;
+   }
+   .extra-pricing-factors-section>header {
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-align: left; 
+      color:#62646a ;
+   }
+   .packages-initial-pricing-blocks td .checkbox-wrapper {
+      position: absolute;
+      -webkit-transform: translate(50%,-50%);
+      transform: translate(50%,-50%);
+      padding: 24px;
+   }
+   .packages-initial-pricing-blocks .fit-checkbox {
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      color: #404145;
+   }
+   .packages-initial-pricing-blocks  .fit-checkbox .checkmark-box .check-icon {
+      -webkit-transform: scale(.5);
+      transform: scale(.5);
+      -webkit-transform-origin: 50% 50%;
+      transform-origin: 50% 50%;
+      display: inline-block;
+      font-weight: inherit;
+      font-style: inherit;
+      opacity: 0;
+      pointer-events: none;
+      fill: #62646a;
+      -webkit-transition: .15s ease-in-out;
+      -o-transition: .15s ease-in-out;
+      transition: .15s ease-in-out;
+   }
+   .packages-initial-pricing-blocks  .fit-icon svg {
+      float: left;
+      height: 100%;
+      width: 100%;
+   }
+   .packages-initial-pricing-blocks  .fit-checkbox input[type=checkbox] {
+      height: 0;
+      width: 0;
+      opacity: 0;
+   }
+   .packages-initial-pricing-blocks .packages-pricing-factors tr td .fit-checkbox .checkmark-box {
+      margin-right: 0;
+   }
+
+   .packages-initial-pricing-blocks  th {
+      padding: 20px 16px;
+      background-color: #f5f5f5;
+      text-transform: uppercase;
+      font-size: 13px;
+      font-weight: 600;
+   }
+   .packages-initial-pricing-blocks td,.packages-initial-pricing-blocks  th
+   {
+    text-align: left;
+    border: 1px solid #dadbdd;
+   }
+   .pf-item .fit-input
+   {
+      height: 40px;
+      border: none !important;
+   }
+   .packages-initial-pricing-blocks  .fit-input-wrapper {
+      display: inline-block;
+      position: relative;
+      width: 100%;
+   }
+   .packages-initial-pricing-blocks .fit-input-inner-wrapper {
+      position: relative;
+   }
+   .packages-initial-pricing-blocks .packages-pricing-factors-section table td .fit-input, .packages-initial-pricing-blocks.packages-pricing-factors-section table td textarea {
+      font-size: 13px;
+      border: none!important;
+   }
+   .packages-initial-pricing-blocks .fit-input {
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #c5c6c9;
+      border-radius: 4px;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      font: inherit;
+      color: #404145;
+      -webkit-transition: .15s ease-in-out;
+      -o-transition: .15s ease-in-out;
+      transition: .15s ease-in-out;
+   }
+   .packages-initial-pricing-blocks td .fit-input, .packages-initial-pricing-blocks td textarea {
+    font-size: 13px !important;
+    -webkit-appearance: none;
+    background-color: #fff;
+    font: 400 16px macan,helvetica neue,Helvetica,Arial,sans-serif;
+    color: #7a7d85;
+    border: 1px #b5b6ba solid;
+    padding: 6px 7px 7px;
+    margin: 0;
+    resize: none;
+    border-radius: 3px;
+    box-sizing: border-box;
+    }
+    .packages-initial-pricing-blocks  .pkg-title-education {
+      right: -597px!important;
+      top: 0;
+   }
+
+   .packages-initial-pricing-blocks .packages-initial-pricing-blocks .pkg-description-container .icn-pencil,  .packages-initial-pricing-blocks .packages-initial-pricing-blocks .pkg-title-container .icn-pencil {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+   }
+   .packages-initial-pricing-blocks .fit-icon {
+      display: inline-block;
+      background: none;
+      border: none;
+      padding: 0;
+      margin: 0;
+      fill: #222325;
+      position:absolute;
+      right: 5;
+      top: 5;
+   }
+.packages-initial-pricing-blocks  .fit-icon svg {
+    float: left;
+    height: 100%;
+    width: 100%;
+}
+   .packages-initial-pricing-blocks tr .table-tooltip-on-hover
+   {
+      position: absolute;
+      right: 0;
+      z-index: 1;
+      -webkit-transition: all .3s ease 0;
+      -o-transition: all .3s ease 0;
+      transition: all .3s ease 0;
+      visibility: hidden;
+      opacity: 0;
+
+   }
+   .packages-initial-pricing-blocks .pkg-description-container, .packages-initial-pricing-blocks .pkg-duration-container, .packages-initial-pricing-blocks .pkg-title-container {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+   }
+   .packages-initial-pricing-blocks  select{
+      width: 100%;
+      border: none;
+      height: 40px;
+      margin: 0%;
+      padding: 2%;
+      color: #7a7d85;
+      font-size: 13px !important;
+      font-weight: 500;
+   }
+   .packages-initial-pricing-blocks .pkg-description-container .pkg-description-input, .packages-initial-pricing-blocks .pkg-description-container .pkg-title-input, .packages-initial-pricing-blocks .pkg-title-container .pkg-description-input, .packages-initial-pricing-blocks .pkg-title-container .pkg-title-input
+   {
+      width: 100%;
+      padding-right: 24px;
+      border: none;
+   }
+   .tbl_stand
+   {
+      border: 1px solid #c5c6c9;
+   }
+   .requirements
+   {
+      border-bottom: none !important;
+   }
+   .pricing-header {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      padding-top: 8px;
+      padding-bottom: 22px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #dadbdd;
+   }
+   .pricing-header>h3 {
+      font-weight: 400;
+   }
+   .pricing-header .pkg-count-wrapper {
+      position: relative;
+   }
+   .pricing-header .switch-container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      font-size: 14px;
+      cursor: pointer;
+   }
+   .pricing-header .switch-container {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      font-size: 14px;
+      cursor: pointer;
+   }
+   .pricing-header .switch-container .pkgs-toggler {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      pointer-events: none;
+      margin-left: 8px;
+      margin-top: 5%;
+   }
+   .fit-switch input {
+      display: none;
+   }
+   .fit-switch input:checked+.fit-switch-toggle {
+      background: #2E5DC5;
+   }
+   .fit-switch.fit-switch-size-small input:checked+.fit-switch-toggle:after {
+      -webkit-transform: translateX(13px);
+      transform: translateX(13px);
+   }
+   .fit-switch.fit-switch-size-small .fit-switch-toggle {
+      height: 18px;
+      width: 31px;
+   }
+   .fit-switch.fit-switch-size-small input:checked+.fit-switch-toggle:after {
+      -webkit-transform: translateX(13px);
+      transform: translateX(13px);
+   }
+   .fit-switch input:checked+.fit-switch-toggle:after {
+      -webkit-transform: translateX(18px);
+      transform: translateX(18px);
+      border-color: #1dbf73;
+   }
+   .fit-switch.fit-switch-size-small .fit-switch-toggle:after {
+      top: 2px;
+      left: 2px;
+      width: 14px;
+      height: 14px;
+      border: none;
+   }
+   .packages-pricing-factors-section {
+      margin-bottom: 52px;
+   }
+   .packages-pricing-factors-section>header {
+      font-weight: 700;
+      padding-top: 14px;
+      padding-bottom: 16px;
+      text-align: left;
+      color: #62646a;
+   }
+   .packages-pricing-factors-section .pricing-education {
+      -webkit-transition: all .3s ease 0s;
+      -o-transition: all .3s ease 0s;
+      transition: all .3s ease 0s;
+   }
+   .fit-switch .fit-switch-toggle:after {
+      display: block;
+      position: absolute;
+      -webkit-box-sizing: border-box;
+      box-sizing: border-box;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background: #fff;
+      border: 1px solid #dadbdd;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      -webkit-box-shadow: 0 2px 6px rgb(34 35 37 / 10%);
+      box-shadow: 0 2px 6px rgb(34 35 37 / 10%);
+      -webkit-transition: .15s ease-in-out;
+      -o-transition: .15s ease-in-out;
+      transition: .15s ease-in-out;
+      content: "";
+   }
+   .fit-switch .fit-switch-toggle {
+      display: inline-block;
+      position: relative;
+      width: 42px;
+      height: 24px;
+      border-radius: 999px;
+      background-color: #dadbdd;
+      -webkit-transition: .15s ease-in-out;
+      -o-transition: .15s ease-in-out;
+      transition: .15s ease-in-out;
+      cursor: pointer;
+   }
+    .div_create_overview
+    {
+        background: white;
+    }
+    .div_create_overview .left_pan h3,.div_create_overview .right_pan h3{
+        font-size: 17px;
+        text-align: left;
+        color: #000;
+        font-weight: 600;
+    }
+    .div_create_overview .right_pan .input-wrapper
+    {
+        -webkit-box-flex: 1;
+        flex-grow: 1;
+    }
+    .disclaimer-checkbox-wrapper {
+      -webkit-box-ordinal-group: 6;
+      -ms-flex-order: 5;
+      order: 5;
+   }
+   .disclaimer-checkbox {
+      margin-top: 16px;
+   }
+   .section-errors {
+      margin: 10px 0px -15px;
+   }
+   .section-errors li {
+    color: rgb(247, 64, 64);
+    margin-top: 5px;
+    font-size: 14px;
+    line-height: 120%;
+}
+.section-errors li::before {
+    content: "";
+    font-family: FontAwesome;
+    margin-right: 5px;
+}
+.almost-there > h1 {
+    color: rgb(0, 102, 140);
+    margin-bottom: 10px;
+}
+.almost-there > p {
+    color: rgb(64, 65, 69);
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 31px;
+}
+
+.publish-section {
+   text-align: center;
+    position: relative;
+    -webkit-transition: height 2s ease-in-out;
+    -o-transition: height 2s ease-in-out;
+    transition: height 2s ease-in-out;
+    height: auto;
+    margin: 24px 0;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px 5px 0 0;
+    border: 1px solid #dadbdd;
+}
+    .naked-button:focus,.naked-button:hover{
+      outline: none;
+    }
+    .naked-button {
+    vertical-align: baseline;
+    border: 0;
+    background: transparent;
+    text-decoration: underline;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+    .sub-actions .back {
+      font-size: 14px;
+      display: block;
+      text-align: right;
+      margin-top: 20px;
+      margin-left: auto;
+      width: 100%;
+   }
+   .co-green {
+      color: #2E5DC5;
+   }
+    .metadata-options {
+        -ms-flex-preferred-size: 66.666666666%;
+        flex-basis: 66.666666666%;
+        min-width: 66.666666666%;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        padding: 12px 24px 24px;
+        border-left: none;
+    }
+    .metadata-options .meta-header
+    {
+        text-align: left;
+    }
+    .metadata-options .meta-single-select .fit-popover {
+        max-width: 100%;
+    }
+    .meta-suggest-other {
+        margin-top: 12px;
+        padding-top: 14px;
+        border-top: 1px solid #efeff0;
+    }
+    .meta-suggest-other .other-container {
+        font-size: 14px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+    .metadata-options .meta-header h6 {
+        font-size: 14px;
+        color: #7a7d85;
+        font-weight: 700;
+        display: inline-block;
+    }
+
+    .metadata-options .selected-count {
+        font-size: 12px;
+        min-width: 50px;
+        text-align: right;
+        font-weight: 600;
+        color: #7a7d85;
+    }
+    .fit-radio {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: #404145;
+    }
+    .fit-radio input[type=radio] {
+        display: none;
+    }
+    .fit-radio .fit-radio-circle, .fit-radio .fit-radio-circle:after {
+        display: inline-block;
+        -webkit-transition: .15s ease-in-out;
+        -o-transition: .15s ease-in-out;
+        transition: .15s ease-in-out;
+    }
+    .fit-radio .fit-radio-circle {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        width: 18px;
+        height: 18px;
+        border: 1px solid #b5b6ba;
+        border-radius: 50%;
+        margin-right: 8px;
+        cursor: pointer;
+    }
+    .metadata-options .meta-multi-select ul, .metadata-options .meta-radio-select ul {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        list-style: none;
+        list-style-image: none;
+    }
+    .metadata-options .meta-multi-select.divided-list .option,.metadata-options .meta-radio-select.divided-list .option {
+        width: 50%;
+        text-align: left;
+    }
+    .fit-checkbox {
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        color: #404145;
+    }
+    .fit-checkbox input[type=checkbox] {
+        height: 0;
+        width: 0;
+        opacity: 0;
+    }
+    .fit-checkbox .checkmark-box {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        position: relative;
+        width: 18px;
+        min-width: 18px;
+        height: 18px;
+        border: 1px solid #c5c6c9;
+        border-radius: 2px;
+        margin-right: 12px;
+        cursor: pointer;
+        -webkit-transition: .15s ease-in-out;
+        -o-transition: .15s ease-in-out;
+        transition: .15s ease-in-out;
+    }
+    .fit-checkbox .checkmark-box .check-icon {
+        -webkit-transform: scale(.5);
+        transform: scale(.5);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        display: inline-block;
+        font-weight: inherit;
+        font-style: inherit;
+        opacity: 0;
+        pointer-events: none;
+        fill: #62646a;
+        -webkit-transition: .15s ease-in-out;
+        -o-transition: .15s ease-in-out;
+        transition: .15s ease-in-out;
+    }
+    .fit-icon {
+        display: inline-block;
+        background: none;
+        border: none;
+        padding: 0;
+        margin: 0;
+        fill: #222325;
+    }
+    .fit-icon svg {
+        float: left;
+        height: 100%;
+        width: 100%;
+    }
+    .div_create_overview .right_pan .gig-title-input {
+        position: relative;
+        overflow: hidden;
+    }
+    .div_create_overview .right_pan .gig-title-input .gig-title-textarea textarea, .div_create_overview .right_pan .gig-title-input .title-prefix {
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 25px;
+    }
+    .gig-upcrate-app .tab-content-container .sub-actions {
+    width: 835px;
+}
+    .div_create_overview .right_pan .gig-title-input .title-prefix
+    {
+        color: #7a7d85;
+        position: absolute;
+        z-index: 2;
+        top: 10px;
+        left: 16px;
+        pointer-events: none;
+    }
+    .div_create_overview .right_pan .tab2
+    {
+        text-align: left;
+    }
+    #overview_gig  .sub-actions .btns,#pricing_gig  .sub-actions .btns,#descrip_gig  .sub-actions .btns,#requirements_gig  .sub-actions .btns,#gallery_gig  .sub-actions .btns,#publish_gig  .sub-actions .btns
+    {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        float: right;
+    }
+    #overview_gig .sub-actions .btns .fit-button.fit-button-size-large,#pricing_gig .sub-actions .btns .fit-button.fit-button-size-large,#descrip_gig .sub-actions .btns .fit-button.fit-button-size-large,#requirements_gig .sub-actions .btns .fit-button.fit-button-size-large,#gallery_gig .sub-actions .btns .fit-button.fit-button-size-large,#publish_gig .sub-actions .btns .fit-button.fit-button-size-large
+    {
+        display: inline-block;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        padding: 12px 24px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 100%;
+        text-decoration: none;
+        text-align: center;
+        cursor: pointer;
+        -webkit-transition: .15s ease-in-out;
+        -o-transition: .15s ease-in-out;
+        transition: .15s ease-in-out;
+        color: white;
+    }
+    .bg-co-green-700 {
+        background-color: #2E5DC5;
+    }
+    .div_create_overview .tab6 .right_pan .general-note 
+    {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 100%;
+        font-size: 14px;
+    }
+    .div_create_overview .tab6 .right_pan .general-note .icn-info {
+        margin-right: 8px;
+    }
+    .div_create_overview .tab6 .right_pan .general-note .please-note {
+        color: #fc832b;
+        margin-right: 6px;
+    }
+    .div_create_overview .right_pan .gig-title-input .gig-title-textarea textarea::placeholder
+    {
+        color: #7a7d857d;
+    }
+    .div_create_overview .right_pan .title-status-msg.alert {
+        color: #f74040;
+    }
+    .div_create_overview .right_pan .title-status-msg {
+        color: #2E5DC5;
+        font-size: 12px;
+    }
+    .div_create_overview .right_pan .gig-title-input .title-footer {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        padding-top: 4px;
+    }
+    .div_create_overview .right_pan .gig-title-input .title-footer .chars-count {
+        text-align: right;
+        font-size: 12px;
+        min-width: 80px;
+        color: #95979d;
+    }
+    .div_create_overview .right_pan .gig-title-input .gig-title-textarea {
+        width: 100%;
+        height: auto;
+        padding: 9px 16px;
+    }
+    .div_create_overview .tab5 .footer
+    {
+        color: #95979d;
+        margin-top: 8px;
+        font-size: 12px;
+        padding: 0%;
+        width: 100%;
+        text-align: left;
+    }
+    .div_create_overview  .tab5 .footer .note {
+        margin-left: auto;
+    }
+    .div_create_overview .tab5 .search-tags-status-msg {
+        color: #f74040;
+        font-size: 12px;
+    }
+    .div_create_overview .right_pan select{
+        margin-right: 20px;
+        width: 100%;
+        border: 1px solid #b5b6ba;
+        padding: 4px 12px;
+        height: 40px;
+        font-size: 13px;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        font-weight: 700;
+        color: #62646a; 
+    }
+    .div_create_overview .right_pan .fit-textarea {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        position: relative;
+        display: inline-block;
+        width: 220px;
+        height: 150px;
+        padding: 12px 14px;
+        border: 1px solid #c5c6c9;
+        border-radius: 4px;
+        color: #404145;
+        -webkit-transition: .15s ease-in-out;
+        -o-transition: .15s ease-in-out;
+        transition: .15s ease-in-out;
+    }
+    .fit-textarea {
+        position: relative;
+        display: block;
+        height: 150px;
+        width: 100%;
+    }
+    .div_create_overview .gig-title-input .gig-title-textarea textarea {
+        color: #404145;
+        text-indent: 44px;
+        height: 64px;
+        margin-bottom: 0;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 25px;
+        position: static;
+        width: 100%;
+        resize: none;
+        padding: 0;
+        border: none;
+        font: inherit;
+        z-index: 1;
+        top: 1px;
+        left: 1px;
+        right: 1px;
+        bottom: 50px;
+        outline: none;
+        display: block;
+        border-radius: 0;
+        box-shadow: none;
+    }
+    .div_create_overview .left_pan p,.div_create_overview .right_pan p
+    {
+        text-align: left;
+    }
+    .div_create_overview .right_pan .react-tags:focus,.div_create_overview .right_pan .react-tags:hover
+    {
+        outline: none;
+    }
+    .div_create_overview .right_pan .react-tags {
+        position: relative;
+        padding: 6px 0 0 6px;
+        border: 1px solid #c5c6c9;
+        border-radius: 1px;
+        font-size: 1em;
+        line-height: 1.2;
+        cursor: text;
+        height: 100px;
+        text-align: left;
+    }
+    #create_gig
+    {
+        width: 98%;
+    }
+    #progressbar {
+    overflow: hidden;
+    color: lightgrey;
+    border-bottom: 1px solid;
+    padding-bottom: 25px;
+    }
+    #progressbar .active {
+    color: #000000;
+    }
+    li .span_txt
+    {
+        margin-right: 2%;
+    }
+    #progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 16%;
+    float: left;
+    position: relative;
+    }
+    /*ProgressBar before any progress*/
+    #progressbar li:before {
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
+    display: block;
+    font-size: 18px;
+    color: #ffffff;
+    background: lightgray;
+    border-radius: 50%;
+    margin: 0 auto 10px auto;
+    padding: 2px;
+    }
+    /*ProgressBar connectors*/
+    #progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 2px;
+    background: lightgray;
+    position: absolute;
+    left: 0;
+    top: 25px;
+    z-index: -1;
+    }
+    /*Color number of the step and the connector before it*/
+    #progressbar li.active:before, #progressbar li.active:after {
+    background: #2E5DC5;
+    }
+
+   #create_form {
+   text-align: center;
+   position: relative;
+   }
+   #create_form fieldset .form-card {
+   border: 0 none;
+   border-radius: 0px;
+   box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+   padding: 20px 40px 30px 40px;
+   box-sizing: border-box;
+   width: 94%;
+   margin: 0 3% 20px 3%;
+   /*stacking fieldsets above each other*/
+   position: relative;
+   }
+   #create_form fieldset {
+    background:#f7f7f7;
+   border: 15px none;
+   border-radius: 0.5rem;
+   box-sizing: border-box;
+   width: 100%;
+   margin: auto;
+   padding-bottom: 20px;
+   position: relative;
+   padding-top: 3%;
+   }
+   #create_form fieldset:not(:first-of-type) {
+   display: none;
+   }
+   .outline_theme {
+        border: 1px solid  #2E5DC5;
+        color: #2E5DC5;
+        border-radius: 2rem;
+        padding: 12px 24px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    li.active .circle
+    {
+        background-color: #2E5DC5;
+    }
+    .circle
+    {
+        border-radius: 15px;
+        display: inline-block;
+        height: 25px;
+        width: 25px;
+        background-color: #bbb;
+        font-size: 12px;
+        font-weight: 700;
+        color: white;
+        margin-right: 2%;
+    }
+    .circle span{
+        line-height: 25px;
+        height: 25px;
+    }
+    .tab {
+        float: left;
+        border: 1px solid #c5c6c9;
+        background-color: #f5f5f5;
+        width: 30%;
+        height: 400px;
+        border-radius: 3px 0 0 3px;
+    }
+
+    .tab button {
+        display: block;
+        width: 100%;
+        background-color: inherit;
+        color: #7a7d85;
+        padding: 16px 12px;
+        border: none;
+        outline: none;
+        text-align: left;
+        cursor: pointer;
+        border-bottom: 1px solid #c5c6c9;
+        transition: 0.3s;
+        font-size: 14px;
+        font-weight: 700;
+        border-radius: 4px;
+    }
+    .tab button:last-child{
+        border-bottom: none;
+    }
+    .tab button:last-child.active{
+        border-bottom: 1px solid #ccc;
+    }
+    .tab button.active {
+        background-color: white;
+    }
+
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        border: 1px solid #ccc;
+        width: 70%;
+        border-left: none;
+        border-radius: 0 3px 3px 0;
+    }
+   .next:focus, .next:hover
+   {
+      outline: none;
+   }
+   .description-wrapper
+   {
+      text-align: left;
+   }
+   .faq-add-btn-wrapper
+   {
+      border-bottom: 1px solid #62646a;
+   }
+
+   .description-wrapper p
+   {
+      margin-bottom: 2%;
+   }
+   .btn
+   {
+      background: white !important;
+   }
+   .faq-form {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+   }
+   .faq-form .faq-answer,.faq-form .faq-question {
+      width: 100%;
+      margin-bottom: 15px;
+   }
+   .faq-form .faq-answer {
+      background-color: #fff;
+   }
+   .fit-textarea textarea {
+    position: static;
+    width: 100%;
+    height: 100%;
+    resize: none;
+    padding: 0;
+    border: none;
+    color: inherit;
+    font: inherit;
+    border: 1px solid #c5c6c9;
+}
+.fit-textarea .fit-textarea-counter {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
+    font-size: 14px;
+    color: #95979d;
+    line-height: 1;
+}
+ .fit-button.fit-button-fill-ghost {
+    background: none;
+    border-color: currentColor;
+}
+.fit-button.fit-button-size-small {
+    padding: 10px 16px;
+    font-size: 14px;
+    border: 1px solid;
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+.faq-form button {
+    margin-left: 20px;
+}
+ </style>
+ <script>
+    $(document).ready(function(){
+      $("#description_gig").summernote({
+        placeholder: "Write your content here",
+        height: 200,
+        toolbar: [
+            [ 'style', [ 'style' ] ],
+            [ 'font', [ 'bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear'] ],
+            [ 'fontname', [ 'fontname' ] ],
+            [ 'fontsize', [ 'fontsize' ] ],
+            [ 'color', [ 'color' ] ],
+            [ 'para', [ 'ol', 'ul', 'paragraph', 'height' ] ],
+            [ 'table', [ 'table' ] ],
+            [ 'insert', [ 'link'] ],
+            [ 'view', [ 'undo', 'redo', 'fullscreen', 'codeview', 'help' ] ]
+        ]
+      });
+      $(".previous").click(function(){
+         current_fs = $(this).attr("data-label");
+         previous_fs =  $(this).attr("data-previous"); 
+         $("#progressbar li").eq($("#"+previous_fs).index()-1).addClass("active");
+         $("#progressbar li").eq($("#"+current_fs).index()-1).removeClass("active")
+            $("#" + previous_fs).show();
+            $("#" + current_fs).animate({opacity: 0}, {
+               step: function(now) {
+                   opacity = 1 - now;
+                   $("#" + current_fs).css({
+                       'display': 'none',
+                       'position': 'relative'
+                   });
+                   $("#" + previous_fs).css({'opacity': opacity});
+            }, 
+           duration: 600
+         });
+      });
+        $(".next").click(function(){
+            current_fs = $(this).attr("data-label");
+            next_fs =  $(this).attr("data-next"); 
+            if(next_fs != "last")
+            {
+               $("#progressbar li").eq($("#"+next_fs).index() -1).addClass("active");
+               $("#progressbar li").eq($("#"+current_fs).index() -1).removeClass("active")
+               $("#"+next_fs).show(); 
+               $("#"+current_fs).animate({opacity: 0}, {
+               step: function(now) {
+               opacity = 1 - now;
+               $("#"+current_fs).css({
+                  'display': 'none',
+                  'position': 'relative'
+               });
+                  $("#"+next_fs).css({'opacity': opacity});
+               }, 
+               duration: 600
+            });
+         }
+         else{
+            console.log("publish")
+         }
+    });
+
+    $('.help_text_span').hover(function (e) {
+      $(this).parent().find(".helptext_desc").css({
+            left: e.offsetX + 10,
+            top: e.offsetY + 10
+      }).toggle();
+   });
+});
+function openTab(evt) {
+    cityName= $(evt).attr("data-label");
+    var tab_height =0;
+    $(".tab").find('button').each(function() {
+        tab_height += parseInt($(this).height()) + tab_height ;
+    });
+    tab_height = tab_height+ 50;
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    $(evt).addClass("active");
+    if(parseInt($("#" + cityName).height()) < parseInt(tab_height))
+    {
+        $("#" + cityName).css("border-left","none");
+        $("#" + cityName).css("height",parseInt(tab_height) + "px");
+        $(".tab").css("height",parseInt(tab_height) + "px");
+    }
+    else{
+        $("#" + cityName).css("border-left","1px solid #ccc");
+        $(".tab").css("height",parseInt(tab_height) + "px");
+        $(".tab").css("height",parseInt($("#" + cityName).height()) + "px");
+    }
+}
+
+</script>
+{% endblock %}

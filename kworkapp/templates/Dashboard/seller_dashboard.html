@@ -1,0 +1,921 @@
+{% include  'base.html' %}
+{% load static %}
+{% block contentarea%}
+<title>Letworkbedone - Seller Dashboard</title>
+<div class="all_page page-flex__content pt0 m0">
+    <div id="event_list" class="event-list js-event-list"></div>
+    <div id="fox_notification_block"></div>
+    <div class="row justify-content-center mt-5 mb-5" id="profile_view">
+        <div class="col-md-12 mx-0">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="seller-performance-wrapper dashboard-box">
+                        <div class="inner">
+                           <div class="profile-progresses-wrapper">
+                              <div class="profile-details-wrapper">
+                                 <div class="img-wrapper">
+                                    <div class="profile-img-wrapper">
+                                       <div class="user-profile-image"><label class="profile-pict" for="profile_image_0911931740123" style="width: 60px; height: 60px; font-size: 1.2em;"><img src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" class="profile-pict-img" alt="swap_soln_90"></label></div>
+                                    </div>
+                                 </div>
+                                 <div class="user-details-text-wrapper">
+                                    <div class="user-details">
+                                       <a href="/swap_soln_90" target="blank" class="username-link text-display-6">swap_soln_90</a>
+                                       <div class="ratings-details flex flex-items-center help hint--top" data-hint="Maintain a rating of 4.7 or more, over the course of 60 days"><span class="seller-rating star-rating-s15 rate-10"></span><span class="star-value not-available">N/A</span></div>
+                                    </div>
+                                 </div>
+                              </div>
+                              <ul class="progresses-wrapper">
+                                 <li class="kpi-bar-ir-wrapper">
+                                    <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-bar-tooltip specific-z-index">
+                                       <span class="FPMjOVo kpi-bar-tooltip-content">
+                                          <a href="/users/swap_soln_90/seller_analytics_dashboard#analytics-seller-level" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-bar-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-bar-tooltip-content">
+                                             <h6 class="text-body-1">Inbox response rate</h6>
+                                             <div class="progress-container">
+                                                <div class="progress-bar-wrapper">
+                                                   <div class="T2t2hZx">
+                                                      <div class="+8ZeAtI"><span class="EwNCrd9" style="width: 100%;"></span></div>
+                                                   </div>
+                                                </div>
+                                                <div class="percent-text font-accent">100%</div>
+                                             </div>
+                                          </a>
+                                       </span>
+                                       <div class="_1DtaAoI kpi-bar-tooltip specific-z-index V-093mG tooltipchar">
+                                          <aside class="eNQzN1I _7ByOitF niVzCWs LIc0-hX" data-position="top">
+                                             <div class="+tp8jaJ l9wFBjm">Answer at least 90% of your inbox messages over 60 days to maintain your level or qualify for the next one.</div>
+                                          </aside>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="kpi-bar-ir-wrapper">
+                                    <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-bar-tooltip specific-z-index">
+                                       <span class="FPMjOVo kpi-bar-tooltip-content">
+                                          <a href="/users/swap_soln_90/seller_analytics_dashboard#analytics-seller-level" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-bar-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-bar-tooltip-content">
+                                             <h6 class="text-body-1">Inbox response time</h6>
+                                             <div class="progress-container">
+                                                <div class="grade green">100%</div>
+                                             </div>
+                                          </a>
+                                       </span>
+                                    </div>
+                                 </li>
+                                 <li class="kpi-bar-ir-wrapper">
+                                    <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-bar-tooltip specific-z-index">
+                                       <span class="FPMjOVo kpi-bar-tooltip-content">
+                                          <a href="/users/swap_soln_90/seller_analytics_dashboard#analytics-seller-level" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-bar-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-bar-tooltip-content">
+                                             <h6 class="text-body-1">Order response rate</h6>
+                                             <div class="progress-container">
+                                                <div class="progress-bar-wrapper ignored">
+                                                   <div class="T2t2hZx">
+                                                      <div class="+8ZeAtI"><span class="EwNCrd9" style="width: 100%;"></span></div>
+                                                   </div>
+                                                </div>
+                                                <div class="percent-text font-accent">100%</div>
+                                             </div>
+                                          </a>
+                                       </span>
+                                       <div class="_1DtaAoI kpi-bar-tooltip specific-z-index V-093mG tooltipchar ">
+                                          <aside class="eNQzN1I _7ByOitF niVzCWs LIc0-hX" data-position="top">
+                                             <div class="+tp8jaJ l9wFBjm">This is how often you answered order messages and revision requests within 24h in the last 60 days.</div>
+                                          </aside>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="kpi-bar-ir-wrapper">
+                                    <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-bar-tooltip specific-z-index">
+                                       <span class="FPMjOVo kpi-bar-tooltip-content">
+                                          <a href="/users/swap_soln_90/seller_analytics_dashboard#analytics-seller-level" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-bar-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-bar-tooltip-content">
+                                             <h6 class="text-body-1">Delivered on time</h6>
+                                             <div class="progress-container">
+                                                <div class="progress-bar-wrapper">
+                                                   <div class="T2t2hZx">
+                                                      <div class="+8ZeAtI"><span class="EwNCrd9" style="width: 100%;"></span></div>
+                                                   </div>
+                                                </div>
+                                                <div class="percent-text font-accent">100%</div>
+                                             </div>
+                                          </a>
+                                       </span>
+                                       <div class="_1DtaAoI kpi-bar-tooltip specific-z-index V-093mG tooltipchar">
+                                          <aside class="eNQzN1I _7ByOitF niVzCWs LIc0-hX" data-position="top">
+                                             <div class="+tp8jaJ l9wFBjm">Deliver at least 90% of your orders on time for 60 days to maintain your level or qualify for the next one.</div>
+                                          </aside>
+                                       </div>
+                                    </div>
+                                 </li>
+                                 <li class="kpi-bar-ir-wrapper">
+                                    <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-bar-tooltip specific-z-index">
+                                       <span class="FPMjOVo kpi-bar-tooltip-content">
+                                          <a href="/users/swap_soln_90/seller_analytics_dashboard#analytics-seller-level" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-bar-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-bar-tooltip-content">
+                                             <h6 class="text-body-1">Order completion</h6>
+                                             <div class="progress-container">
+                                                <div class="progress-bar-wrapper warning">
+                                                   <div class="T2t2hZx">
+                                                      <div class="+8ZeAtI"><span class="EwNCrd9" style="width: 50%;"></span></div>
+                                                   </div>
+                                                </div>
+                                                <div class="percent-text font-accent">50%</div>
+                                             </div>
+                                          </a>
+                                       </span>
+                                       <div class="_1DtaAoI kpi-bar-tooltip specific-z-index V-093mG tooltipchar">
+                                          <aside class="eNQzN1I _7ByOitF niVzCWs LIc0-hX" data-position="top">
+                                             <div class="+tp8jaJ l9wFBjm">Complete at least 90% of your orders for 60 days to maintain your level or qualify for the next one.</div>
+                                          </aside>
+                                       </div>
+                                    </div>
+                                 </li>
+                              </ul>
+                           </div>
+                           <ol class="earnings-wrapper">
+                              <li class="kpi-text-ir-wrapper">
+                                 <div class="e4rLWCQ _5tFuFhP _1DtaAoI kpi-text-tooltip specific-z-index">
+                                    <span class="FPMjOVo kpi-text-tooltip-content">
+                                       <a href="/earnings" target="_blank" rel="noreferrer" class="_1DtaAoI kpi-text-tooltip specific-z-index" delay="120" content="[object Object]" position="top" boxclassname="LIc0-hX" boxcontentclassname="l9wFBjm" contentclassname="kpi-text-tooltip-content">
+                                          <div class="kpi-data-inner">
+                                             <h6>Earned in September</h6>
+                                             <span class="grade ">$0</span>
+                                          </div>
+                                       </a>
+                                    </span>
+                                    <div class="_1DtaAoI kpi-text-tooltip specific-z-index V-093mG tooltipchar">
+                                       <aside class="eNQzN1I _7ByOitF niVzCWs LIc0-hX" data-position="top">
+                                          <div class="+tp8jaJ l9wFBjm">Total earnings and pending clearance in September.</div>
+                                       </aside>
+                                    </div>
+                                 </div>
+                              </li>
+                           </ol>
+                        </div>
+                      </div>
+                </div>
+                <div class="col-lg-1" id="column-filter-mid">
+
+                </div>
+                <div class="col-lg-7">
+                    <div class="active-orders-wrapper">
+                        <div class="filter-wrapper cf">
+                            <div class="title-wrapper">
+                                <h3 class="font-accent">Active orders<span> - 1 ($150)</span></h3>
+                            </div> 
+                            <div class="e4rLWCQ DQP4pgk tcJTQWy statuses-select _3imrn2i">
+                                <select>
+                                    <option value="active" selected>Active orders (1)</option>
+                                    <option value="negative">Late (1)</option>
+                                    <option value="positive">Complete (1)</option>
+                                    <option value="positive">Canceled (1)</option>
+                               </select>
+                            </div>
+                        </div>
+
+                        <div class="order-cards-wrapper"> 
+                            <ul>
+                                <li class="order-card-wrapper">
+                                   <div class="card-inner late">
+                                      <div class="badges"></div>
+                                      <div class="order-card">
+                                        <ul class="order-data">
+                                            <li class="user">
+                                                <div class="gig-image-wrapper" style="background-image: url(&quot;https://fiverr-res.cloudinary.com/t_medium5,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431.png&quot;);"></div>
+                                            </li>
+                                            <li class="user">
+                                               <figure class="profile-picture-wrapper">
+                                                  <figcaption class="font-accent" style="background-image: url(&quot;https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/fc8239564594e9d04dd84460519067c7-947982791662550991608/JPEG_20220907_144309_2084943259438974827.jpg&quot;); color: transparent;">B</figcaption>
+                                               </figure>
+                                               <a title="beinganaatiidu1" class="font-accent buyer-username">beinganaatiidu1</a>
+                                            </li>
+                                            <li class="price">
+                                               <h6>Price</h6>
+                                               <span>$150</span>
+                                            </li>
+                                            <li class="delivery-time">
+                                               <h6>Delivery Time</h6>
+                                               <span class="time-wrapper late">
+                                                  <span class="lFICM06 icn-clock" aria-hidden="true" style="width: 13px; height: 13px; fill: rgb(247, 64, 64);">
+                                                     <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"></path>
+                                                        <path d="M9 4H7v5h5V7H9V4z"></path>
+                                                     </svg>
+                                                  </span>
+                                                  <span>12 days late</span>
+                                               </span>
+                                            </li>
+                                            <li class="status">
+                                               <h6>Status</h6>
+                                               <span class="status late" style="background: rgb(250, 31, 41);">LATE</span>
+                                            </li>
+                                            <li class="cta-wrapper"><a class="font-accent" href="/users/swap_soln_90/manage_orders/FO3186B04CD07">View</a></li>
+                                         </ul>
+                                    </div>
+                                    </div>
+                                </li>
+                            </ul>
+                         </div>
+                    </div>
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+<style>
+    .active-orders-wrapper
+    {
+        background: white;
+        width: 100%;
+        padding: 10px;
+    }
+    .order-cards-wrapper {
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .order-card-wrapper .card-inner {
+        width: 100%;
+        max-width: none;
+        padding: 20px;
+
+    }
+    .order-cards-wrapper {
+        width: 100%;
+    }
+    .order-card-wrapper .card-inner.late {
+        border-left: 4px solid #f74040;
+        border-top: none;
+        padding: 20px;
+    }
+
+    .order-card-wrapper .card-inner {
+            width: 100%;
+        max-width: none;
+        padding: 20px;
+    }
+
+    .order-card-wrapper .card-inner {
+        background: #fff;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #dadbdd;
+        position: relative;
+        width: 100%;
+        margin: 20px auto;
+    }
+    .order-card-wrapper .order-card .order-data li.status span.late {
+        background-color: #f74040;
+    }
+
+    .order-card-wrapper .order-card .order-data li.cta-wrapper a {
+    display: block;
+    font-size: 14px;
+    line-height: 12px;
+    font-weight: 600;
+    padding: 15px;
+    width: 100%;
+    height: 42px;
+    border-radius: 3px;
+    text-align: center;
+    color: #2E5DC5;
+    font-weight: 600;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+    .order-card-wrapper .order-card .order-data li.status span {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 999px;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .05em;
+    line-height: 1;
+    height: 18px;
+}
+    .price,.delivery-time,.status
+    {
+        display: block !important;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .order-card-wrapper .badges {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        margin-bottom: 4px;
+        margin-top: -8px;
+    }
+
+    .order-card-wrapper .order-card {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .order-card-wrapper .order-card {
+        width: 100%;
+        position: relative;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        text-align: left;
+    }
+    .order-card-wrapper .order-card, .profile-picture-wrapper figcaption {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        display: inline-block;
+    }
+
+    .order-card-wrapper .order-card .gig-image-wrapper {
+        position: relative;
+        display: inline-block;
+        border-radius: 3px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top;
+        padding-bottom: 60%;
+        max-width: 100%;
+        width: 295px;
+        margin: 0 auto;
+    }
+
+    .order-card-wrapper .order-card .gig-image-wrapper {
+        width: 77px;
+        height: 46px;
+        margin: 0;
+        padding: 0;
+    }
+    .order-card-wrapper .order-card .order-data li {
+        margin-bottom: 0;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+        height: 38px;
+    }
+
+    .order-card-wrapper .order-card .order-data li {
+        margin-bottom: 10px;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+    }
+    .order-card-wrapper .order-card .order-data li:last-of-type {
+        border: none;
+        padding-bottom: 0;
+    }
+
+    .order-card-wrapper .badges {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+        margin-bottom: 4px;
+        margin-top: -8px;
+    }
+
+    .order-card-wrapper .order-card .order-data {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: inline-flex;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0;
+    }
+
+    .profile-picture-wrapper {
+        width: 38px;
+        height: 38px;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        position: relative;
+        margin: 0 0 0.5rem;
+    }
+    .profile-picture-wrapper:before {
+        background-color: #74767e;
+        content: "";
+        position: absolute;
+        z-index: 1;
+        top: 70%;
+        right: 0;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        width: 10px;
+        height: 10px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .profile-picture-wrapper {
+        width: 38px;
+        height: 38px;
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+        position: relative;
+    }
+
+    .profile-picture-wrapper figcaption {
+        height: 100%;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 100%;
+        background-size: contain;
+        border-radius: 50%;
+        color: #fff;
+    }
+    .order-card-wrapper .order-card, .profile-picture-wrapper figcaption {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .order-card-wrapper .order-card .buyer-username {
+        display: inline-block;
+        vertical-align: top;
+        margin-top: 0;
+    }
+    .order-card-wrapper .order-card .buyer-username {
+        font-size: 16px;
+        font-weight: 600;
+        color: #222325;
+        display: block;
+        text-transform: capitalize;
+        width: 150px;
+        position: relative;
+        padding: 0 10px 0 15px;
+        margin-top: 0px;
+    }
+
+    .order-card-wrapper .order-card .order-data li h6 {
+        font-size: 14px;
+        line-height: 22px;
+        font-weight: 400;
+        color: #95979d;
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1 1;
+    }
+
+    .order-card-wrapper .order-card .order-data li>span {
+        font-size: 16px;
+        font-weight: 400;
+    }
+    
+
+
+
+    .order-card-wrapper .order-card .order-data li.user {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        margin-left: 16px;
+    }
+
+    .active-orders-wrapper .filter-wrapper h3 {
+        font-size: 18px;
+        display: inline-block;
+        color: #222325;
+        font-weight: 800;
+    }
+    .active-orders-wrapper .filter-wrapper {
+        text-align: right;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+    .cf:after, .cf:before {
+        content: " ";
+        display: table;
+    }
+
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .seller-performance-wrapper {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 340px;
+        flex: 0 0 340px;
+    }
+    .active-orders-wrapper .filter-wrapper h3 {
+        line-height: 42px;
+        float: left;
+    }
+    .active-orders-wrapper .filter-wrapper h3 span {
+            color: #95979d;
+        line-height: 24px;
+    }
+
+
+    select {
+        height: 40px;
+        border: 1px solid #c5c6c9;
+        border-radius: 3px;
+        padding: 8px;
+        font-size: 16px !important;
+        border-radius: 3px;
+        font-weight: 500;
+    }
+    .tooltipchar
+    {
+        display: none;
+    }
+    .seller-performance-wrapper {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 280px;
+        flex: 0 0 280px;
+        margin: 20px 0 auto 20px;
+        border-right: 1px solid #e4e5e7;
+    }
+    .seller-performance-wrapper {
+        background: #fff;
+        padding: 1px 20px 5px;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border-bottom: 1px solid #e4e5e7;
+    }
+    .grade {
+        float: right;
+        font-weight: 700;
+        color: #62646a;
+    }
+    .grade.green {
+        color: #2E5DC5;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    ol, ul {
+        list-style: none;
+        list-style-image: none;
+        margin: 0;
+        padding: 0;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .profile-details-wrapper {
+        padding-top: 24px;
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+    .seller-performance-wrapper .profile-progresses-wrapper .progresses-wrapper {
+        margin-top: 26px;
+        padding-top: 18px;
+        border-bottom: 1px solid #e4e5e7;
+        border-top: 1px solid #e4e5e7;
+        padding-bottom: 4px;
+    }
+
+    .profile-details-wrapper .img-wrapper {
+        height: 60px;
+        width: 60px;
+        margin-right: 20px;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .user-profile-image {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+    .profile-details-wrapper .profile-pict {
+        cursor: pointer;
+    }
+
+    .user-profile-image .profile-pict {
+        position: relative;
+    }
+
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .user-profile-image .profile-pict .profile-pict-img {
+        width: 100%;
+        height: 100%;
+        display: block;
+        border-radius: 50%;
+    }
+    .profile-details-wrapper .user-details-text-wrapper {
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper .user-details {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper .username-link {
+        max-width: 150px;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper .user-details .ratings-details {
+        font-size: 15px;
+        color: #ffb33e;
+        padding-left: 6px;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper .user-details .seller-rating {
+        max-width: 18px;
+        vertical-align: text-top;
+    }
+
+    .profile-details-wrapper .user-details-text-wrapper .user-details .ratings-details .star-value {
+        font-weight: 700;
+        padding-left: 4px;
+    }
+    .profile-details-wrapper .user-details-text-wrapper .user-details .ratings-details .star-value.not-available {
+        color: #62646a;
+        font-weight: 400;
+    }
+    
+    .profile-details-wrapper .user-details-text-wrapper .username-link {
+        max-width: 105px;
+        overflow: hidden;
+        white-space: nowrap;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+    }
+    .profile-details-wrapper .user-details-text-wrapper .username-link {
+        color: #62646a;
+        display: block;
+        text-align: center;
+        font-size: 15px;
+        font-weight: 700;
+    }
+    .seller-performance-wrapper .profile-progresses-wrapper .progresses-wrapper {
+        margin-top: 26px;
+        padding-top: 18px;
+        border-bottom: 1px solid #e4e5e7;
+        border-top: 1px solid #e4e5e7;
+        padding-bottom: 4px;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper {
+        display: block;
+        padding-bottom: 12px;
+    }
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper .kpi-bar-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+    .e4rLWCQ._5tFuFhP {
+        position: relative;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper .kpi-bar-tooltip.specific-z-index .kpi-bar-tooltip-content {
+        width: inherit;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper .kpi-bar-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper .kpi-bar-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a {
+        color: #62646a;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        font-size: 15px;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a h6 {
+        font-weight: 400;
+        display: inline-block;
+        font-size: 16px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a h6:hover {
+        text-decoration: none;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper .kpi-bar-tooltip.specific-z-index:hover
+    {
+        text-decoration: none;
+    }
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a .progress-container {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a .progress-container .progress-bar-wrapper {
+        position: relative;
+        width: 60px;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a .progress-container .percent-text {
+        padding-left: 12px;
+        font-weight: 500;
+        font-size: 14px;
+        width: 45px;
+        text-align: right;
+    }
+
+    .dashboard-wrapper * {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .T2t2hZx {
+        display: -webkit-box;
+        display: -ms-flexbox;
+            display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+
+    .T2t2hZx .\+8ZeAtI {
+        position: relative;
+        height: 8px;
+        background: #e4e5e7;
+        -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+        flex-grow: 1;
+        border-radius: 999px;
+    }
+    
+    .T2t2hZx .EwNCrd9 {
+        background: #2E5DC5;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+        border-radius: 999px;
+    }
+
+    .seller-performance-wrapper .kpi-bar-ir-wrapper a .progress-container .percent-text {
+        padding-left: 12px;
+        font-weight: 500;
+        font-size: 14px;
+        width: 45px;
+        text-align: right;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper {
+        margin-bottom: 12px;
+        font-size: 16px;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper .kpi-text-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper .kpi-text-tooltip.specific-z-index .kpi-text-tooltip-content {
+        width: inherit;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper h6 {
+        font-size: 16px;
+        font-weight: 400;
+        display: inline-block;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper .grade.green {
+        color: #2E5DC5;
+    }
+    .seller-performance-wrapper .earnings-wrapper {
+        margin: 16px 0 24px;
+    }
+    .seller-performance-wrapper .kpi-text-ir-wrapper {
+        margin-bottom: 12px;
+        font-size: 16px;
+    }
+    .seller-performance-wrapper .kpi-text-ir-wrapper .kpi-text-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+    .seller-performance-wrapper .kpi-text-ir-wrapper .kpi-text-tooltip.specific-z-index .kpi-text-tooltip-content {
+        width: inherit;
+    }
+    .seller-performance-wrapper .kpi-text-ir-wrapper .kpi-text-tooltip.specific-z-index {
+        width: 100%;
+        z-index: 20;
+    }
+    .seller-performance-wrapper .earnings-wrapper a {
+        color: #222325;
+    }
+    .seller-performance-wrapper .earnings-wrapper h6 {
+        color: #62646a;
+        font-weight: 600;
+    }
+
+    .seller-performance-wrapper .kpi-text-ir-wrapper .grade {
+        float: right;
+        font-weight: 700;
+        color: #62646a;
+    }
+
+
+    #profile_view
+    {
+        margin-right: 2%;
+        margin-left: 2%;
+        background: #fafafa;
+    }
+    #column-filter-mid
+    {
+        max-width: 3%;
+    }
+</style>
+{% include  'Dashboard/base_seller.html' %}
+{% endblock %}

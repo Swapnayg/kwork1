@@ -1,0 +1,1125 @@
+{% include  'base.html' %}
+{% load static %}
+{% block contentarea%}
+<title>Letworkbedone - Reviews</title>
+<div class="all_page page-flex__content pt0">
+   <div id="event_list" class="event-list js-event-list"></div>
+   <script>window.workerHasOrderImportant=false;</script>
+   <div id="fox_notification_block"></div>
+   <div class="testimonials">
+      <div class="landing-category__portfolio">
+         <div class="kw-wrapper">
+            <div class="landing-category__portfolio-wrapper">
+               <div class="landing-category__portfolio-wrap">
+                  <div class="landing-category__portfolio-description">
+                     <h3 class="landing-category__portfolio-title">What <span class="landing-category__portfolio-title-colored" style="color: rgb(4, 183, 10);">our clients</span> have to say</h3>
+                     <div class="landing-category__portfolio-rating">
+                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.798 31 15 27.558 8.202 31l1.012-7.862L4 17.403l7.424-1.416L15 9Z" fill="#FFA800"></path>
+                        </svg>
+                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.798 31 15 27.558 8.202 31l1.012-7.862L4 17.403l7.424-1.416L15 9Z" fill="#FFA800"></path>
+                        </svg>
+                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.798 31 15 27.558 8.202 31l1.012-7.862L4 17.403l7.424-1.416L15 9Z" fill="#FFA800"></path>
+                        </svg>
+                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.798 31 15 27.558 8.202 31l1.012-7.862L4 17.403l7.424-1.416L15 9Z" fill="#FFA800"></path>
+                        </svg>
+                        <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.798 31 15 27.558 8.202 31l1.012-7.862L4 17.403l7.424-1.416L15 9Z" fill="#8A8A8A"></path>
+                           <g clip-path="url(#starRect)">
+                              <path d="m15 9 3.576 6.986L26 17.404l-5.214 5.735L21.799 31 15 27.558 8.202 31l1.013-7.862L4 17.403l7.425-1.416L15 9Z" fill="#FFA800"></path>
+                           </g>
+                           <defs>
+                              <clipPath id="starRect">
+                                 <rect x=".001" width="18.75" height="40" rx="2" fill="#fff"></rect>
+                              </clipPath>
+                           </defs>
+                        </svg>
+                     </div>
+                     <div class="landing-category__portfolio-rating-text">4.8 out of 5 based on 37,496 ratings</div>
+                  </div>
+                  <div class="landing-category__portfolio-slider">
+                     <div class="swiper js-landing-portfolio-slider swiper-fade swiper-initialized swiper-horizontal swiper-pointer-events swiper-backface-hidden">
+                        <div class="swiper-wrapper" style="transition-duration: 0ms;">
+                           <div class="swiper-slide swiper-slide-duplicate" data-color="#C418E0" data-profile="TomaSar" data-profile-link="/user/tomasar" data-swiper-slide-index="4" style="width: 506px; opacity: 0; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
+                              <picture><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-5.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide" data-color="#32BBEC" data-profile="Xdga" data-profile-link="/user/xdga" data-swiper-slide-index="0" style="width: 506px; opacity: 0; transform: translate3d(-506px, 0px, 0px); transition-duration: 0ms;">
+                              <picture><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-1.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide swiper-slide-prev" data-color="#C70101" data-profile="shahguseinov" data-profile-link="/user/shahguseinov" data-swiper-slide-index="1" style="width: 506px; opacity: 0; transform: translate3d(-1012px, 0px, 0px); transition-duration: 0ms;">
+                              <picture class="js-lazy-load-image lazy-load_initialized"><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/second.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide swiper-slide-visible swiper-slide-active" data-color="#04B70A" data-profile="koroblev" data-profile-link="/user/koroblev" data-swiper-slide-index="2" style="width: 506px; opacity: 1; transform: translate3d(-1518px, 0px, 0px); transition-duration: 0ms;">
+                              <picture class="js-lazy-load-image lazy-load_initialized"><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-3.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide swiper-slide-next" data-color="#ED2F38" data-profile="Vadim_Porsh" data-profile-link="/user/vadim_porsh" data-swiper-slide-index="3" style="width: 506px; opacity: 0; transform: translate3d(-2024px, 0px, 0px); transition-duration: 0ms;">
+                              <picture><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-4.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide" data-color="#C418E0" data-profile="TomaSar" data-profile-link="/user/tomasar" data-swiper-slide-index="4" style="width: 506px; opacity: 0; transform: translate3d(-2530px, 0px, 0px); transition-duration: 0ms;">
+                              <picture><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-5.webp' %}" alt=""></picture>
+                           </div>
+                           <div class="swiper-slide swiper-slide-duplicate" data-color="#32BBEC" data-profile="Xdga" data-profile-link="/user/xdga" data-swiper-slide-index="0" style="width: 506px; opacity: 0; transform: translate3d(-3036px, 0px, 0px); transition-duration: 0ms;">
+                              <picture><img class="landing-category__portfolio-slider-image" src="{% static 'assets/images/portfolio/slide-1.webp' %}" alt=""></picture>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="landing-category__portfolio-footer">
+                        <p class="landing-category__portfolio-profile">By <a href="/user/koroblev" target="_blank" class="landing-category__portfolio-profile-link">koroblev</a>, freelance designer</p>
+                        <div class="js-portfolio-slider-pagination landing-category__portfolio-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="landing-category__slider-pagination-bullet"></span><span class="landing-category__slider-pagination-bullet"></span><span class="landing-category__slider-pagination-bullet landing-category__slider-pagination-bullet--active"></span><span class="landing-category__slider-pagination-bullet"></span><span class="landing-category__slider-pagination-bullet"></span></div>
+                     </div>
+                  </div>
+               </div>
+               <div class="landing-category__portfolio-advantages">Over 444,306 individuals and companies have chosen Kwork for their freelance needs, from custom logo design to website development and so much more. Read what they think about placing orders on Kwork.</div>
+            </div>
+         </div>
+         <div id="app-youtube-modal">
+            <youtube-modal ref="youtubeModal" video-id="xALqtDLtIWw"></youtube-modal>
+         </div>
+      </div>
+      <div class="kw-wrapper">
+         <div id="app-testimonials">
+            <div class="testimonials__wrapper">
+               <div class="testimonials__filter">
+                  <div class="testimonials__filter-items">
+                     <div class="testimonials__filter-item">
+                        <div class="testimonials__filter-item-header">Category</div>
+                        <div class="chosen-style">
+                           <select data-placeholder="All categories" style="display: none;">
+                              <!----> 
+                              <option class="result-default" value="0">
+                                 All categories
+                              </option>
+                              <option class="" value="124">
+                                 Audio &amp; Video
+                              </option>
+                              <option class="" value="200">
+                                 Business &amp; Lifestyle
+                              </option>
+                              <option class="" value="132">
+                                 Design
+                              </option>
+                              <option class="" value="128">
+                                 Development &amp; IT
+                              </option>
+                              <option class="" value="162">
+                                 Digital Marketing &amp; SMM
+                              </option>
+                              <option class="" value="202">
+                                 Lifestyle
+                              </option>
+                              <option class="" value="134">
+                                 SEO &amp; Web Traffic
+                              </option>
+                              <option class="" value="122">
+                                 Writing &amp; Translations
+                              </option>
+                           </select>
+                           <div class="chosen-container chosen-container-single chosen-container-single-nosearch" title="" style="width: 100%;">
+                              <a class="chosen-single">
+                                 <span>
+                                 Design
+                                 </span>
+                                 <div><b></b></div>
+                              </a>
+                              <div class="chosen-drop">
+                                 <div class="chosen-search">
+                                    <input class="chosen-search-input" type="text" autocomplete="off" readonly="">
+                                 </div>
+                                 <ul class="chosen-results"></ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__filter-item">
+                        <div class="testimonials__filter-item-header">Service</div>
+                        <div class="chosen-style">
+                           <select data-placeholder="All services" style="display: none;">
+                              <!----> 
+                              <option class="result-default" value="0">
+                                 All services
+                              </option>
+                              <option class="" value="146">
+                                 3D Graphics
+                              </option>
+                              <option class="" value="145">
+                                 Art &amp; Illustrations
+                              </option>
+                              <option class="" value="253">
+                                 Brand Identity
+                              </option>
+                              <option class="" value="184">
+                                 Business Cards
+                              </option>
+                              <option class="" value="143">
+                                 E-commerce &amp; Social Media Design
+                              </option>
+                              <option class="" value="251">
+                                 Industrial &amp; Product Design
+                              </option>
+                              <option class="" value="245">
+                                 Infographics
+                              </option>
+                              <option class="" value="207">
+                                 Interior &amp; Exterior
+                              </option>
+                              <option class="" value="142">
+                                 Logo Design
+                              </option>
+                              <option class="" value="284">
+                                 NFT Art
+                              </option>
+                              <option class="" value="249">
+                                 Outdoor Advertising
+                              </option>
+                              <option class="" value="224">
+                                 Photo Processing &amp; Editing
+                              </option>
+                              <option class="" value="147">
+                                 Pre-Made Templates &amp; Pictures
+                              </option>
+                              <option class="" value="204">
+                                 Presentations
+                              </option>
+                              <option class="" value="144">
+                                 Print Design
+                              </option>
+                              <option class="" value="185">
+                                 Vector Tracing
+                              </option>
+                              <option class="" value="141">
+                                 Web &amp; Mobile Design
+                              </option>
+                              <option class="" value="186">
+                                 Web Banners &amp; Icons
+                              </option>
+                           </select>
+                           <div class="chosen-container chosen-container-single chosen-container-single-nosearch" title="" style="width: 100%;">
+                              <a class="chosen-single">
+                                 <span>
+                                 Web &amp; Mobile Design
+                                 </span>
+                                 <div><b></b></div>
+                              </a>
+                              <div class="chosen-drop">
+                                 <div class="chosen-search">
+                                    <input class="chosen-search-input" type="text" autocomplete="off" readonly="">
+                                 </div>
+                                 <ul class="chosen-results"></ul>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div data-preloader-class="testimonials__preloader" class="testimonials__items-wrapper">
+                  <div class="testimonials__count">70 Reviews</div>
+                  <!----> 
+                  <div class="testimonials__items">
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(250, 167, 116);">G</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">14 days</div>
+                              <div class="testimonials__item-user-name"><a href="#">Gunther_Heller</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Show! Perfect work!&nbsp;
+                                    Time, quality and agility
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7672296-1660737403.jpg' %}" data-title="Migration and cloning of website from WIX to wordpress" data-username="Gunther_Heller" data-review="Show! Perfect work!&nbsp;
+                                       Time, quality and agility" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Wayne Burte" src="{% static 'assets/images/portfolio/cover-7672296-1660737403.jpg' %}" ></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(110, 201, 203);">p</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">27 days</div>
+                              <div class="testimonials__item-user-name"><a href="#">playradioalb</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Fair , a master in his job!</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7568564-1659622733.jpg' %}" data-title="Website" data-username="playradioalb" data-review="Fair , a master in his job!" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Muhammad Bilal" src="{% static 'assets/images/portfolio/cover-7568564-1659622733.jpg' %}" ></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/11056284-1.jpg' %}" alt="" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">29 days</div>
+                              <div class="testimonials__item-user-name"><a href="#">Pervez</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Mariam was very responsive and completed the work as described. She provided a quick turn around and completed my project. Revisions were made as I requested. Mariam&nbsp;also accepted last minute changes to my project. Thank you Mariam for completing my work.</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7564048-1659590521.jpg' %}" data-title="Design exclusive mobile web UIUX and prototype in XD" data-username="Pervez" data-review="Mariam was very responsive and completed the work as described. She provided a quick turn around and completed my project. Revisions were made as I requested. Mariam&nbsp;also accepted last minute changes to my project. Thank you Mariam for completing my work." data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio MariamRana" src="{% static 'assets/images/portfolio/cover-7564048-1659590521.jpg' %}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">t</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">1 month</div>
+                              <div class="testimonials__item-user-name"><a href="#">throne25</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Hi all, This is my second time working with this seller. Always professional, he has bring a lot of transformation to my business, am always happy with all the works i received from him. He Took his time to understand what I needed and executed every bit perfectly!&nbsp;He is a very nice person and he delivered the project on time. I would definitely recommend this seller. He is highly recommended for any business who needs good website design for their company.</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7555014-1659509298.jpg' %}" data-title="Create WordPress Website Design, WordPress WooCommerce store Elementor" data-username="throne25" data-review="Hi all, This is my second time working with this seller. Always professional, he has bring a lot of transformation to my business, am always happy with all the works i received from him. He Took his time to understand what I needed and executed every bit perfectly!&nbsp;He is a very nice person and he delivered the project on time. I would definitely recommend this seller. He is highly recommended for any business who needs good website design for their company." data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Daniel Ileola" src="{% static 'assets/images/portfolio/cover-7555014-1659509298.jpg' %}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">s</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">1 month</div>
+                              <div class="testimonials__item-user-name"><a href=#">soryiraqi</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text">Many thanks. I'm very happy to have someone very nice kind work profitional i really recommend him to everyone. Thank you very much 5 star</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/41-6.jpg' %}" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#E2E2E2"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#E2E2E2"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#E2E2E2"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">1 month</div>
+                              <div class="testimonials__item-user-name"><span>Kwork Automatic Review</span></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text"></div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">t</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">1 month</div>
+                              <div class="testimonials__item-user-name"><a href="#">throne25</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">I would like to take this opportunity to express my appreciation for the service I received from Daniel and his team. On my WordPress website, They were quick to respond and answer all of my questions (even the ones that I didn't know yet). They delivered a professional website design that looked great and was mobile responsive, which made it easy for me to use on my smartphone . I highly recommend Daniel as a website designer.</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7487443-1658845421.jpg' %}" data-title="Create WordPress Website Design, WordPress WooCommerce store Elementor" data-username="throne25" data-review="I would like to take this opportunity to express my appreciation for the service I received from Daniel and his team. On my WordPress website, They were quick to respond and answer all of my questions (even the ones that I didn't know yet). They delivered a professional website design that looked great and was mobile responsive, which made it easy for me to use on my smartphone . I highly recommend Daniel as a website designer." data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Daniel Ileola" src="{% static 'assets/images/portfolio/cover-7487443-1658845421.jpg' %}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/1118240-2.jpg' %}" alt="" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">1 month</div>
+                              <div class="testimonials__item-user-name"><a href="#">Serj</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text">very good, nice work</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/293495-1.jpg' %}" alt="" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">2 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">iriko-san</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Everything is done exactly on time - qualitatively and beautifully! Thanks a lot!</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7239148-1656327129.jpg' %}" data-title="Дизайн" data-username="iriko-san" data-review="Everything is done exactly on time - qualitatively and beautifully! Thanks a lot!" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Agshin Poladli" src="{% static 'assets/images/portfolio/cover-7239148-1656327129.jpg' %}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">s</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">2 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">soryiraqi</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">Very professional&nbsp;, so kind nice . I'm very happy to give my work to him . I do recommend him to everyone. I'm very seticfide. Very good communication.
+                                    Thanks alote .Regards from Netherlands&nbsp;
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7225377-1656149531.jpg' %}" data-title="I will design a website for your business" data-username="soryiraqi" data-review="Very professional&nbsp;, so kind nice . I&amp;#039;m very happy to give my work to him . I do recommend him to everyone. I&amp;#039;m very seticfide. Very good communication.
+                                       Thanks alote .Regards from Netherlands&nbsp;" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Aziz Bahtti" src="{% static 'assets/images/portfolio/cover-7225377-1656149531.jpg' %}" ></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/10997045-1.jpg' %}" alt="" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">2 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">SmartCS</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text">Great work. Thank you&nbsp;</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(225, 112, 118);">D</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">2 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">Doofernick</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">SojonAhemd did a great job creating a website for us with cool features. The communication was very smooth and feedback for improvements to meet exactly my taste was always welcome. He finished much ahead of time, which gave me enough time to revise it and guarantee a 100% satisfaction.
+                                    Thanks again :)&nbsp;
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-7064253-1654592266.jpg' %}" data-title="I will design your business website using WordPress and elementor pro" data-username="Doofernick" data-review="SojonAhemd did a great job creating a website for us with cool features. The communication was very smooth and feedback for improvements to meet exactly my taste was always welcome. He finished much ahead of time, which gave me enough time to revise it and guarantee a 100% satisfaction.
+                                       Thanks again :)&nbsp;" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Sujon Ahmed" src="{% static 'assets/images/portfolio/cover-7064253-1654592266.jpg' %}" ></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><img src="{% static 'assets/images/portfolio/12783796-1.jpg' %}" alt="" class="user-avatar__picture rounded"></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">2 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">Hypetribe</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text">Great work, and delivered on a very short deadline. 100% satisfied.</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">T</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">3 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">Tatyana160686</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <!---->
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text">The order was completed on time and perfectly. Thanks a lot. I recommend it to everyone)))</div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <!---->
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="testimonials__item">
+                        <div class="testimonials__item-left">
+                           <div class="testimonials__item-user-avatar"><a href="#"><span class="user-avatar t-user-avatar"><span class="user-avatar__default" style="background: rgb(101, 170, 221);">s</span></span></a></div>
+                           <div class="testimonials__item-user-info">
+                              <div class="testimonials__item-rating">
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                                 <div class="testimonials__item-rating-star">
+                                    <svg width="16" height="16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m8 1 2.275 4.446L15 6.348l-3.318 3.649.644 5.003L8 12.81 3.674 15l.644-5.003L1 6.347l4.725-.901L8 1Z" fill="#FFA800"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__item-time">3 months</div>
+                              <div class="testimonials__item-user-name"><a href="#">shalyassi</a></div>
+                           </div>
+                        </div>
+                        <div class="testimonials__item-right">
+                           <div class="testimonials__review">
+                              <div class="testimonials__review-header">
+                                 <div class="testimonials__review-arrow">
+                                    <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                                       <path d="m24 12-8 8-8-8"></path>
+                                    </svg>
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-preview">
+                                 <div class="testimonials__review-text clipped">1- Professional and capable.
+                                    2- Excellent in communication.
+                                    3- Quality and High reliability.&nbsp;
+                                    4- Accomplishes on time
+                                 </div>
+                              </div>
+                              <div class="testimonials__review-all">
+                                 <div class="testimonials__review-portfolio">
+                                    <div data-src="{% static 'assets/images/portfolio/cover-6902663-1652800788.jpg' %}" data-title="I will create a unique website design and its prototype" data-username="shalyassi" data-review="1- Professional and capable.
+                                       2- Excellent in communication.
+                                       3- Quality and High reliability.&nbsp;
+                                       4- Accomplishes on time" data-position="right" class="js-review-portfolio review-portfolio">
+                                       <!----> 
+                                       <div class="review__portfolio-thumb"><img width="180" height="120" alt="Portfolio Muhammad Imran" src="{% static 'assets/images/portfolio/cover-6902663-1652800788.jpg' %}"></div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="pagination relative">
+                  <div class="pagination__items">
+                     <!----> 
+                     <div tabindex="0" class="pagination__item active">
+                        1
+                     </div>
+                     <div tabindex="0" class="pagination__item">
+                        2
+                     </div>
+                     <div tabindex="0" class="pagination__item">
+                        3
+                     </div>
+                     <div tabindex="0" class="pagination__item disabled">…</div>
+                     <div tabindex="0" class="pagination__item">
+                        5
+                     </div>
+                     <div tabindex="0" class="pagination__item pagination__arrow pagination__arrow--next">
+                        <svg fill="none" xmlns="http://www.w3.org/2000/svg">
+                           <path d="M10.566 7.434a.8.8 0 0 0-1.132 1.132l1.132-1.132ZM14 12l.566.566.565-.566-.565-.566L14 12Zm-4.566 3.434a.8.8 0 0 0 1.132 1.132l-1.132-1.132Zm0-6.868 4 4 1.132-1.132-4-4-1.132 1.132Zm4 2.868-4 4 1.132 1.132 4-4-1.132-1.132Z"></path>
+                        </svg>
+                     </div>
+                  </div>
+               </div>
+               <!---->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% include  'footer.html' %}
+<script>
+   $(document).ready(function(){
+    value_user = '{{request.user.username}}'
+    if(value_user.length != 0)
+    {
+       $("#loginbtn").remove();
+       $("#registerbtn").remove();
+       $("#freelancerbtn").remove();
+       $("#notification").append('<div class="des">Notifications</div><a href="#" class="header-funds-link"><span><i class="fa fa-bell-o" aria-hidden="true"></i></span></a>');
+       $("#messages").append('<div class="des">Messages</div><a href="#" class="header-funds-link"><span><i class="fa fa-envelope-o" aria-hidden="true"></i></span></a>');
+       $("#help_not").append('<div class="des">Help & Resources</div><a href="/faq" class="header-funds-link"><span><i class="fa fa-question-circle" aria-hidden="true"></i></span></a>');
+       $("#favourite").append('<div class="des">Favourites</div><a href="#" class="header-funds-link"><span><i class="fa fa-heart-o" aria-hidden="true"></i></span></a>');
+       $("#profile_btn").append('<div class="logoutheader"><div class="usernamebox droparrow js-username-box"><a class="user-box" href="/user/profile/{{request.user.username}}"><img class="user-avatar js-user-avatar_block " src="{{request.user.avatar}}" onerror="imageLoadError(this)"/></a><div class="dropdownbox dropdownbox--profile js-dropdownbox-profile"><div class="user-popup"><div class="user-popup-name"><a href="/user/profile/{{request.user.username}}" class="dropdownbox__username">{{request.user.username|title}}</a></div><div class="user-popup-items mb-3"></div><div class="user-popup-item"><a href="/user/profile/{{request.user.username}}" class="user-popup-link">Profile</a></div><div class="user-popup-item"><a href="/referral_program" class="user-popup-link">Refer a Friend</a></div><div class="user-popup-item"><a href="/account_settings" class="user-popup-link">Settings</a></div><div class="user-popup-item"><a href="/billing" class="user-popup-link">Billing</a></div><div class="user-popup-item"><a href="/faq" class="user-popup-link">Help</a></div><div class="user-popup-item user-popup-item-logout"><a href="/logoutsocial" class="user-popup-link js-logout">Sign out</a></div></div></div></div></div><div class="clear"/></div>');
+       $('#help_not a').hover(function (e) {
+           $('#help_not .des').css({
+               left: e.offsetX + 80,
+               top: e.offsetY + 40
+           }).toggle();
+       });
+       $('#notification a').hover(function (e) {
+           $('#notification .des').css({
+               left: e.offsetX + 40,
+               top: e.offsetY + 40
+           }).toggle();
+       });
+       $('#messages a').hover(function (e) {
+           $('#messages .des').css({
+               left: e.offsetX + 40,
+               top: e.offsetY + 40
+           }).toggle();
+       });
+       $('#favourite a').hover(function (e) {
+           $('#favourite .des').css({
+               left: e.offsetX + 60,
+               top: e.offsetY + 40
+           }).toggle();
+       });
+    }
+   });
+</script>
+{% endblock %}

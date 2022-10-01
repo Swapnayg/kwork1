@@ -1,0 +1,285 @@
+{% include  'base.html' %}
+{% load static %}
+{% block contentarea%}
+<title>Letworkbedone - {{request.user.username}} / Buyer Request</title>
+<div class="all_page page-flex__content pt0 m0">
+    <div id="event_list" class="event-list js-event-list"></div>
+    <div id="fox_notification_block"></div>
+    <div class="row justify-content-center mt-0" id="refferral_gigs">
+       <div class="col-11 text-center p-0 mt-3 mb-2">
+          <div class="card px-0 pt-4 pb-0 mb-3"  id="refferral_gigs_card">
+            <div class="row">
+                <div class="col-md-12 db-manage-gigs ">
+                    <h1 class="alt">Billing</h1>
+                </div>
+                <div class="col-md-12 db-manage-gigs">
+                    <small class="offers-left"><span class="js-offers-left">10</span> offers left today
+                        <div class="fa fa-question-circle offers-left-tooltip-trigger">
+                            <aside class="offers-left-tooltip">
+                                <div class="offers-tooltip-triangle"></div>
+                                <p>As a Seller Plus member, you can send 20 offers instead of 10.</p>
+                            </aside>
+                        </div>
+                </small>
+                </div>
+                <div class="col-md-12 mx-0">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li ><a href="#activerequesttab" role="tab" class="active" data-toggle="tab">Active </a></li>
+                        <li><a href="#sentofferstab" role="tab" data-toggle="tab">Sent Offers <div class="circle"><span>1000</span></div>  </a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="activerequesttab">Active Request</div>
+                        <div class="tab-pane" id="sentofferstab"> Sent Offers</div>
+                    </div>
+                </div>     
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+{% include  'Dashboard/base_buyer.html' %}
+<style>
+.circle {
+    border-radius: 15px;
+    display: inline-block;
+    background-color: #bbb;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    padding: 2%;
+}
+
+    .circle span{
+        line-height: 20px;
+        height: 20px;
+    }
+
+.offers-left {
+    color: #777;
+    font-size: 14px;
+    padding-left: 30px;
+    position: relative;
+    z-index: 1;
+    float: right;
+    margin-right: 2%;
+}
+
+.offers-left-tooltip {
+    position: absolute;
+    top: 35px;
+    width: 158px;
+    left: -88px;
+    text-align: left;
+    background: black;
+    color: white;
+    border-radius: 5%;
+}
+
+.offers-left-tooltip p{
+    padding: 6%;
+}
+.all_page
+{
+    margin-right: 2% !important;
+}
+.offers-left:before {
+    content: '';
+    background: transparent url(//assetsv2.fiverrcdn.com/assets/v2_globals/icn-master-small-0d599cc1fa10f04a40534565e4b8f4b1.png) no-repeat -200px -150px;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    width: 20px;
+    height: 18px;
+    left: 0;
+    top: -1px;
+}
+.offers-left-tooltip
+{
+    display: none;
+}
+.offers-left-tooltip-trigger {
+    position: relative;
+    font-size: 16px;
+    margin-left: 4px;
+}
+
+    #refferral_gigs,#refferral_gigs_card
+    {
+        background: #f7f7f7;
+    }
+    .nav-tabs li
+    {
+        width: 15%;
+    }
+    /* .nav-tabs li a.active{
+        color: #2E5DC5;
+        border-width: medium;
+        border-bottom: 3px solid #2E5DC5 !important;
+    }    */
+
+.nav-tabs li a {
+    display: block;
+    padding: 3px 5px 10px;
+    color: #999;
+    font-size: 14px;
+    line-height: 42px;
+    font-weight: 600;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+    .db-manage-gigs .db-new-filters .btn-create-gig {
+        position: absolute;
+        right: 0;
+        top: 10px;
+    }
+    .btn-standard.btn-green {
+        background-color: #2E5DC5;
+        font-weight: 700;
+        color: #fff!important;
+        border: 1px solid transparent;
+        padding: 8px;
+        border-radius: 5px;
+        float: right;
+    }
+     h1.alt, .text-display-1.alt {
+        font-weight: 600;
+        display: inline-block;
+        float: left;
+        font-size: 35px;
+        padding-bottom: 1%;
+    }
+    .db-new-header {
+        padding-bottom: 20px;
+    }
+    .cf:before, .cf:after {
+        content: " ";
+        display: table;
+    }
+    .db-manage-gigs header .accept-requests {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
+        flex-direction: row-reverse;
+    }
+    .toggle-wrapper:first-child {
+        margin-left: 0;
+    }
+    .db-manage-gigs header .accept-briefs {
+        margin-right: 24px;
+    }
+    .toggle-wrapper {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 30px;
+    }
+    .db-manage-gigs header .accept-requests .toggle-wrapper label {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+    .toggle-wrapper label {
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 14px;
+        color: #222325;
+        text-transform: capitalize;
+        cursor: pointer;
+    }
+    .hint--bottom-right:before, .hint--bottom-right:after {
+        top: 100%;
+        right: 50%;
+    }
+    .toggle-wrapper label input[type=checkbox] {
+        display: none;
+    }
+    .db-manage-gigs header .accept-requests .toggle-wrapper .fake-toggle {
+        margin: 0 8px;
+    }
+    .toggle-wrapper label .fake-toggle {
+        background-color: #fff;
+        width: 30px;
+        height: 20px;
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 7px;
+        position: relative;
+        box-shadow: inset 0 0 0 1px #ccc;
+        border-radius: 15px;
+    }
+    .hint--bottom-right:before, .hint--bottom-right:after {
+        top: 100%;
+        right: 50%;
+    }
+    .toggle-wrapper label .fake-toggle:before, .toggle-wrapper label .fake-toggle:after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 20px;
+        height: 20px;
+        border-radius: 15px;
+    }
+    .toggle-wrapper label .fake-toggle:before {
+        background-color: #2E5DC5;
+        -webkit-transition: width .2s ease-in-out,border-radius .2s ease-in-out;
+        transition: width .2s ease-in-out,border-radius .2s ease-in-out;
+    }
+    .db-manage-gigs header .accept-briefs .set-budget-cta {
+        background: 0 0;
+        border: none;
+        text-decoration: underline;
+        color: #404145;
+        margin-left: 4px;
+    }
+    .hint--top:before, .hint--top:after {
+        bottom: 100%;
+        left: 50%;
+    }
+    .hint--top:before {
+        margin-left: -5px;
+        margin-bottom: -12px;
+        border-top-color: #222325;
+    }
+    #manage_gigs, .nav, .tab-content .tab-pane,#manage_gigs ul li a, #manage_gigs_card
+    {
+        background: #f7f7f7;
+        border: none;
+    }
+    #manage_gigs
+    {
+        margin-left: 2%;
+        margin-right: 2%;
+    }
+    #manage_gigs ul li a
+    {
+        font-size: 14px;
+        color: #333;
+        font-weight: 600;
+        padding: 20px;
+        line-height: 30px;
+        height: 30px;
+        text-decoration: none;
+    }
+    .tab-content
+    {
+        padding-top: 2%;
+    }
+</style>
+<script>
+    $(document).ready(function(){
+        $('.offers-left').hover(function (e) {
+            $('.offers-left-tooltip').toggle();
+        });
+    });
+</script>
+{% endblock %}
