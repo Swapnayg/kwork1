@@ -333,6 +333,7 @@ class SubSubCategories(models.Model):
 
 class CharacterLimit(models.Model):
     Char_category_Name = models.CharField(max_length=500, blank=True, null=True)
+    Hint_text = models.CharField(max_length=800, blank=True, null=True)
     Max_No_of_char_allowed = models.IntegerField(max_length=500, blank=True, null=True)
 
     class Meta:
@@ -382,15 +383,57 @@ class UserLanguages(models.Model):
 
 
 
+    
+class Category_package_Details(models.Model):
+    BOOL_CHOICES =[('number', 'Number'),('boolean', 'Boolean')]
+    category_name = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
+    display_name = models.CharField(max_length=1000,blank=True,default="",null=True)
+    display_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    
+    class Meta:
+        verbose_name = _("Category Package")
+        verbose_name_plural = _("Category Packages")
+
+    def __str__(self):
+        return str(self.display_name)
+
+class Parameter(models.Model):
+    BOOL_CHOICES =[('delivery_time', 'Delivery Time'),('extra_days', 'Extra Days'),('extra_time', 'Extra Time'),('no_revisions', 'No. of Revisions')]
+    parameter_name =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    parameter_value = models.CharField(max_length=1000,blank=True,default="",null=True)
+    
+    class Meta:
+        verbose_name = _("Add On Gig Params")
+        verbose_name_plural = _("Add On Gig Params")
+
+    def __str__(self):
+        return str(self.parameter_value)
+    
+class Category_package_Extra_Service(models.Model):
+    BOOL_CHOICES =[('number', 'Number'),('boolean', 'Boolean'),('textbox', 'TextArea'),('extra_days', 'Extra Days'),('extra_time', 'Extra Time'),('non', 'None')]
+    category_name = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
+    display_name = models.CharField(max_length=1000,blank=True,default="",null=True)
+    display_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    
+    class Meta:
+        verbose_name = _("Category Extra Services")
+        verbose_name_plural = _("Category Extra Services")
+
+    def __str__(self):
+        return str(self.display_name)
+
+
 class UserGigs(models.Model):
-    BOOL_CHOICES =[('Basic', 'Basic'),('Fluent', 'Fluent'),('Conversational', 'Conversational')]
+    BOOL_CHOICES_STATUS =[('active', 'Active'),('pending', 'Pending'),('modification', 'Modification'),('draft', 'Draft'),('denied', 'Denied'),('paused', 'Paused')]
     gig_title =   models.CharField(max_length=1000,blank=True,default="",null=True)
     gig_category = models.ForeignKey(Categories, on_delete=models.CASCADE,null=False,blank=False)
     gig_sub_category = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
+    gig_description = models.TextField(blank=True,default="",null=True)
+    gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,blank=True,null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
-        verbose_name = _("User Gig Details")
-        verbose_name_plural = _("User Gig Details")
+        verbose_name = _("Gig Details")
+        verbose_name_plural = _("Gig Details")
 
     def __str__(self):
         return str(self.gig_title)
@@ -402,22 +445,91 @@ class UserGigsTags(models.Model):
     gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
-        verbose_name = _("User Gig Tags")
-        verbose_name_plural = _("User Gig Tags")
+        verbose_name = _("Gig Tags")
+        verbose_name_plural = _("Gig Tags")
 
     def __str__(self):
         return str(self.gig_tag_name)
     
-class Category_package_Details(models.Model):
-    BOOL_CHOICES =[('number', 'Number'),('boolean', 'Boolean'),('textbox', 'TextArea')]
-    category_name = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
+    
+class UserGigPackages(models.Model):
+    BOOL_CHOICES =[('basic', 'Basic'),('standard', 'Standard'),('enterprise', 'Enterprise')]
+    package_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    package_title = models.CharField(max_length=500,blank=True,default="",null=True)
+    package_description = models.TextField(blank=True,default="",null=True)
+    package_delivery =  models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
+    package_revisions =  models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
+    package_data =  models.TextField(blank=True,default="",null=True)
+    package_price = models.CharField(max_length=300,blank=True,default="",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
-        verbose_name = _("Category Package Details")
-        verbose_name_plural = _("Category Package Details")
+        verbose_name = _("Gig Packages")
+        verbose_name_plural = _("Gig Packages")
 
     def __str__(self):
-        return str(self.gig_tag_name)
+        return str(self.package_title)
+    
+    
+class UserGigPackage_Extra(models.Model):
+    package_data =  models.TextField(blank=True,default="",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Gig Package Extra")
+        verbose_name_plural = _("Gig Package Extra")
 
+    def __str__(self):
+        return str(self.user_id)
 
+class UserExtra_gigs(models.Model):
+    extra_gig_title = models.CharField(max_length=500,blank=True,default="",null=True)
+    extra_gig_description =  models.TextField(blank=True,default="",null=True)
+    extra_gig_price = models.CharField(max_length=500,blank=True,default="",null=True)
+    extra_gig_duration = models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Extra Gig")
+        verbose_name_plural = _("Extra Gigs")
+
+    def __str__(self):
+        return str(self.extra_gig_title)
+    
+    
+class Usergig_faq(models.Model):
+    gig_faq_question = models.CharField(max_length=800,blank=True,default="",null=True)
+    gig_faq_answer =  models.TextField(blank=True,default="",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Gig Faq")
+        verbose_name_plural = _("Gig Faqs")
+
+    def __str__(self):
+        return str(self.gig_faq_question)
+    
+class Usergig_image(models.Model):
+    gig_image = models.ImageField(blank=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Gig Image")
+        verbose_name_plural = _("Gig Images")
+
+    def __str__(self):
+        return str(self.gig_image)
+    
+    
+class Usergig_requirement(models.Model):
+    gig_req_question =  models.CharField(max_length=800,blank=True,default="",null=True)
+    gig_req_ans_type =  models.CharField(max_length=800,blank=True,default="",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Gig Requirement")
+        verbose_name_plural = _("Gig Requirements")
+
+    def __str__(self):
+        return str(self.gig_req_question)
 

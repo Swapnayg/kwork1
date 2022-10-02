@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -96,6 +96,21 @@ class AdminLearnTopics(admin.ModelAdmin):
 
 admin.site.register(LearnTopics, AdminLearnTopics)
 
+class AdminCategory_package_Details(admin.ModelAdmin):
+    list_display = ['category_name','display_name','display_type']
+
+admin.site.register(Category_package_Details, AdminCategory_package_Details)
+
+class AdminParameter(admin.ModelAdmin):
+    list_display = ['parameter_name','parameter_value']
+
+admin.site.register(Parameter, AdminParameter)
+
+class AdminCategory_package_Extra_Service(admin.ModelAdmin):
+    list_display = ['category_name','display_name','display_type']
+
+admin.site.register(Category_package_Extra_Service, AdminCategory_package_Extra_Service)
+
 class AdminLearningTopicDetails(admin.ModelAdmin):
     list_display = ['topic_Name','topic_description','image_Text']
 
@@ -126,7 +141,7 @@ admin.site.register(SubSubCategories, AdminSubSubCategories)
 
 
 class AdminCharacterLimit(admin.ModelAdmin):
-    list_display = ['Char_category_Name','Max_No_of_char_allowed']
+    list_display = ['Char_category_Name','Hint_text','Max_No_of_char_allowed']
     #readonly_fields = ['Char_category_Name']
 
 admin.site.register(CharacterLimit, AdminCharacterLimit)
@@ -151,9 +166,43 @@ class AdminUserLanguages(admin.ModelAdmin):
 admin.site.register(UserLanguages, AdminUserLanguages)
 
 class AdminUserGigs(admin.ModelAdmin):
-    list_display = ['gig_title','gig_category','gig_sub_category','user_id']
+    list_display = ['gig_title','gig_category','gig_sub_category','gig_description','gig_status','user_id']
 
 admin.site.register(UserGigs, AdminUserGigs)
+
+
+class AdminUserPackageGig(admin.ModelAdmin):
+    list_display = ['package_type','package_title','package_description','package_delivery','package_revisions','package_data','package_price','package_gig_name','user_id']
+
+admin.site.register(UserGigPackages, AdminUserPackageGig)
+
+class AdminUserGigPackage_Extra(admin.ModelAdmin):
+    list_display = ['package_data','package_gig_name','user_id']
+
+admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
+
+
+class AdminUserExtra_gigs(admin.ModelAdmin):
+    list_display = ['extra_gig_title','extra_gig_description','extra_gig_price','extra_gig_duration','package_gig_name','user_id']
+
+admin.site.register(UserExtra_gigs, AdminUserExtra_gigs)
+
+
+class AdminUsergig_faq(admin.ModelAdmin):
+    list_display = ['gig_faq_question','gig_faq_answer','package_gig_name','user_id']
+
+admin.site.register(Usergig_faq, AdminUsergig_faq)
+
+class AdminUsergig_image(admin.ModelAdmin):
+    list_display = ['gig_image','package_gig_name','user_id']
+
+admin.site.register(Usergig_image, AdminUsergig_image)
+
+
+class AdminUsergig_requirement(admin.ModelAdmin):
+    list_display = ['gig_req_question','gig_req_ans_type','package_gig_name','user_id']
+
+admin.site.register(Usergig_requirement, AdminUsergig_requirement)
 
 
 class AdminUserGigsTags(admin.ModelAdmin):
