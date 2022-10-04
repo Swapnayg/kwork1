@@ -440,7 +440,7 @@ body.modal-open {
 }
 
 .banner-market .custom-search.general-search-index .search-button .button:hover {
-    background: #3bd640
+    background: white;
 }
 
 @media (min-width:768px) {

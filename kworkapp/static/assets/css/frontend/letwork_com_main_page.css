@@ -4743,14 +4743,14 @@ body .footer {
     }
 }
 
-.help_text_span
+.help_text_span, .error_text_span
 {
     padding : 2px 10px;
     border-radius : 5px;
     position: relative;
 }
 
-.helptext_desc,.offers-left-tooltip
+.helptext_desc,.offers-left-tooltip,.errortext_desc
 {
     display: none;
     position: absolute;

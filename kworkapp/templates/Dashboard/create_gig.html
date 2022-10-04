@@ -28,22 +28,20 @@
                                         <div class="col-lg-1">
                                         </div>
                                         <div class="col-lg-3 left_pan pt-4">
-                                            <h3>Gig title</h3>
+                                            <h3>Gig title <span class="required">*</span></h3>
                                             <p class="mt-2">As your Gig storefront, your <strong>title is the most important place</strong> to include keywords that buyers would likely use to search for a service like yours.</p>
                                         </div>
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="input-wrapper">
                                                 <div class="gig-title-input">
                                                    <span class="title-prefix" style="transform: translateY(0px);">I will</span>
-                                                   <div class="fit-textarea gig-title-textarea"><textarea maxlength="80" placeholder="do something I'm really good at"></textarea></div>
+                                                   <div class="fit-textarea gig-title-textarea"><textarea maxlength="{{characters.0.gig_title}}" placeholder="do something I'm really good at" id="textarea_iwill" onchange="textarea_iwillonchange(this)"></textarea></div>
                                                    <div class="title-footer help_txt">
-                                                      <span>This is your Gig title. Choose wisely, you can only use 80 characters.</span>
+                                                      <span>This is your Gig title. Choose wisely, you can only use {{characters.0.gig_title}} characters.</span>
+                                                      <span class="gig_title_count">0 / {{characters.0.gig_title}} max</span>
                                                    </div>
-                                                   <div class="title-footer">
-                                                      <span class="title-status-msg alert gig-upcrate-validation-error">
-                                                         <span>Create a title with 15 characters minimum. Your title should have at least 4 words</span>
-                                                      </span>
-                                                      <span class="chars-count">0 / 80 max</span>
+                                                   <div class="title-footer error_txt">
+                                                      <span class="error" id="gig_title_error">Create a title with  {{characters.0.gig_title}} characters minimum. Your title should have at least 4 words</span>
                                                    </div>
                                                 </div>
                                             </div> 
@@ -56,20 +54,22 @@
                                         <div class="col-lg-1">
                                         </div>
                                         <div class="col-lg-3 left_pan pt-4">
-                                            <h3>Category</h3>
+                                            <h3>Category <span class="required">*</span></h3>
                                             <p class="mt-2">Choose the category and sub-category most suitable for your Gig.</p>
                                         </div>
                                         <div class="col-lg-3 right_pan pt-4">
-                                            <select class="gig_category">
+                                            <select class="gig_category" id="gig_category" onchange="gig_categoryOnchange(this);" required>
                                                 <option value="">Select Categroy</option>
-                                                <option value="option1"> Option 1</option>
+                                                {% for cat in category %}
+                                                   <option value="{{cat.id}}">{{cat.category_Name}}</option>
+                                                {% endfor %}
                                             </select>
                                             <div class="title-footer help_txt" style="width: 150%;">
                                              <span>Please choose the category and sub-category most suitable for your Gig.                                             </span>
                                           </div>
                                         </div>
                                         <div class="col-lg-3 right_pan pt-4">
-                                            <select class="gig_subcategory">
+                                            <select class="gig_subcategory" id="gig_subcategory"  required>
                                                 <option value="">Select Sub Category </option>
                                                 <option value="option1"> Option 1</option>
                                             </select> 
@@ -79,15 +79,15 @@
                                         <div class="col-lg-1">
                                         </div>
                                         <div class="col-lg-3 left_pan pt-4">
-                                            <h3>Search tags</h3>
+                                            <h3>Search tags <span class="required">*</span></h3>
                                             <p class="mt-2">Tag your Gig with buzz words that are relevant to the services you offer. Use all 5 tags to get found.</p>
                                         </div>
                                         <div class="col-lg-7 right_pan pt-4">
                                             <h3>Positive keywords</h3>
                                             <p class="mt-2">Enter search terms you feel your buyers will use when looking for your service.</p>
-                                            <div class="react-tags" contenteditable="true">
-
-                                            </div>
+                                            <select class="react-tags" multiple id="gig_tags">
+                                           </select>
+                                          
                                             <div class="footer">
                                                 <span class="note">5 tags maximum. Use letters and numbers only.</span>
                                                 <div class="search-tags-status-msg"></div>
@@ -123,7 +123,7 @@
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="sub-actions js-next-back">
                                                 <section class="btns mb-2">
-                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="overview_gig" data-next="pricing_gig" type="button">Save &amp; Continue</button>
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="overview_gig" data-next="pricing_gig" type="button" disabled id="btn_gig_title">Save &amp; Continue</button>
                                                 </section>
                                              </div>
                                         </div>
@@ -146,7 +146,7 @@
                                        <header class="pricing-header">
                                           <h3>Scope &amp; Pricing</h3>
                                           <div class="flex pkg-count-wrapper">
-                                             <div class="switch-container m-l-8">Offer packages<label class="fit-switch pkgs-toggler fit-switch-size-small"><input type="checkbox" checked=""><span class="fit-switch-toggle"></span></label></div>
+                                             <div class="switch-container m-l-8">Offer packages<label class="fit-switch  fit-switch-size-small"> <input type="checkbox" id="offer_pckge_switch" onchange="offer_pckge_switchOnchange(this);"> <span class="fit-switch-toggle"></span></label></div>
                                           </div>
                                        </header>
                                     </div>
@@ -160,10 +160,19 @@
                                  <div class="col-lg-9 left_pan pt-4">
                                     <section class="packages-pricing-factors-section">
                                        <header><span>Packages</span></header>
+                                       <input type="hidden" value="{{characters.1.gig_package_title}}" id="char_gig_package_title">
+                                       <input type="hidden" value="{{characters.2.gig_package_description}}" id="char_gig_package_description">
+                                       <input type="hidden" value="{{characters.4.gig_extra_description}}" id="char_gig_extra_description">
+                                       <input type="hidden" value="{{characters.3.gig_extra_title}}" id="char_gig_extra_title">
+                                       <input type="hidden" value="{{characters.5.gig_description}}" id="char_gig_description">
+                                       <input type="hidden" value="{{characters.6.gig_faq_question}}" id="char_gig_faq_question">
+                                       <input type="hidden" value="{{characters.7.gig_faq_answer}}" id="char_gig_faq_answer">
+                                       <input type="hidden" value="{{characters.8.gig_requirements_ques}}" id="char_gig_requirements_ques">
+                                       <input type="hidden" value="{{characters.9.gig_requirements_ans}}" id="char_gig_requirements_ans">
                                        <div class="packages-pfs-container">
                                           <div class="row" id="table_pricing">
                                              <div class="col-lg-12 left_pan pt-4">
-                                                <table class="packages-initial-pricing-blocks">
+                                                <table class="packages-initial-pricing-blocks" id="tbl_packages">
                                                    <thead>
                                                       <tr>
                                                          <th class="first-table-col"></th>
@@ -173,516 +182,29 @@
                                                       </tr>
                                                    </thead>
                                                    <tbody>
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-title-container">
-                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                               <div class="help_div">
-                                                                  <div class="helptext_desc">Help & Resources</div>
-                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                                                               </div>                                                             
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-title-container">
-                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                               <div class="help_div">
-                                                                  <div class="helptext_desc">Help & Resources</div>
-                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                                                               </div>  
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-title-container">
-                                                               <textarea class="pkg-title-input" maxlength="35" placeholder="Name your package"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                               <div class="help_div">
-                                                                  <div class="helptext_desc">Help & Resources</div>
-                                                                  <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span>
-                                                               </div> 
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                          
-                                                            
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-description-container">
-                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-description-container">
-                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-description-container">
-                                                               <textarea class="pkg-description-input" maxlength="100" placeholder="Describe the details of your offering"></textarea>
-                                                               <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);">
-                                                                  <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                          
-                                                            
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value=""> Delivery Time</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value=""> Delivery Time</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value=""> Delivery Time</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Revisions
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value=""> Select</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value=""> Select</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pkg-duration-container">
-                                                               <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left">
-                                                                  <select>
-                                                                     <option value="">Select</option>
-                                                                  </select>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Words included
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" value="">
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" value="">
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <div class="fit-input-wrapper pf-number fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" value="">
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
 
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Proofreading
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Document formatting
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Language style guide
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Transcription
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-
-                                                      <tr>
-                                                         <td class="first-table-col">
-                                                            Subtitling
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                         <td>
-                                                            <div class="pf-item">
-                                                               <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square">
-                                                                  <input type="checkbox">
-                                                                  <span class="checkmark-box">
-                                                                     <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                        <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                           <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z">
-                                                                           </path>
-                                                                        </svg>
-                                                                     </span>
-                                                                  </span>
-                                                               </label>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
-
-                                                      <tr class="pricing_row">
-                                                         <td class="first-table-col">
-                                                            Price
-                                                         </td>
-                                                         <td class="pkg-price-cell">
-                                                            <div class="pkg-price-container">
-                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
-                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
-                                                                        </span>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td class="pkg-price-cell">
-                                                            <div class="pkg-price-container">
-                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
-                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
-                                                                        </span>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                         <td class="pkg-price-cell">
-                                                            <div class="pkg-price-container">
-                                                               <div class="fit-input-wrapper price-input fit-input-has-icon">
-                                                                  <div class="fit-input-inner-wrapper">
-                                                                     <input class="fit-input" type="number" step="5" min="5" max="10000" value="">
-                                                                        <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$
-                                                                        </span>
-                                                                  </div>
-                                                               </div>
-                                                            </div>
-                                                         </td>
-                                                      </tr>
                                                    </tbody>
                                                 </table>
+                                                <div class="try-triple-packages">
+                                                   <b>Offer packages to meet the needs of more buyers.</b>
+                                                   <div class="try-btn-wrapper">
+                                                      <button class="fit-button fit-button-color-blue fit-button-fill-full fit-button-size-medium co-white bg-co-blue-700" id="create_pck_btn" onclick="createpckgclick(this);">Create Packages</button>
+                                                   </div>
+                                                </div>
                                              </div>
                                           </div>
+
                                        </div>
                                     </section>
                                     <section class="extra-pricing-factors-section">
                                        <header>Add extra services</header>
                                        <div class="extra-border">
-                                          <ul class="extra-per-package-pricing-factors extra-pricing-factor-list">
-                                             <li class="pf-container">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                         <input type="checkbox">
-                                                         <span class="checkmark-box">
-                                                            <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                               <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                  <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                               </svg>
-                                                            </span>
-                                                         </span>
-                                                         Additional words
-                                                      </label>
-                                                   </li>
-                                                </ul>
-                                                
-                                                
-                                             </li>
-                                          </ul>
                                           <ul class="extra-pricing-factor-list">
                                              <li class="pf-container">
                                                 <ul>
                                                    <li class="pf-row">
                                                       <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                         <input type="checkbox" checked="">
+                                                         <input type="checkbox" onchange="exta_deliveryOnchage(this);" >
                                                          <span class="checkmark-box">
                                                             <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
                                                                <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
@@ -691,57 +213,58 @@
                                                             </span>
                                                          </span>
                                                          Extra fast delivery
-                                                      </label>
-                                                      <div class="fit-popover fit-popover-top fit-tooltip validations-cell-notification floating" data-position="top">
-                                                         <span class="fit-popover-content fit-popover-validations-content">
-                                                            <span class="fit-icon fit-tooltip validations-cell-notification floating" style="width: 14px; height: 14px; fill: rgb(149, 151, 157);">
-                                                               <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                                  <path d="M8 0.25C3.72009 0.25 0.25 3.72134 0.25 8C0.25 12.2812 3.72009 15.75 8 15.75C12.2799 15.75 15.75 12.2812 15.75 8C15.75 3.72134 12.2799 0.25 8 0.25ZM8 3.6875C8.72487 3.6875 9.3125 4.27513 9.3125 5C9.3125 5.72487 8.72487 6.3125 8 6.3125C7.27513 6.3125 6.6875 5.72487 6.6875 5C6.6875 4.27513 7.27513 3.6875 8 3.6875ZM9.75 11.625C9.75 11.8321 9.58209 12 9.375 12H6.625C6.41791 12 6.25 11.8321 6.25 11.625V10.875C6.25 10.6679 6.41791 10.5 6.625 10.5H7V8.5H6.625C6.41791 8.5 6.25 8.33209 6.25 8.125V7.375C6.25 7.16791 6.41791 7 6.625 7H8.625C8.83209 7 9 7.16791 9 7.375V10.5H9.375C9.58209 10.5 9.75 10.6679 9.75 10.875V11.625Z"></path>
-                                                               </svg>
-                                                            </span>
-                                                         </span>
-                                                      </div>
+                                                         <div class="help_div sub_head"> <div class="helptext_desc">Extra fast delivery time must be shorter than your basic delivery time.</div> <span class="help_text_span"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div>
+                                                      </label>                                                    
                                                    </li>
-                                                   <li>
+                                                   <li id="extra_delivery">
                                                       <ul class="values-list">
-                                                         <li class="values-row">
+                                                         <li class="values-row" id="extra_basic">
                                                             <span class="title">Basic</span>
                                                             <div class="values-block">
                                                                <span class="will-deliver">I'll deliver in only</span>
                                                                <select>
                                                                   <option value="">Select</option>
+                                                                  {% for e_days in Extra_Days %}
+                                                                     <option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>
+                                                                  {% endfor %}
                                                                </select>
                                                                <span class="for-extra">for an extra</span>
                                                                <div class="fit-input-wrapper price-stepper fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value="0"></div>
                                                                </div>
                                                                <span class="for-extra-dollar left">$</span>
                                                             </div>
                                                          </li>
-                                                         <li class="values-row">
+                                                         <li class="values-row" id="extra_standard">
                                                             <span class="title">Standard</span>
                                                             <div class="values-block">
                                                                <span class="will-deliver">I'll deliver in only</span>
                                                                <select>
                                                                   <option value="">Select</option>
+                                                                  {% for e_days in Extra_Days %}
+                                                                     <option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>
+                                                                  {% endfor %}
                                                                </select>
                                                                <span class="for-extra">for an extra</span>
                                                                <div class="fit-input-wrapper price-stepper fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value="0"></div>
                                                                </div>
                                                                <span class="for-extra-dollar left">$</span>
                                                             </div>
                                                          </li>
-                                                         <li class="values-row">
+                                                         <li class="values-row" id="extra_premium">
                                                             <span class="title">Premium</span>
                                                             <div class="values-block">
                                                                <span class="will-deliver">I'll deliver in only</span>
                                                                <select>
                                                                   <option value="">Select</option>
+                                                                  {% for e_days in Extra_Days %}
+                                                                     <option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>
+                                                                  {% endfor %}
                                                                </select>
                                                                <span class="for-extra">for an extra</span>
                                                                <div class="fit-input-wrapper price-stepper fit-input-icon-start">
-                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
+                                                                  <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value="0"></div>
                                                                </div>
                                                                <span class="for-extra-dollar left">$</span>
                                                             </div>
@@ -749,190 +272,16 @@
                                                       </ul>
                                                    </li>
                                                 </ul>
-                                             
-                                                
                                              </li>
                                           </ul>
-                                          <ul class="flex flex-col extra-factors extra-pricing-factor-list">
-                                             <li class="pf-container" style="order: 10;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox" checked="">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Additional revision
-                                                         </label>
-                                                      </div>
-                                                      <div class="extra-values m-r-28">
-                                                         <span class="for-extra">for an extra</span>
-                                                         <div class="fit-input-wrapper price-stepper fit-input-icon-start">
-                                                            <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
-                                                         </div>
-                                                         <span class="for-extra">$</span><span class="for-additional">and additional</span>
-                                                         <select>
-                                                            <option value="">Select</option>
-                                                         </select>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                            
-                                                
-                                             </li>
-                                             <li class="pf-container" style="order: 50;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Proofreading
-                                                         </label>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                               
-                                                
-                                             </li>
-                                             <li class="pf-container" style="order: 60;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Document formatting
-                                                         </label>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                               
-                                                
-                                             </li>
-                                             <li class="pf-container" style="order: 70;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Language style guide
-                                                         </label>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                                
-                                                
-                                             </li>
-                                             <li class="pf-container" style="order: 80;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Transcription
-                                                         </label>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                              
-                                                
-                                             </li>
-                                             <li class="pf-container" style="order: 90;">
-                                                <ul>
-                                                   <li class="pf-row">
-                                                      <div class="factor-title">
-                                                         <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square">
-                                                            <input type="checkbox">
-                                                            <span class="checkmark-box">
-                                                               <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                                  <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                     <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                                  </svg>
-                                                               </span>
-                                                            </span>
-                                                            Subtitling
-                                                         </label>
-                                                      </div>
-                                                   </li>
-                                                </ul>
-                                               
-                                                
-                                             </li>
+                                          <ul class="flex flex-col extra-factors extra-pricing-factor-list" id="extra_addOn">
+
                                           </ul>
-                                          <ul class="custom-extras-container">
-                                             <li class="custom-extra-row">
-                                                <ul class="extra-values">
-                                                   <li>
-                                                      <label class="fit-checkbox extra-active fit-checkbox-color-white fit-checkbox-shape-square">
-                                                         <input type="checkbox" checked="">
-                                                         <span class="checkmark-box">
-                                                            <span class="fit-icon check-icon" style="width: 10px; height: 10px;">
-                                                               <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg">
-                                                                  <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path>
-                                                               </svg>
-                                                            </span>
-                                                         </span>
-                                                      </label>
-                                                      <span class="attr">Title</span>
-                                                      <div class="fit-input-wrapper title-input fit-input-icon-start">
-                                                         <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="Title your extra service" maxlength="20" minlength="3" value=""></div>
-                                                      </div>
-                                                      <i>0 / 20 max</i>
-                                                   </li>
-                                                   <li>
-                                                      <span class="attr">Description</span>
-                                                      <div class="description-container">
-                                                         <span class="i-will">I will</span>
-                                                         <div class="fit-input-wrapper description-input fit-input-icon-start">
-                                                            <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="describe your offering" value=""></div>
-                                                         </div>
-                                                      </div>
-                                                   </li>
-                                                   <li>
-                                                      <span class="attr for-extra">For an extra</span>
-                                                      <div class="fit-input-wrapper price-stepper fit-input-icon-start">
-                                                         <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value=""></div>
-                                                      </div>
-                                                      <span class="for-extra">$</span><span class="for-additional">and an additional</span>
-                                                      <select>
-                                                         <option value=""> Select Category</option>
-                                                     </select>
-                                                   </li>
-                                                </ul>
-                                             </li>
-                                             <li class="add-extra-row">
+                                          <ul class="custom-extras-container" id="extra_gig_container">
+
+                                          </ul>
+                                          <ul class="custom-extras-container" id="add_container_btn">
+                                             <li class="add-extra-row" onclick="add_gigonclick();" >
                                                 <span class="fit-icon" style="width: 16px; height: 16px; fill: rgb(74, 115, 232);">
                                                    <svg width="12" height="16" viewBox="0 0 12 16" xmlns="http://www.w3.org/2000/svg">
                                                       <path d="M11.5 7H7V2.5C7 2.22375 6.77625 2 6.5 2H5.5C5.22375 2 5 2.22375 5 2.5V7H0.5C0.22375 7 0 7.22375 0 7.5V8.5C0 8.77625 0.22375 9 0.5 9H5V13.5C5 13.7762 5.22375 14 5.5 14H6.5C6.77625 14 7 13.7762 7 13.5V9H11.5C11.7762 9 12 8.77625 12 8.5V7.5C12 7.22375 11.7762 7 11.5 7Z"></path>
@@ -940,9 +289,9 @@
                                                 </span>
                                                 Add Gig Extra
                                              </li>
-                                          </ul>
+                                          </ul>  
                                        </div>
-                                    </section>
+                                       </section>
                                  </div>
                                  <div class="col-lg-1">
 
@@ -956,7 +305,7 @@
                                     <div class="col-lg-7 right_pan pt-4">
                                         <div class="sub-actions js-next-back">
                                           <section class="btns mb-2">
-                                             <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="pricing_gig" data-next="descrip_gig" type="button">Save &amp; Continue</button>
+                                             <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="pricing_gig" data-next="descrip_gig" type="button" id="btn_gig_package">Save &amp; Continue</button>
                                           </section>
                                           <button type="button" class="previous naked-button back co-green" data-label="pricing_gig" data-previous="overview_gig">back</button>
                                          </div>
@@ -982,8 +331,8 @@
                                        </header>
                                        <div class="description-wrapper">
                                           <p>Briefly Describe Your Gig</p>
-                                          <textarea id="description_gig" minlength="0" maxlength="150"   placeholder="" cols="50" rows="60" class="form-control" required=""></textarea>
-                                          <p class="text-muted text-right"><span class="countDesc">150</span> characters left</p>
+                                          <textarea id="description_gig" minlength="0" maxlength="{{characters.4.gig_description}}"   placeholder="" cols="50" rows="60" class="form-control" required=""></textarea>
+                                          <p class="text-muted text-right"><span class="countDesc">{{characters.4.gig_description}}</span> characters left</p>
                                        </div>
                                     </div>
                                     <div class="col-lg-1">
@@ -1002,9 +351,9 @@
                                        <p>Add Questions & Answers for Your Buyers.</p>
                                        <div class="faq-form add">
                                           <div class="fit-input-wrapper faq-question fit-input-icon-start">
-                                             <div class="fit-input-inner-wrapper"><input class="fit-input" type="text" placeholder="Add a Question: i.e. Do you translate to English as well?" value=""></div>
+                                             <div class="fit-input-inner-wrapper"><input class="fit-input" type="text"  maxlength="{{characters.6.gig_faq_question}}" placeholder="Add a Question: i.e. Do you translate to English as well?" value=""></div>
                                           </div>
-                                          <div class="fit-textarea faq-answer fit-textarea-has-counter"><textarea maxlength="300" placeholder="Add an Answer: i.e. Yes, I also translate from English to Hebrew."></textarea><span class="fit-counter fit-textarea-counter">0 / 300</span></div>
+                                          <div class="fit-textarea faq-answer fit-textarea-has-counter"><textarea maxlength="{{characters.7.gig_faq_answer}}"  placeholder="Add an Answer: i.e. Yes, I also translate from English to Hebrew."></textarea><span class="fit-counter fit-textarea-counter">0 / 300</span></div>
                                           <button class="fit-button fit-button-color-grey fit-button-fill-ghost fit-button-size-small co-grey-1000 faq-cancel" type="button">Cancel</button><button class="fit-button fit-button-color-green fit-button-fill-full fit-button-size-small co-white faq-submit bg-co-green-700" type="button">Add</button>
                                        </div>
                                        
@@ -1026,7 +375,7 @@
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="sub-actions js-next-back">
                                                 <section class="btns mb-2">
-                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="descrip_gig" data-next="requirements_gig" type="button">Save &amp; Continue</button>
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="descrip_gig" data-next="requirements_gig" type="button" disabled >Save &amp; Continue</button>
                                                 </section>
                                                 <button type="button" class="previous naked-button back co-green" data-label="descrip_gig" data-previous="pricing_gig">back</button>
                                              </div>
@@ -1076,7 +425,7 @@
                                                 </label>
                                              </div>
                                              <div class="question-textarea">
-                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="400" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
+                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="{{characters.8.gig_requirements_ques}}" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
                                              </div>
                                              <label class="form-label">Get it in a form of:</label>
                                              <div class="type-select-row">
@@ -1103,7 +452,7 @@
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="sub-actions js-next-back">
                                                 <section class="btns mb-2">
-                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="requirements_gig" data-next="gallery_gig" type="button">Save &amp; Continue</button>
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="requirements_gig" data-next="gallery_gig" type="button" disabled >Save &amp; Continue</button>
                                                 </section>
                                                 <button type="button" class="previous naked-button back co-green" data-label="requirements_gig" data-previous="descrip_gig">back</button>
                                              </div>
@@ -1197,7 +546,7 @@
                                                 </label>
                                              </div>
                                              <div class="question-textarea">
-                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="400" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
+                                                <div class="fit-textarea fit-textarea-has-counter"><textarea maxlength="{{characters.8.gig_requirements_ques}}" placeholder="Request necessary details such as dimensions, brand guidelines, and more."></textarea><span class="fit-counter fit-textarea-counter">0 / 400</span></div>
                                              </div>
                                              <label class="form-label">Get it in a form of:</label>
                                              <div class="type-select-row">
@@ -1223,7 +572,7 @@
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="sub-actions js-next-back">
                                                 <section class="btns mb-2">
-                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="gallery_gig" data-next="publish_gig" type="button">Save &amp; Continue</button>
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="gallery_gig" data-next="publish_gig" type="button" disabled >Save &amp; Continue</button>
                                                 </section>
                                                 <button type="button" class="previous naked-button back co-green" data-label="gallery_gig" data-previous="requirements_gig">back</button>
                                              </div>
@@ -1260,7 +609,7 @@
                                         <div class="col-lg-7 right_pan pt-4">
                                             <div class="sub-actions js-next-back">
                                                 <section class="btns mb-2">
-                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="publish_gig" data-next="last" type="button">Publish Gig</button>
+                                                   <button class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" data-label="publish_gig" data-next="last" type="button" >Publish Gig</button>
                                                 </section>
                                                 <button type="button" class="previous naked-button back co-green" data-label="publish_gig" data-previous="gallery_gig">back</button>
                                              </div>
@@ -1281,8 +630,13 @@
     </div>
  </div>
 {% include  'Dashboard/base_seller.html' %}
+<link rel="stylesheet" href="{% static 'assets/css/frontend/tokenize2.css' %}" type="text/css" />
+<script src="{% static 'assets/js/tokenize2.js' %}"></script>
 <style>
-
+   .tokenize > .tokens-container
+   {
+      text-align:left;
+   }
    .help_div
    {
       position: absolute;
@@ -1632,6 +986,13 @@
     height: 98%;
     border: 1px dashed rgb(218, 219, 221);
 }
+.required
+{
+   margin: 2%;
+   font-size: 12px;
+   color: red;
+   font-weight: 700;
+}
 .dropzone-body {
     text-align: center;
     font-size: 14px;
@@ -1953,7 +1314,7 @@ hr {
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
-    left: 10px;
+    left: 20px;
 }
 .custom-extras-container .custom-extra-row {
     position: relative;
@@ -1965,6 +1326,11 @@ hr {
 }
 .custom-extras-container .extra-values>li .for-additional, .custom-extras-container .extra-values>li .for-extra {
     margin-right: 10px;
+}
+.error
+{
+   font-size: 12px;
+   color: red;
 }
  .fit-input {
    height:35px;
@@ -2015,7 +1381,7 @@ hr {
 .custom-extras-container .extra-values>li .description-container .description-input .fit-input {
     height: 35px;
     text-indent: 30px;
-    width: 100%;
+    width: 97%;
 }
 .description-container .description-input .fit-input:focus
 {
@@ -2054,6 +1420,13 @@ hr {
     background: #fff;
     border-top: 1px solid #e4e5e7;
     font-size: 13px;
+}
+
+button:disabled,
+button[disabled]{
+  background-color: #2e5dc5d1;
+  cursor: not-allowed !important;
+  pointer-events: none;
 }
 .extra-factors .pf-row {
     -webkit-box-orient: horizontal!important;
@@ -2776,6 +2149,8 @@ hr {
         -o-transition: .15s ease-in-out;
         transition: .15s ease-in-out;
         color: white;
+        pointer-events: all;
+
     }
     .bg-co-green-700 {
         background-color: #2E5DC5;
@@ -2923,7 +2298,7 @@ hr {
         font-size: 1em;
         line-height: 1.2;
         cursor: text;
-        height: 100px;
+        height: 40px;
         text-align: left;
     }
     #create_gig
@@ -3062,6 +2437,7 @@ hr {
         font-weight: 700;
         border-radius: 4px;
     }
+
     .tab button:last-child{
         border-bottom: none;
     }
@@ -3071,6 +2447,12 @@ hr {
     .tab button.active {
         background-color: white;
     }
+    .co-white {
+         color: #fff;
+      }
+    .bg-co-blue-700 {
+      background-color: #2E5DC5;
+      }
 
     .tabcontent {
         float: left;
@@ -3147,6 +2529,35 @@ hr {
     background: none;
     border-color: currentColor;
 }
+ .fit-checkbox input:checked+.checkmark-box .check-icon {
+   -webkit-transform: none;
+   transform: none;
+   opacity: 1;
+}
+
+.fit-checkbox .checkmark-box .check-icon {
+   -webkit-transform: scale(.5);
+   transform: scale(.5);
+   -webkit-transform-origin: 50% 50%;
+   transform-origin: 50% 50%;
+   display: inline-block;
+   font-weight: inherit;
+   font-style: inherit;
+   opacity: 0;
+   pointer-events: none;
+   fill: #62646a;
+   -webkit-transition: .15s ease-in-out;
+   -o-transition: .15s ease-in-out;
+   transition: .15s ease-in-out;
+}
+.fit-icon {
+   display: inline-block;
+   background: none;
+   border: none;
+   padding: 0;
+   margin: 0;
+   fill: #222325;
+}
 .fit-button.fit-button-size-small {
     padding: 10px 16px;
     font-size: 14px;
@@ -3158,9 +2569,209 @@ hr {
 .faq-form button {
     margin-left: 20px;
 }
+.fit-input-inner-wrapper select{
+   width:100%;
+}
+.nonelist .extra-values
+{
+   width:25%;
+}
+.custom-extras-container .extra-values>li .description-container .description-input .fit-input:focus, .custom-extras-container .extra-values>li .description-container .description-input .fit-input:hover
+{
+   border: 1px solid #c5c6c9;
+}
+
+.try-triple-packages {
+   width: 50%;
+   position: absolute;
+   top: 25px;
+   right: 0%;
+   background-color: #fff;
+   opacity: .9;
+   height: calc(100% - 2px);
+   text-align: center;
+}
+
+
+.try-triple-packages>b {
+   padding-top: 120px;
+   margin: 16px 0;
+   width: 260px;
+   display: inline-block;
+   font-size: 20px;
+   font-weight: 500;
+}
+
+.try-triple-packages .try-btn-wrapper {
+   margin-bottom: 10px;
+}
+
+.try-triple-packages .learn-more-link {
+   font-size: 13px;
+   font-weight: 400;
+   color: #4a73e8;
+   cursor: pointer;
+}
+
+.naked-button {
+   vertical-align: baseline;
+   border: 0;
+   background: transparent;
+}
+.try-triple-packages .try-btn-wrapper {
+   margin-bottom: 10px;
+}
+
+.fit-button {
+   display: inline-block;
+   -webkit-box-sizing: border-box;
+   box-sizing: border-box;
+   position: relative;
+   padding: 12px 24px;
+   border: 1px solid transparent;
+   border-radius: 4px;
+   font-weight: 600;
+   font-size: 16px;
+   line-height: 100%;
+   text-decoration: none;
+   text-align: center;
+   cursor: pointer;
+   -webkit-transition: .15s ease-in-out;
+   -o-transition: .15s ease-in-out;
+   transition: .15s ease-in-out;
+}
+
+
+.fit-switch {
+   display: -webkit-box
+   display: -ms-flexbox;
+   display: flex;
+   margin-left: 8px;
+   margin-bottom: 0px;
+}
+.helptext_desc, .offers-left-tooltip
+{
+   font-size: 12px;
+   width: 150px;
+}
+.help_text_span
+{
+   color:red;
+}
+.checkbox_help
+{
+   bottom: 25px;
+}
+.main_head
+{
+   left: 15;
+   top: 5;
+   font-size: 18px;
+}
+.sub_head
+{
+   right: 10;
+   top: 5;
+   font-size: 16px;
+}
+.main_head .help_text_span, .sub_head .help_text_span
+{
+   color:#2E5DC5;
+}
+
+.error_help .help_text_span
+{
+   color:red;
+}
+
+.info_help .help_text_span
+{
+   color:black;
+}
+.error_help
+{
+   display:none;
+}
  </style>
  <script>
+   var tagobjects = []
+   var tokenele = '';
     $(document).ready(function(){
+      $("#extra_delivery").hide();
+      $("#extra_standard").hide();
+      $("#extra_premium").hide();
+      $(".error").hide();
+      $('#gig_subcategory').change(function() {
+         $.ajax({
+            type:"GET",
+            url: "/post_tags_category_details/",
+            data: {'userid': '{{request.user.id}}',"category_id":$("#gig_category").val().toString(),"sub_category_id":$(this).val().toString()},
+            success: function(data)
+            {  
+               tagobjects = data.tagsOPbj;
+               packageObj =  data.pckgObj;
+               e_packageObj =  data.extraPckgObj;
+               $("#gig_tags").empty();
+               $.each(tagobjects, function(i, v) {
+                  $("#gig_tags").append("<option value='"+v.value+"'>"+v.text+"</option>");
+               });
+               $("#tbl_packages tbody").empty();
+               $("#tbl_packages tbody").append('<tr> <td class="first-table-col"> <div class="help_div main_head"> <div class="helptext_desc">Give your package a catchy title, which describes what it includes.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </td> <td> <div class="pkg-title-container"> <textarea class="pkg-title-input" maxlength="'+$("#char_gig_package_title").val()+'"  onkeyup="tabtitleonchange(this)" placeholder="Name your package"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Give your package a catchy title, which describes what it includes.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-title-container"> <textarea class="pkg-title-input" maxlength="'+$("#char_gig_package_title").val()+'" onkeyup="tabtitleonchange(this)" placeholder="Name your package"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Give your package a catchy title, which describes what it includes.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-title-container"> <textarea class="pkg-title-input" maxlength="'+$("#char_gig_package_title").val()+'" onkeyup="tabtitleonchange(this)" placeholder="Name your package"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Give your package a catchy title, which describes what it includes.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> </tr>');
+               $("#tbl_packages tbody").append('<tr> <td class="first-table-col"> <div class="help_div main_head"> <div class="helptext_desc">Summarize what this package offers buyers, and why you included these items in your package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div>  </td> <td> <div class="pkg-description-container"> <textarea class="pkg-description-input" maxlength="'+$("#char_gig_package_description").val()+'" onkeyup="tabtitleonchange(this)" placeholder="Describe the details of your offering"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Summarize what this package offers buyers, and why you included these items in your package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-description-container"> <textarea class="pkg-description-input" maxlength="'+$("#char_gig_package_description").val()+'" onkeyup="tabtitleonchange(this)"  placeholder="Describe the details of your offering"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Summarize what this package offers buyers, and why you included these items in your package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></div> </td> <td> <div class="pkg-description-container"> <textarea class="pkg-description-input" maxlength="'+$("#char_gig_package_description").val()+'" onkeyup="tabtitleonchange(this)"  placeholder="Describe the details of your offering"></textarea> <span class="fit-icon icn-pencil" style="width: 12px; height: 12px; fill: rgb(197, 198, 201);"> <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"> <path d="M15.3628 2.30102L13.6796 0.618553C12.8553 -0.205791 11.521 -0.205916 10.6965 0.618522L0.778434 10.4718L0.0102775 15.1279C-0.0733163 15.6346 0.365528 16.0736 0.872371 15.99L5.52846 15.2218L15.3824 5.30374C16.2052 4.4809 16.2131 3.15127 15.3628 2.30102ZM6.26384 9.7364C6.39809 9.87065 6.57406 9.93774 6.75 9.93774C6.92593 9.93774 7.1019 9.87065 7.23615 9.7364L10.9558 6.01671L11.8486 6.90949L6.5625 12.2301V10.9377H5.0625V9.43774H3.77012L9.09072 4.15165L9.9835 5.04443L6.26381 8.76408C5.9954 9.03258 5.9954 9.4679 6.26384 9.7364ZM2.56662 14.3169L1.6834 13.4336L2.06278 11.1341L2.63778 10.5627H3.9375V12.0627H5.4375V13.3624L4.86618 13.9375L2.56662 14.3169ZM14.4099 4.33146L14.4083 4.33305L14.4067 4.33465L12.9058 5.8454L10.1548 3.09446L11.6656 1.59352L11.6672 1.59196L11.6687 1.5904C11.9546 1.30458 12.418 1.30105 12.7073 1.59037L14.3903 3.2733C14.699 3.58196 14.7009 4.04046 14.4099 4.33146Z"></path> </svg> </span> <div class="help_div error_help"> <div class="helptext_desc">Summarize what this package offers buyers, and why you included these items in your package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></div> </td> </tr>');
+               $("#tbl_packages tbody").append('<tr> <td class="first-table-col"> Delivery Time  <div class="help_div sub_head"> <div class="helptext_desc">Delivery Time is the amount of time you have to work on the package, starting from when a buyer places the order.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value=""> Delivery Time</option> {% for d_time in Delivery_Time %} <option value="{{d_time.parameter_value}}">{{d_time.parameter_value}}</option> {% endfor %} </select> </div> <div class="help_div error_help"> <div class="helptext_desc">Delivery Time is the amount of time you have to work on the package, starting from when a buyer places the order.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value=""> Delivery Time</option> {% for d_time in Delivery_Time %} <option value="{{d_time.parameter_value}}">{{d_time.parameter_value}}</option> {% endfor %} </select> </div>  <div class="help_div error_help"> <div class="helptext_desc">Delivery Time is the amount of time you have to work on the package, starting from when a buyer places the order.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value=""> Delivery Time</option> {% for d_time in Delivery_Time %} <option value="{{d_time.parameter_value}}">{{d_time.parameter_value}}</option> {% endfor %} </select> </div>  <div class="help_div error_help"> <div class="helptext_desc">Delivery Time is the amount of time you have to work on the package, starting from when a buyer places the order.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> </tr>');
+               $("#tbl_packages tbody").append('<tr> <td class="first-table-col"> Revisions <div class="help_div sub_head"> <div class="helptext_desc">The number of tweaks you offer in this package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value=""> Select</option> {% for rev in No_Revisions %} <option value="{{rev.parameter_value}}">{{rev.parameter_value}}</option> {% endfor %} </select> </div> <div class="help_div error_help"> <div class="helptext_desc">The number of tweaks you offer in this package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value=""> Select</option> {% for rev in No_Revisions %} <option value="{{rev.parameter_value}}">{{rev.parameter_value}}</option> {% endfor %} </select> </div> <div class="help_div error_help"> <div class="helptext_desc">The number of tweaks you offer in this package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> <td> <div class="pkg-duration-container"> <div class="fit-popover fit-popover-bottom-left fit-popover-clickable fit-select-wrapper" data-position="bottom-left"> <select> <option value="">Select</option> {% for rev in No_Revisions %} <option value="{{rev.parameter_value}}">{{rev.parameter_value}}</option> {% endfor %} </select> </div> <div class="help_div error_help"> <div class="helptext_desc">The number of tweaks you offer in this package.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> </tr> ');
+               $.each(packageObj, function(i, v) {
+                  if(v.package_type== "number")
+                  {
+                     $("#tbl_packages tbody").append('<tr> <td class="first-table-col" data-label-type="'+v.package_type+'"> '+v.package_name+'  <div class="help_div sub_head"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></td> <td> <div class="pf-item"> <div class="fit-input-wrapper pf-number fit-input-icon-start"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" value="0"> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </div> </div> </td> <td> <div class="pf-item"> <div class="fit-input-wrapper pf-number fit-input-icon-start"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" value=""> </div> </div> </div> </td> <td> <div class="pf-item"> <div class="fit-input-wrapper pf-number fit-input-icon-start"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" value=""> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </div> </div> </td> </tr>');
+                  }
+                  else if(v.package_type== "boolean")
+                  {
+                     $("#tbl_packages tbody").append('<tr> <td class="first-table-col" data-label-type="'+v.package_type+'"> '+v.package_name+' <div class="help_div sub_head"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </td> <td> <div class="pf-item"> <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square"> <input type="checkbox"> <span class="checkmark-box"> <span class="fit-icon check-icon" style="width: 10px; height: 10px;"> <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"> <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"> </path> </svg> </span>  </span> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </label> </div> </td> <td> <div class="pf-item"> <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square"> <input type="checkbox"> <span class="checkmark-box"> <span class="fit-icon check-icon" style="width: 10px; height: 10px;"> <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"> <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"> </path> </svg> </span> </span> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div>  </label>  </div> </td> <td> <div class="pf-item"> <label class="fit-checkbox checkbox-wrapper fit-checkbox-color-white fit-checkbox-shape-square"> <input type="checkbox"> <span class="checkmark-box"> <span class="fit-icon check-icon" style="width: 10px; height: 10px;"> <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"> <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"> </path> </svg> </span> </span> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div>  </label> <div class="help_div error_help"> <div class="helptext_desc">'+v.helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </td> </tr>');
+                  }
+               });
+               $("#tbl_packages tbody").append('<tr class="pricing_row"> <td class="first-table-col" > Price <div class="help_div sub_head"> <div class="helptext_desc">Set package prices so that the prices are between $5 and $10,000.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div>  </td> <td class="pkg-price-cell"> <div class="pkg-price-container"> <div class="fit-input-wrapper price-input fit-input-has-icon"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" step="5" min="5" max="10000" value=""> <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$ </span> <div class="help_div error_help"> <div class="helptext_desc">Set package prices so that the prices are between $5 and $10,000.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></div> </div> </div> </td> <td class="pkg-price-cell"> <div class="pkg-price-container"> <div class="fit-input-wrapper price-input fit-input-has-icon"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" step="5" min="5" max="10000" value=""> <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$ </span><div class="help_div error_help"> <div class="helptext_desc">Set package prices so that the prices are between $5 and $10,000.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </div> </div> </td> <td class="pkg-price-cell"> <div class="pkg-price-container"> <div class="fit-input-wrapper price-input fit-input-has-icon"> <div class="fit-input-inner-wrapper"> <input class="fit-input" type="number" step="5" min="5" max="10000" value=""> <span class="fit-icon fit-input-icon" style="width: 14px; height: 14px;">$ </span> <div class="help_div error_help"> <div class="helptext_desc">Set package prices so that the prices are between $5 and $10,000.</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </div> </div> </div> </td> </tr>');
+               $("#extra_addOn").empty();
+               $.each(e_packageObj, function(i, v) {
+                  if(v.e_package_type == "number")
+                  {
+                     $("#extra_addOn").append('<li class="pf-container" data-label-type="'+v.e_package_type+'"> <ul> <li class="pf-row"> <div class="factor-title"> <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square"> <input type="checkbox" class="add_on_click" onchange="add_on_click(this);" > <span class="checkmark-box"> <span class="fit-icon check-icon" style="width: 10px; height: 10px;"> <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"> <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path> </svg> </span> </span> '+ v.e_package_name +' </label> </div> <div class="extra-values m-r-28" style="display:none;"> <span class="for-extra">for an extra</span> <div class="fit-input-wrapper price-stepper fit-input-icon-start"> <div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value="0"></div> </div> <span class="for-extra">$</span><span class="for-additional">and additional</span> <select> <option value="">Select</option>  {% for e_days in Extra_Days %}<option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>{% endfor %}</select> </div> </li> </ul> <div class="help_div sub_head"> <div class="helptext_desc">'+v.e_helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </li>');
+                  }
+                  else if(v.e_package_type== "extra_time")
+                  {
+                     $("#extra_addOn").append('<li class="pf-container" data-label-type="'+v.e_package_type+'"> <ul> <li class="pf-row"> <div class="factor-title"> <label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square"> <input type="checkbox" class="add_on_click" onchange="add_on_click(this);"> <span class="checkmark-box"> <span class="fit-icon check-icon" style="width: 10px; height: 10px;"> <svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"> <path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path> </svg> </span> </span> '+ v.e_package_name +' </label> </div> <div class="extra-values m-r-28" style="display:none;"> <span class="for-extra">for an extra</span> <div class="fit-input-wrapper price-stepper fit-input-icon-start"> <div class="fit-input-inner-wrapper"> <select class="fit-input"> <option value="">Select</option>  {% for e_time in Extra_Time %}<option value="{{e_time.parameter_value}}">{{e_time.parameter_value}}</option>{% endfor %}</select></div> </div> <span class="for-extra">$</span><span class="for-additional">and additional</span> <select> <option value="">Select</option>  {% for e_days in Extra_Days %}<option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>{% endfor %}</select> </div> </li> </ul><div class="help_div sub_head"> <div class="helptext_desc">'+v.e_helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div> </li>');
+                  }
+                  else if(v.e_package_type== "none")
+                  {
+                     $("#extra_addOn").append('<li class="pf-container nonelist" data-label-type="'+v.e_package_type+'"><ul><li class="pf-row"><div class="factor-title"><label class="fit-checkbox fit-checkbox-color-white fit-checkbox-shape-square"><input type="checkbox" class="add_on_click" onchange="add_on_click(this);"><span class="checkmark-box"><span class="fit-icon check-icon" style="width: 10px; height: 10px;"><svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"><path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path></svg></span></span>'+ v.e_package_name +'</label></div><div class="extra-values m-r-4" style="display:none;"><span class="for-extra">for an extra</span><div class="fit-input-wrapper price-stepper fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5" min="5" max="1000" value="0"></div></div><span class="for-extra">$</span></div></li></ul> <div class="help_div sub_head"> <div class="helptext_desc">'+v.e_helper_txt+'</div> <span class="help_text_span" onmouseover="helptextOnhover(this)" onmouseout="helptextOnhover(this)"><i class="fa fa-question-circle" aria-hidden="true"></i></span> </div></li>');
+                  }
+               });
+               $('#gig_tags').tokenize2({
+                  tokensMaxItems: 5,
+                  tokensAllowCustom:true,
+               });
+               $('#gig_tags').on("tokenize:tokens:add", function (event, value, text){             
+                  if($("#gig_title_error").text() != "valid")
+                  {
+                     $('#btn_gig_title').attr("disabled",true);
+                  }
+                  else{
+                     $('#btn_gig_title').attr("disabled",false);
+                  }
+               });
+               $('#gig_tags').on("tokenize:tokens:remove", function (event, value, text){
+                  if($("#gig_title_error").text() != "valid")
+                  {
+                     $('#btn_gig_title').attr("disabled",true);
+                  }
+                  elif($('#textarea_iwill').val().length == 0)
+                  {
+                     $('#btn_gig_title').attr("disabled",true);
+                  }
+               });
+            }       
+         });
+      });
       $("#description_gig").summernote({
         placeholder: "Write your content here",
         height: 200,
@@ -3197,7 +2808,137 @@ hr {
         $(".next").click(function(){
             current_fs = $(this).attr("data-label");
             next_fs =  $(this).attr("data-next"); 
-            if(next_fs != "last")
+            if(current_fs == "pricing_gig")
+            {
+               no_columns = 0;
+               if($("#offer_pckge_switch").is(':checked'))
+               {
+                  no_columns = "3";
+               }
+               else{
+                  no_columns = "1";
+               }
+               var validmessage = [];
+               if(no_columns == 1)
+               {
+                  $("#tbl_packages tbody tr").each(function (i, v) {
+                     $('td', this).each(function(j, vv) {
+                        if(j == 1)
+                        {
+                           ele_event = $(this).find("input, textarea, select");
+                           if(ele_event.get(0).tagName == "TEXTAREA" || ele_event.get(0).tagName == "SELECT")
+                           {
+                              if(ele_event.val().trim().length == 0)
+                              {
+                                 helperdiv = $(this).find(".help_div");
+                                 $(helperdiv).show();
+                                 $(helperdiv).removeClass("info_help").addClass("error_help");
+                                 $(helperdiv).find(".helptext_desc").text('This field is required.');
+                                 validmessage.push("false");
+                              }
+                              else{
+                                 helperdiv = $(this).find(".help_div");
+                                 $(helperdiv).hide();
+                                 $(helperdiv).find(".helptext_desc").text('valid');
+                                 validmessage.push("true");
+                              }
+                           }
+                           else if(ele_event.get(0).tagName == "INPUT")
+                           {
+                             if(($("#tbl_packages tbody tr").length-1) == i)
+                             {
+                                 if(ele_event.val().trim().length == 0)
+                                 {
+                                    helperdiv = $(this).find(".help_div");
+                                    $(helperdiv).show();
+                                    $(helperdiv).removeClass("info_help").addClass("error_help");
+                                    $(helperdiv).find(".helptext_desc").text('This field is required.');
+                                    validmessage.push("false");
+                                 }
+                                 else{
+                                    helperdiv = $(this).find(".help_div");
+                                    $(helperdiv).hide();
+                                    $(helperdiv).find(".helptext_desc").text('valid');
+                                    validmessage.push("true");
+                                 }
+                             }
+                           } 
+                        }
+                     });
+                  });
+               }
+               else if(no_columns == 3)
+               {
+                  $("#tbl_packages tbody tr").each(function (i, v) {
+                     $('td', this).each(function(j, vv) {
+                        if(j != 0)
+                        {
+                           ele_event = $(this).find("input, textarea, select");
+                           if(ele_event.get(0).tagName == "TEXTAREA" || ele_event.get(0).tagName == "SELECT")
+                           {
+                              if(ele_event.val().trim().length == 0)
+                              {
+                                 helperdiv = $(this).find(".help_div");
+                                 $(helperdiv).show();
+                                 $(helperdiv).removeClass("info_help").addClass("error_help");
+                                 $(helperdiv).find(".helptext_desc").text('This field is required.');
+                                 validmessage.push("false");
+                              }
+                              else{
+                                 helperdiv = $(this).find(".help_div");
+                                 $(helperdiv).hide();
+                                 $(helperdiv).find(".helptext_desc").text('valid');
+                                 validmessage.push("true");
+                              }
+                           }
+                           else if(ele_event.get(0).tagName == "INPUT")
+                           {
+                              if(($("#tbl_packages tbody tr").length-1) == i)
+                              {
+                                 if(ele_event.val().trim().length == 0)
+                                 {
+                                    helperdiv = $(this).find(".help_div");
+                                    $(helperdiv).show();
+                                    $(helperdiv).removeClass("info_help").addClass("error_help");
+                                    $(helperdiv).find(".helptext_desc").text('Please enter an price.');
+                                    validmessage.push("false");
+                                 }
+                                 else{
+                                    helperdiv = $(this).find(".help_div");
+                                    $(helperdiv).hide();
+                                    $(helperdiv).find(".helptext_desc").text('valid');
+                                    validmessage.push("true");
+                                 }
+                              }
+                           } 
+                        }
+                     });
+                  });
+               }
+
+
+               if(validmessage.every( (val, i, arr) => val === arr[0] ) == true && validmessage[0]=='true')
+               {
+                  $("#progressbar li").eq($("#"+next_fs).index() -1).addClass("active");
+                  $("#progressbar li").eq($("#"+current_fs).index() -1).removeClass("active")
+                  $("#"+next_fs).show(); 
+                  $("#"+current_fs).animate({opacity: 0}, {
+                     step: function(now) {
+                     opacity = 1 - now;
+                     $("#"+current_fs).css({
+                        'display': 'none',
+                        'position': 'relative'
+                     });
+                     $("#"+next_fs).css({'opacity': opacity});
+                     }, 
+                     duration: 600
+                  });   
+               }
+               else{
+                  console.log("not valid");
+               }
+            }
+            else if(next_fs != "last" && current_fs != "pricing_gig")
             {
                $("#progressbar li").eq($("#"+next_fs).index() -1).addClass("active");
                $("#progressbar li").eq($("#"+current_fs).index() -1).removeClass("active")
@@ -3214,17 +2955,28 @@ hr {
                duration: 600
             });
          }
-         else{
+         else if(next_fs == "last")
+         {
             console.log("publish")
          }
     });
-
     $('.help_text_span').hover(function (e) {
       $(this).parent().find(".helptext_desc").css({
             left: e.offsetX + 10,
             top: e.offsetY + 10
       }).toggle();
    });
+   $('#textarea_iwill').keyup(function() { 
+      var thisChars = this.value.replace(/{.*}/g, '').length; 
+      var maxlength = $(this).attr("maxlength");
+      if(thisChars > maxlength) 
+      {
+         var CharsToDel = (thisChars-maxlength); 
+         this.value = this.value.substring(0,this.value.length-CharsToDel); 
+      }else{
+         $(".gig_title_count").text( maxlength - thisChars + " /"+maxlength  +" max" ); 
+      }
+   }); 
 });
 function openTab(evt) {
     cityName= $(evt).attr("data-label");
@@ -3257,5 +3009,147 @@ function openTab(evt) {
     }
 }
 
+const substrs = ['i will', 'for $5', 'I'];
+function checkIfStringStartsWith(str, substrs) {
+  return substrs.some(substr => str.startsWith(substr));
+}
+
+
+function add_on_click(ev)
+{
+   parentdiv = $(ev).parent().parent().parent();
+   $(parentdiv).find(".extra-values").toggle();
+}
+function textarea_iwillonchange(ev)
+{
+  var validation = checkIfStringStartsWith(ev.value.toString().toLowerCase(), substrs);
+  if(validation == false)
+  {
+      num_of_words = ev.value.toString().split(" ");
+      num_of_words = num_of_words.filter(item => item);
+      if(num_of_words.length > 3)
+      {
+         $("#gig_title_error").hide();
+         $("#gig_title_error").text("valid");
+         if($("#gig_tags").val().length > 0)
+         {
+            $('#btn_gig_title').attr("disabled",false);
+         }
+         else{
+            $('#btn_gig_title').attr("disabled",true);
+         }
+      }
+      else{
+         $("#gig_title_error").show();
+         $("#gig_title_error").text("Your title should have at least 4 words");
+      }
+  }
+  else{
+      $("#gig_title_error").show();
+      $("#gig_title_error").text("Title can not contain 'I will' or 'for $5'. Title may not contain 'I' at the beginning.");
+  }
+}
+function gig_categoryOnchange(ev)
+{
+   $.ajax({
+      type:"GET",
+      url: "/post_sub_category_details/",
+      data: {'userid': '{{request.user.id}}',"select_id":ev.value.toString()},
+      success: function(data)
+      {  
+         $("#gig_subcategory").empty();
+         $("#gig_subcategory").append("<option value=''>Select Sub Category</option>");
+         $.each(data, function(i, v) {
+            $("#gig_subcategory").append("<option value='"+v.cat_id+"'>"+v.cat_name+"</option>");
+         });
+      }       
+   });
+}
+function exta_deliveryOnchage(ev)
+{
+   $("#extra_delivery").toggle();
+}
+
+
+function createpckgclick(ev)
+{
+   $("#offer_pckge_switch").prop('checked', true);
+   $(".try-triple-packages").hide();
+   $("#extra_standard").show();
+   $("#extra_premium").show();
+}
+function offer_pckge_switchOnchange(ev)
+{
+   $(".try-triple-packages").toggle();
+   $("#extra_standard").show();
+   $("#extra_premium").show();
+}
+function helptextOnhover(ev)
+{
+   parentdiv= $(ev).parent();
+   $(parentdiv).find('.helptext_desc').css({
+  }).toggle();
+}
+
+function add_gigonclick(ev)
+{
+   gig_length = $("#extra_gig_container li.custom-extra-row").length;
+   if(gig_length == 0)
+   {
+      $("#extra_gig_container").append('<li class="custom-extra-row"><ul class="extra-values"><li><label class="fit-checkbox extra-active fit-checkbox-color-white fit-checkbox-shape-square"><input type="checkbox" checked=""><span class="checkmark-box"><span class="fit-icon check-icon" style="width: 10px; height: 10px;"><svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"><path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path></svg></span></span></label><span class="attr">Title</span><div class="fit-input-wrapper title-input fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input inp_extra_title" type="text" onkeyup="extratitleonchange(this)" required placeholder="Title your extra service" maxlength="'+$("#char_gig_extra_title").val()+'" minlength="3" value=""></div></div><i>0 / '+$("#char_gig_extra_title").val()+' max</i></li><li><span class="attr">Description</span><div class="description-container"><span class="i-will">I will</span><div class="fit-input-wrapper description-input fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input inp_extra_description"  type="text"  maxlength="'+$("#char_gig_extra_description").val()+'" onkeyup="extradesonchange(this)" required placeholder="describe your offering" value=""></div></div></div> <i>0 / '+$("#char_gig_extra_description").val()+' max</i></li><li><span class="attr for-extra">For an extra</span><div class="fit-input-wrapper price-stepper fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5"  value=""></div></div><span class="for-extra">$</span><span class="for-additional">and an additional</span> <select> <option value="">Select</option>  {% for e_days in Extra_Days %}<option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>{% endfor %}</select></li></ul></li>');
+   }
+   else if(gig_length == 1)
+   {
+      $("#extra_gig_container").append('<li class="custom-extra-row"><ul class="extra-values"><li><label class="fit-checkbox extra-active fit-checkbox-color-white fit-checkbox-shape-square"><input type="checkbox" checked=""><span class="checkmark-box"><span class="fit-icon check-icon" style="width: 10px; height: 10px;"><svg width="11" height="9" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg"><path d="M3.64489 8.10164L0.158292 4.61504C-0.0511769 4.40557 -0.0511769 4.06594 0.158292 3.85645L0.916858 3.09786C1.12633 2.88837 1.46598 2.88837 1.67545 3.09786L4.02419 5.44658L9.05493 0.41586C9.2644 0.206391 9.60405 0.206391 9.81352 0.41586L10.5721 1.17445C10.7816 1.38392 10.7816 1.72355 10.5721 1.93303L4.40348 8.10166C4.19399 8.31113 3.85436 8.31113 3.64489 8.10164V8.10164Z"></path></svg></span></span></label><span class="attr">Title</span><div class="fit-input-wrapper title-input fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input inp_extra_title" type="text" onkeyup="extratitleonchange(this)" required placeholder="Title your extra service" maxlength="'+$("#char_gig_extra_title").val()+'" minlength="3" value=""></div></div><i>0 / '+$("#char_gig_extra_title").val()+' max</i></li><li><span class="attr">Description</span><div class="description-container"><span class="i-will">I will</span><div class="fit-input-wrapper description-input fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input inp_extra_description" type="text"  maxlength="'+$("#char_gig_extra_description").val()+'" onkeyup="extradesonchange(this)" required placeholder="describe your offering" value=""></div></div></div> <i>0 / '+$("#char_gig_extra_description").val()+' max</i></li><li><span class="attr for-extra">For an extra</span><div class="fit-input-wrapper price-stepper fit-input-icon-start"><div class="fit-input-inner-wrapper"><input class="fit-input" type="number" step="5"  value=""></div></div><span class="for-extra">$</span><span class="for-additional">and an additional</span> <select> <option value="">Select</option>  {% for e_days in Extra_Days %}<option value="{{e_days.parameter_value}}">{{e_days.parameter_value}}</option>{% endfor %}</select></li></ul></li>');
+      $("#add_container_btn").hide();
+   }
+}
+function tabtitleonchange(ev)
+{
+   var thisChars = ev.value.replace(/{.*}/g, '').length; 
+   var maxlength = $(ev).attr("maxlength");
+   if(thisChars > maxlength) 
+   {
+      var CharsToDel = (thisChars-maxlength); 
+      this.value = this.value.substring(0,this.value.length-CharsToDel); 
+   }else{
+      parentdiv = $(ev).parent();
+      helperdiv = $(parentdiv).find(".help_div");
+      $(helperdiv).show();
+      $(helperdiv).removeClass("error_help").addClass("info_help");
+      $(helperdiv).find(".helptext_desc").text((maxlength - thisChars) + " /"+maxlength  +" max. You can use maximum "+ maxlength + " characters." );
+   }
+}
+
+
+function extratitleonchange(ev)
+{
+   var thisChars = ev.value.replace(/{.*}/g, '').length; 
+   var maxlength = $(ev).attr("maxlength");
+   if(thisChars > maxlength) 
+   {
+      var CharsToDel = (thisChars-maxlength); 
+      this.value = this.value.substring(0,this.value.length-CharsToDel); 
+   }else{
+      parentdiv = $(ev).parent().parent().parent();
+      helperdiv = $(parentdiv).find("i");
+      $(helperdiv).text((maxlength - thisChars) + " /"+maxlength  +" max" );
+   }
+}
+
+function extradesonchange(ev)
+{
+   var thisChars = ev.value.replace(/{.*}/g, '').length; 
+   var maxlength = $(ev).attr("maxlength");
+   if(thisChars > maxlength) 
+   {
+      var CharsToDel = (thisChars-maxlength); 
+      this.value = this.value.substring(0,this.value.length-CharsToDel); 
+   }else{
+      parentdiv = $(ev).parent().parent().parent().parent();
+      helperdiv = $(parentdiv).find("i");
+      $(helperdiv).text((maxlength - thisChars) + " /"+maxlength  +" max" );
+   }
+}
 </script>
 {% endblock %}

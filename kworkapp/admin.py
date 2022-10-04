@@ -97,7 +97,7 @@ class AdminLearnTopics(admin.ModelAdmin):
 admin.site.register(LearnTopics, AdminLearnTopics)
 
 class AdminCategory_package_Details(admin.ModelAdmin):
-    list_display = ['category_name','display_name','display_type']
+    list_display = ['category_name','helper_txt','display_name','display_type']
 
 admin.site.register(Category_package_Details, AdminCategory_package_Details)
 
@@ -107,7 +107,7 @@ class AdminParameter(admin.ModelAdmin):
 admin.site.register(Parameter, AdminParameter)
 
 class AdminCategory_package_Extra_Service(admin.ModelAdmin):
-    list_display = ['category_name','display_name','display_type']
+    list_display = ['category_name','helper_txt','display_name','display_type']
 
 admin.site.register(Category_package_Extra_Service, AdminCategory_package_Extra_Service)
 

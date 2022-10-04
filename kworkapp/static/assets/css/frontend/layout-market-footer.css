@@ -990,8 +990,8 @@
 
 .mobile-menu__sublist .mobile-menu__link:active .submenu-item__mark,
 .mobile-menu__sublist .mobile-menu__link:hover .submenu-item__mark {
-    border-color: #3bd640;
-    color: #3bd640
+    border-color: white;
+    color: white;
 }
 
 .mobile-menu__sublist .mobile-menu__link-back {

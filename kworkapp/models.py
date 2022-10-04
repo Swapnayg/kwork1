@@ -23,7 +23,7 @@ class MytypeField(models.Field):
         return 'timestamp'
 
 class SellerLevels(models.Model):
-    BOOL_CHOICES =[('level1', 'Level One'),('level2', 'Level Two')]
+    BOOL_CHOICES =[('level1', 'New or higher'),('level2', 'Advanced or higher'),('level3', 'Professional')]
     level_name =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
     No_of_gigs = models.CharField(max_length=200,blank=True,default="0",null=True)
     
@@ -70,7 +70,7 @@ class UserManager(BaseUserManager):
 
 class User(AbstractBaseUser):
     BOOL_CHOICES =[('Buyer', 'Buyer'),('Seller', 'Seller')]
-    BOOL_CHOICES_Levels =[('level1', 'Level One'),('level2', 'Level Two'),('top_rated', 'Top Rated Seller')]
+    BOOL_CHOICES_Levels =[('level1', 'New or higher'),('level2', 'Advanced or higher'),('level3', 'Professional')]
     email = models.EmailField(max_length=255, unique=True,default="",blank=True,null=True)
     username = models.CharField(max_length=150, unique=False,default="",blank=True,null=True)
     first_name = models.CharField(max_length=250,blank=True,default="",null=True)
@@ -80,6 +80,8 @@ class User(AbstractBaseUser):
     avatar = models.CharField(max_length=500, blank=True,default="",null=True)
     avg_respons = models.CharField(max_length=500, blank=True,default="",null=True)
     last_delivery = models.CharField(max_length=500, blank=True,default="",null=True)
+    ordersin_progress = models.CharField(max_length=500, blank=True,default="",null=True)
+    avg_delivery_time = models.CharField(max_length=500, blank=True,default="",null=True)
     seller_level =  models.CharField(max_length=200,choices=BOOL_CHOICES_Levels,blank=True,default="level1",null=True)
     profile_type = models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="",null=True)
     is_admin = models.BooleanField(default=False)
@@ -388,6 +390,7 @@ class Category_package_Details(models.Model):
     BOOL_CHOICES =[('number', 'Number'),('boolean', 'Boolean')]
     category_name = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
     display_name = models.CharField(max_length=1000,blank=True,default="",null=True)
+    helper_txt = models.CharField(max_length=1000,blank=True,default="",null=True)
     display_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
     
     class Meta:
@@ -410,9 +413,10 @@ class Parameter(models.Model):
         return str(self.parameter_value)
     
 class Category_package_Extra_Service(models.Model):
-    BOOL_CHOICES =[('number', 'Number'),('boolean', 'Boolean'),('textbox', 'TextArea'),('extra_days', 'Extra Days'),('extra_time', 'Extra Time'),('non', 'None')]
+    BOOL_CHOICES =[('number', 'Number'),('extra_time', 'Extra Time'),('none', 'None')]
     category_name = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
     display_name = models.CharField(max_length=1000,blank=True,default="",null=True)
+    helper_txt = models.CharField(max_length=1000,blank=True,default="",null=True)
     display_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
     
     class Meta:
@@ -426,10 +430,10 @@ class Category_package_Extra_Service(models.Model):
 class UserGigs(models.Model):
     BOOL_CHOICES_STATUS =[('active', 'Active'),('pending', 'Pending'),('modification', 'Modification'),('draft', 'Draft'),('denied', 'Denied'),('paused', 'Paused')]
     gig_title =   models.CharField(max_length=1000,blank=True,default="",null=True)
-    gig_category = models.ForeignKey(Categories, on_delete=models.CASCADE,null=False,blank=False)
-    gig_sub_category = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=False,blank=False)
+    gig_category = models.ForeignKey(Categories, on_delete=models.CASCADE,null=True,blank=True)
+    gig_sub_category = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=True,blank=True)
     gig_description = models.TextField(blank=True,default="",null=True)
-    gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,blank=True,null=True)
+    gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,default="",blank=True,null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
         verbose_name = _("Gig Details")
@@ -457,8 +461,8 @@ class UserGigPackages(models.Model):
     package_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
     package_title = models.CharField(max_length=500,blank=True,default="",null=True)
     package_description = models.TextField(blank=True,default="",null=True)
-    package_delivery =  models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
-    package_revisions =  models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
+    package_delivery =  models.ForeignKey(Parameter, on_delete=models.CASCADE,related_name="package_delivery",null=False,blank=False)
+    package_revisions =  models.ForeignKey(Parameter, on_delete=models.CASCADE,related_name="package_revisions",null=False,blank=False)
     package_data =  models.TextField(blank=True,default="",null=True)
     package_price = models.CharField(max_length=300,blank=True,default="",null=True)
     package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)

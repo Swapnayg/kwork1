@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories, CharacterLimit, Languages,UserProfileDetails,UserLanguages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User, supportTopic,supportMapping,Contactus
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -35,16 +35,26 @@ class menu_pageView(View):
         sub_category = SubCategories.objects.filter(category_Name=category_details)
         return render(request , 'menu_page.html',{"details":category_details,"sub_details":sub_category})
 
+
 class all_gigs_pageView(View):
     return_url = None
     def get(self , request,category='',subcategry='',topic=''):
         tagslist= []
-        category_details = Categories.objects.get(category_Name=category)
-        sub_categoryd = SubCategories.objects.get(category_Name=category_details,sub_category_Name=subcategry)
-        sub_sub_category = SubSubCategories.objects.filter(category_Name=category_details,sub_category_Name=sub_categoryd)
-        for sub in sub_sub_category:
-            for sub_cat in sub.tags.all():
-                tagslist.append(sub_cat.name.strip())
+        sub_sub_category = []
+        if(len(subcategry)== 0):
+            category_details = Categories.objects.get(category_Name=category)
+            sub_categoryd = SubCategories.objects.get(category_Name=category_details,sub_category_Name=topic)
+            sub_sub_category = SubSubCategories.objects.filter(category_Name=category_details,sub_category_Name=sub_categoryd)
+            for sub in sub_sub_category:
+                for sub_cat in sub.tags.all():
+                    tagslist.append(sub_cat.name.strip())
+        else:
+            category_details = Categories.objects.get(category_Name=category)
+            sub_categoryd = SubCategories.objects.get(category_Name=category_details,sub_category_Name=subcategry)
+            sub_sub_category = SubSubCategories.objects.filter(category_Name=category_details,sub_category_Name=sub_categoryd)
+            for sub in sub_sub_category:
+                for sub_cat in sub.tags.all():
+                    tagslist.append(sub_cat.name.strip())
         return render(request , 'gigs_page.html',{"details":category_details,"sub_details":sub_categoryd,"sub_topics":sub_sub_category,"tagslist":tagslist})
 
 class aboutView(View):
@@ -172,7 +182,7 @@ class login_view(View):
 class profile_view(View):
     return_url = None
     def get(self , request,username=''):
-        try:    
+        try: 
             userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
             languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
             userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
@@ -261,11 +271,43 @@ class favourites_view(View):
 
 class create_gig_view(View):
     return_url = None
-    def get(self , request,username=''):
+    def get(self , request,username='',gigid=0):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try:    
+            try:  
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
-                return render(request , 'Dashboard/create_gig.html',{"gig_id":1})
+                characters = []
+                charcterlimits = CharacterLimit.objects.filter(Q(Char_category_Name="gig_title") | Q(Char_category_Name= "gig_package_title") | Q(Char_category_Name= "gig_package_description")  | Q(Char_category_Name= "gig_extra_title") | Q(Char_category_Name= "gig_extra_description")  | Q(Char_category_Name= "gig_description")  | Q(Char_category_Name= "gig_faq_question")  | Q(Char_category_Name= "gig_faq_answer")  | Q(Char_category_Name= "gig_requirements_ques") | Q(Char_category_Name= "gig_requirements_ans"))
+                for c in charcterlimits:
+                    if(c.Char_category_Name == "gig_title"):
+                        characters.append({"gig_title":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_package_title"):
+                        characters.append({"gig_package_title":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_package_description"):
+                        characters.append({"gig_package_description":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_extra_description"):
+                        characters.append({"gig_extra_description":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_extra_title"):
+                        characters.append({"gig_extra_title":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_description"):
+                        characters.append({"gig_description":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_faq_question"):
+                        characters.append({"gig_faq_question":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_faq_answer"):
+                        characters.append({"gig_faq_answer":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_requirements_ques"):
+                        characters.append({"gig_requirements_ques":c.Max_No_of_char_allowed})
+                    elif(c.Char_category_Name == "gig_requirements_ans"):
+                        characters.append({"gig_requirements_ans":c.Max_No_of_char_allowed})
+                    categorieslist = Categories.objects.all() 
+                    delivery_time = []      
+                    no_revisions = []   
+                    extra_days = [] 
+                    extra_time = []
+                    delivery_time = Parameter.objects.filter(Q(parameter_name="delivery_time"))
+                    no_revisions = Parameter.objects.filter(Q(parameter_name="no_revisions"))
+                    extra_days = Parameter.objects.filter(Q(parameter_name="extra_days"))
+                    extra_time = Parameter.objects.filter(Q(parameter_name="extra_time"))
+                return render(request , 'Dashboard/create_gig.html',{"characters":characters,"category":categorieslist,"Delivery_Time":delivery_time,"No_Revisions":no_revisions,"Extra_Days":extra_days,"Extra_Time":extra_time})
             except:
                 return render(request , 'register.html')
         else:
@@ -317,7 +359,7 @@ class account_settings_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try:    
+            try:  
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
                 languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
                 userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
@@ -837,6 +879,67 @@ def post_user_overview_view(request):
         userprofile.profess_overview = uoverview
         userprofile.save()
     return HttpResponse("success")
+
+
+
+def post_create_gig_view(request):
+    if request.method == 'GET':
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:    
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                numberof_gigs = SellerLevels.objects.get(level_name=str(userDetails.seller_level))
+                gigs_used = 0
+                gig_id = 0
+                if(UserGigs.objects.filter(user_id=userDetails).exists() == True):
+                    gigs_used = UserGigs.objects.filter(user_id=userDetails).count()
+                if(gigs_used == int(numberof_gigs.No_of_gigs)):
+                    gig_id = 0
+                else:
+                    user_gig_obj = UserGigs(user_id=userDetails)
+                    user_gig_obj.save()
+                    gig_id = int(user_gig_obj.pk)
+                return HttpResponse(gig_id)
+            except:
+                return HttpResponse('error')
+        else:
+            return HttpResponse('error')
+        
+        
+def post_sub_category_details_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        select_id = request.GET['select_id']
+        userDetails = User.objects.get(pk=userid)
+        sub_subcatDetails = []
+        category_inst = Categories.objects.get(id=select_id)
+        _subcatDetails = SubSubCategories.objects.filter(category_Name= category_inst)
+        for subcat in _subcatDetails:
+            sub_subcatDetails.append({"cat_name":subcat.sub_sub_category_Name,"cat_id":subcat.id})
+        return JsonResponse(sub_subcatDetails,safe=False)
+
+
+
+def post_tags_category_details_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        category_id = request.GET['category_id']
+        sub_category_id = request.GET['sub_category_id']
+        userDetails = User.objects.get(pk=userid)
+        taglist = []
+        sub_category_inst = SubSubCategories.objects.get(id=sub_category_id)
+        for tag in sub_category_inst.tags.all():
+            taglist.append({"text":tag.name,"value":tag.name})
+        category_packages = []
+        extra_category_packages = []
+        package_inst = Category_package_Details.objects.filter(category_name=sub_category_inst)
+        for pckg in package_inst:
+            category_packages.append({"package_name":pckg.display_name,"package_type":pckg.display_type,"helper_txt":pckg.helper_txt})
+        extra_package_inst = Category_package_Extra_Service.objects.filter(category_name=sub_category_inst)
+        for extra_pckg in extra_package_inst:
+            extra_category_packages.append({"e_package_name":extra_pckg.display_name,"e_package_type":extra_pckg.display_type,"e_helper_txt":extra_pckg.helper_txt})
+        responseData = {'tagsOPbj':taglist,'pckgObj':category_packages,'extraPckgObj':extra_category_packages}
+        return JsonResponse(responseData,safe=False)
+
 
 
 
