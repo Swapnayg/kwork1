@@ -433,7 +433,7 @@ class UserGigs(models.Model):
     gig_category = models.ForeignKey(Categories, on_delete=models.CASCADE,null=True,blank=True)
     gig_sub_category = models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,null=True,blank=True)
     gig_description = models.TextField(blank=True,default="",null=True)
-    gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,default="",blank=True,null=True)
+    gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,default="draft",blank=True,null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
         verbose_name = _("Gig Details")
@@ -474,7 +474,22 @@ class UserGigPackages(models.Model):
     def __str__(self):
         return str(self.package_title)
     
-    
+
+class UserGig_Extra_Delivery(models.Model):
+    BOOL_CHOICES =[('basic', 'Basic'),('standard', 'Standard'),('enterprise', 'Enterprise')]
+    package_type =   models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    delivery_in = models.ForeignKey(Parameter, on_delete=models.CASCADE,null=False,blank=False)
+    extra_price =  models.CharField(max_length=500,blank=True,default="",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    class Meta:
+        verbose_name = _("Gig Extra Delivery")
+        verbose_name_plural = _("Gig Extra Delivery")
+
+    def __str__(self):
+        return str(self.user_id)
+
+ 
 class UserGigPackage_Extra(models.Model):
     package_data =  models.TextField(blank=True,default="",null=True)
     package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)

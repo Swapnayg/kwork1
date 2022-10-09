@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -180,6 +180,12 @@ class AdminUserGigPackage_Extra(admin.ModelAdmin):
     list_display = ['package_data','package_gig_name','user_id']
 
 admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
+
+
+class AdminUserGig_Extra_Delivery(admin.ModelAdmin):
+    list_display = ['package_type','delivery_in','extra_price','package_gig_name','user_id']
+
+admin.site.register(UserGig_Extra_Delivery, AdminUserGig_Extra_Delivery)
 
 
 class AdminUserExtra_gigs(admin.ModelAdmin):

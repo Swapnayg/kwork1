@@ -19,7 +19,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGig_Extra_Delivery,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -799,6 +799,28 @@ def Prof_image_upload_view(request):
             print('No File') 
         responseData = {'data':urls}
         return JsonResponse(responseData,safe=False)
+    
+@csrf_exempt
+def gig_image_upload_view(request):
+    if request.method == 'POST':
+        files = request.FILES.getlist("files")
+        userid =  request.POST.get("user_id")
+        gig_id =  request.POST.get("gig_id")
+        userDetails = User.objects.get(pk=userid)
+        frontend_url = request.META.get('HTTP_REFERER')
+        url1 = urlparse(frontend_url)
+        urls = []
+        if len(files) != 0:
+            for file in files:
+                fs= FileSystemStorage(location= settings.MEDIA_ROOT +'/gig_images/')
+                file_path=fs.save(gig_id+"_"+file.name.replace(' ','_'),file) 
+                url = '/media/gig_images/'+file_path
+                urls.append(url)
+        else:
+            print('No File') 
+        responseData = {'data':urls}
+        return JsonResponse(responseData,safe=False)
+
 
 def post_user_Details_view(request):
     if request.method == 'GET':
@@ -939,7 +961,236 @@ def post_tags_category_details_view(request):
             extra_category_packages.append({"e_package_name":extra_pckg.display_name,"e_package_type":extra_pckg.display_type,"e_helper_txt":extra_pckg.helper_txt})
         responseData = {'tagsOPbj':taglist,'pckgObj':category_packages,'extraPckgObj':extra_category_packages}
         return JsonResponse(responseData,safe=False)
+    
+    
+@csrf_exempt
+def post_gig_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_gigtitle = request.POST.get("u_gigtitle")
+        u_gig_category = request.POST.get("u_gig_category")
+        u_gig_sub_category = request.POST.get("u_gig_sub_category")
+        u_gig_tags = request.POST['u_gig_tags']
+        data = json.loads(u_gig_tags)
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        gigDetails.gig_title = u_gigtitle
+        gigDetails.gig_category =  Categories.objects.get(pk=u_gig_category)
+        gigDetails.gig_sub_category =  SubSubCategories.objects.get(pk=u_gig_sub_category)
+        gigDetails.save()
+        UserGigsTags.objects.filter(gig_name=gigDetails ,user_id = userDetails).delete()
+        for d in data:
+            usertags = UserGigsTags(gig_tag_name= d,gig_name=gigDetails ,user_id = userDetails)
+            usertags.save()
+        return HttpResponse('sucess')
+
+
+@csrf_exempt
+def post_packages_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_gigtitle = request.POST.get("u_gigtitle")
+        u_gig_category = request.POST.get("u_gig_category")
+        u_gig_sub_category = request.POST.get("u_gig_sub_category")
+        u_gig_tags = request.POST['u_gig_tags']
+        data = json.loads(u_gig_tags)
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        gigDetails.gig_title = u_gigtitle
+        gigDetails.gig_category =  Categories.objects.get(pk=u_gig_category)
+        gigDetails.gig_sub_category =  SubSubCategories.objects.get(pk=u_gig_sub_category)
+        gigDetails.save()
+        UserGigsTags.objects.filter(gig_name=gigDetails ,user_id = userDetails).delete()
+        for d in data:
+            usertags = UserGigsTags(gig_tag_name= d,gig_name=gigDetails ,user_id = userDetails)
+            usertags.save()
+        return HttpResponse('sucess')
+
+
+@csrf_exempt
+def post_packages_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_package_details = request.POST['u_package_details']
+        u_package_details1 = request.POST['u_package_details1']
+        u_package_details2 = request.POST['u_package_details2']
+        u_extra_delivery = request.POST['u_extra_delivery']
+        u_extra_package_details = request.POST['u_add_on_package_details']
+        u_add_on_gig = request.POST['u_add_on_gig']
+        data_package_details = json.loads(u_package_details)
+        data_package_details1 = json.loads(u_package_details1)
+        data_package_details2 = json.loads(u_package_details2)
+        data_extra_delivery = json.loads(u_extra_delivery)
+        data_extra_package_details = json.loads(u_extra_package_details)
+        data_add_on_gig = json.loads(u_add_on_gig)
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id, user_id = userDetails)
+        UserGigPackages.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        UserGigPackage_Extra.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        UserExtra_gigs.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        UserGig_Extra_Delivery.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        pack_data_analysys = data_package_details[0]
+        dist_keys = pack_data_analysys.keys()
+        package_array = []
+        for i,key in enumerate(dist_keys):
+            if "pack_data_" in key:
+                package_array.append({"name":pack_data_analysys[key]["name"],"value":pack_data_analysys[key]["value"]})
+        for data_packages in data_package_details:
+            pack_delivery = Parameter.objects.get(parameter_value =str(data_packages["pack_duration"]),parameter_name="delivery_time")
+            pack_revision = Parameter.objects.get(parameter_value =str(data_packages["pack_revision"]),parameter_name="no_revisions")
+            user_gig_packages = UserGigPackages(package_type=data_packages["pack_type"],package_title=data_packages["pack_title"],package_description=data_packages["pack_description"],package_delivery=pack_delivery,package_revisions=pack_revision,package_price=data_packages["pack_price"],package_data=str(package_array),package_gig_name= gigDetails,user_id=userDetails)
+            user_gig_packages.save()
+        if(len(data_package_details1) != 0):
+            pack_data_analysys1 = data_package_details1[0]
+            dist_keys1 = pack_data_analysys1.keys()
+            package_array1 = []
+            for i,key in enumerate(dist_keys1):
+                if "pack_data_" in key:
+                    package_array1.append({"name":pack_data_analysys1[key]["name"],"value":pack_data_analysys1[key]["value"]})
+            for data_packages1 in data_package_details1:
+                pack_delivery1 = Parameter.objects.get(parameter_value =str(data_packages1["pack_duration"]),parameter_name="delivery_time")
+                pack_revision1 = Parameter.objects.get(parameter_value =str(data_packages1["pack_revision"]),parameter_name="no_revisions")
+                user_gig_packages = UserGigPackages(package_type=data_packages1["pack_type"],package_title=data_packages1["pack_title"],package_description=data_packages1["pack_description"],package_delivery=pack_delivery1,package_revisions=pack_revision1,package_price=data_packages1["pack_price"],package_data=str(package_array1),package_gig_name= gigDetails,user_id=userDetails)
+                user_gig_packages.save()
+        if(len(data_package_details2) != 0):
+            pack_data_analysys2 = data_package_details2[0]
+            dist_keys2 = pack_data_analysys2.keys()
+            package_array2 = []
+            for i,key in enumerate(dist_keys2):
+                if "pack_data_" in key:
+                    package_array2.append({"name":pack_data_analysys2[key]["name"],"value":pack_data_analysys2[key]["value"]})
+            for data_packages2 in data_package_details2:
+                pack_delivery2 = Parameter.objects.get(parameter_value =str(data_packages2["pack_duration"]),parameter_name="delivery_time")
+                pack_revision2 = Parameter.objects.get(parameter_value =str(data_packages2["pack_revision"]),parameter_name="no_revisions")
+                user_gig_packages = UserGigPackages(package_type=data_packages2["pack_type"],package_title=data_packages2["pack_title"],package_description=data_packages2["pack_description"],package_delivery=pack_delivery2,package_revisions=pack_revision2,package_price=data_packages2["pack_price"],package_data=str(package_array2),package_gig_name= gigDetails,user_id=userDetails)
+                user_gig_packages.save() 
+        for extra_delivery in data_extra_delivery:
+            extra_days = Parameter.objects.get(parameter_value =str(extra_delivery["days"]),parameter_name="extra_days")
+            extra_delivery_gig = UserGig_Extra_Delivery(package_type= extra_delivery["name"],delivery_in= extra_days,extra_price= extra_delivery["price"],package_gig_name= gigDetails,user_id=userDetails)
+            extra_delivery_gig.save()
+        user_extra_data = UserGigPackage_Extra(package_data= str(data_extra_package_details),package_gig_name= gigDetails,user_id=userDetails)
+        user_extra_data.save();
+        for ad_on_gig in data_add_on_gig:
+            gig_extra_days = Parameter.objects.get(parameter_value =str(ad_on_gig["gig_duration"]),parameter_name="extra_days")
+            extra_gig_days = UserExtra_gigs(extra_gig_title= ad_on_gig["gig_title"],extra_gig_description= ad_on_gig["gig_description"],extra_gig_price= ad_on_gig["gig_price"],extra_gig_duration=gig_extra_days,package_gig_name= gigDetails,user_id=userDetails)
+            extra_gig_days.save()
+        return HttpResponse('sucess')
+
+@csrf_exempt
+def post_gig_desp_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_gig_description = request.POST.get("u_gig_description")
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        gigDetails.gig_description = u_gig_description
+        gigDetails.save()
+        return HttpResponse('sucess')
+    
+    
+@csrf_exempt
+def post_gig_des_faq_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_gig_description = request.POST.get("u_gig_description")
+        u_gig_faq_ques = request.POST.get("u_gig_faq_ques")
+        u_gig_faq_answer = request.POST.get("u_gig_faq_answer")
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        gigDetails.gig_description = u_gig_description
+        gigDetails.save()
+        user_gig_faqs.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        user_gig_faqs= Usergig_faq(gig_faq_question=u_gig_faq_ques,gig_faq_answer=u_gig_faq_answer,package_gig_name= gigDetails,user_id=userDetails)
+        user_gig_faqs.save()
+        return HttpResponse('sucess')
 
 
 
+@csrf_exempt
+def post_rquirements_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_requirements = request.POST['u_requirements']
+        data_requirements = json.loads(u_requirements)
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        Usergig_requirement.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        for req_question in data_requirements:
+            user_gig_req= Usergig_requirement(gig_req_question=req_question['name'],gig_req_ans_type="Free Text",package_gig_name= gigDetails,user_id=userDetails)
+            user_gig_req.save()
+        return HttpResponse('sucess')
 
+
+@csrf_exempt
+def post_images_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        u_images = request.POST['u_images']
+        data_images = json.loads(u_images)
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        Usergig_image.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        for gig_img in data_images:
+            user_gig_img= Usergig_image(gig_image=gig_img['name'],package_gig_name= gigDetails,user_id=userDetails)
+            user_gig_img.save()
+        return HttpResponse('sucess')
+
+
+@csrf_exempt
+def post_publish_save_view(request):
+    if request.method == 'POST':
+        u_gig_id = request.POST.get("u_gig_id")
+        u_user_id = request.POST.get("u_user_id")
+        userDetails =  User.objects.get(pk=u_user_id)
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        gigDetails.gig_status = "pending"
+        gigDetails.save();
+        return HttpResponse('sucess')
+    
+
+
+def get_gig_details_view(request):
+    if request.method == 'GET':
+        data = []
+        u_gig_id = request.GET['u_gig_id']
+        u_user_id = request.GET['u_user_id']
+        userDetails =  User.objects.get(pk=u_user_id)
+        data_gig_details = []
+        gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
+        data_gig_details.append({"title":gigDetails.gig_title,"gig_category":str(gigDetails.gig_category.id),"gig_sub_category":str(gigDetails.gig_sub_category.id),"gig_description":gigDetails.gig_description})
+        gigTags =  UserGigsTags.objects.filter(gig_name=gigDetails , user_id = userDetails)
+        gigTags_tmpJson = serializers.serialize("json",gigTags)
+        gigTags_tmpObj = json.loads(gigTags_tmpJson)
+        gigPackages =  UserGigPackages.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        package_data = []
+        for gig_package in gigPackages:
+            package_data.append({"package_type":gig_package.package_type,"package_title":gig_package.package_title,"package_description":gig_package.package_description,"package_delivery":gig_package.package_delivery.parameter_value,"package_revisions":gig_package.package_revisions.parameter_value,"package_data":gig_package.package_data,"package_price":gig_package.package_price})
+        gig_extra_delivery =  UserGig_Extra_Delivery.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        gig_extra_delivery_tmpJson = serializers.serialize("json",gig_extra_delivery)
+        gig_extra_delivery_tmpObj = json.loads(gig_extra_delivery_tmpJson)
+        gig_extra_pack =  UserGigPackage_Extra.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        gig_extra_pack_tmpJson = serializers.serialize("json",gig_extra_pack)
+        gig_extra_pack_tmpObj = json.loads(gig_extra_pack_tmpJson)
+        extra_gigs =  UserExtra_gigs.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        extra_gigs_tmpJson = serializers.serialize("json",extra_gigs)
+        extra_gigs_tmpObj = json.loads(extra_gigs_tmpJson)
+        gig_faqs =  Usergig_faq.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        gig_faqs_tmpJson = serializers.serialize("json",extra_gigs)
+        gig_faqs_tmpObj = json.loads(extra_gigs_tmpJson)
+        gig_requirements =  Usergig_requirement.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        gig_requirements_tmpJson = serializers.serialize("json",gig_requirements)
+        gig_requirements_tmpObj = json.loads(extra_gigs_tmpJson)
+        gig_image =  Usergig_image.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
+        gig_image_tmpJson = serializers.serialize("json",gig_image)
+        gig_image_tmpObj = json.loads(gig_image_tmpJson)
+        response_data = {"gig_details":json.dumps(data_gig_details), "gig_tags":gigTags_tmpObj,"gig_packages":package_data, "gig_extra_delivery":gig_extra_delivery_tmpObj, "gig_extra_pack":gig_extra_pack_tmpObj, "extra_gigs":extra_gigs_tmpObj, "gig_faqs":gig_faqs_tmpObj, "gig_requirements":gig_requirements_tmpObj, "gig_image":gig_image_tmpObj}
+        return JsonResponse(response_data,safe=False)    
+     
+    
