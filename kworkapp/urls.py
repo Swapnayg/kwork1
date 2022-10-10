@@ -49,6 +49,7 @@ urlpatterns  = [
 	path("dashboard",dashboard_view.as_view(),name = 'dashboard'),
 	path("account_settings",account_settings_view.as_view(),name = 'account_settings'),
 	path("user/<str:username>/create_gig/<str:gigid>",create_gig_view.as_view(),name = 'create_gig'),
+ 	path("user/<str:username>/edit_gig/<str:gigid>",create_gig_view.as_view(),name = 'edit_gig'),
 	path("manage_request",Manage_request_view.as_view(),name = 'manage_request'),
 	path("categories/<str:category>",menu_pageView.as_view(),name = 'categories'),
 	path("categories/<str:category>/<str:topic>/",all_gigs_pageView.as_view(),name = 'categories'),
@@ -75,4 +76,6 @@ urlpatterns  = [
     path("get_gig_details/",views.get_gig_details_view,name = 'get_gig_details'),
     path("get_gig_package_details/",views.get_gig_details_view,name = 'get_gig_details'),
     path("get_gig_extra_package_details/",views.get_gig_details_view,name = 'get_gig_details'),
+    path("post_pause_gig/",views.post_pause_gig_view,name = 'post_pause_gig'),
+    path("post_delete_gig/",views.post_delete_gig_view,name = 'post_delete_gig'),
 ]

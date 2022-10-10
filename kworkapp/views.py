@@ -2,6 +2,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from re import sub
 import smtplib
+from datetime import datetime, timedelta
 from tabnanny import verbose
 from django.views import View
 from urllib.parse import urlparse
@@ -19,7 +20,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,UserGig_Extra_Delivery,UserGigPackage_Extra,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -182,35 +183,37 @@ class login_view(View):
 class profile_view(View):
     return_url = None
     def get(self , request,username=''):
-        try: 
-            userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
-            languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
-            userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
-            userlang = []
-            english_profi = ''
-            userlanguages = UserLanguages.objects.filter(user_id=userDetails)
-            for lang in userlanguages:
-                if(lang.language_name.lng_Name == "English"):
-                    english_profi = lang.lang_prof
-                userlang.append({"name":lang.language_name.lng_Name,"proficiency":lang.lang_prof})                  
-            categories = Categories.objects.all()
-            countrylist =[]
-            for code, name in list(countries):
-                countrylist.append({"name":name,"code":code})
-            characters = []
-            title_char=0
-            overview_char = 0
-            frontend_url = request.META.get('HTTP_REFERER')
-            url1 = urlparse(frontend_url)
-            charcterlimits = CharacterLimit.objects.filter(Q(Char_category_Name="account_professional_overview") | Q(Char_category_Name= "account_title"))
-            for c in charcterlimits:
-                if(c.Char_category_Name == "account_title"):
-                    title_char = c.Max_No_of_char_allowed
-                elif(c.Char_category_Name == "account_professional_overview"):
-                    overview_char = c.Max_No_of_char_allowed
-        except:
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            # try: 
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
+                userlanguages = UserLanguages.objects.filter(user_id=userDetails)
+                userlang = []
+                for lang in userlanguages:
+                    userlang.append({"name":lang.language_name.lng_Name,"proficiency":lang.lang_prof})  
+                active_gig_details = []
+                draft_gig_details = []
+                user_gigs_details = UserGigs.objects.filter(user_id=userDetails)
+                for u_gig in user_gigs_details:
+                    userpack= UserGigPackages.objects.filter(package_gig_name=u_gig , user_id = userDetails , package_type= 'basic').first() 
+                    gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
+                    if(gig_image != None):
+                        gig_image_url = gig_image.gig_image
+                    else:
+                        gig_image_url = ''
+                    if(userpack != None):
+                        start_price = userpack.package_price
+                    else:
+                        start_price = 0 
+                    if(u_gig.gig_status == "active"):
+                        active_gig_details.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"start_price":start_price})
+                    elif(u_gig.gig_status == "draft"):
+                        draft_gig_details.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"start_price":start_price})
+                return render(request , 'Dashboard/profile.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"active_gigs":active_gig_details,"draft_gigs":draft_gig_details})                 
+            # except:
+            #     return render(request , 'register.html')
+        else:
             return render(request , 'register.html')
-        return render(request , 'Dashboard/profile.html',{"Countrylist":countrylist,"languages":languages,"profile_Details":userProfileDetails,"userlanguages":userlang,"title_char":title_char,"overview_char":overview_char,"UserDetails":userDetails,"Categories":categories,'userlangs':json.dumps(userlang),"english_prof":english_profi,"current_url":str(str(url1.scheme) +"://"  + str(url1.netloc) )})      
 
 class buyer_dashboard_view(View):
     return_url = None
@@ -239,10 +242,6 @@ class Manage_request_view(View):
     def get(self , request,username=''):
         return render(request , 'Dashboard/manage_request.html')
 
-class Manage_request_view(View):
-    return_url = None
-    def get(self , request,username=''):
-        return render(request , 'Dashboard/manage_request.html')
 
 class post_request_view(View):
     return_url = None
@@ -332,11 +331,44 @@ class manage_gigs_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try:    
+            # try:    
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
-                return render(request , 'Dashboard/manage_gigs.html',{"active_gigs":[1,2],"pending_gigs":[1],"require_modif":[1,2,3],"draft_gigs":[1,2,5,6],"denied_gigs":[1,2,5,6,5,9],"paused_gigs":[1,9,0,5,7,8,6,9]})
-            except:
-                return render(request , 'register.html')
+                activegigs = []
+                pendinggigs = []
+                modifgigs = []
+                drafgigs = []
+                deniedgigs = []
+                pausedgigs = []
+                user_gigs_details = UserGigs.objects.filter(user_id=userDetails)
+                for u_gig in user_gigs_details:
+                    gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
+                    if(gig_image != None):
+                        gig_image_url = gig_image.gig_image
+                    else:
+                        gig_image_url = ''
+                    last_month = datetime.today() - timedelta(days=30)
+                    ugig_impressions = UserGigsImpressions.objects.filter(user_id=userDetails,gig_name=u_gig,impress_date__gte=last_month).count()
+                    user_order_details = User_orders.objects.filter(user_id=userDetails,package_gig_name=u_gig,order_date__gte=last_month).count()
+                    cancelled_orders =  User_orders.objects.filter(user_id=userDetails,package_gig_name=u_gig, order_status= 'cancel').count()
+                    try:
+                        cancel_perc = int((cancelled_orders * 100) / (user_order_details))
+                    except:
+                        cancel_perc = 0
+                    if(u_gig.gig_status == "active"):
+                        activegigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                    elif(u_gig.gig_status == "pending"):
+                        pendinggigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                    elif(u_gig.gig_status == "modification"):
+                        modifgigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                    elif(u_gig.gig_status == "draft"):
+                        drafgigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                    elif(u_gig.gig_status == "denied"):
+                        deniedgigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                    elif(u_gig.gig_status == "paused"):
+                        pausedgigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
+                return render(request , 'Dashboard/manage_gigs.html',{"active_gigs":activegigs,"pending_gigs":pendinggigs,"require_modif":modifgigs,"draft_gigs":drafgigs,"denied_gigs":deniedgigs,"paused_gigs":pausedgigs})
+            # except:
+            #     return render(request , 'register.html')
         else:
             return render(request , 'register.html')
 
@@ -1138,8 +1170,9 @@ def post_images_save_view(request):
         gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
         Usergig_image.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
         for gig_img in data_images:
-            user_gig_img= Usergig_image(gig_image=gig_img['name'],package_gig_name= gigDetails,user_id=userDetails)
-            user_gig_img.save()
+            if(len(gig_img['name'].strip()) != 0):
+                user_gig_img= Usergig_image(gig_image=gig_img['name'],package_gig_name= gigDetails,user_id=userDetails)
+                user_gig_img.save()
         return HttpResponse('sucess')
 
 
@@ -1153,8 +1186,6 @@ def post_publish_save_view(request):
         gigDetails.gig_status = "pending"
         gigDetails.save();
         return HttpResponse('sucess')
-    
-
 
 def get_gig_details_view(request):
     if request.method == 'GET':
@@ -1196,3 +1227,20 @@ def get_gig_details_view(request):
         return JsonResponse(response_data,safe=False)    
      
     
+def post_pause_gig_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        gig_id = request.GET['gig_id']
+        userDetails =  User.objects.get(pk=userid)
+        gigDetails =  UserGigs.objects.get(pk=gig_id , user_id = userDetails)
+        gigDetails.gig_status = 'paused'
+        gigDetails.save()
+        return HttpResponse('sucess')
+
+def post_delete_gig_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        gig_id = request.GET['gig_id']
+        userDetails =  User.objects.get(pk=userid)
+        gigDetails =  UserGigs.objects.get(pk=gig_id , user_id = userDetails).delete()
+        return HttpResponse('sucess')

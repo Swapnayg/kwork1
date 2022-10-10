@@ -1,7 +1,7 @@
 {% include  'base.html' %}
 {% load static %}
 {% block contentarea%}
-<title>{{UserDetails.username | title}} |{{profile_Details.main_category.category_Name}} ,  {{profile_Details.sub_category.sub_category_Name}} | Letworkbedone </title>
+<title>{{request.user.username | title}} |{{profile_Details.main_category.category_Name}} ,  {{profile_Details.sub_category.sub_category_Name}} | Letworkbedone </title>
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -11,9 +11,11 @@
                 <div class="col-lg-4">
                     <div id="SellerCard-component">
                         <div class="seller-card seller_card-package" data-reactroot="">
-                           <div style="position:absolute;right:0;height:20px;left:0">
-                              <div class="user-online-indicator is-online " data-user-id="109558113"><i class="dot">·</i>Online</div>
-                           </div>
+                            <div style="position: absolute; right: 0px; height: 20px; left: 0px;">
+                                <div class="user-online-indicator is-online " data-user-id="109558113">
+                                    <i class="dot"></i>Online
+                                </div>
+                            </div>
                            <div class="user-profile-info">
                               <div>
                                  <div class="user-profile-image">
@@ -26,20 +28,24 @@
                                              </svg>
                                           </span>
                                        </div>
-                                       <input type="file" accept="image/png,image/jpeg" id="profile_image_4785022353223" class="hidden" name="profile[image]"><img src="https://fiverr-res.cloudinary.com/image/upload/t_profile_original,q_auto,f_auto/v1/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" class="profile-pict-img" alt="swap_soln_90">
+                                       <input type="file" accept="image/png,image/jpeg" id="profile_image_4785022353223" class="hidden" name="profile[image]"><img src="{{userDetails.avatar}}" class="profile-pict-img" alt="swap_soln_90">
                                     </label>
                                  </div>
                               </div>
                               <div class="user-profile-label">
-                                 <div class="username-line"><b class="seller-link">swap_soln_90</b></div>
-                                 <div class="oneliner-wrapper">
+                                 <div class="username-line"><b class="seller-link">{{userDetails.username}}</b>  
                                     <div class="liner-and-pen">
-                                       <span class="fa fa-pencil"></span>
+                                        <a href="/account_settings" target="_blank">
+                                            <span class="fa fa-pencil"></span>
+                                        </a>
                                     </div>
+                                </div>
+                                 <div class="oneliner-wrapper">
+                                   
                                     <div class="ratings-wrapper">
                                        <span class="rating-stars" data-user-rating="4.6" data-user-ratings-count="10"></span>
                                        <div class="rating-text">
-                                          <div class="orca-rating color-yellow tbody-6">
+                                          {% comment %} <div class="orca-rating color-yellow tbody-6">
                                              <div class="stars">
                                                 Stars
                                              </div>
@@ -47,11 +53,16 @@
                                              <span class="ratings-count rating-count">
                                                 (<!-- -->10 reviews<!-- -->)
                                              </span>
-                                          </div>
+                                          </div> {% endcomment %}
                                        </div>
                                     </div>
                                  </div>
                               </div>
+                           </div>
+                           <div class="buttons-wrapper">
+                                <button class="FW1syM7 L1yjt43 p9qU5Ka co-white btn-contact-me bg-co-green-700" rel="nofollow" data-user-id="swap_soln_90">Contact Me</button>
+                                <button class="FW1syM7 wapdb+q xaFER3a p9qU5Ka co-grey-1000 btn-custom-order">Get a Quote</button>
+                            <div id="react-first-message-popup"></div>
                            </div>
                            <div class="user-stats-desc">
                               <ul class="user-stats with-border-top">
@@ -71,7 +82,7 @@
                                        </span>
                                        From
                                     </span>
-                                    <b>India</b>
+                                    <b>{{userDetails.country.name}}</b>
                                  </li>
                                  <li class="member-since">
                                     <span>
@@ -82,7 +93,7 @@
                                        </span>
                                        Member since
                                     </span>
-                                    <b>Jun 2021</b>
+                                    <b> {{ userDetails.created_at|date:"M Y" }}</b>
                                  </li>
                                  <li class="response-time">
                                     <span>
@@ -94,7 +105,7 @@
                                        </span>
                                        Avg. Response Time
                                     </span>
-                                    <b>1 hour</b>
+                                    <b>{{ userDetails.avg_respons}} hour</b>
                                  </li>
                                  <li class="recent-delivery">
                                     <span>
@@ -113,7 +124,7 @@
                                        Last Delivery
                                     </span>
                                     <strong>
-                                       2<!-- -->&nbsp;<!-- -->months
+                                        {{ userDetails.avg_respons}}months
                                     </strong>
                                  </li>
                                  <li class="new-vacation"><span class="availability-status"><i class="fa fa-calendar-o"></i>Available</span><button class="ORLWF8p _5K4hKRK L9EM07f i6NB5Ls co-grey-1000">Set Availability</button></li>
@@ -125,43 +136,35 @@
                         <div data-reactroot="" class="mp-seller-profile">
                             <section class="form-thin">
                                 <article>
-                                    <form autocomplete="off" class="js-form-overview">
                                         <div class="inner-row description">
                                            <aside>
                                               <h3 class="alt hint--top" data-hint="Tell us more about yourself. Buyers are also interested in learning about you as a person.">
-                                                 <!-- react-text: 8 -->Description<!-- /react-text --><a href="#" class="add">Edit Description</a>
+                                                 <!-- react-text: 8 -->Description<!-- /react-text --><a href="/account_settings" target="_blank" class="add">Edit Description</a>
                                               </h3>
                                            </aside>
                                            <section>
-                                              <p>I am passionate website Developer and Designer along with animation explainer video creativity as an added basic knowledge of video editing. 
-                                                 Technologies include, Python, Javascript, Jquery, Ajax, Rest API
-                                                 Specially build for clone applications.
-                                              </p>
-                                              <span class="counter hidden">
-                                                 <!-- react-text: 13 -->248<!-- /react-text --><!-- react-text: 14 --> / <!-- /react-text --><!-- react-text: 15 -->600<!-- /react-text -->
-                                              </span>
+                                              {{profile_Details.profess_overview|safe}}
                                            </section>
-                                           <!-- react-text: 16 --><!-- /react-text -->
                                         </div>
-                                     </form>
-                                     <form autocomplete="off" class="js-form-proficient-languages">
                                         <div class="inner-row languages">
                                            <aside>
                                               <h3 class="alt hint--top" data-hint="You can make up to four selections.">
-                                                 <!-- react-text: 21 -->Languages<!-- /react-text --><a href="#" class="add">Add New</a>
+                                                 <!-- react-text: 21 -->Languages<!-- /react-text --><a href="/account_settings" target="_blank" class="add">Add New</a>
                                               </h3>
                                               <div class="question">What languages do you speak?</div>
                                               <!-- react-text: 24 --><!-- /react-text -->
                                            </aside>
                                            <section>
                                               <ul class="items-list">
-                                                 <li>
+                                                {% for lang in userlanguages %}
+                                                <li>
                                                     <span class="title">
-                                                       <!-- react-text: 29 -->English<!-- /react-text --><!-- react-text: 30 --> <!-- /react-text -->
+                                                      {{lang.name}}
                                                     </span>
-                                                    <!-- react-text: 31 --> - <!-- /react-text --><span class="sub-title">Basic</span><input type="hidden" name="[seller_profile][proficient_languages][en]" value="basic">
-                                                    <div class="animate"><span class="hint--top" data-hint="Edit"><a href="#" class="pencil"></a></span></div>
+                                                    <span class="sub-title">- {{lang.proficiency}}</span>
                                                  </li>
+                                                {% endfor %}
+                                                 
                                               </ul>
                                               <!-- react-empty: 37 --><input type="hidden" value="1">
                                            </section>
@@ -177,146 +180,96 @@
                 </div>
                 <div class="col-lg-7">
                     <div id="react-seller-gigs">
+                        <div class="out-of-office" data-reactroot="">
+                            <div class="banner-available new-seller">
+                               <div class="content new-seller seller-view">
+                                  <div><i class="icn-calender"></i></div>
+                                  <div>
+                                     <p class="start-time-status">You'll be unavailable starting of Nov 12, 2022</p>
+                                     <p class="end-time-status">You won't be able to receive new orders or messages until  <b>Dec 8, 2022.</b> <a class="link">Change</a></p>
+                                     <q class="buyer-message">Hey, I’m currently unavailable, but please visit soon! Looking forward to working with you.</q>
+                                  </div>
+                               </div>
+                            </div>
+                         </div>
                         <section data-reactroot="" class="seller-gigs cf">
                         <ul class="status-filter-bar mb-4">
-                            <li class="selected-filter">ACTIVE GIGS</li>
-                            <li class="">DRAFTS</li>
+                            <li class="selected-filter" onclick="tabonclick(this);">ACTIVE GIGS</li>
+                            <li class="" onclick="tabonclick(this);">DRAFTS</li>
                          </ul>
                          <div style="width:100%;">
-                            <div class="gig-card-base seller-gig-card mt-3">
-                            <span>
-                               <div class="btn-share-container">
-                                  <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                     <path d="M9.42857 8.75C8.823 8.75 8.26642 8.9638 7.82705 9.32135L5.08189 7.56987C5.16319 7.19448 5.16319 6.80549 5.08189 6.4301L7.82705 4.67863C8.26642 5.0362 8.823 5.25 9.42857 5.25C10.8487 5.25 12 4.07474 12 2.625C12 1.17526 10.8487 0 9.42857 0C8.00842 0 6.85714 1.17526 6.85714 2.625C6.85714 2.82073 6.8783 3.01137 6.91811 3.19487L4.17295 4.94635C3.73358 4.5888 3.177 4.375 2.57143 4.375C1.15128 4.375 0 5.55026 0 7C0 8.44974 1.15128 9.625 2.57143 9.625C3.177 9.625 3.73358 9.4112 4.17295 9.05365L6.91811 10.8051C6.87753 10.9923 6.85709 11.1833 6.85714 11.375C6.85714 12.8247 8.00842 14 9.42857 14C10.8487 14 12 12.8247 12 11.375C12 9.92526 10.8487 8.75 9.42857 8.75Z" fill="#1DBF73"></path>
-                                  </svg>
-                               </div>
-                               <ul class="gig-menu">
-                                  <li><a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="preview" target="_blank">Preview</a></li>
-                                  <li><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit" class="edit" target="_blank">Edit</a></li>
-                                  <li><a href="#" class="pause">Pause</a></li>
-                                  <li><a href="/users/swap_soln_90/manage_gigs?current_filter=active&amp;id=213090617" class="statistics" target="_blank">Statistics</a></li>
-                                  <li class="update-pricing"><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit?step=1" class="update-pricing" target="_blank">Update Pricing</a></li>
-                                  <li><a href="#" class="settings">Advanced</a></li>
-                               </ul>
-                               <div class="header-gig-card">
-                                  <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days">
-                                     <div>
-                                        <figure><img src="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" alt="build your web applications with no bound of limits welcome" srcset="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 1x, https://fiverr-res.cloudinary.com/images/t_medium7_x2,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 2x"></figure>
-                                     </div>
-                                     <h3>I will build your web applications with no bound of limits welcome</h3>
-                                  </a>
-                               </div>
-                               <a href="#!" class="btn-gig-menu hint--top" data-hint="Gig Actions">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="23" height="10" viewBox="0 0 42 10">
-                                     <path fill="#C6C6C6" d="M5 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"></path>
-                                  </svg>
-                               </a>
-                               <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="gig-price">
-                                  <small>Starting at</small><!-- react-text: 34 -->$100<!-- /react-text -->
-                               </a>
-                            </span>
-                            </div>
-                            <div class="gig-card-base seller-gig-card mt-3">
-                                <span>
-                                   <div class="btn-share-container">
-                                      <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                         <path d="M9.42857 8.75C8.823 8.75 8.26642 8.9638 7.82705 9.32135L5.08189 7.56987C5.16319 7.19448 5.16319 6.80549 5.08189 6.4301L7.82705 4.67863C8.26642 5.0362 8.823 5.25 9.42857 5.25C10.8487 5.25 12 4.07474 12 2.625C12 1.17526 10.8487 0 9.42857 0C8.00842 0 6.85714 1.17526 6.85714 2.625C6.85714 2.82073 6.8783 3.01137 6.91811 3.19487L4.17295 4.94635C3.73358 4.5888 3.177 4.375 2.57143 4.375C1.15128 4.375 0 5.55026 0 7C0 8.44974 1.15128 9.625 2.57143 9.625C3.177 9.625 3.73358 9.4112 4.17295 9.05365L6.91811 10.8051C6.87753 10.9923 6.85709 11.1833 6.85714 11.375C6.85714 12.8247 8.00842 14 9.42857 14C10.8487 14 12 12.8247 12 11.375C12 9.92526 10.8487 8.75 9.42857 8.75Z" fill="#1DBF73"></path>
-                                      </svg>
-                                   </div>
-                                   <ul class="gig-menu">
-                                      <li><a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="preview" target="_blank">Preview</a></li>
-                                      <li><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit" class="edit" target="_blank">Edit</a></li>
-                                      <li><a href="#" class="pause">Pause</a></li>
-                                      <li><a href="/users/swap_soln_90/manage_gigs?current_filter=active&amp;id=213090617" class="statistics" target="_blank">Statistics</a></li>
-                                      <li class="update-pricing"><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit?step=1" class="update-pricing" target="_blank">Update Pricing</a></li>
-                                      <li><a href="#" class="settings">Advanced</a></li>
-                                   </ul>
-                                   <div class="header-gig-card">
-                                      <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days">
-                                         <div>
-                                            <figure><img src="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" alt="build your web applications with no bound of limits welcome" srcset="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 1x, https://fiverr-res.cloudinary.com/images/t_medium7_x2,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 2x"></figure>
-                                         </div>
-                                         <h3>I will build your web applications with no bound of limits welcome</h3>
-                                      </a>
-                                   </div>
-                                   <a href="#!" class="btn-gig-menu hint--top" data-hint="Gig Actions">
-                                      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="10" viewBox="0 0 42 10">
-                                         <path fill="#C6C6C6" d="M5 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"></path>
-                                      </svg>
-                                   </a>
-                                   <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="gig-price">
-                                      <small>Starting at</small><!-- react-text: 34 -->$100<!-- /react-text -->
-                                   </a>
-                                </span>
-                                </div>
-                                <div class="gig-card-base seller-gig-card mt-3">
+                            <div id="active_div">
+                                {% for active in active_gigs %}
+                                <div class="gig-card-base seller-gig-card mt-3"  >
                                     <span>
-                                       <div class="btn-share-container">
+                                       <div class="btn-share-container" onclick="share_click('{{active.gig_id}}', '{{active.gig_Name}}')" >
                                           <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                                              <path d="M9.42857 8.75C8.823 8.75 8.26642 8.9638 7.82705 9.32135L5.08189 7.56987C5.16319 7.19448 5.16319 6.80549 5.08189 6.4301L7.82705 4.67863C8.26642 5.0362 8.823 5.25 9.42857 5.25C10.8487 5.25 12 4.07474 12 2.625C12 1.17526 10.8487 0 9.42857 0C8.00842 0 6.85714 1.17526 6.85714 2.625C6.85714 2.82073 6.8783 3.01137 6.91811 3.19487L4.17295 4.94635C3.73358 4.5888 3.177 4.375 2.57143 4.375C1.15128 4.375 0 5.55026 0 7C0 8.44974 1.15128 9.625 2.57143 9.625C3.177 9.625 3.73358 9.4112 4.17295 9.05365L6.91811 10.8051C6.87753 10.9923 6.85709 11.1833 6.85714 11.375C6.85714 12.8247 8.00842 14 9.42857 14C10.8487 14 12 12.8247 12 11.375C12 9.92526 10.8487 8.75 9.42857 8.75Z" fill="#1DBF73"></path>
                                           </svg>
                                        </div>
                                        <ul class="gig-menu">
-                                          <li><a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="preview" target="_blank">Preview</a></li>
-                                          <li><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit" class="edit" target="_blank">Edit</a></li>
-                                          <li><a href="#" class="pause">Pause</a></li>
-                                          <li><a href="/users/swap_soln_90/manage_gigs?current_filter=active&amp;id=213090617" class="statistics" target="_blank">Statistics</a></li>
-                                          <li class="update-pricing"><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit?step=1" class="update-pricing" target="_blank">Update Pricing</a></li>
-                                          <li><a href="#" class="settings">Advanced</a></li>
+                                          <li><a href="/gigs/{{request.user.username}}/{{active.gig_Name}}"  target="_blank" class="preview" target="_blank">Preview</a></li>
+                                          <li><a href="/user/{{request.user.username}}/edit_gig/{{active.gig_id}}" target="_blank"  class="edit" target="_blank">Edit</a></li>
+                                          <li><a onclick="paused_click('{{active.gig_id}}')" class="pause">Pause</a></li>
                                        </ul>
                                        <div class="header-gig-card">
-                                          <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days">
+                                          <a href="/gigs/{{request.user.username}}/{{active.gig_Name}}">
                                              <div>
-                                                <figure><img src="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" alt="build your web applications with no bound of limits welcome" srcset="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 1x, https://fiverr-res.cloudinary.com/images/t_medium7_x2,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 2x"></figure>
+                                                <figure><img src="{{active.gig_Image}}" alt="{{active.gig_Name}}"></figure>
                                              </div>
-                                             <h3>I will build your web applications with no bound of limits welcome</h3>
+                                             <h3>{{active.gig_Name | title}}</h3>
                                           </a>
                                        </div>
-                                       <a href="#!" class="btn-gig-menu hint--top" data-hint="Gig Actions">
+                                       <a onclick="show_menu(this)" class="btn-gig-menu hint--top" data-hint="Gig Actions">
                                           <svg xmlns="http://www.w3.org/2000/svg" width="23" height="10" viewBox="0 0 42 10">
                                              <path fill="#C6C6C6" d="M5 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"></path>
                                           </svg>
                                        </a>
-                                       <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="gig-price">
-                                          <small>Starting at</small><!-- react-text: 34 -->$100<!-- /react-text -->
+                                       <a href="/gigs/{{request.user.username}}/{{active.gig_Name}}" class="gig-price">
+                                          <small>Starting at</small><!-- react-text: 34 -->{{active.start_price}}<!-- /react-text -->
                                        </a>
                                     </span>
-                                </div>
-                                <div class="gig-card-base seller-gig-card mt-3">
-                                        <span>
-                                           <div class="btn-share-container">
-                                              <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                 <path d="M9.42857 8.75C8.823 8.75 8.26642 8.9638 7.82705 9.32135L5.08189 7.56987C5.16319 7.19448 5.16319 6.80549 5.08189 6.4301L7.82705 4.67863C8.26642 5.0362 8.823 5.25 9.42857 5.25C10.8487 5.25 12 4.07474 12 2.625C12 1.17526 10.8487 0 9.42857 0C8.00842 0 6.85714 1.17526 6.85714 2.625C6.85714 2.82073 6.8783 3.01137 6.91811 3.19487L4.17295 4.94635C3.73358 4.5888 3.177 4.375 2.57143 4.375C1.15128 4.375 0 5.55026 0 7C0 8.44974 1.15128 9.625 2.57143 9.625C3.177 9.625 3.73358 9.4112 4.17295 9.05365L6.91811 10.8051C6.87753 10.9923 6.85709 11.1833 6.85714 11.375C6.85714 12.8247 8.00842 14 9.42857 14C10.8487 14 12 12.8247 12 11.375C12 9.92526 10.8487 8.75 9.42857 8.75Z" fill="#1DBF73"></path>
-                                              </svg>
-                                           </div>
-                                           <ul class="gig-menu">
-                                              <li><a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="preview" target="_blank">Preview</a></li>
-                                              <li><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit" class="edit" target="_blank">Edit</a></li>
-                                              <li><a href="#" class="pause">Pause</a></li>
-                                              <li><a href="/users/swap_soln_90/manage_gigs?current_filter=active&amp;id=213090617" class="statistics" target="_blank">Statistics</a></li>
-                                              <li class="update-pricing"><a href="/users/swap_soln_90/manage_gigs/build-an-awesome-website-applications-within-three-days/edit?step=1" class="update-pricing" target="_blank">Update Pricing</a></li>
-                                              <li><a href="#" class="settings">Advanced</a></li>
-                                           </ul>
-                                           <div class="header-gig-card">
-                                              <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days">
-                                                 <div>
-                                                    <figure><img src="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" alt="build your web applications with no bound of limits welcome" srcset="https://fiverr-res.cloudinary.com/images/t_medium7,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 1x, https://fiverr-res.cloudinary.com/images/t_medium7_x2,q_auto,f_auto,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png 2x"></figure>
-                                                 </div>
-                                                 <h3>I will build your web applications with no bound of limits welcome</h3>
-                                              </a>
-                                           </div>
-                                           <a href="#!" class="btn-gig-menu hint--top" data-hint="Gig Actions">
-                                              <svg xmlns="http://www.w3.org/2000/svg" width="23" height="10" viewBox="0 0 42 10">
-                                                 <path fill="#C6C6C6" d="M5 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"></path>
-                                              </svg>
-                                           </a>
-                                           <a href="/swap_soln_90/build-an-awesome-website-applications-within-three-days" class="gig-price">
-                                              <small>Starting at</small><!-- react-text: 34 -->$100<!-- /react-text -->
-                                           </a>
-                                        </span>
-                                </div>
-                        </div>
-                        <div id="UserPageReviews-component">
+                                    </div>
+                                    {% endfor %}
+                            </div>
+                            <div id="drafts_div">
+                                {% for draft in draft_gigs %}
+                                <div class="gig-card-base seller-gig-card mt-3"  >
+                                    <span>
+                                        <div class="btn-share-container" onclick="share_click('{{draft.gig_id}}', '{{draft.gig_Name}}')" >
+                                            <svg width="12" height="14" viewBox="0 0 12 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                               <path d="M9.42857 8.75C8.823 8.75 8.26642 8.9638 7.82705 9.32135L5.08189 7.56987C5.16319 7.19448 5.16319 6.80549 5.08189 6.4301L7.82705 4.67863C8.26642 5.0362 8.823 5.25 9.42857 5.25C10.8487 5.25 12 4.07474 12 2.625C12 1.17526 10.8487 0 9.42857 0C8.00842 0 6.85714 1.17526 6.85714 2.625C6.85714 2.82073 6.8783 3.01137 6.91811 3.19487L4.17295 4.94635C3.73358 4.5888 3.177 4.375 2.57143 4.375C1.15128 4.375 0 5.55026 0 7C0 8.44974 1.15128 9.625 2.57143 9.625C3.177 9.625 3.73358 9.4112 4.17295 9.05365L6.91811 10.8051C6.87753 10.9923 6.85709 11.1833 6.85714 11.375C6.85714 12.8247 8.00842 14 9.42857 14C10.8487 14 12 12.8247 12 11.375C12 9.92526 10.8487 8.75 9.42857 8.75Z" fill="#1DBF73"></path>
+                                            </svg>
+                                         </div>
+                                       <ul class="gig-menu">
+                                         
+                                          <li><a href="/user/{{request.user.username}}/edit_gig/{{draft.gig_id}}" target="_blank"  class="edit" target="_blank">Edit</a></li>
+                                          <li><a onclick="delete_click('{{draft.gig_id}}')" class="delete">Delete</a></li>
+                                       </ul>
+                                       <div class="header-gig-card">
+                                          <a href="/gigs/{{request.user.username}}/{{draft.gig_Name}}">
+                                             <div>
+                                                <figure><img src="{{draft.gig_Image}}" alt="{{draft.gig_Name}}"></figure>
+                                             </div>
+                                             <h3>{{draft.gig_Name | title}}</h3>
+                                          </a>
+                                       </div>
+                                       <a onclick="show_menu(this)" class="btn-gig-menu hint--top" data-hint="Gig Actions">
+                                          <svg xmlns="http://www.w3.org/2000/svg" width="23" height="10" viewBox="0 0 42 10">
+                                             <path fill="#C6C6C6" d="M5 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5zm16 0c2.8 0 5 2.2 5 5s-2.2 5-5 5-5-2.2-5-5 2.2-5 5-5z"></path>
+                                          </svg>
+                                       </a>
+                                       <a href="/gigs/{{request.user.username}}/{{draft.gig_Name}}" class="gig-price">
+                                          <small>Starting at</small><!-- react-text: 34 -->{{draft.start_price}}<!-- /react-text -->
+                                       </a>
+                                    </span>
+                                    </div>
+                                    {% endfor %}
+
+                                    <a class="gig-card-base add-new-gig" onclick="create_gig_onclick();" >Create a new Gig</a>
+                            </div>
+                         </div>
+                        {% comment %} <div id="UserPageReviews-component">
                             <div class="user-page-reviews-package user_page_reviews-package">
                                 <div class="reviews-package is-collapsed is-collapsable" id="seller_review">
                                     <header class="reviews-header">
@@ -457,7 +410,7 @@
                                 </div>
                             </div>
                            
-                        </div>
+                        </div> {% endcomment %}
                         </section>
                     </div>
                   
@@ -471,6 +424,60 @@
 {% else %}
    {% include  'Dashboard/base_seller.html' %}
 {% endif %}
+
+<div class="modal fade" id="modal_share" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body">
+          <div class="row tab1" id="publish_social_div">
+             <div class="col-lg-1">
+             </div>
+             <div class="col-lg-10">
+                <div class="">
+                   <input type="hidden" id="share_gig_id">
+                   <input type="hidden" id="share_gig_name">
+                   <div class="share-text">
+                    <h2 class="sharing-title">Boost Your Traffic</h2>
+                    <div class="sharing-description"><p>Share your Gig to grow your audience</p><p>engage with potential buyers and earn more trust.</p></div>
+                   </div>
+                   <div class="share-buttons-container">
+                      <div class="share-list">
+                        <!-- FACEBOOK -->
+                        <a class="fb-h" onclick="return fbs_click()" target="_blank">
+                          <img src="https://img.icons8.com/material-rounded/96/000000/facebook-f.png">
+                        </a>
+                    
+                        <!-- TWITTER -->
+                        <a class="tw-h" onclick="return tbs_click()"  target="_blank">
+                          <img src="https://img.icons8.com/material-rounded/96/000000/twitter-squared.png">
+                        </a>
+                    
+                        <!-- LINKEDIN -->
+                        <a class="li-h" onclick="return lbs_click()"  target="_blank">
+                          <img src="https://img.icons8.com/material-rounded/96/000000/linkedin.png">
+                        </a>
+                    
+                         <!-- LINKEDIN -->
+                        <a class="wa-h" onclick="return was_click()"  target="_blank">
+                          <img src="https://img.icons8.com/material-rounded/96/000000/whatsapp.png">
+                        </a>
+                        
+                        <a class="co-h" onclick="return cos_click()"  target="_blank">
+                          <img src="https://i.ibb.co/kBTbdHG/chain-link-icon-free-vector.jpg">
+                        </a>
+                      </div>
+                    </div>
+                </div>
+             </div>
+             <div class="col-lg-1">   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <style>
     .reviews-package .review-list .review-item {
         border-top: 1px solid #dadbdd;
@@ -722,6 +729,14 @@
     .lFICM06 svg {
         float: left;
     }
+    .form-thin article .inner-row.description {
+        padding-bottom: 20px;
+    }
+    article .inner-row {
+        padding: 40px 0;
+        min-height: 130px;
+        position: relative;
+    }
     .user-profile-image .profile-pict .profile-pict-img {
         width: 100%;
         height: 100%;
@@ -852,6 +867,7 @@
     flex: 1 1;
     padding-left: 0;
     padding-right: 0;
+    margin-right:5%;
 }
 .ORLWF8p {
     color: #62646a;
@@ -905,17 +921,13 @@
 article, aside, figure, footer, header, hgroup, nav, section, main {
     display: block;
 }
-.mp-seller-profile .form-thin article {
+.form-thin article {
     border: 1px solid #ddd;
     background-color: #fff;
     padding: 30px;
 }
-.mp-seller-profile .form-thin article>form {
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-    margin-bottom: 30px;
-}
-.mp-seller-profile .form-thin article .inner-row.description {
+
+.form-thin article .inner-row.description {
     padding-bottom: 20px;
     border-bottom: 0;
     padding-top: 0;
@@ -923,7 +935,7 @@ article, aside, figure, footer, header, hgroup, nav, section, main {
     padding: 0;
     position: relative;
 }
-.mp-seller-profile .description {
+.description {
     font-size: 14px;
 }
 .mp-seller-profile .form-thin article aside {
@@ -1043,12 +1055,13 @@ article, aside, figure, footer, header, hgroup, nav, section, main {
     position: absolute;
     z-index: 10;
     width: 100%;
-    height: 100%;
+    height: 50%;
     font-size: 14px;
     opacity: 0;
     visibility: hidden;
     -webkit-transition: opacity .3s ease;
     transition: opacity .3s ease;
+    bottom: 0;
 }
 .seller-gig-card .gig-menu li {
     cursor: pointer;
@@ -1181,7 +1194,7 @@ a {
     background-position: 0 0,top left 19px,top left 38px,top left 57px,bottom left 76px;
 }
 .reviews-package .review-star {
-    background-image: url(https://npm-assets.fiverrcdn.com/assets/@fiverr-private/user_page_reviews/stars.36cd23f.svg),url(https://npm-assets.fiverrcdn.com/assets/@fiverr-private/user_page_reviews/stars.36cd23f.svg),url(https://npm-assets.fiverrcdn.com/assets/@fiverr-private/user_page_reviews/stars.36cd23f.svg),url(https://npm-assets.fiverrcdn.com/assets/@fiverr-private/user_page_reviews/stars.36cd23f.svg),url(https://npm-assets.fiverrcdn.com/assets/@fiverr-private/user_page_reviews/stars.36cd23f.svg);
+    
     background-repeat: no-repeat;
     background-size: 15px 45px;
     display: inline-block;
@@ -1221,6 +1234,12 @@ a {
 }
 .reviews-package .reviews-header {
     position: relative;
+}
+
+.modal-header .close:hover, .modal-header .close:focus
+{
+    outline: none;
+    border: none;
 }
 .reviews-package.is-collapsable .reviews-header .details {
     cursor: default;
@@ -1359,9 +1378,334 @@ ul, ol, nav ul, nav ol {
     list-style-image: none;
 }
 
+.gig-menu.visible {
+    opacity: 1;
+    visibility: visible;
+}
 
+.gig-menu a {
+    color: #555;
+    display: block;
+    padding: 12px 15px;
+}
 
+.gig-menu a:before {
+    font: normal 14px/14px 'FontAwesome';
+    display: inline-block;
+    width: 30px;
+}
 
+.gig-menu a.preview:before {
+    content: '\f06e';
+}
+.liner-and-pen
+{
+    margin-left: 2%;
+}
+.liner-and-pen a{
+    color:black;
+}
+.form-thin article .inner-row .items-list {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 2%;
+}
+.form-thin article .inner-row .items-list .title {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    font-weight: 400;
+    color: #555;
+}
+.form-thin article .inner-row .items-list .sub-title {
+    color: #b2b2b2;
+    font-size: 14px;
+    font-weight: 400;
+}
+.gig-menu a.edit:before {
+    content: '\f040';
+}
+.gig-menu a.pause:before {
+    content: '\f04c';
+}
+
+.gig-menu a.delete:before {
+    content: "\f1f8";
+}
+
+.modal-header .close
+{
+    text-align: right;
+    width: 100%;
+}
+
+.share-text h2 {
+    font-size: 18px;
+    text-align: center;
+    color: #555;
+    padding: 10px 0;
+}
+
+.share-text p {
+    font-size: 15px;
+    line-height: 15px;
+    text-align: center;
+    color: #999;
+}
+.share-buttons-container
+{
+    height: 18vh;
+}
+.add-new-gig:hover {
+    text-decoration: none;
+    color: inherit;
+}
+.add-new-gig:before {
+    content: '+';
+    background-color: #2E5DC5;
+    color: #fff;
+    font-size: 48px;
+    font-weight: 400;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    display: block;
+    margin: 80px auto 20px;
+    line-height: 69px;
+}
+
+.gig-card-base:not(.list-view-card) {
+    background-color: #fff;
+    width: 232px;
+    min-height: 260px;
+    padding-bottom: 8px;
+    margin: 0 20px 20px 0;
+    float: left;
+    position: relative;
+    border: 1px solid #e5e5e5;
+    box-sizing: border-box;
+    text-align:center;
+    font-weight:700;
+}
+
+.new-seller {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+.out-of-office .banner-available {
+    padding: 15px;
+    border: 1px solid #dadbdd;
+    border-radius: 3px;
+    margin: 0;
+    margin-bottom: 24px;
+}
+
+.out-of-office {
+    width: 100%;
+}
+
+.new-seller .icn-calender {
+    display: block;
+    background-image: url(/static/assets/images/internal_icons/calendar.d796f13.svg);
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 12px;
+    margin-right: 12px;
+    margin-top: -20px;
+}
+
+.new-seller .start-time-status {
+    font-weight: 600;
+    font-size: 16px;
+    color: #404145;
+    line-height:30px;
+}
+.new-seller .end-time-status {
+    font-weight: 400;
+    font-size: 14px;
+    color: #62646a;
+    line-height:25px;
+}
+.out-of-office .banner-available .content .buyer-message {
+    font-size: 15px;
+    line-height:25px;
+}
+
+.out-of-office .banner-available .content .buyer-message:before {
+    content: open-quote;
+}
+.out-of-office .banner-available .content .buyer-message:after {
+    content: close-quote;
+}
+
+.seller-card .buttons-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+.seller-card .buttons-wrapper .btn-contact-me, .seller-card .buttons-wrapper .btn-custom-order, .seller-card .buttons-wrapper .btn-view-as {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1 1;
+    padding-left: 0;
+    padding-right: 0;
+}
+.FW1syM7 {
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 100%;
+    padding: 12px 24px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transition: 70ms cubic-bezier(.75,0,.25,1);
+    -o-transition: 70ms cubic-bezier(.75,0,.25,1);
+    transition: 70ms cubic-bezier(.75,0,.25,1);
+}
+.bg-co-green-700 {
+    background-color: #2E5DC5;
+    color: white;
+}
 </style>
 
+<script>
+    $(document).ready(function(){
+        $(".status-filter-bar").find("li:first").trigger("click");
+    });
+    function paused_click(gig_id)
+    {
+      $.ajax({
+         type:"GET",
+         url: "/post_pause_gig/",
+         data: {'userid':'{{request.user.id}}',"gig_id":gig_id},
+         success: function(data)
+         {  
+            if(data == "sucess")
+            {
+               window.location.reload();
+            }
+         }
+      });
+    }
+
+    function tabonclick(ev)
+    {
+        indepos = $(ev).index();
+        $(".status-filter-bar li").removeClass("selected-filter");
+        $(ev).addClass("selected-filter");
+        if(indepos == 0)
+        {
+            $("#active_div").show();
+            $("#drafts_div").hide();
+        }
+        else if(indepos == 1)
+        {
+            $("#active_div").hide();
+            $("#drafts_div").show();
+        }
+    }
+
+    function share_click(gig_id,gig_name)
+    {
+      $("#modal_share").modal('show');
+      $("#share_gig_id").val(gig_id);
+      $("#share_gig_name").val(gig_name);
+    }
+    function show_menu(ev)
+    {
+        $(ev).prev().prev().addClass("visible");
+        setTimeout(function(){
+            $(ev).prev().prev().removeClass("visible");
+          },10000)
+    }
+
+    function fbs_click() { 
+        var pageTitle = "Letworkbedone Gig - " + $("#share_gig_name").val();
+        var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+        pageLink = pageLink + $("#textarea_iwill").val();
+        window.open(`http://www.facebook.com/sharer.php?u=${pageLink}&quote=${pageTitle}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+           
+     function tbs_click() { 
+        var pageTitle = "Letworkbedone Gig - " + $("#share_gig_name").val();
+        var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+        pageLink = pageLink + $("#share_gig_name").val();
+        window.open(`https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+     
+     function lbs_click() { 
+        var pageTitle = "Letworkbedone Gig - " + $("#share_gig_name").val();
+        var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+        pageLink = pageLink + $("#share_gig_name").val();
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+     
+     function was_click() { 
+        var pageTitle = "Letworkbedone Gig - " + $("#share_gig_name").val();
+        var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+        pageLink = pageLink + $("#share_gig_name").val();
+        window.open(`https://api.whatsapp.com/send?text=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+     
+     function cos_click() { 
+        var pageLink1 = window.location.origin + "/gigs/{{request.user.username}}/";
+        pageLink1 = pageLink1 + $("#share_gig_name").val();
+           navigator.clipboard.writeText(pageLink1).then(
+             function() {
+               window.alert('Url Copied!') 
+             }, 
+             function() {
+               window.alert('Opps! Your browser does not support the Clipboard API')
+             }
+           )
+        return false; }
+
+        function delete_click(gig_id)
+        {
+          $.ajax({
+             type:"GET",
+             url: "/post_delete_gig/",
+             data: {'userid':'{{request.user.id}}',"gig_id":gig_id},
+             success: function(data)
+             {  
+                if(data == "sucess")
+                {
+                   window.location.reload();
+                }
+             }
+          });
+        }
+        function create_gig_onclick()
+        {
+            $.ajax({
+                type:"GET",
+                url: "/post_create_gig/",
+                data: {},
+                success: function(data) 
+                {  
+                    if(data != "error" && data != 0)
+                    {
+                        window.open('/user/{{request.user.username}}/create_gig/'+ data, "_blank");
+                    }
+                    else{
+                        window.open('/user/{{request.user.username}}/manage_gigs', "_blank");
+                    }
+                }
+              });
+        }
+     
+</script>
 {% endblock %}

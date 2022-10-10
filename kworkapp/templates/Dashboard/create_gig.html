@@ -2,7 +2,7 @@
 {% load static %}
 {% block contentarea%}
 <title>Letworkbedone - {{request.user.username}} / Create a New Gig</title>
-<link rel="stylesheet" href="{% static 'assets/css/frontend/create_gig.style.css' %}" type="text/css" />
+<link rel="stylesheet" href="{% static 'assets/css/frontend/create_gig_style.css' %}" type="text/css" />
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -72,7 +72,7 @@
                                         <div class="col-lg-3 right_pan pt-4">
                                             <select class="gig_subcategory" id="gig_subcategory"  required>
                                                 <option value="">Select Sub Category </option>
-                                                <option value="option1"> Option 1</option>
+                                                
                                             </select> 
                                         </div>
                                     </div>
@@ -558,18 +558,57 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="div_create_publish">
-                                 <div class="row tab1">
+                                 <div class="row tab1" id="publish_div">
                                     <div class="col-lg-1">
                                     </div>
                                     <div class="col-lg-9 left_pan pt-4">
                                       
                                        <div class="almost-there publish-section"><h1>Almost there...</h1><p>Let's publish your Gig and get<br>some buyers rolling in.</p></div>
                                     </div>
+                                    <div class="col-lg-1">   
+                                 </div>
+                              </div>
+                                 <div class="row tab1" id="publish_social_div">
                                     <div class="col-lg-1">
-                                       
                                     </div>
+                                    <div class="col-lg-9  pt-4">
+                                       <div class="">
+                                          <div class="share-buttons-container">
+                                             <div class="share-list">
+                                               <!-- FACEBOOK -->
+                                               <a class="fb-h" onclick="return fbs_click()" target="_blank">
+                                                 <img src="https://img.icons8.com/material-rounded/96/000000/facebook-f.png">
+                                               </a>
+                                           
+                                               <!-- TWITTER -->
+                                               <a class="tw-h" onclick="return tbs_click()"  target="_blank">
+                                                 <img src="https://img.icons8.com/material-rounded/96/000000/twitter-squared.png">
+                                               </a>
+                                           
+                                               <!-- LINKEDIN -->
+                                               <a class="li-h" onclick="return lbs_click()"  target="_blank">
+                                                 <img src="https://img.icons8.com/material-rounded/96/000000/linkedin.png">
+                                               </a>
+                                           
+                                                <!-- LINKEDIN -->
+                                               <a class="wa-h" onclick="return was_click()"  target="_blank">
+                                                 <img src="https://img.icons8.com/material-rounded/96/000000/whatsapp.png">
+                                               </a>
+                                               
+                                               <a class="co-h" onclick="return cos_click()"  target="_blank">
+                                                 <img src="https://i.ibb.co/kBTbdHG/chain-link-icon-free-vector.jpg">
+                                               </a>
+                                             </div>
+                                           </div>
+                                           <section class="btns mb-2">
+                                             <a href="/user/{{request.user.username}}/manage_gigs" class="next fit-button fit-button-color-green fit-button-fill-full fit-button-size-large co-white btn-submit js-gig-upcrate-submit bg-co-green-700" >Manage Gigs</a>
+                                          </section>
+                                       </div>
+                                    </div>
+                                    <div class="col-lg-1">   
+                                 </div>
                                 </div>
-                                    <div class="row tab7" >
+                                    <div class="row tab7" id="publish_btn_div">
                                         <div class="col-lg-1">
                                         </div>
                                         <div class="col-lg-3 left_pan pt-4"> 
@@ -612,6 +651,7 @@
     $(document).ready(function(){
       $("#extra_delivery").hide();
       $("#images_error").hide();
+      $("#publish_social_div").hide();
       $("#extra_standard").hide();
       $("#extra_premium").hide();
       $(".error").hide();
@@ -1064,7 +1104,7 @@
                }
                else{
                   $('#gig_tags').tokenize2().trigger('tokenize:clear')
-                  if(user_gig_package.length != 0)
+                  if (typeof user_gig_package != "undefined") 
                   {
                      try {
                         basic_revision =  user_gig_package[0].package_revisions.toString();
@@ -1201,8 +1241,9 @@
                      $( "#tbl_packages tr:nth-child(3) td:nth-child(4)").find("select").val(enterprise_delivery);
                      $( "#tbl_packages tr:nth-child(4) td:nth-child(2)").find("select").val(basic_revision);
                      $( "#tbl_packages tr:nth-child(4) td:nth-child(3)").find("select").val(standard_revision);
-                     $( "#tbl_packages tr:nth-child(4) td:nth-child(4)").find("select").val(enterprise_revision);
-                     if(user_gig_extra_package.length != 0){                       
+                     $( "#tbl_packages tr:nth-child(4) td:nth-child(4)").find("select").val(enterprise_revision);       
+                     if (typeof user_gig_extra_package != "undefined") 
+                     {                  
                         $("#extra_addOn").empty();
                         
                         try {
@@ -1257,7 +1298,8 @@
                            }
                         });
                      };  
-                     if(user_gig_extra_delivery.length != 0){
+                     if (typeof user_gig_extra_delivery != "undefined")  
+                     {
                         $("#extra_fast_delivery").prop('checked', true).trigger("change");
                         $.each(user_gig_extra_delivery, function(i, v_ed) {
                            if(v_ed.package_type== "basic")
@@ -2342,7 +2384,9 @@
                   {  
                      if(data == "sucess")
                      {
-                        window.location= 'http://127.0.0.1:8000/user/{{request.user.username}}/manage_gigs';                  
+                        $("#publish_div").hide();
+                        $("#publish_social_div").show(); 
+                        $("#publish_btn_div").hide();                   
                      }
                   }
                });
@@ -2632,5 +2676,45 @@ function delete_img_click(img)
    $("#gallery_images_div").find("#"+img).parent().parent().parent().show();  
    $("#gallery_images_div").find("#"+img).parent().parent().parent().next().hide(); 
 }
+
+
+
+function fbs_click() { 
+   var pageTitle = "Letworkbedone Gig - " + $("#textarea_iwill").val();
+   var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+   pageLink = pageLink + $("#textarea_iwill").val();
+   window.open(`http://www.facebook.com/sharer.php?u=${pageLink}&quote=${pageTitle}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+      
+function tbs_click() { 
+   var pageTitle = "Letworkbedone Gig - " + $("#textarea_iwill").val();
+   var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+   pageLink = pageLink + $("#textarea_iwill").val();
+   window.open(`https://twitter.com/intent/tweet?text=${pageTitle}&url=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+
+function lbs_click() { 
+   var pageTitle = "Letworkbedone Gig - " + $("#textarea_iwill").val();
+   var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+   pageLink = pageLink + $("#textarea_iwill").val();
+   window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+
+function was_click() { 
+   var pageTitle = "Letworkbedone Gig - " + $("#textarea_iwill").val();
+   var pageLink = window.location.origin + "/gigs/{{request.user.username}}/";
+   pageLink = pageLink + $("#textarea_iwill").val();
+   window.open(`https://api.whatsapp.com/send?text=${pageLink}`,'sharer','toolbar=0,status=0,width=626,height=436');return false; }
+
+function cos_click() { 
+   var pageLink1 = window.location.origin + "/gigs/{{request.user.username}}/";
+   pageLink1 = pageLink1 + $("#textarea_iwill").val();
+      navigator.clipboard.writeText(pageLink1).then(
+        function() {
+          window.alert('Url Copied!') 
+        }, 
+        function() {
+          window.alert('Opps! Your browser does not support the Clipboard API')
+        }
+      )
+   return false; }
+
 </script>
 {% endblock %}

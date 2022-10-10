@@ -79,9 +79,9 @@ class User(AbstractBaseUser):
     country =  CountryField(blank=True,default="",null=True)
     avatar = models.CharField(max_length=500, blank=True,default="",null=True)
     avg_respons = models.CharField(max_length=500, blank=True,default="",null=True)
-    last_delivery = models.CharField(max_length=500, blank=True,default="",null=True)
+    last_delivery = models.CharField(max_length=500, blank=True,default="1",null=True)
     ordersin_progress = models.CharField(max_length=500, blank=True,default="",null=True)
-    avg_delivery_time = models.CharField(max_length=500, blank=True,default="",null=True)
+    avg_delivery_time = models.CharField(max_length=500, blank=True,default="1",null=True)
     seller_level =  models.CharField(max_length=200,choices=BOOL_CHOICES_Levels,blank=True,default="level1",null=True)
     profile_type = models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="",null=True)
     is_admin = models.BooleanField(default=False)
@@ -89,8 +89,8 @@ class User(AbstractBaseUser):
     code = models.IntegerField(default=False)
     is_staff = models.BooleanField(default=False)
     terms = models.BooleanField(default=False)
-    updated_at = MytypeField
-    created_at = MytypeField
+    updated_at = models.DateTimeField(default=timezone.now, blank=True)
+    created_at = models.DateTimeField(default=timezone.now, blank=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -435,7 +435,6 @@ class UserGigs(models.Model):
     gig_description = models.TextField(blank=True,default="",null=True)
     gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,default="draft",blank=True,null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
-    gig_impressions =   models.TextField(blank=True,default="",null=True)
     
     class Meta:
         verbose_name = _("Gig Details")
@@ -444,7 +443,24 @@ class UserGigs(models.Model):
     def __str__(self):
         return str(self.gig_title)
     
+
+
+class UserGigsImpressions(models.Model):
+    BOOL_CHOICES =[('click', 'Click'),('ad', 'Ad')]
+    ip_address = models.CharField(max_length=500,blank=True,default="",null=True)
+    impress_type=  models.CharField(max_length=200,choices=BOOL_CHOICES,default="draft",blank=True,null=True)
+    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    impress_date =  models.DateTimeField(default=timezone.now, blank=True)
     
+    class Meta:
+        verbose_name = _("Gig Impression")
+        verbose_name_plural = _("Gig Impressions")
+
+    def __str__(self):
+        return str(self.ip_address)
+
+ 
 class UserGigsTags(models.Model):
     BOOL_CHOICES =[('Basic', 'Basic'),('Fluent', 'Fluent'),('Conversational', 'Conversational')]
     gig_tag_name = models.CharField(max_length=500,blank=True,default="",null=True)
@@ -564,7 +580,7 @@ class Usergig_faq(models.Model):
         return str(self.gig_faq_question)
     
 class Usergig_image(models.Model):
-    gig_image = models.ImageField(blank=True)
+    gig_image = models.CharField(max_length=800,blank=True,default="",null=True)
     package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     class Meta:
@@ -586,4 +602,19 @@ class Usergig_requirement(models.Model):
 
     def __str__(self):
         return str(self.gig_req_question)
+    
+    
+class User_orders(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    order_no =  ShortUUIDField(length=6,max_length=6,alphabet="123456",primary_key=True,)
+    order_status =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    order_date = models.DateTimeField(default=timezone.now, blank=True)
+    class Meta:
+        verbose_name = _("Order")
+        verbose_name_plural = _("Orders")
+
+    def __str__(self):
+        return str(self.order_no)
 
