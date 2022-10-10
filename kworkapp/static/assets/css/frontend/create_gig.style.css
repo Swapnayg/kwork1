@@ -1005,6 +1005,13 @@ list-style: none;
    border: none!important;
    position: relative;
 }
+
+.gig_img_del_ico{
+   position: absolute;
+   top: 13%;
+   right: 5%;
+   color: red;
+}
 .pkg-revision-container
 {
    position: relative;

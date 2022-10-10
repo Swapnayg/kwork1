@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -165,10 +165,22 @@ class AdminUserLanguages(admin.ModelAdmin):
 
 admin.site.register(UserLanguages, AdminUserLanguages)
 
+class AdminUserSearchTerms(admin.ModelAdmin):
+    list_display = ['search_words','ip_address','search_types']
+
+admin.site.register(UserSearchTerms, AdminUserSearchTerms)
+
+
 class AdminUserGigs(admin.ModelAdmin):
-    list_display = ['gig_title','gig_category','gig_sub_category','gig_description','gig_status','user_id']
+    list_display = ['gig_title','gig_category','gig_sub_category','gig_description','gig_status','user_id','gig_impressions']
 
 admin.site.register(UserGigs, AdminUserGigs)
+
+
+class AdminUserAvailable(admin.ModelAdmin):
+    list_display = ['available_from','available_to','available_mssg','available_for_new','available_types','gig_name','user_id']
+
+admin.site.register(UserAvailable, AdminUserAvailable)
 
 
 class AdminUserPackageGig(admin.ModelAdmin):

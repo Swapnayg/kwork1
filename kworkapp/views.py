@@ -1104,9 +1104,9 @@ def post_gig_des_faq_save_view(request):
         gigDetails =  UserGigs.objects.get(pk=u_gig_id , user_id = userDetails)
         gigDetails.gig_description = u_gig_description
         gigDetails.save()
-        user_gig_faqs.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
-        user_gig_faqs= Usergig_faq(gig_faq_question=u_gig_faq_ques,gig_faq_answer=u_gig_faq_answer,package_gig_name= gigDetails,user_id=userDetails)
-        user_gig_faqs.save()
+        Usergig_faq.objects.filter(package_gig_name=gigDetails ,user_id = userDetails).delete()
+        user_gig_faqsobj = Usergig_faq(gig_faq_question=u_gig_faq_ques,gig_faq_answer=u_gig_faq_answer,package_gig_name= gigDetails,user_id=userDetails)
+        user_gig_faqsobj.save()
         return HttpResponse('sucess')
 
 
@@ -1170,27 +1170,29 @@ def get_gig_details_view(request):
         gigTags_tmpObj = json.loads(gigTags_tmpJson)
         gigPackages =  UserGigPackages.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
         package_data = []
+        extra_delivery_data = []
+        extra_gigs_data = []
         for gig_package in gigPackages:
             package_data.append({"package_type":gig_package.package_type,"package_title":gig_package.package_title,"package_description":gig_package.package_description,"package_delivery":gig_package.package_delivery.parameter_value,"package_revisions":gig_package.package_revisions.parameter_value,"package_data":gig_package.package_data,"package_price":gig_package.package_price})
         gig_extra_delivery =  UserGig_Extra_Delivery.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
-        gig_extra_delivery_tmpJson = serializers.serialize("json",gig_extra_delivery)
-        gig_extra_delivery_tmpObj = json.loads(gig_extra_delivery_tmpJson)
+        for gig_ex_delivery in gig_extra_delivery:
+            extra_delivery_data.append({"package_type":gig_ex_delivery.package_type,"delivery_in":gig_ex_delivery.delivery_in.parameter_value,"extra_price":gig_ex_delivery.extra_price})
         gig_extra_pack =  UserGigPackage_Extra.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
         gig_extra_pack_tmpJson = serializers.serialize("json",gig_extra_pack)
         gig_extra_pack_tmpObj = json.loads(gig_extra_pack_tmpJson)
         extra_gigs =  UserExtra_gigs.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
-        extra_gigs_tmpJson = serializers.serialize("json",extra_gigs)
-        extra_gigs_tmpObj = json.loads(extra_gigs_tmpJson)
+        for gig_ex in extra_gigs:
+            extra_gigs_data.append({"extra_gig_title":gig_ex.extra_gig_title,"extra_gig_description":gig_ex.extra_gig_description,"extra_gig_price":gig_ex.extra_gig_price,"extra_gig_duration":gig_ex.extra_gig_duration.parameter_value})
         gig_faqs =  Usergig_faq.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
-        gig_faqs_tmpJson = serializers.serialize("json",extra_gigs)
-        gig_faqs_tmpObj = json.loads(extra_gigs_tmpJson)
+        gig_faqs_tmpJson = serializers.serialize("json",gig_faqs)
+        gig_faqs_tmpObj = json.loads(gig_faqs_tmpJson)
         gig_requirements =  Usergig_requirement.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
         gig_requirements_tmpJson = serializers.serialize("json",gig_requirements)
-        gig_requirements_tmpObj = json.loads(extra_gigs_tmpJson)
+        gig_requirements_tmpObj = json.loads(gig_requirements_tmpJson)
         gig_image =  Usergig_image.objects.filter(package_gig_name=gigDetails , user_id = userDetails)
         gig_image_tmpJson = serializers.serialize("json",gig_image)
         gig_image_tmpObj = json.loads(gig_image_tmpJson)
-        response_data = {"gig_details":json.dumps(data_gig_details), "gig_tags":gigTags_tmpObj,"gig_packages":package_data, "gig_extra_delivery":gig_extra_delivery_tmpObj, "gig_extra_pack":gig_extra_pack_tmpObj, "extra_gigs":extra_gigs_tmpObj, "gig_faqs":gig_faqs_tmpObj, "gig_requirements":gig_requirements_tmpObj, "gig_image":gig_image_tmpObj}
+        response_data = {"gig_details":json.dumps(data_gig_details), "gig_tags":gigTags_tmpObj,"gig_packages":package_data, "gig_extra_delivery":extra_delivery_data, "gig_extra_pack":gig_extra_pack_tmpObj, "extra_gigs":extra_gigs_data, "gig_faqs":gig_faqs_tmpObj, "gig_requirements":gig_requirements_tmpObj, "gig_image":gig_image_tmpObj}
         return JsonResponse(response_data,safe=False)    
      
     

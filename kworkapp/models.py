@@ -435,6 +435,8 @@ class UserGigs(models.Model):
     gig_description = models.TextField(blank=True,default="",null=True)
     gig_status =   models.CharField(max_length=200,choices=BOOL_CHOICES_STATUS,default="draft",blank=True,null=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    gig_impressions =   models.TextField(blank=True,default="",null=True)
+    
     class Meta:
         verbose_name = _("Gig Details")
         verbose_name_plural = _("Gig Details")
@@ -454,7 +456,40 @@ class UserGigsTags(models.Model):
 
     def __str__(self):
         return str(self.gig_tag_name)
+
+
+class UserAvailable(models.Model):
+    BOOL_CHOICES =[('vacation', "I'm going on vacation"),('overbooked', "I'm overbooked"),('other', 'Other')]
+    available_from = models.CharField(max_length=500,blank=True,default="",null=True)
+    available_to = models.CharField(max_length=500,blank=True,default="",null=True)
+    available_mssg = models.TextField(max_length=1000,blank=True,default="",null=True)
+    available_for_new =  models.BooleanField(default=False)
+    available_types =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     
+    class Meta:
+        verbose_name = _("User Available")
+        verbose_name_plural = _("User Available")
+
+    def __str__(self):
+        return str(self.available_from)
+  
+class UserSearchTerms(models.Model):
+    BOOL_CHOICES =[('user', "user"),('keyword', "keyword")]
+    search_words = models.CharField(max_length=1000,blank=True,default="",null=True)
+    ip_address=  models.CharField(max_length=1000,blank=True,default="",null=True)
+    search_types =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    
+    class Meta:
+        verbose_name = _("User Search Term")
+        verbose_name_plural = _("User Search Terms")
+
+    def __str__(self):
+        return str(self.ip_address)
+    
+  
+ 
     
 class UserGigPackages(models.Model):
     BOOL_CHOICES =[('basic', 'Basic'),('standard', 'Standard'),('enterprise', 'Enterprise')]
