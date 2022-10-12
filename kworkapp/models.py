@@ -481,7 +481,6 @@ class UserAvailable(models.Model):
     available_mssg = models.TextField(max_length=1000,blank=True,default="",null=True)
     available_for_new =  models.BooleanField(default=False)
     available_types =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
-    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     
     class Meta:
@@ -617,4 +616,44 @@ class User_orders(models.Model):
 
     def __str__(self):
         return str(self.order_no)
+
+
+class Seller_Reviews(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    communication = models.CharField(max_length=200,blank=True,default="",null=True)
+    recommendation = models.CharField(max_length=200,blank=True,default="",null=True)
+    service = models.CharField(max_length=200,blank=True,default="",null=True)
+    average_val = models.CharField(max_length=200,blank=True,default="",null=True)
+    review_message = models.TextField()
+    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    s_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="s_review_from")
+    s_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False, related_name="s_review_to")
+    review_date = models.DateTimeField(default=timezone.now, blank=True)
+    
+    class Meta:
+        verbose_name = _("Seller Review")
+        verbose_name_plural = _("Seller Reviews")
+
+    def __str__(self):
+        return str(self.recommendation)
+
+class Buyer_Reviews(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    review_message = models.TextField()
+    rating_val = models.CharField(max_length=200,blank=True,default="",null=True)
+    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    b_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_from")
+    b_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_to")
+    review_date = models.DateTimeField(default=timezone.now, blank=True)
+    
+    class Meta:
+        verbose_name = _("Buyer Review")
+        verbose_name_plural = _("Buyer Reviews")
+
+    def __str__(self):
+        return str(self.review_message)
+
+
 

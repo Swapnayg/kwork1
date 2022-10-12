@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from re import sub
 import smtplib
 from datetime import datetime, timedelta
+from dateutil import relativedelta
 from tabnanny import verbose
 from django.views import View
 from urllib.parse import urlparse
@@ -20,7 +21,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -184,8 +185,8 @@ class profile_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            # try: 
-                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+            try: 
+                userDetails = User.objects.get(username=username)
                 userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
                 userlanguages = UserLanguages.objects.filter(user_id=userDetails)
                 userlang = []
@@ -194,6 +195,86 @@ class profile_view(View):
                 active_gig_details = []
                 draft_gig_details = []
                 user_gigs_details = UserGigs.objects.filter(user_id=userDetails)
+                seller_reviews = Seller_Reviews.objects.filter(s_review_to=userDetails)
+                buyer_reviews = Buyer_Reviews.objects.filter(b_review_to=userDetails)
+                comm_count = 0
+                recc_count = 0
+                serv_count = 0
+                seller_count = 0
+                buyer_count = 0
+                s_review_date = ''
+                b_review_date = ''
+                seller_rev_data = []
+                buyer_rev_data = []
+                for s_review in seller_reviews:
+                    comm_count = comm_count + int(s_review.communication)
+                    recc_count = recc_count + int(s_review.recommendation)
+                    serv_count = serv_count + int(s_review.service)
+                    seller_count = seller_count + int(s_review.average_val)
+                    start_date = datetime.strptime(str(s_review.review_date), "%Y-%m-%d %H:%M:%S")
+                    end_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+                    diff = relativedelta.relativedelta(end_date, start_date)
+                    if(diff.years == 0 and diff.months == 0):
+                        if(diff.days == 0):
+                            s_review_date = 'today'
+                        else:
+                            s_review_date = str(diff.days) + ' days'
+                    elif(diff.months != 0 and diff.years == 0):
+                        if(diff.months == 1):
+                            s_review_date = str(diff.months) + ' month'
+                        else:
+                            s_review_date = str(diff.months) + ' months'
+                    elif(diff.years != 0):
+                        if(diff.years == 1):
+                            s_review_date = str(diff.years) + ' year'
+                        else:
+                            s_review_date = str(diff.years) + ' years'
+                    country_flag_icon = '/static/assets/images/flags/'+ s_review.s_review_from.country.code.lower()+ '.svg'
+                    seller_rev_data.append({"message":s_review.review_message,"review":s_review.average_val,"sender":s_review.s_review_from,"review_date":s_review_date,"country_flag":country_flag_icon})
+                for b_review in buyer_reviews:
+                    buyer_count = buyer_count + int(b_review.rating_val)
+                    start_date = datetime.strptime(str(b_review.review_date), "%Y-%m-%d %H:%M:%S")
+                    end_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+                    diff = relativedelta.relativedelta(end_date, start_date)
+                    if(diff.years == 0 and diff.months == 0):
+                        if(diff.days == 0):
+                            b_review_date = 'today'
+                        else:
+                            b_review_date = str(diff.days) + ' days'
+                    elif(diff.months != 0 and diff.years == 0):
+                        if(diff.months == 1):
+                            b_review_date = str(diff.months) + ' month'
+                        else:
+                            b_review_date = str(diff.months) + ' months'
+                    elif(diff.years != 0):
+                        if(diff.years == 1):
+                            b_review_date = str(diff.years) + ' year'
+                        else:
+                            b_review_date = str(diff.years) + ' years'
+                    b_country_flag_icon = '/static/assets/images/flags/'+ b_review.b_review_from.country.code.lower()+ '.svg'
+                    buyer_rev_data.append({"message":b_review.review_message,"review":b_review.rating_val,"sender":b_review.b_review_from,"review_date":b_review_date,"country_flag":b_country_flag_icon})
+                try:
+                    seller_count = round(seller_count/len(seller_reviews),1)
+                except:
+                    seller_count = 0
+                try:
+                    comm_count = round(comm_count/len(seller_reviews),1)
+                except:
+                    comm_count = 0
+                try:
+                    recc_count = round(recc_count/len(seller_reviews),1)
+                except:
+                    recc_count = 0
+                try:
+                    serv_count = round(serv_count/len(seller_reviews),1)
+                except:
+                    serv_count = 0
+                user_availability= []
+                try:
+                    user_availability = UserAvailable.objects.get(Q(user_id=userDetails))
+                except:
+                    user_availability = []
+                charcterlimits = CharacterLimit.objects.get(Q(Char_category_Name="available_reason"))
                 for u_gig in user_gigs_details:
                     userpack= UserGigPackages.objects.filter(package_gig_name=u_gig , user_id = userDetails , package_type= 'basic').first() 
                     gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
@@ -209,9 +290,9 @@ class profile_view(View):
                         active_gig_details.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"start_price":start_price})
                     elif(u_gig.gig_status == "draft"):
                         draft_gig_details.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"start_price":start_price})
-                return render(request , 'Dashboard/profile.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"active_gigs":active_gig_details,"draft_gigs":draft_gig_details})                 
-            # except:
-            #     return render(request , 'register.html')
+                return render(request , 'Dashboard/profile.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"active_gigs":active_gig_details,"draft_gigs":draft_gig_details,"seller_reviews":seller_rev_data,"seller_count":seller_count,"comm_count":comm_count,"recc_count":recc_count,"serv_count":serv_count,"buyer_reviews":buyer_rev_data,"character_avail":int(charcterlimits.Max_No_of_char_allowed),"user_avail":user_availability})                 
+            except:
+                return render(request , 'register.html')
         else:
             return render(request , 'register.html')
 
@@ -1244,3 +1325,40 @@ def post_delete_gig_view(request):
         userDetails =  User.objects.get(pk=userid)
         gigDetails =  UserGigs.objects.get(pk=gig_id , user_id = userDetails).delete()
         return HttpResponse('sucess')
+    
+    
+@csrf_exempt
+def post_availability_view(request):
+    if request.method == 'POST':
+        userid = request.POST.get("userid")
+        unva_from = request.POST.get("unva_from")
+        unva_to = request.POST.get("unva_to")
+        reason = request.POST.get("reason")
+        avail_message = request.POST.get("avail_message")
+        checked_new = request.POST.get("checked_new")
+        userDetails =  User.objects.get(pk=userid)
+        availablity =  UserAvailable.objects.filter(user_id = userDetails).delete()
+        user_avail_obj = UserAvailable(available_from=unva_from,available_to=unva_to,available_mssg=avail_message,available_for_new=checked_new,available_types=reason,user_id=userDetails)
+        user_avail_obj.save()
+        return HttpResponse('sucess')
+    
+    
+@csrf_exempt
+def post_avail_delete_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        avail_id = request.GET['avail_id']
+        userDetails =  User.objects.get(pk=userid)
+        availablity =  UserAvailable.objects.filter(user_id = userDetails).delete()
+        return HttpResponse('sucess')
+
+def get_availability_view(request):
+    if request.method == 'GET':
+        userid = request.GET['userid']
+        try:
+            user_avail = UserAvailable.objects.filter(user_id = userid)
+            tmpJson = serializers.serialize("json",user_avail)
+            tmpObj = json.loads(tmpJson)
+        except:
+            tmpObj = []
+        return HttpResponse(json.dumps(tmpObj))

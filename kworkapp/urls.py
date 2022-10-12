@@ -19,6 +19,7 @@ urlpatterns  = [
 	path('manage_orders', buyer_manage_orders_view.as_view(), name='manage_orders' ),
 	path('referral_program', refer_program_view.as_view(), name='referral_program' ),
 	path('inbox', inbox_view.as_view(), name='inbox' ),
+ 	path('inbox/<str:username>/', inbox_view.as_view(), name='inbox' ),
 	path('favourites', favourites_view.as_view(), name='favourites' ),
 	path('term_service', term_serviceView.as_view(), name='term_service' ),
 	path('for_freelancer', for_freelancerView.as_view(), name='for_freelancer' ),
@@ -78,4 +79,7 @@ urlpatterns  = [
     path("get_gig_extra_package_details/",views.get_gig_details_view,name = 'get_gig_details'),
     path("post_pause_gig/",views.post_pause_gig_view,name = 'post_pause_gig'),
     path("post_delete_gig/",views.post_delete_gig_view,name = 'post_delete_gig'),
+    path("post_availability/",views.post_availability_view,name = 'post_availability'),
+    path("post_avail_delete/",views.post_avail_delete_view,name = 'post_avail_delete'),
+    path("get_availability/",views.get_availability_view,name = 'get_availability'),
 ]
