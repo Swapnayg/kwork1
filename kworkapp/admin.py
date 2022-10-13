@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -114,13 +114,13 @@ admin.site.register(User_orders, AdminUser_orders)
 
 
 class AdminSeller_Reviews(admin.ModelAdmin):
-    list_display = ['communication','recommendation','service','average_val','review_message','order_no','package_gig_name','s_review_from','s_review_to','review_date']
+    list_display = ['communication','recommendation','service','average_val','buyer_response','buyer_resp_date','review_message','order_no','package_gig_name','s_review_from','s_review_to','review_date']
 
 admin.site.register(Seller_Reviews, AdminSeller_Reviews)
 
 
 class AdminBuyer_Reviews(admin.ModelAdmin):
-    list_display = ['review_message','order_no','package_gig_name','b_review_from','rating_val','b_review_to','review_date']
+    list_display = ['review_message','order_no','package_gig_name','b_review_from','seller_response','seller_resp_date','rating_val','b_review_to','review_date']
 
 admin.site.register(Buyer_Reviews, AdminBuyer_Reviews)
 
@@ -205,6 +205,12 @@ class AdminUserAvailable(admin.ModelAdmin):
     list_display = ['available_from','available_to','available_mssg','available_for_new','available_types','user_id']
 
 admin.site.register(UserAvailable, AdminUserAvailable)
+
+
+class AdminBuyer_Post_Request(admin.ModelAdmin):
+    list_display = ['service_desc','service_images','service_category','send_to','service_type','service_sub_category','service_time','service_budget','service_date','user_id']
+
+admin.site.register(Buyer_Post_Request, AdminBuyer_Post_Request)
 
 
 class AdminUserPackageGig(admin.ModelAdmin):

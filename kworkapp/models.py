@@ -624,12 +624,14 @@ class Seller_Reviews(models.Model):
     recommendation = models.CharField(max_length=200,blank=True,default="",null=True)
     service = models.CharField(max_length=200,blank=True,default="",null=True)
     average_val = models.CharField(max_length=200,blank=True,default="",null=True)
+    buyer_response = models.TextField(blank=True,default="",null=True)
     review_message = models.TextField()
     order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
     package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     s_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="s_review_from")
     s_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False, related_name="s_review_to")
     review_date = models.DateTimeField(default=timezone.now, blank=True)
+    buyer_resp_date = models.DateTimeField(default=timezone.now, blank=True)
     
     class Meta:
         verbose_name = _("Seller Review")
@@ -641,12 +643,14 @@ class Seller_Reviews(models.Model):
 class Buyer_Reviews(models.Model):
     BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
     review_message = models.TextField()
+    seller_response = models.TextField(blank=True,default="",null=True)
     rating_val = models.CharField(max_length=200,blank=True,default="",null=True)
     order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
     package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     b_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_from")
     b_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_to")
     review_date = models.DateTimeField(default=timezone.now, blank=True)
+    seller_resp_date = models.DateTimeField(default=timezone.now, blank=True)
     
     class Meta:
         verbose_name = _("Buyer Review")
@@ -654,6 +658,27 @@ class Buyer_Reviews(models.Model):
 
     def __str__(self):
         return str(self.review_message)
+    
+    
+class Buyer_Post_Request(models.Model):
+    BOOL_CHOICES =[('24hours', '24 Hours'),('3days', '3 Days'),('7days', '7 Days'),('other', 'Others')]
+    BOOL_CHOICES_TYPES =[('individual', 'Individual'),('all', 'All')]
+    service_desc = models.TextField()
+    service_images = models.TextField()
+    service_category =  models.ForeignKey(Categories, on_delete=models.CASCADE,related_name="Post_Category_Name",null=False,blank=False)
+    service_sub_category =  models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,related_name="Post_SubCategory_Name",null=False,blank=False)
+    service_time = models.CharField(max_length=300,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
+    service_budget = models.CharField(max_length=300,blank=True,default="",null=True)
+    service_date = models.DateTimeField(default=timezone.now, blank=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    send_to = models.ForeignKey(User, on_delete=models.CASCADE,related_name="post_send_to",null=True,blank=True,default="")
+    service_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="Basic",null=True)
+    
+    class Meta:
+        verbose_name = _("Post Request")
+        verbose_name_plural = _("Post Requests")
 
+    def __str__(self):
+        return str(self.service_desc)
 
-
+    

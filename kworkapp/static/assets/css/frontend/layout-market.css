@@ -50,6 +50,9 @@ a.login_with p
     height: 40px;
     line-height: 40px;
 }
+a.login_with:hover{
+    text-decoration: none !important;
+}
 .google
 {
     background: #4c8bf5;

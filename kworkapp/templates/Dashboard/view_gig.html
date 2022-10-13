@@ -36,17 +36,6 @@
                              </div>
                              <span class="collect-count">17,038</span>
                           </div>
-                          <div class="tmELUJj P_h9XGC report-gig-tooltip">
-                             <span class="vpfXdaJ">
-                                <button class="ZQi_S8t AOOSxop co-white btn-report-gig bg-co-green-700" delay="120" content="[object Object]" position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr report-gig-tooltip-box" containerclassname="report-gig-tooltip-container">
-                                   <span class="nFghBOe report-gig-icon" style="width:16px;height:16px" aria-hidden="true">
-                                      <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                         <path d="M1 3.74677e-06C0.446875 3.74677e-06 0 0.446879 0 1V15.5C0 15.775 0.225 16 0.5 16H1.5C1.775 16 2 15.775 2 15.5V1C2 0.446879 1.55313 3.74677e-06 1 3.74677e-06ZM14.4563 0.131254C9.10312 2.85938 9.54375 -1.94375 3 1.0125V12C8.80313 9.11875 9.92813 13.6656 15.4219 11.2781C15.7781 11.1219 16 10.7625 16 10.3781V0.962504C16 0.178129 15.1625 -0.228121 14.4563 0.131254Z"></path>
-                                      </svg>
-                                   </span>
-                                </button>
-                             </span>
-                          </div>
                           <div class="tmELUJj P_h9XGC sharing-link-tooltip">
                              <span class="vpfXdaJ">
                                 <button class="ZQi_S8t AOOSxop MHWZydm co-white btn-sharing-link sharing-icon bg-co-green-700">
@@ -64,11 +53,11 @@
             </div>
             <div class="row gig-page-wrapper mt-5">
                <div class="col-lg-7 mx-0 ">
-                  <div class="gig-overview">
+                  <div class="gig-overview" id="overview">
                      <nav class="Zv9aftN fUdgV0k categories-breadcrumbs">
                         <ul>
                            <li>
-                              <span class="ii3cK9G category-breadcrumbs "><a href="/categories/programming-tech?source=gig_category_link">Programming &amp; Tech</a></span>
+                              <span class="ii3cK9G category-breadcrumbs "><a href="/categories/{{gig_details.gig_sub_category.category_Name}}">{{gig_details.gig_sub_category.category_Name}}</a></span>
                               <span class="nFghBOe hHj5hL_ H1E92Nx" style="width:12px;height:12px" aria-hidden="true">
                                  <svg width="8" height="16" viewBox="0 0 8 16" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0.772126 1.19065L0.153407 1.80934C0.00696973 1.95578 0.00696973 2.19322 0.153407 2.33969L5.80025 8L0.153407 13.6603C0.00696973 13.8067 0.00696973 14.0442 0.153407 14.1907L0.772126 14.8094C0.918563 14.9558 1.156 14.9558 1.30247 14.8094L7.84666 8.26519C7.99309 8.11875 7.99309 7.88131 7.84666 7.73484L1.30247 1.19065C1.156 1.04419 0.918563 1.04419 0.772126 1.19065Z"></path>
@@ -76,30 +65,30 @@
                               </span>
                            </li>
                            <li>
-                              <span class="ii3cK9G category-breadcrumbs "><a href="/categories/programming-tech/web-programming-services?source=gig_sub_category_link">Web Programming</a></span>
+                              <span class="ii3cK9G category-breadcrumbs "><a href="/categories/{{gig_details.gig_sub_category.category_Name}}/{{gig_details.gig_sub_category.sub_category_Name}}">{{gig_details.gig_sub_category.sub_category_Name}}</a></span>
                               <span class="nFghBOe hHj5hL_ H1E92Nx" style="width:12px;height:12px" aria-hidden="true">
                                  <svg width="8" height="16" viewBox="0 0 8 16" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M0.772126 1.19065L0.153407 1.80934C0.00696973 1.95578 0.00696973 2.19322 0.153407 2.33969L5.80025 8L0.153407 13.6603C0.00696973 13.8067 0.00696973 14.0442 0.153407 14.1907L0.772126 14.8094C0.918563 14.9558 1.156 14.9558 1.30247 14.8094L7.84666 8.26519C7.99309 8.11875 7.99309 7.88131 7.84666 7.73484L1.30247 1.19065C1.156 1.04419 0.918563 1.04419 0.772126 1.19065Z"></path>
                                  </svg>
                               </span>
                            </li>
-                           <li><span class="ii3cK9G category-breadcrumbs "><a href="/categories/programming-tech/web-programming-services/web-application?source=gig_nested_sub_category_link">Web Application</a></span></li>
+                           <li><span class="ii3cK9G category-breadcrumbs "><a href="/categories/{{gig_details.gig_sub_category.category_Name}}/{{gig_details.gig_sub_category.sub_category_Name}}/{{gig_details.gig_sub_category.sub_sub_category_Name}}">{{gig_details.gig_sub_category.sub_sub_category_Name}}</a></span></li>
                         </ul>
                      </nav>
-                     <h1 class="text-display-3">I will develop python django business websites</h1>
+                     <h1 class="text-display-3">{{gig_details.gig_title|title}}</h1>
                      <div class="seller-overview">
                         <div class="ALWjgIt">
                            <div class="vN3S32e LIRcnrb" style="border-radius:50%">
                               <figure style="font-size:30px;background-color:#9B6928" class="_nIXZEm" title="obaidrehman290">
                                  <figcaption class="Y1BXLWZ">o</figcaption>
-                                 <img class="ziXAPIc" src="https://fiverr-res.cloudinary.com/t_profile_thumb,q_auto,f_auto/attachments/profile/photo/92ea56571d8dad99d64709d24cc84ce4-1623056858280/37a3c01d-0811-42f7-9d3d-294861956623.png" alt="obaidrehman290" loading="lazy">
+                                 <img class="ziXAPIc" src="{{userDetails.avatar}}" alt="obaidrehman290" loading="lazy">
                               </figure>
                            </div>
                            <div class="AL1ZOr7">
-                              <div class="LBuVtkY">obaidrehman290</div>
+                              <div class="LBuVtkY">{{userDetails.username}}</div>
                               <div class="tmELUJj P_h9XGC user-profile-image n2BDwY8">
                                  <span class="vpfXdaJ">
-                                    <div class="d4fHuVP">Level 1 Seller</div>
+                                    <div class="d4fHuVP">{{seller_level}}</div>
                                  </span>
                               </div>
                               <div class="orca-rating SwtJyda color-yellow tbody-6">
@@ -130,9 +119,9 @@
                                        </svg>
                                     </span>
                                  </div>
-                                 <b class="rating-score">5</b>
+                                 <b class="rating-score">{{seller_count}}</b>
                                  <span class="ratings-count">
-                                    (<!-- -->18<!-- -->)
+                                    (<!-- -->{{gig_reviews|length}}<!-- -->)
                                  </span>
                               </div>
                            </div>
@@ -141,126 +130,40 @@
                   </div>
                   <section class="gig-gallery-component" tabindex="-1">
                      <div class="gallery-slideshow">
-                        <a href="#" class="nav-prev" rel="nofollow"></a><a href="#" class="nav-next" rel="nofollow"></a>
-                        <div class="swipe-events-wrapper">
-                           <div class="slideshow-component slide-h do-not-animate">
-                              <div class="slideshow-slide current">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"><img alt="develop python django business websites" src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs/223663964/original/9fb012a5981296f2592bd0a4e5de5bd947806ac6/develop-python-django-business-websites.png" class=""></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"><img alt="develop python django business websites" src="https://fiverr-res.cloudinary.com/images/t_main1,q_auto,f_auto,q_auto,f_auto/gigs2/223663964/original/775d615308249fc28201569728adcb59993aba36/develop-python-django-business-websites.jpg" class=""></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-video">
-                                    <figure class="thumbnail">
-                                       <button class="nFghBOe YeY2NiI slide-play-button" style="width:80px;height:80px">
-                                          <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                             <path d="M8.00017 0.333374C6.48384 0.333374 5.00157 0.783016 3.74079 1.62544C2.48002 2.46786 1.49736 3.66523 0.91709 5.06613C0.336818 6.46703 0.184992 8.00855 0.480812 9.49573C0.776632 10.9829 1.50681 12.349 2.57901 13.4212C3.65122 14.4934 5.01729 15.2236 6.50447 15.5194C7.99166 15.8152 9.53317 15.6634 10.9341 15.0831C12.335 14.5028 13.5323 13.5202 14.3748 12.2594C15.2172 10.9986 15.6668 9.51636 15.6668 8.00004C15.6646 5.96739 14.8562 4.01863 13.4189 2.58132C11.9816 1.14402 10.0328 0.33558 8.00017 0.333374V0.333374ZM11.5025 8.28737L5.83583 11.6207C5.7852 11.6505 5.7276 11.6664 5.66885 11.6667C5.61011 11.6671 5.55232 11.6519 5.50133 11.6227C5.45034 11.5936 5.40796 11.5514 5.37849 11.5006C5.34902 11.4498 5.3335 11.3921 5.3335 11.3334V4.66671C5.3335 4.60796 5.34902 4.55026 5.37849 4.49945C5.40796 4.44864 5.45034 4.40651 5.50133 4.37735C5.55232 4.34818 5.61011 4.33301 5.66885 4.33336C5.7276 4.33372 5.7852 4.34959 5.83583 4.37937L11.5025 7.71271C11.5525 7.74214 11.594 7.78413 11.6229 7.83453C11.6517 7.88493 11.6669 7.94198 11.6669 8.00004C11.6669 8.0581 11.6517 8.11515 11.6229 8.16555C11.594 8.21595 11.5525 8.25794 11.5025 8.28737V8.28737Z"></path>
-                                          </svg>
-                                       </button>
-                                    </figure>
-                                 </div>
-                              </div>
-                              <div class="slideshow-slide">
-                                 <div class="slide slide-image">
-                                    <figure class="thumbnail" tabindex="0"></figure>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <div class="indication-dots-wrapper"><span class="active"></span><span class=""></span><span class=""></span><span class=""></span><span class=""></span><span class="small"></span></div>
-                     <div class="gallery-thumbnails">
-                        <a href="#" class="nav-next-thumb" rel="nofollow"></a>
-                        <div class="thumbs-container" style="transform:translateX(0px)"><a href="#" class="thumbnail active" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_thumbnail3_3,q_auto,f_auto/gigs/223663964/original/9fb012a5981296f2592bd0a4e5de5bd947806ac6/develop-python-django-business-websites.png" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_thumbnail3_3,q_auto,f_auto/gigs2/223663964/original/775d615308249fc28201569728adcb59993aba36/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_thumbnail3_3,q_auto,f_auto/gigs3/223663964/original/1bc50759cb5d93b597bc4ec8db3d4e772d6ee537/develop-python-django-business-websites.png" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/98353df1e484c330ae2e7501217d8545-1663145592/page_1%204/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/644cff291c91417b998029a465fe0b22-1654161108/Screenshot_20220602-141041/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/9c014e4fc788a59e2b306151e1ddd188-1652564944/Warden3/develop-python-django-business-websites.PNG" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/0152f8edbc08fdddd6cad339b1799db3-1649982729/IMG-20220415-WA0027/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/cdf1ebdec3ffa5d27a8ffc175b8fd9b4-1649765435/FU-WEB---ABOUT%20(1)/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/01ca7407a6e8bbc9f419480d1e4225fc-1649765614/sadd/develop-python-django-business-websites.PNG" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/c33ad7b8e9f69534d0735be5b1a2fa37-1649765515/home%20page/develop-python-django-business-websites.jpg" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/videos/t_smartwm/t_thumbnail3_3/gx3ke7qqg4e0llfnxbdz/develop-python-django-business-websites.png" alt="develop python django business websites"></a><a href="#" class="thumbnail" rel="nofollow"><img src="https://fiverr-res.cloudinary.com/images/t_smartwm/t_delivery_thumb,q_auto,f_auto/attachments/delivery/asset/a019cd4f56c5d244918e6b4843d7c21e-1641665176/W1/develop-python-django-business-websites.PNG" alt="develop python django business websites"></a></div>
 
                      </div>
-                     <div class="gig-description mt-4">
+                     <div class="gig-description mt-4" id="description">
                         <header>
                             <h2 class="section-title">About This Gig</h2>
                         </header>
-                        <div class="description-wrapper">
+                        <div class="description-wrapper" id="faq">
                             <span style="font-size:0"></span>
                             <div class="description-content">
-                                <p>Thank you so much giving me opportunity to explain my services as python Django full stack developer.</p>
-                                <p><br></p>
-                                <p>Any website Clone in Django with back-end admin panel from your ideas to and existing source of your business website. I am working in Django framework for more than 3 years so I have command in this field.</p>
-                                <p>When it Comes to Data Django is everyone Favourite</p>
-                                <p><br></p>
-                                <p>My Django Skill!</p>
+                                {{gig_details.gig_description| safe}}
                             </div>
                             <ul class="metadata">
                                 <li class="metadata-attribute">
                                    <p>Platform</p>
                                    <ul>
-                                      <li>Django</li>
+                                      <li>{{gig_details.gig_sub_category.category_Name}}</li>
                                    </ul>
                                 </li>
                                 <li class="metadata-attribute">
                                    <p>Specialization</p>
                                    <ul>
-                                      <li>Business</li>
-                                      <li>Education</li>
-                                      <li>Nonprofit</li>
-                                      <li>Saas</li>
-                                      <li>Job board</li>
-                                      <li>Portal</li>
-                                      <li>Brochure</li>
+                                      <li>{{gig_details.gig_sub_category.sub_category_Name}}</li>
+                                      <li>{{gig_details.gig_sub_category.sub_sub_category_Name}}</li>
                                    </ul>
                                 </li>
                              </ul>
                         </div>
                         <h2 class="section-title about-the-seller">About The Seller</h2>
-                        <div class="profile-card">
+                        <div class="profile-card" id="aboutSeller">
                             <div class="seller-card">
                                <div class="profile-info">
-                                  <div class="user-profile-image"><label class="profile-pict" style="width:110px;height:110px;font-size:2.2em" for="profile_image_6216230256862"><img src="https://fiverr-res.cloudinary.com/t_profile_original,q_auto,f_auto/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" class="profile-pict-img" alt="swap_soln_90"></label></div>
+                                  <div class="user-profile-image"><label class="profile-pict" style="width:110px;height:110px;font-size:2.2em" for="profile_image_6216230256862"><img src="{{userDetails.avatar}}" class="profile-pict-img" alt="swap_soln_90"></label></div>
                                   <div class="user-profile-label">
-                                     <div class="username-line"><a href="/swap_soln_90?source=gig_page" class="seller-link">swap_soln_90</a></div>
+                                     <div class="username-line"><a href="/user/profile/{{userDetails.username}}" class="seller-link">{{userDetails.username|title}}</a></div>
                                      <div class="one-liner-rating-wrapper">
                                         <div class="orca-rating seller-rating color-yellow tbody-6">
                                            <div class="stars">
@@ -290,33 +193,30 @@
                                                  </svg>
                                               </span>
                                            </div>
-                                           <b class="rating-score">4.6</b>
+                                           <b class="rating-score">{{seller_all_count}}</b>
                                            <span class="ratings-count">
-                                              (<!-- -->10<!-- -->)
+                                              (<!-- -->{{seller_all_review|length}}<!-- -->)
                                            </span>
                                         </div>
                                      </div>
-                                     <button class="ZQi_S8t YmeteBT a1WZUBV co-grey-1000 btn-contact-me">Contact Me</button>
+                                     <a class="ZQi_S8t YmeteBT a1WZUBV co-grey-1000 btn-contact-me" href="/inbox/{{request.user.username}}">Contact Me</a>
                                   </div>
                                </div>
                                <div class="stats-desc">
                                   <ul class="user-stats">
-                                     <li>From<strong>India</strong></li>
-                                     <li>Member since<strong>Jun 2021</strong></li>
-                                     <li>Avg. response time<strong>1 hour</strong></li>
-                                     <li>Last delivery<strong>1 month</strong></li>
+                                     <li>From<strong>{{userDetails.country.name}}</strong></li>
+                                     <li>Member since<strong>{{ userDetails.created_at|date:"M Y" }}</strong></li>
+                                     <li>Avg. response time<strong>{{ userDetails.avg_respons}} hour</strong></li>
+                                     <li>Last delivery<strong>{{ userDetails.avg_respons}} month</strong></li>
                                   </ul>
                                   <article class="seller-desc">
-                                     <div class="inner">I am passionate website Developer and Designer along with animation explainer video creativity as an added basic knowledge of video editing. 
-                                        Technologies include, Python, Javascript, Jquery, Ajax, Rest API
-                                        Specially build for clone applications.
-                                     </div>
-                                     <button class="read-more">+ See More</button>
+                                     <div class="inner">{{profile_Details.profess_overview|safe}}                                </div>
+                                     
                                   </article>
                                </div>
                             </div>
                          </div>
-                         <div class="gig-page-packages-table mt-5">
+                         <div class="gig-page-packages-table mt-5" id="packagesTable">
                             <h2 class="section-title">Compare Packages</h2>
                             <table>
                                 <colgroup>
@@ -555,13 +455,13 @@
                                 </tbody>
                              </table>
                          </div>
-                         <div class="reviews-package is-collapsed is-collapsable mt-5">
+                         <div class="reviews-package is-collapsed is-collapsable mt-5" id="reviews">
                             <header class="reviews-header breakdown-header">
                                <div class="details">
                                   <h2 class="text-display-5">
                                      <span>
                                         <span>
-                                           6
+                                           {{gig_reviews|length}}
                                         </span>
                                         Reviews
                                         <div class="orca-rating ratings-header rating-desktop color-yellow tbody-6">
@@ -592,92 +492,18 @@
                                                  </svg>
                                               </span>
                                            </div>
-                                           <b class="rating-score">5</b>
+                                           <b class="rating-score">{{seller_count}}</b>
                                         </div>
                                      </span>
                                   </h2>
                                 
                                </div>
-                               <span class="filter-reviews-wrapper">
-                                  <div class="filter-reviews p-b-20">
-                                     <h6 class="filter-dropdown-text tbody-5">Sort By</h6>
-                                     <div class="tmELUJj Z_rWxb2 qhRd0o6 filter-reviews-select">
-                                        <select>
-                                            <option value="most" selected>Most Recent</option>
-                                            <option value="negative">Negative Review</option>
-                                            <option value="positive">Positive Review</option>
-                                       </select>
-                                     </div>
-                                  </div>
-                               </span>
                             </header>
                             <span class="filters-section">
                                <div class="breakdown-wrapper grid-12">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <table class="stars-counters">
-                                        <tbody>
-                                           <tr class="">
-                                              <td><span class="stars-filter-wrapper"><button class="ZQi_S8t CIcMbDX a1WZUBV co-blue-700 stars-filter" data-impression-collected="true">5 Stars</button></span></td>
-                                              <td class="progress-bar-container">
-                                                 <div class="XcPsPA8 star-progress-bar">
-                                                    <div class="zSvGxnF"><span class="TyKRa9U star-progress-shape" style="width:100%"></span></div>
-                                                 </div>
-                                              </td>
-                                              <td class="star-num">
-                                                 (<!-- -->6<!-- -->)
-                                              </td>
-                                           </tr>
-                                           <tr class="no-rating">
-                                              <td><span class="stars-filter-wrapper"><button class="ZQi_S8t YmeteBT a1WZUBV co-grey-500 stars-filter aFDYCpm" disabled="" data-impression-collected="true">4 Stars</button></span></td>
-                                              <td class="progress-bar-container">
-                                                 <div class="XcPsPA8 star-progress-bar">
-                                                    <div class="zSvGxnF"><span class="TyKRa9U star-progress-shape" style="width:0%"></span></div>
-                                                 </div>
-                                              </td>
-                                              <td class="star-num">
-                                                 (<!-- -->0<!-- -->)
-                                              </td>
-                                           </tr>
-                                           <tr class="no-rating">
-                                              <td><span class="stars-filter-wrapper"><button class="ZQi_S8t YmeteBT a1WZUBV co-grey-500 stars-filter aFDYCpm" disabled="" data-impression-collected="true">3 Stars</button></span></td>
-                                              <td class="progress-bar-container">
-                                                 <div class="XcPsPA8 star-progress-bar">
-                                                    <div class="zSvGxnF"><span class="TyKRa9U star-progress-shape" style="width:0%"></span></div>
-                                                 </div>
-                                              </td>
-                                              <td class="star-num">
-                                                 (<!-- -->0<!-- -->)
-                                              </td>
-                                           </tr>
-                                           <tr class="no-rating">
-                                              <td><span class="stars-filter-wrapper"><button class="ZQi_S8t YmeteBT a1WZUBV co-grey-500 stars-filter aFDYCpm" disabled="" data-impression-collected="true">2 Stars</button></span></td>
-                                              <td class="progress-bar-container">
-                                                 <div class="XcPsPA8 star-progress-bar">
-                                                    <div class="zSvGxnF"><span class="TyKRa9U star-progress-shape" style="width:0%"></span></div>
-                                                 </div>
-                                              </td>
-                                              <td class="star-num">
-                                                 (<!-- -->0<!-- -->)
-                                              </td>
-                                           </tr>
-                                           <tr class="no-rating">
-                                              <td><span class="stars-filter-wrapper"><button class="ZQi_S8t YmeteBT a1WZUBV co-grey-500 stars-filter aFDYCpm" disabled="" data-impression-collected="true">1 Star</button></span></td>
-                                              <td class="progress-bar-container">
-                                                 <div class="XcPsPA8 star-progress-bar">
-                                                    <div class="zSvGxnF"><span class="TyKRa9U star-progress-shape" style="width:0%"></span></div>
-                                                 </div>
-                                              </td>
-                                              <td class="star-num">
-                                                 (<!-- -->0<!-- -->)
-                                              </td>
-                                           </tr>
-                                        </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="ranking">
-                                        <h6 class="text-display-7">Rating Breakdown</h6>
+                                        <div class="ranking" id="recommendations">
                                         <ul>
                                            <li>
                                               Seller communication level
@@ -690,7 +516,7 @@
                                                           </svg>
                                                        </span>
                                                     </div>
-                                                    <b class="rating-score">5</b>
+                                                    <b class="rating-score">{{comm_count}}</b>
                                                  </div>
                                               </span>
                                            </li>
@@ -705,7 +531,7 @@
                                                           </svg>
                                                        </span>
                                                     </div>
-                                                    <b class="rating-score">5</b>
+                                                    <b class="rating-score">{{recc_count}}</b>
                                                  </div>
                                               </span>
                                            </li>
@@ -720,7 +546,7 @@
                                                           </svg>
                                                        </span>
                                                     </div>
-                                                    <b class="rating-score">5</b>
+                                                    <b class="rating-score">{{serv_count}}</b>
                                                  </div>
                                               </span>
                                            </li>
@@ -732,13 +558,14 @@
                             </span>
                             <div class="reviews-wrap mt-4">
                                <ul class="review-list">
+                                 {% for review in gig_reviews %}
                                   <section>
                                      <span class="review-item-wrapper">
                                         <li class="review-item" data-impression-collected="true">
-                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_2863486360849" style="width: 32px; height: 32px; font-size: 1em;"><span class="missing-profile-image flex-center">r</span></label></div>
+                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_2863486360849" style="width: 32px; height: 32px; font-size: 1em;"><img class="missing-profile-image flex-center" src="{{review.sender.avatar}}"></img></label></div>
                                            <header>
                                               <div class="reviewer-details">
-                                                 <h5>rabia77200</h5>
+                                                 <h5>{{review.sender.username}}</h5>
                                                  <div class="orca-rating color-yellow tbody-6">
                                                     <div class="stars">
                                                        <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
@@ -746,287 +573,41 @@
                                                              <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
                                                           </svg>
                                                        </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
                                                     </div>
-                                                    <b class="rating-score">5</b>
+                                                    <b class="rating-score">{{review.review}}</b>
                                                  </div>
                                               </div>
                                               <div class="reviewer-sub-details">
                                                  <div class="country">
-                                                    <img class="country-flag" src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1eb-1f1f7.png" alt="FR" loading="lazy">
-                                                    <div class="country-name tbody-6">France</div>
+                                                   <img class="country-flag" src="{{review.country_flag}}" alt="1f1fa-1f1f8.png">
+                                                    <div class="country-name tbody-6">{{review.sender.country.name}}</div>
                                                  </div>
                                               </div>
                                            </header>
                                            <div class="review-description">
-                                              <p class="text-body-2">good job ! i am satisfaid</p>
+                                              <p class="text-body-2">{{review.message}}</p>
                                            </div>
                                            <section><span></span></section>
-                                           <span class="summarize"><time class="text-body-2">11 months ago</time></span>
+                                           <span class="summarize"><time class="text-body-2">{{review.review_date}} ago</time></span>
                                            <span class="review_seller_comment_is_shown-wrapper">
                                               <div class="response-item">
-                                                 <div class="user-profile-image"><label class="profile-pict" for="profile_image_9752182660853" style="width: 32px; height: 32px; font-size: 1em;"><img src="https://fiverr-res.cloudinary.com/image/upload/f_auto,q_auto,t_profile_small/v1/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" class="profile-pict-img" alt="swap_soln_90" loading="lazy"></label></div>
+                                                 <div class="user-profile-image"><label class="profile-pict" for="profile_image_9752182660853" style="width: 32px; height: 32px; font-size: 1em;"><img src="{{userDetails.avatar}}" class="profile-pict-img" alt="swap_soln_90" loading="lazy"></label></div>
                                                  <header>
                                                     <h5 class="response-title">Seller's Response</h5>
                                                  </header>
                                                  <div class="review-description">
-                                                    <p class="text-body-2">thank you..</p>
+                                                    <p class="text-body-2">{{review.buyer_resp}} </p>
                                                  </div>
-                                                 <span class="summarize"><time class="text-body-2">11 months ago</time></span>
+                                                 <span class="summarize"><time class="text-body-2">{{review.seller_resp_date}}  ago</time></span>
                                               </div>
                                            </span>
                                         </li>
                                      </span>
                                   </section>
-                                  <section>
-                                     <span class="review-item-wrapper">
-                                        <li class="review-item" data-impression-collected="true">
-                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_0862774860854" style="width: 32px; height: 32px; font-size: 1em;"><span class="missing-profile-image flex-center">s</span></label></div>
-                                           <header>
-                                              <div class="reviewer-details">
-                                                 <h5>shoppinette</h5>
-                                                 <div class="orca-rating color-yellow tbody-6">
-                                                    <div class="stars">
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                    </div>
-                                                    <b class="rating-score">5</b>
-                                                 </div>
-                                              </div>
-                                              <div class="reviewer-sub-details">
-                                                 <div class="country">
-                                                    <img class="country-flag" src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1eb-1f1f7.png" alt="FR" loading="lazy">
-                                                    <div class="country-name tbody-6">France</div>
-                                                 </div>
-                                              </div>
-                                           </header>
-                                           <div class="review-description">
-                                              <p class="text-body-2">Mission réussie avec brio , un Service professionnel, une personne à  l’écoute et très réactif. un grand merci</p>
-                                           </div>
-                                           <section><span></span></section>
-                                           <span class="summarize"><time class="text-body-2">11 months ago</time></span>
-                                        </li>
-                                     </span>
-                                  </section>
-                                  <section>
-                                     <span class="review-item-wrapper">
-                                        <li class="review-item" data-impression-collected="true">
-                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_6253445660857" style="width: 32px; height: 32px; font-size: 1em;"><span class="missing-profile-image flex-center">s</span></label></div>
-                                           <header>
-                                              <div class="reviewer-details">
-                                                 <h5>shoppinette</h5>
-                                                 <div class="orca-rating color-yellow tbody-6">
-                                                    <div class="stars">
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                    </div>
-                                                    <b class="rating-score">5</b>
-                                                 </div>
-                                              </div>
-                                              <div class="reviewer-sub-details">
-                                                 <div class="country">
-                                                    <img class="country-flag" src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1eb-1f1f7.png" alt="FR" loading="lazy">
-                                                    <div class="country-name tbody-6">France</div>
-                                                 </div>
-                                              </div>
-                                           </header>
-                                           <div class="review-description">
-                                              <p class="text-body-2">super réactif, très professionnel merci beaucoup</p>
-                                           </div>
-                                           <section><span></span></section>
-                                           <span class="summarize"><time class="text-body-2">11 months ago</time></span>
-                                           <span class="review_seller_comment_is_shown-wrapper">
-                                              <div class="response-item">
-                                                 <div class="user-profile-image"><label class="profile-pict" for="profile_image_4704811560860" style="width: 32px; height: 32px; font-size: 1em;"><img src="https://fiverr-res.cloudinary.com/image/upload/f_auto,q_auto,t_profile_small/v1/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" class="profile-pict-img" alt="swap_soln_90" loading="lazy"></label></div>
-                                                 <header>
-                                                    <h5 class="response-title">Seller's Response</h5>
-                                                 </header>
-                                                 <div class="review-description">
-                                                    <p class="text-body-2">thank you ! i am glad to help you...!</p>
-                                                 </div>
-                                                 <span class="summarize"><time class="text-body-2">11 months ago</time></span>
-                                              </div>
-                                           </span>
-                                        </li>
-                                     </span>
-                                  </section>
-                                  <section>
-                                     <span class="review-item-wrapper">
-                                        <li class="review-item" data-impression-collected="true">
-                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_2690787460861" style="width: 32px; height: 32px; font-size: 1em;"><img src="https://fiverr-res.cloudinary.com/image/upload/f_auto,q_auto,t_profile_small/v1/attachments/profile/photo/3057b593f192b79a476ec83f6514dbbc-1630153413032/9975241b-f24a-4181-82c0-ba3e749c201b.jpg" class="profile-pict-img" alt="olave73" loading="lazy"></label></div>
-                                           <header>
-                                              <div class="reviewer-details">
-                                                 <h5>olave73</h5>
-                                                 <div class="orca-rating color-yellow tbody-6">
-                                                    <div class="stars">
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                    </div>
-                                                    <b class="rating-score">5</b>
-                                                 </div>
-                                              </div>
-                                              <div class="reviewer-sub-details">
-                                                 <div class="country">
-                                                    <img class="country-flag" src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1fa-1f1f8.png" alt="US" loading="lazy">
-                                                    <div class="country-name tbody-6">United States</div>
-                                                 </div>
-                                              </div>
-                                           </header>
-                                           <div class="review-description">
-                                              <p class="text-body-2">Excellent service, very talented and efficient. Communication was flawless. I recommend her 100%. Looking forward to work with here soon.</p>
-                                           </div>
-                                           <section><span></span></section>
-                                           <span class="summarize"><time class="text-body-2">1 year ago</time></span>
-                                        </li>
-                                     </span>
-                                  </section>
-                                  <section>
-                                     <span class="review-item-wrapper">
-                                        <li class="review-item" data-impression-collected="true">
-                                           <div class="user-profile-image"><label class="profile-pict" for="profile_image_8576409860865" style="width: 32px; height: 32px; font-size: 1em;"><span class="missing-profile-image flex-center">f</span></label></div>
-                                           <header>
-                                              <div class="reviewer-details">
-                                                 <h5>foodmanttra</h5>
-                                                 <div class="orca-rating color-yellow tbody-6">
-                                                    <div class="stars">
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                       <span class="nFghBOe orca-star" aria-hidden="true" style="width: 15px; height: 15px;">
-                                                          <svg width="16" height="15" viewBox="0 0 16 15" xmlns="http://www.w3.org/2000/svg">
-                                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M16 5.81285C16 5.98299 15.875 6.14367 15.75 6.26654L12.2596 9.61248L13.0865 14.3384C13.0962 14.4045 13.0962 14.4612 13.0962 14.5274C13.0962 14.7732 12.9808 15 12.7019 15C12.5673 15 12.4327 14.9527 12.3173 14.8866L8 12.656L3.68269 14.8866C3.55769 14.9527 3.43269 15 3.29808 15C3.01923 15 2.89423 14.7732 2.89423 14.5274C2.89423 14.4612 2.90385 14.4045 2.91346 14.3384L3.74038 9.61248L0.240385 6.26654C0.125 6.14367 0 5.98299 0 5.81285C0 5.5293 0.298077 5.41588 0.538462 5.37807L5.36539 4.68809L7.52885 0.387524C7.61539 0.207939 7.77885 0 8 0C8.22115 0 8.38462 0.207939 8.47115 0.387524L10.6346 4.68809L15.4615 5.37807C15.6923 5.41588 16 5.5293 16 5.81285Z"></path>
-                                                          </svg>
-                                                       </span>
-                                                    </div>
-                                                    <b class="rating-score">5</b>
-                                                 </div>
-                                              </div>
-                                              <div class="reviewer-sub-details">
-                                                 <div class="country">
-                                                    <img class="country-flag" src="https://fiverr-dev-res.cloudinary.com/general_assets/flags/1f1ee-1f1f3.png" alt="IN" loading="lazy">
-                                                    <div class="country-name tbody-6">India</div>
-                                                 </div>
-                                              </div>
-                                           </header>
-                                           <div class="review-description">
-                                              <p class="text-body-2">The seller is the best amongst resources available on Fiverr or any other micro job site. She is attentive and quick to respond to given work. I certainly will place a future order here only. Highly recommended</p>
-                                           </div>
-                                           <section><span></span></section>
-                                           <span class="summarize"><time class="text-body-2">1 year ago</time></span>
-                                        </li>
-                                     </span>
-                                  </section>
-                               </ul>
-                               
+                                  {% endfor %}
+                               </ul>    
                             </div>
                          </div>
-
-
                     </div>
                   </section>
                </div>
@@ -1038,8 +619,101 @@
                          <aside class="sidebar-content">
                              <div class="packages-tabs triple">
                                  <input id="package-tab-1" name="package-tab-group" type="radio" checked=""><input id="package-tab-2" name="package-tab-group" type="radio"><input id="package-tab-3" name="package-tab-group" type="radio">
-                                 <div class="nav-container"><label for="package-tab-1">Basic</label><label for="package-tab-2">Standard</label><label for="package-tab-3">Premium</label></div>
-                                 <div class="package-content zxTHQ6r mt-4">
+                                 <div class="nav-container"><label for="package-tab-1" onclick="basic_click('basic');">Basic</label><label for="package-tab-2" onclick="basic_click('standard')">Standard</label><label for="package-tab-3" onclick="basic_click('premium')">Premium</label></div>
+                                 <div class="package-content zxTHQ6r mt-4" id="basic_contents">
+                                    <header class="header-default">
+                                       <h3>
+                                          <b class="title">basic</b>
+                                          <div class="price-wrapper"><span class="price">$</span></div>
+                                       </h3>
+                                       <p>Build Customise website with 4 pages:
+                                          Standard Look,
+                                          100 % legit work,
+                                          Add 1 Extra Feature.
+                                       </p>
+                                    </header>
+                                    <article>
+                                       <div class="additional-info">
+                                          <div class="delivery-wrapper">
+                                             <span class="nFghBOe delivery-icon" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                   <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"></path>
+                                                   <path d="M9 4H7v5h5V7H9V4z"></path>
+                                                </svg>
+                                             </span>
+                                             <b class="delivery">3 Days Delivery</b>
+                                          </div>
+                                          <div class="revisions-wrapper">
+                                             <span class="nFghBOe revisions-icon" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                   <path d="M4.50001 11.4999C6.40001 13.3999 9.60001 13.3999 11.5 11.4999C12.2 10.7999 12.7 9.7999 12.9 8.7999L14.9 9.0999C14.7 10.5999 14 11.8999 13 12.8999C10.3 15.5999 5.90001 15.5999 3.10001 12.8999L0.900012 15.0999L0.200012 8.6999L6.60001 9.3999L4.50001 11.4999Z"></path>
+                                                   <path d="M15.8 7.2999L9.40001 6.5999L11.5 4.4999C9.60001 2.5999 6.40001 2.5999 4.50001 4.4999C3.80001 5.1999 3.30001 6.1999 3.10001 7.1999L1.10001 6.8999C1.30001 5.3999 2.00001 4.0999 3.00001 3.0999C4.40001 1.6999 6.10001 1.0999 7.90001 1.0999C9.70001 1.0999 11.5 1.7999 12.8 3.0999L15 0.899902L15.8 7.2999Z"></path>
+                                                </svg>
+                                             </span>
+                                             <b class="revisions">3 Revisions</b>
+                                          </div>
+                                       </div>
+                                       <ul class="features">
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             4 pages
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Design customization
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Responsive design
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Content upload
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             1 plugin/extension
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             E-commerce functionality
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             2 products
+                                          </li>
+                                       </ul>
+                                    </article>
+                                 </div>
+                                 <div class="package-content zxTHQ6r mt-4" id="standard_contents">
                                     <header class="header-default">
                                        <h3>
                                           <b class="title">standard</b>
@@ -1132,18 +806,100 @@
                                        </ul>
                                     </article>
                                  </div>
-                                 <footer class="tab-footer"><button class="ZQi_S8t AOOSxop co-white bg-co-green-700" type="submit"><span>Continue</span><span> (₹8,382)</span></button></footer>
-                             </div>
-                             <div class="contact-seller">
-                                 <div class="contact-seller-options-wrapper">
-                                     <div class="tmELUJj Z_rWxb2 DX8eVtZ contact-seller-popover">
-                                         <span class="vpfXdaJ contact-seller-popover-content">
-                                             <button class="ZQi_S8t YmeteBT a1WZUBV co-grey-1000 contact-seller-options-btn" contentclassname="contact-seller-popover-content" boxcontentclassname="popover-box-content" content="[object Object]" position="top" delay="0">
-                                                 Contact Seller
-                                             </button>
-                                         </span>
-                                     </div>
+                                 <div class="package-content zxTHQ6r mt-4" id="premium_contents">
+                                    <header class="header-default">
+                                       <h3>
+                                          <b class="title">premium</b>
+                                          <div class="price-wrapper"><span class="price">₹8,382</span></div>
+                                       </h3>
+                                       <p>Build Customise website with 4 pages:
+                                          Standard Look,
+                                          100 % legit work,
+                                          Add 1 Extra Feature.
+                                       </p>
+                                    </header>
+                                    <article>
+                                       <div class="additional-info">
+                                          <div class="delivery-wrapper">
+                                             <span class="nFghBOe delivery-icon" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                   <path d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm0 14c-3.3 0-6-2.7-6-6s2.7-6 6-6 6 2.7 6 6-2.7 6-6 6z"></path>
+                                                   <path d="M9 4H7v5h5V7H9V4z"></path>
+                                                </svg>
+                                             </span>
+                                             <b class="delivery">3 Days Delivery</b>
+                                          </div>
+                                          <div class="revisions-wrapper">
+                                             <span class="nFghBOe revisions-icon" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                   <path d="M4.50001 11.4999C6.40001 13.3999 9.60001 13.3999 11.5 11.4999C12.2 10.7999 12.7 9.7999 12.9 8.7999L14.9 9.0999C14.7 10.5999 14 11.8999 13 12.8999C10.3 15.5999 5.90001 15.5999 3.10001 12.8999L0.900012 15.0999L0.200012 8.6999L6.60001 9.3999L4.50001 11.4999Z"></path>
+                                                   <path d="M15.8 7.2999L9.40001 6.5999L11.5 4.4999C9.60001 2.5999 6.40001 2.5999 4.50001 4.4999C3.80001 5.1999 3.30001 6.1999 3.10001 7.1999L1.10001 6.8999C1.30001 5.3999 2.00001 4.0999 3.00001 3.0999C4.40001 1.6999 6.10001 1.0999 7.90001 1.0999C9.70001 1.0999 11.5 1.7999 12.8 3.0999L15 0.899902L15.8 7.2999Z"></path>
+                                                </svg>
+                                             </span>
+                                             <b class="revisions">3 Revisions</b>
+                                          </div>
+                                       </div>
+                                       <ul class="features">
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             4 pages
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Design customization
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Responsive design
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             Content upload
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             1 plugin/extension
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             E-commerce functionality
+                                          </li>
+                                          <li class="qSePHwK flex flex-items-center">
+                                             <span class="nFghBOe bvg2_O1 ZbQv8bb" aria-hidden="true" style="width: 16px; height: 16px;">
+                                                <svg width="16" height="16" viewBox="0 0 11 9" xmlns="http://www.w3.org/2000/svg" fill="currentFill">
+                                                   <path d="M3.645 8.102.158 4.615a.536.536 0 0 1 0-.759l.759-.758c.21-.21.549-.21.758 0l2.35 2.349L9.054.416c.21-.21.55-.21.759 0l.758.758c.21.21.21.55 0 .759L4.403 8.102c-.209.21-.549.21-.758 0Z"></path>
+                                                </svg>
+                                             </span>
+                                             2 products
+                                          </li>
+                                       </ul>
+                                    </article>
                                  </div>
+                                 <footer class="tab-footer"><button class="ZQi_S8t AOOSxop co-white bg-co-green-700" type="submit"><span>Continue</span><span> (₹8,382)</span></button></footer>
                              </div>
                          </aside>
                      </div>
@@ -3975,3 +3731,33 @@ article, aside, figure, footer, header, hgroup, main, nav, section {
    {% include  'Dashboard/base_seller.html' %}
 {% endif %}
 {% endblock %}
+
+
+<script>
+   $(document).ready(function(){
+      $("#basic_contents").show();
+      $("#standard_contents").hide();
+      $("#premium_contents").hide();
+   });
+   function basic_click(ev)
+   {
+      if(ev=="basic")
+      {
+         $("#basic_contents").show();
+         $("#standard_contents").hide();
+         $("#premium_contents").hide();
+      }
+      else if(ev=="standard")
+      {
+         $("#basic_contents").hide();
+         $("#standard_contents").show();
+         $("#premium_contents").hide();
+      }
+      else if(ev=="premium")
+      {
+         $("#basic_contents").hide();
+         $("#standard_contents").hide();
+         $("#premium_contents").show();
+      }
+   }
+</script>

@@ -81,5 +81,7 @@ urlpatterns  = [
     path("post_delete_gig/",views.post_delete_gig_view,name = 'post_delete_gig'),
     path("post_availability/",views.post_availability_view,name = 'post_availability'),
     path("post_avail_delete/",views.post_avail_delete_view,name = 'post_avail_delete'),
+    path("post_service_request/",views.post_service_request_view,name = 'post_service_request'),
     path("get_availability/",views.get_availability_view,name = 'get_availability'),
+    path("post_request_image_upload/",views.post_request_image_upload_view,name = 'post_request_image_upload'),
 ]
