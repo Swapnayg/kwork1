@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -73,7 +73,7 @@ class gig_View_View(View):
     return_url = None
     def get(self , request,username='',gig_title=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            # try:    
+            try:    
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
                 languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
                 userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
@@ -165,9 +165,22 @@ class gig_View_View(View):
                     seller_levl = "Advanced or higher"
                 elif(userDetails.seller_level=="level3"):
                     seller_levl = "Professional"
-                return render(request , 'Dashboard/view_gig.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"gig_details":gig_details,"gig_package_Details":gig_package_details,"gig_image_Details":gig_image_details,"gig_reviews":seller_rev_data,"seller_count":seller_count,"comm_count":comm_count,"recc_count":recc_count,"serv_count":serv_count,"seller_level":seller_levl,"seller_all_review":seller_all_reviews,"seller_all_count":seller_all_count})                 
-            # except:
-            #     return render(request , 'register.html')
+                active_gigs_details = UserGigs.objects.filter(user_id=userDetails, gig_status='active').exclude(gig_title=gig_details.gig_title)
+                active_gigs_data= []
+                for u_gig in active_gigs_details:
+                    gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
+                    if(gig_image != None):
+                        gig_image_url = gig_image.gig_image
+                    active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url})
+                    favourite_Count= Gig_favourites.objects.filter(gig_name=gig_details).count()
+                    curr_fav = ''
+                    if(Gig_favourites.objects.filter(gig_name=gig_details,user_id=userDetails).exists() == True):
+                        curr_fav = 'yes'
+                    else:
+                        curr_fav = 'no'
+                return render(request , 'Dashboard/view_gig.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"gig_details":gig_details,"gig_package_Details":gig_package_details,"gig_image_Details":gig_image_details,"gig_reviews":seller_rev_data,"seller_count":seller_count,"comm_count":comm_count,"recc_count":recc_count,"serv_count":serv_count,"seller_level":seller_levl,"seller_all_review":seller_all_reviews,"seller_all_count":seller_all_count,"Other_gigs":active_gigs_data,"fav_count":favourite_Count,"current_user_fav":curr_fav})                 
+            except:
+                return render(request , 'register.html')
         else:
             return render(request , 'register.html')
 

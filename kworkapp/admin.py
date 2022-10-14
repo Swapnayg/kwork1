@@ -5,7 +5,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_delete
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Gig_favourites,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -128,6 +128,12 @@ class AdminCategory_package_Extra_Service(admin.ModelAdmin):
     list_display = ['category_name','helper_txt','display_name','display_type']
 
 admin.site.register(Category_package_Extra_Service, AdminCategory_package_Extra_Service)
+
+
+class AdminGig_favourites(admin.ModelAdmin):
+    list_display = ['gig_name','user_id']
+
+admin.site.register(Gig_favourites, AdminGig_favourites)
 
 class AdminLearningTopicDetails(admin.ModelAdmin):
     list_display = ['topic_Name','topic_description','image_Text']
