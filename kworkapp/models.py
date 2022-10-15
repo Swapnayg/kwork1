@@ -679,7 +679,7 @@ class Buyer_Post_Request(models.Model):
         verbose_name_plural = _("Post Requests")
 
     def __str__(self):
-        return str(self.service_desc)
+        return str(self.user_id)
     
 class Gig_favourites(models.Model):
     gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)

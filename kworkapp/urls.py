@@ -1,6 +1,6 @@
 from django.urls import include, path
 from . import views
-from . views import indexView,aboutView,privacyView,resolution_view,manage_gigs_view,seller_manage_orders_view,earnings_view,gig_View_View,order_activities_view,buyer_request_view,buyer_manage_orders_view,seller_manage_orders_view,favourites_view,refer_program_view,inbox_view,billing_view,post_request_view,Manage_request_view,seller_main_view,create_gig_view,menu_pageView,all_gigs_pageView,signup_view,account_settings_view,dashboard_view,buyer_dashboard_view,seller_dashboard_view,login_view,profile_view,partners_View,approval_process_View,buyer_protectionView,faq_View,contact_support_View,prohibited_service_View,term_serviceView,for_freelancerView,reviews_View,earn_letorkbdoneView,categoriesView,affiliate_programView
+from . views import indexView,aboutView,privacyView,resolution_view,search_gig_view,search_profile_view,manage_gigs_view,seller_manage_orders_view,earnings_view,gig_View_View,order_activities_view,buyer_request_view,buyer_manage_orders_view,seller_manage_orders_view,favourites_view,refer_program_view,inbox_view,billing_view,post_request_view,Manage_request_view,seller_main_view,create_gig_view,menu_pageView,all_gigs_pageView,signup_view,account_settings_view,dashboard_view,buyer_dashboard_view,seller_dashboard_view,login_view,profile_view,partners_View,approval_process_View,buyer_protectionView,faq_View,contact_support_View,prohibited_service_View,term_serviceView,for_freelancerView,reviews_View,earn_letorkbdoneView,categoriesView,affiliate_programView
 urlpatterns  = [
 	path('', indexView.as_view(), name='index' ),
 	path('about', aboutView.as_view(), name='about' ),
@@ -45,6 +45,8 @@ urlpatterns  = [
 	path("register",signup_view.as_view(),name = 'register'),
 	path("login",login_view.as_view(),name = 'login'),
 	path("user/profile/<str:username>",profile_view.as_view(),name = 'profile'),
+ 	path("search/<str:keyword>",search_gig_view.as_view(),name = 'profile'),
+  	path("search/user/<str:keyword>",search_profile_view.as_view(),name = 'profile'),
 	path("buyer",buyer_dashboard_view.as_view(),name = 'buyer'),
 	path("seller",seller_dashboard_view.as_view(),name = 'seller'),
 	path("dashboard",dashboard_view.as_view(),name = 'dashboard'),
@@ -84,4 +86,7 @@ urlpatterns  = [
     path("post_service_request/",views.post_service_request_view,name = 'post_service_request'),
     path("get_availability/",views.get_availability_view,name = 'get_availability'),
     path("post_request_image_upload/",views.post_request_image_upload_view,name = 'post_request_image_upload'),
+    path("post_make_fav/",views.post_make_fav_view,name = 'post_make_fav'),
+    path("post_make_unfav/",views.post_make_unfav_view,name = 'post_make_unfav'),
+    path("post_search_key/",views.post_search_key_view,name = 'post_search_key'),
 ]

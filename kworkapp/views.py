@@ -28,7 +28,23 @@ import operator
 class indexView(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'index.html')
+        active_gigs_details = UserGigs.objects.filter(gig_status='active')
+        active_gigs_data= []
+        category_list = []
+        categories = Categories.objects.all()
+        for c in categories:
+            sub_cat = SubSubCategories.objects.filter(category_Name=c).first() 
+            category_list.append({"cat_name":sub_cat.category_Name.category_Name,"subcat_name":sub_cat.sub_category_Name.sub_category_Name,"subsubcat_name":sub_cat.sub_sub_category_Name})
+        for u_gig in active_gigs_details:
+            gig_image = Usergig_image.objects.filter(package_gig_name=u_gig).first() 
+            if(gig_image != None):
+                gig_image_url = gig_image.gig_image
+            active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_user":u_gig.user_id})
+        active_works = User_orders.objects.filter(order_status="active").count()  
+        last_week = datetime.today() - timedelta(days=7)    
+        buyers_request_week = Buyer_Post_Request.objects.filter(service_date__gte=last_week).count()
+        buyers_this_week = Buyer_Post_Request.objects.filter(service_date__gte=last_week).distinct('user_id').count()
+        return render(request , 'index.html',{"gig_details":active_gigs_data,"active_orders":active_works,"new_buyers":buyers_this_week,"buyer_reqyests":buyers_request_week,"cat_list":category_list,"cat_list_json":json.dumps(category_list)})
 
 class menu_pageView(View):
     return_url = None
@@ -392,6 +408,39 @@ class buyer_dashboard_view(View):
         request.session['userpage'] =	"buyer"
         return render(request , 'Dashboard/buyer_dashboard.html')
 
+class search_gig_view(View):
+    return_url = None
+    def get(self , request,keyword=''):
+        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="keyword")
+        search_term.save()
+        gig_category_details = Categories.objects.filter(category_Name__contains=keyword)
+        gig_sub_category_details = SubSubCategories.objects.filter(sub_sub_category_Name__contains=keyword)
+        if(len(gig_category_details)!=0):
+            gigs_details = UserGigs.objects.filter(gig_category =gig_category_details[0].pk)
+        elif(len(gig_sub_category_details)!=0):
+            gigs_details = UserGigs.objects.filter(gig_sub_category =gig_sub_category_details[0].pk)   
+        else:
+            gigs_details = UserGigs.objects.filter(gig_title__contains=keyword)
+        active_gigs_data = []
+        for u_gig in gigs_details:
+            gig_image = Usergig_image.objects.filter(package_gig_name=u_gig).first() 
+            if(gig_image != None):
+                gig_image_url = gig_image.gig_image
+            active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_user":u_gig.user_id})
+        return render(request , 'search_gig.html',{"keyword":keyword,"active_gigs":active_gigs_data})
+
+class search_profile_view(View):
+    return_url = None
+    def get(self , request,keyword=''):
+        user_details_li= []
+        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="user")
+        search_term.save()
+        user_details = User.objects.filter(username__contains=keyword)
+        for u in user_details:
+            country_flag_icon = '/static/assets/images/flags/'+ u.country.code.lower()+ '.svg'
+            seller_reviews = Seller_Reviews.objects.filter(s_review_to=u).count()
+            user_details_li.append({"username":u.username,"country":u.country.name,"profile_img":u.avatar,"c_flag":country_flag_icon, "u_ratings":seller_reviews})
+        return render(request , 'search_user.html',{"keyword":keyword,"user_details":user_details_li})
 
 def logout_social(request):
     logout(request)
@@ -1482,6 +1531,31 @@ def post_request_image_upload_view(request):
             print('No File') 
         responseData = {'data':urls}
         return JsonResponse(responseData,safe=False)
+    
+    
+@csrf_exempt
+def post_make_fav_view(request):
+    if request.method == 'POST':
+        userid = request.POST.get("userid")
+        gigid = request.POST.get("gigid")
+        userDetails =  User.objects.get(pk=userid)
+        gigDetails =  UserGigs.objects.get(pk=gigid , user_id = userDetails)
+        add_fav = Gig_favourites(gig_name=gigDetails,user_id=userDetails)
+        add_fav.save()
+        favourite_Count= Gig_favourites.objects.filter(gig_name=gigDetails).count()
+        return JsonResponse(favourite_Count,safe=False)
+
+@csrf_exempt    
+def post_make_unfav_view(request):
+    if request.method == 'POST':
+        userid = request.POST.get("userid")
+        gigid = request.POST.get("gigid")
+        userDetails =  User.objects.get(pk=userid)
+        gigDetails =  UserGigs.objects.get(pk=gigid , user_id = userDetails)
+        Gig_favourites.objects.filter(gig_name=gigDetails,user_id=userDetails).delete()
+        favourite_Count= Gig_favourites.objects.filter(gig_name=gigDetails).count()
+        return JsonResponse(favourite_Count,safe=False)
+
 
 
 @csrf_exempt
@@ -1507,3 +1581,14 @@ def post_service_request_view(request):
             post_bu_req= Buyer_Post_Request(service_desc= service_descp,service_images=service_images,service_category=category_details,service_sub_category=sub_category,service_time=service_time,service_budget=service_price,user_id=userDetails,service_type=service_type)
             post_bu_req.save()
         return HttpResponse('sucess')
+
+
+@csrf_exempt    
+def post_search_key_view(request):
+    if request.method == 'POST':
+        keyword = request.POST.get("keyword")
+        keyword_type = request.POST.get("keyword_type")
+        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type)
+        search_term.save()
+        return HttpResponse("sucess")
+

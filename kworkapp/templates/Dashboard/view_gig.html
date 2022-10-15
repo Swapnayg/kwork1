@@ -24,9 +24,9 @@
                           <div class="collect-wrapper">
                              <div class="collect-package nav-collect">
                                 <div class="tmELUJj P_h9XGC">
-                                   <span class="vpfXdaJ">
+                                   <span class="vpfXdaJ" id="fav_btn">
                                     {% if current_user_fav == 'yes' %}
-                                      <button class="icn-heart" delay="120" content="[object Object]" position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip">
+                                      <button class="icn-heart" delay="120"  position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr" onclick="unfavClick(this);" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip">
                                          <span class="nFghBOe heart-icon red_heart" style="width:16px;height:16px" aria-hidden="true">
                                             <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                                <path d="M14.4469 1.95625C12.7344 0.496875 10.1875 0.759375 8.61561 2.38125L7.99999 3.01562L7.38436 2.38125C5.81561 0.759375 3.26561 0.496875 1.55311 1.95625C-0.409388 3.63125 -0.512513 6.6375 1.24374 8.45312L7.29061 14.6969C7.68124 15.1 8.31561 15.1 8.70624 14.6969L14.7531 8.45312C16.5125 6.6375 16.4094 3.63125 14.4469 1.95625Z"></path>
@@ -34,7 +34,7 @@
                                          </span>
                                       </button>
                                     {% else %}
-                                    <button class="icn-heart" delay="120" content="[object Object]" position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip">
+                                    <button class="icn-heart" delay="120" content="[object Object]" position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr" onclick="favClick(this);" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip">
                                         <span class="nFghBOe heart-icon" style="width:16px;height:16px" aria-hidden="true">
                                            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                                               <path d="M14.4469 1.95625C12.7344 0.496875 10.1875 0.759375 8.61561 2.38125L7.99999 3.01562L7.38436 2.38125C5.81561 0.759375 3.26561 0.496875 1.55311 1.95625C-0.409388 3.63125 -0.512513 6.6375 1.24374 8.45312L7.29061 14.6969C7.68124 15.1 8.31561 15.1 8.70624 14.6969L14.7531 8.45312C16.5125 6.6375 16.4094 3.63125 14.4469 1.95625Z"></path>
@@ -507,7 +507,18 @@
                          <aside class="sidebar-content">
                              <div class="packages-tabs triple">
                                  <input id="package-tab-1" name="package-tab-group" type="radio" checked=""><input id="package-tab-2" name="package-tab-group" type="radio"><input id="package-tab-3" name="package-tab-group" type="radio">
-                                 <div class="nav-container"><label for="package-tab-1" onclick="basic_click('basic');">Basic</label><label for="package-tab-2" onclick="basic_click('standard')">Standard</label><label for="package-tab-3" onclick="basic_click('premium')">Premium</label></div>
+                                 
+                                    {% if gig_package_Details|length > 1 %}
+                                    <div class="nav-container">
+                                       <label for="package-tab-1" onclick="basic_click('basic');">Basic</label>
+                                       <label for="package-tab-2" onclick="basic_click('standard')">Standard</label>
+                                       <label for="package-tab-3" onclick="basic_click('premium')">Premium</label>
+                                    </div>
+                                    {% else %}
+                                    <div class="nav-container">
+                                       <label for="package-tab-1" onclick="basic_click('basic');">Basic</label>
+                                    </div>
+                                    {% endif %}
                                  <div class="package-content zxTHQ6r mt-4" id="basic_contents">
                                     <header class="header-default">
                                        <h3>
@@ -870,5 +881,32 @@
          }
        )
     return false; }
-
+function favClick()
+{
+   $.ajax({
+      type:"POST",
+      url: "/post_make_fav/",
+      data: {'gigid':'{{gig_details.id}}' ,'userid': {{request.user.id}}},
+      success: function(data)
+      {
+         $(".collect-count").text(data);
+         $("#fav_btn").empty();
+         $("#fav_btn").append('<button class="icn-heart" delay="120" content="[object Object]" position="top" boxclassname="X305f1z" onclick="unfavClick(this);" boxcontentclassname="VP4T2Vr" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip"><span class="nFghBOe heart-icon red_heart" style="width:16px;height:16px" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.4469 1.95625C12.7344 0.496875 10.1875 0.759375 8.61561 2.38125L7.99999 3.01562L7.38436 2.38125C5.81561 0.759375 3.26561 0.496875 1.55311 1.95625C-0.409388 3.63125 -0.512513 6.6375 1.24374 8.45312L7.29061 14.6969C7.68124 15.1 8.31561 15.1 8.70624 14.6969L14.7531 8.45312C16.5125 6.6375 16.4094 3.63125 14.4469 1.95625Z"></path></svg></span></button>');
+      }
+   });
+}
+function unfavClick()
+{
+   $.ajax({
+      type:"POST",
+      url: "/post_make_unfav/",
+      data: {'gigid':'{{gig_details.id}}' ,'userid': {{request.user.id}}},
+      success: function(data)
+      {
+         $(".collect-count").text(data);
+         $("#fav_btn").empty();
+         $("#fav_btn").append('<button class="icn-heart" delay="120" content="[object Object]"   onclick="favClick(this);" position="top" boxclassname="X305f1z" boxcontentclassname="VP4T2Vr" containerclassname="collect-package-tooltip gig-page-nav-collect tooltip"><span class="nFghBOe heart-icon" style="width:16px;height:16px" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M14.4469 1.95625C12.7344 0.496875 10.1875 0.759375 8.61561 2.38125L7.99999 3.01562L7.38436 2.38125C5.81561 0.759375 3.26561 0.496875 1.55311 1.95625C-0.409388 3.63125 -0.512513 6.6375 1.24374 8.45312L7.29061 14.6969C7.68124 15.1 8.31561 15.1 8.70624 14.6969L14.7531 8.45312C16.5125 6.6375 16.4094 3.63125 14.4469 1.95625Z"></path></svg></span></button>');
+      }
+   });
+}
 </script>

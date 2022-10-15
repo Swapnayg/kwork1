@@ -81,6 +81,8 @@
       <link rel="stylesheet" type="text/css" media="screen" href="{% static 'assets/css/frontend/testimonials.css' %}" />
       <link rel="stylesheet" type="text/css" media="screen" href="{% static 'assets/css/frontend/content-tools.css' %}" />
       <link rel="stylesheet" type="text/css" media="screen" href="{% static 'assets/css/frontend/categories.css' %}" />
+
+      <link rel="stylesheet" href="{% static 'assets/css/frontend/select2.min.css' %}">
       <link class="js-theme-favicon" rel="icon" type="image/png" href="{% static 'assets/images/icons/favicon-64x64.png' %}" />
       <link class="js-theme-favicon" rel="shortcut icon" type="image/png" href="{% static 'assets/images/icons/favicon-32x32.png' %}" />
       <link class="js-theme-favicon" rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/images/icons/favicon-57x57.png' %}" />
@@ -346,18 +348,18 @@
                      </div>
                      <div class="search">
                         <div id="general-search">
-                           <form action="/search" method="GET" class="js-onload-search custom-search general-search">
-                              <input name="query" type="text" placeholder="Find Services" autocomplete="off" spellcheck="false" class="js-header-search js-static-search header-search form-control" value="" />
+                           <div class="js-onload-search custom-search general-search">
+                              <input name="query" type="text" id="input_search" placeholder="Find Services"  spellcheck="false" class="js-header-search js-static-search header-search form-control" value="" />
                               <span class="js-clear-button clear-button hidden">
                                  <svg class="ico-clear-button pointer-en" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none">
                                     <path d="M11 1L6 6m0 0l5 5M6 6L1 1m5 5l-5 5" stroke="#8a8a8a" stroke-width="1.2" stroke-linecap="round" />
                                  </svg>
                               </span>
                               <span class="search-button">
-                                 <button class="kw-button kw-button--green">Search</button>
+                                 <button class="kw-button kw-button--green" id="btn_search">Search</button>
                                  <div class="ico-search-button"></div>
                               </span>
-                           </form>
+                           </div>
                            <general-search default-search-encoded=""></general-search>
                         </div>
                      </div>

@@ -412,10 +412,13 @@ article, aside, figure, footer, header, hgroup, main, nav, section {
     -ms-flex-direction: column;
     flex-direction: column;
 }
-
+#fav_btn button:focus, #fav_btn button:hover
+{
+    outline: none;
+}
 .package-content>header h3 .price {
     white-space: nowrap;
-    font-weight: 600;
+    font-weight: 600;   
 }
 .package-content>header h3 span {
     font-size: 20px;
@@ -943,6 +946,7 @@ button, input, select {
     background-color: #fff;
     border-bottom: 3px solid #2E5DC5;
     color:#2E5DC5;
+    text-align: left;
 }
 .packages-tabs.triple .nav-container label {
     border-top: none;
@@ -2710,6 +2714,7 @@ article, aside, figure, footer, header, hgroup, main, nav, section {
 }
 .slide-item img{
     width:100%;
+    height: 90px;
 }
 .btn-sharing-link:focus,.btn-sharing-link:hover
 {

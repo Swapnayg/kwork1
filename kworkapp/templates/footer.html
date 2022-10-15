@@ -135,6 +135,7 @@
 <script src="{% static 'assets/js/content-tools.js' %}"></script>
 <script src="{% static 'assets/js/editor.js' %}"></script>
 <script src="{% static 'assets/js/summernote-bs4.min.js' %}"></script>
+<script src="{% static 'assets/js/select2.min.js' %}"></script>
 <script>
    $(document).ready(function(){
        var urls = ['http://127.0.0.1:8000/static/assets/images/users/banner-user-1.png',
@@ -183,7 +184,10 @@
          $(menulist).next().find(".submenu-group-wrapper").append(group2append);
       }
    });
-
+   $('#btn_search').click(function (e) {
+      window.open('/search/'+$("#input_search").val(), "_blank");
+      $("#input_search").val('');
+   });
    $("#main1-menu li").hover(
        function () {
            m_length = $("#main1-menu li").length;
