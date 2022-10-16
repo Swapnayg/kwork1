@@ -2,10 +2,13 @@ import json
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.dispatch import receiver
+import whatismyip
 from django.db.models.signals import post_save,pre_delete
+from django.dispatch import receiver
+from django.db.models.signals import post_save,pre_save
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,Gig_favourites,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -21,22 +24,31 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'username','first_name','seller_level','last_name', 'name', 'is_admin', 'is_staff', 'is_active','avatar','country',"profile_type",'terms')
+    list_display = ('email', 'username','first_name','seller_level','last_name', 'name', 'is_admin', 'is_staff', 'is_active','avatar','country',"profile_type",'terms','affiliate_code','referrals_earnings')
     list_filter = ('is_admin', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('email', 'username','seller_level', 'name', 'password','country',"profile_type",'terms')}),
+        (None, {'fields': ('email', 'username','seller_level', 'name', 'password','country',"profile_type",'terms',"affiliate_code")}),
         ('Permissions', {'fields': ('is_admin', 'is_staff', 'is_active')}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2','country',"profile_type",'terms')}
+            'fields': ('email', 'username', 'password1', 'password2','country',"profile_type",'terms',"affiliate_code")}
         ),
     )
     search_fields = ('email', 'username', 'name')
     ordering = ('email',)
     filter_horizontal = ()
+    
+@receiver(post_save, sender=User)
+def add_user(sender, **kwargs):
+    if kwargs['created']: 
+        curr_user = User.objects.get(id=kwargs.get('instance').id)
+        ip_address = str(whatismyip.whatismyip())   
+        user_referral = Referral_Users.objects.get(ip_address=ip_address,refferal_user=None)
+        user_referral.refferal_user = curr_user 
+        user_referral.save() 
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
@@ -263,6 +275,13 @@ class AdminUserGigsTags(admin.ModelAdmin):
     list_display = ['gig_tag_name','gig_name','user_id']
 
 admin.site.register(UserGigsTags, AdminUserGigsTags)
+
+
+
+class AdminReferral_Users(admin.ModelAdmin):
+    list_display = ['affiliate_code','ip_address','user_id','refferal_user']
+
+admin.site.register(Referral_Users, AdminReferral_Users)
 
 def get_admin_urls(urls):
     def get_urls():

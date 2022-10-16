@@ -91,6 +91,8 @@ class User(AbstractBaseUser):
     terms = models.BooleanField(default=False)
     updated_at = models.DateTimeField(default=timezone.now, blank=True)
     created_at = models.DateTimeField(default=timezone.now, blank=True)
+    affiliate_code= ShortUUIDField(length=6,max_length=6,alphabet="123456",blank=True,unique=True, editable=False, default=shortuuid.uuid,null=True)
+    referrals_earnings =  models.IntegerField(blank=True,default="0",null=True)
     objects = UserManager()
 
     USERNAME_FIELD = 'email'
@@ -336,7 +338,7 @@ class SubSubCategories(models.Model):
 class CharacterLimit(models.Model):
     Char_category_Name = models.CharField(max_length=500, blank=True, null=True)
     Hint_text = models.CharField(max_length=800, blank=True, null=True)
-    Max_No_of_char_allowed = models.IntegerField(max_length=500, blank=True, null=True)
+    Max_No_of_char_allowed = models.IntegerField( blank=True, null=True)
 
     class Meta:
         verbose_name = _("Character Limit")
@@ -690,6 +692,18 @@ class Gig_favourites(models.Model):
 
     def __str__(self):
         return str(self.gig_name)
+
+class Referral_Users(models.Model):
+    affiliate_code = models.CharField(max_length=300,blank=True,default="",null=True)
+    ip_address =  models.CharField(max_length=300,blank=True,default="",null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,related_name="affiliate_user",null=False,blank=False)
+    refferal_user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="referral_user",null=True,blank=True,default="")
+    class Meta:
+        verbose_name = _("Referral")
+        verbose_name_plural = _("Referrals")
+
+    def __str__(self):
+        return str(self.affiliate_code)
 
 
 

@@ -20,4 +20,24 @@
     </div>
 </div>
 {% include  'footer.html' %}
+
+<script>
+  $(document).ready(function(){
+    if(window.location.pathname.split("/")[1] == "ref")
+    {
+      $.ajax({
+        type:"GET",
+        url: "/add_referral_link/",
+        data: {'affiliate_code':window.location.pathname.split("/")[2]},
+        success: function(data)
+        {
+          if(data=="sucess")
+          {
+
+          }
+        }
+      });
+    }
+  });
+</script>
 {% endblock %}

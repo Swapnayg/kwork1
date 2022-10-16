@@ -17,7 +17,7 @@
             <div class="kw-wrapper" data-editable-demo="" data-name="page__heading1">
                <h1 class="for-sellers__header-title">Do Work You Enjoy</h1>
                <p class="for-sellers__header-subtitle">Thousands of buyers are ready to pay for your skills</p>
-               <p class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__header-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</p>
+               <p class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__header-button signup-js worker js-follow-url" ><a href="{% url 'register' %}" target="_blank">Start Earning</a></p>
             </div>
          </div>
          <div class="for-sellers__header-stats">
@@ -33,14 +33,15 @@
          <div class="kw-wrapper for-sellers__people-inner">
             <div class="for-sellers__title for-sellers__people-title" data-editable-demo="" data-name="page__heading3"><p class="page__heading3">Join Our Evergrowing Freelance Community</p></div>
             <div class="for-sellers__people-list hover js-for-sellers-people-slider">
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
+               {% for user in user_details %}
+                  <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
                   <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="0">
+                     <a href="/user/profile/{{user.username}}" target="_blank">
                      <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/15-1603808662.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/15-1603808662.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/15-1603808662.jpeg' %}" alt="">
+                        <img src="{{user.profile_img}}" alt="">
                      </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Link Builder</span></div>
+                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>{{user.profession}}</span></div>
+                  </a>
                   </div>
                   <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
                   <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
@@ -57,162 +58,13 @@
                         <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
                      </div>
                   </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="1">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/14-1603808623.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/14-1603808623.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/14-1603808623.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Web Developer</span></div>
                   </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  March 19, 2018</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">1476</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="2">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/11-1603808589.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/11-1603808589.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/11-1603808589.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Voice Actress</span></div>
-                  </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  June 3, 2017</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">1459</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="3">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/11-1603808589.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/11-1603808589.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/11-1603808589.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Translator</span></div>
-                  </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  October 13, 2018</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">741</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="4">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/5-1603808470.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/5-1603808470.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/5-1603808470.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Designer</span></div>
-                  </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  August 19, 2016</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">521</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="5">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/4-1603808358.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/4-1603808358.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/4-1603808358.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Voice Actor</span></div>
-                  </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  June 22, 2019</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">735</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
-               <div class="for-sellers__people-list-item js-for-sellers-people-list-item">
-                  <div class="for-sellers__people-list-profession js-for-sellers-modal-link" data-id="6">
-                     <picture class="for-sellers__people-list-image">
-                        <source srcset="{% static 'assets/images/for-sellers/1-1603808297.webp' %}" type="image/webp">
-                        <source srcset="{% static 'assets/images/for-sellers/1-1603808297.jpeg' %}" type="image/jpeg">
-                        <img src="{% static 'assets/images/for-sellers/1-1603808297.jpeg' %}" alt="">
-                     </picture>
-                     <div class="for-sellers__people-list-profession-title for-sellers__people-list-profession-title--nowrap">I'm a <span>Producer</span></div>
-                  </div>
-                  <div class="t-align-c for-sellers__people-modal-link js-for-sellers-modal-mobile-link js-for-sellers-modal-mobile-link-open">See more</div>
-                  <div class="for-sellers__people-stats-wrapper js-for-sellers-modal-mobile">
-                     <div class="for-sellers__people-stats">
-                        <div class="for-sellers__people-stats-content">
-                           Joined
-                           <div class="for-sellers__people-stats-date">  March 30, 2016</div>
-                           <div class="for-sellers__people-stats-rating"><img class="for-sellers__people-stats-rating-icon" src="{% static 'assets/images/for-sellers/star.svg' %}" width="20" height="20" alt="">5.0</div>
-                           <div class="for-sellers__people-stats-user-type">Professional <br> Seller</div>
-                           Completed Orders
-                           <div class="for-sellers__people-stats-orders">1723</div>
-                           <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-stats-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
-                        </div>
-                        <div class="for-sellers__people-stats-close js-for-sellers-modal-mobile-link"></div>
-                     </div>
-                  </div>
-               </div>
+               {% endfor %}
                <div class="for-sellers__people-list-item">
                   <div class="for-sellers__people-list-action">
                      <img class="for-sellers__people-list-icon" src="{% static 'assets/images/for-sellers/heart.svg' %}" width="48" height="44" alt="">
                      <div class="for-sellers__title for-sellers__people-list-title">What's <br> Your Skill?</div>
-                     <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-list-button signup-js worker js-follow-url" data-href="{% url 'index' %}">Start Earning</div>
+                     <div class="kw-button kw-button--green for-sellers__button js-for-sellers-button for-sellers__people-list-button signup-js worker js-follow-url" ><a href="{% url 'register' %}" target="_blank">Start Earning</a></div>
                   </div>
                </div>
             </div>
@@ -254,85 +106,17 @@
                   <p class="page__heading12 for-sellers__lessons-subtitle">A free get-started course for freelancers</p>
                   <p class="page__heading12 for-sellers__lessons-title">Reach Your Full Earning Potential<br> on letworkbedone</p>
                   <p class="page__heading12 for-sellers__lessons-text">Learn how to become a top seller on letworkbedone. We'll cover how to create top-selling letworkbedones, custom offers that buyers can't resist, and so much more.</p>
-                  <a class="kw-button kw-button--green for-sellers__button for-sellers__lessons-button" href="{% url 'earn_letworkbdone' %}">Start the Course Today</a>
+                  <a class="kw-button kw-button--green for-sellers__button for-sellers__lessons-button" href="{% url 'earn_letworkbdone' %}" target="_blank">Start the Course Today</a>
                </div>
             </div>
          </div>
       </div>
-      <div class="for-sellers__reviews">
-         <div class="kw-wrapper">
-            <div class="for-sellers__title for-sellers__reviews-title">Buyer Testimonials</div>
-            <ul class="for-sellers__reviews-list">
-               <li class="for-sellers__reviews-list-item">
-                  <img class="for-sellers__reviews-list-image" src="{% static 'assets/images/for-sellers/olesya.jpg' %}"  width="400" height="291" alt="">
-                  <div class="for-sellers__reviews-list-content">“On letworkbedone, I got a book ready for publication in three days—something no agency could ever do. From now on, I'll only be turning to letworkbedone for all the services I need.”<span class="for-sellers__reviews-list-name">Alexandra, Publisher</span></div>
-               </li>
-               <li class="for-sellers__reviews-list-item">
-                  <img class="for-sellers__reviews-list-image" src="{% static 'assets/images/for-sellers/dmitri.jpg' %}"  width="407" height="291" alt="">
-                  <div class="for-sellers__reviews-list-content">“We often need a little extra help at the agency sometimes, and when we do, I know I can rely on letworkbedone. Taking on big projects is no longer a headache when letworkbedone's skilled freelancers have my back.”<span class="for-sellers__reviews-list-name for-sellers__reviews-list-name--nowrap">Alex, CEO of SMM Agency Fol'ga</span></div>
-               </li>
-               <li class="for-sellers__reviews-list-item">
-                  <img class="for-sellers__reviews-list-image" src="{% static 'assets/images/for-sellers/ivan.jpg' %}" width="332" height="291" alt=""><img class="for-sellers__reviews-list-image" src="{% static 'assets/images/for-sellers/ivan-pad.jpg' %}" width="453" height="291" alt="">
-                  <div class="for-sellers__reviews-list-content">“In my line of work, speed is everything. letworkbedone's clearly defined deadlines give me the peace of mind I need to complete projects on time.”<span class="for-sellers__reviews-list-name">John, Director of IT at Mintrocket</span></div>
-               </li>
-               <li class="for-sellers__reviews-list-item">
-                  <img class="for-sellers__reviews-list-image" src="{% static 'assets/images/for-sellers/maria.jpg' %}" width="396" height="291" alt="">
-                  <div class="for-sellers__reviews-list-content">“Thanks to letworkbedone, I quickly launched a new website, set up ads, and received my first order within a week.”<span class="for-sellers__reviews-list-name">Mary, Career Consultant</span></div>
-               </li>
-            </ul>
-         </div>
-      </div>
-      <div class="for-sellers__faq">
-         <div class="kw-wrapper">
-            <div class="for-sellers__title for-sellers__faq-title">FAQ</div>
-            <div class="for-sellers__faq-columns js-for-sellers-faq-columns">
-               <div class="for-sellers__faq-column">
-                  <ul class="for-sellers__faq-list">
-                     <li class="for-sellers__faq-list-item js-for-sellers-faq-list-item">
-                        <div class="for-sellers__faq-list-question js-for-sellers-faq-question">How do I start earning on letworkbedone?</div>
-                        <div class="for-sellers__faq-list-answer">
-                           <p>Create an account on letworkbedone. Follow the Four Simple Steps to letworkbedone Success on your seller dashboard, and we guarantee that the earnings will start rolling in!</p>
-                        </div>
-                     </li>
-                     <li class="for-sellers__faq-list-item js-for-sellers-faq-list-item">
-                        <div class="for-sellers__faq-list-question js-for-sellers-faq-question">How much can I earn?</div>
-                        <div class="for-sellers__faq-list-answer">
-                           <p>Your earnings will depend on various factors, including your skills, specialization, speed, and rating. Active sellers on letworkbedone earn an average of $520 a month, and top sellers earn up to several thousand dollars!</p>
-                        </div>
-                     </li>
-                     <li class="for-sellers__faq-list-item js-for-sellers-faq-list-item">
-                        <div class="for-sellers__faq-list-question js-for-sellers-faq-question">Do I have to pay anything to use letworkbedone?</div>
-                        <div class="for-sellers__faq-list-answer">
-                           <p>Good news: on letworkbedone, there are no paid accounts or subscriptions; we only charge a percentage fee for completed orders.</p>
-                           <p>When you offer a service, take the fee into account to always get paid what you want. Easy, no?</p>
-                        </div>
-                     </li>
-                  </ul>
-               </div>
-               <div class="for-sellers__faq-column">
-                  <ul class="for-sellers__faq-list">
-                     <li class="for-sellers__faq-list-item js-for-sellers-faq-list-item">
-                        <div class="for-sellers__faq-list-question js-for-sellers-faq-question">How much time do I need to dedicate?</div>
-                        <div class="for-sellers__faq-list-answer">
-                           <p>Many sellers work full-time on letworkbedone, which is their primary revenue stream. Others dedicate a few hours a week to letworkbedone as a side gig.</p>
-                           <p>On letworkbedone, you have complete freedom to decide when and how many hours you want to work. Are you a night owl or an early bird? Want to work 50 hours or 5? You decide according to your lifestyle, goals, and personal circumstances.</p>
-                        </div>
-                     </li>
-                     <li class="for-sellers__faq-list-item js-for-sellers-faq-list-item">
-                        <div class="for-sellers__faq-list-question js-for-sellers-faq-question">How do I get paid for my work?</div>
-                        <div class="for-sellers__faq-list-answer">
-                           <p>letworkbedone protects and guarantees payment for sellers. We do this by asking buyers to pay immediately when they purchase your services. While you work on an order, letworkbedone holds onto those funds and disburses them to you immediately once the buyer reviews and approves your delivery. Then you can decide to leave them there or transfer them to your credit/debit card.</p>
-                        </div>
-                     </li>
-                  </ul>
-               </div>
-            </div>
-         </div>
-      </div>
+    
+     
       <div class="for-sellers__footer">
          <div class="kw-wrapper"  data-editable-demo="" data-name="page__heading18">
             <p class="for-sellers__title"><span class="page__heading18 d-none d-md-inline">Start Your Freelance Journey on letworkbedone Today</span><span class="page__heading18 m-visible">Try letworkbedone Today</span></p>
-            <div class="kw-button kw-button--green for-sellers__button for-sellers__footer-button signup-js worker">Join for Free</div>
+            <div class="kw-button kw-button--green for-sellers__button for-sellers__footer-button signup-js worker"><a href="{% url 'register' %}" target="_blank" id="join_anchor">Join for Free</a></div>
          </div>
       </div>
       <div class="modal fade for-sellers__modal js-for-sellers-modal" role="dialog" data-backdrop="true" data-keyboard="true">
@@ -371,6 +155,13 @@
    </div>
 </div>
 {% include  'footer.html' %}
+<style>
+   .js-follow-url a,.js-follow-url a:hover,.for-sellers__lessons-button,.for-sellers__lessons-button:hover,#join_anchor,#join_anchor:hover
+   {
+      color:white;
+      text-decoration:none;
+   }
+</style>
 <script>
    $(document).ready(function(){
     value_user = '{{request.user.username}}'

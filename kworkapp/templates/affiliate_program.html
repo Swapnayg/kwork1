@@ -11,7 +11,7 @@
             <div class="referral-program__header-container" data-editable-demo="" data-name="page__heading1">
                <h1 class="kw-header--h1 referral-program__header-title">Boost your earnings by inviting new users to Letworkbedone!</h1>
                <p class="kw-text--16 referral-program__header-text">Share your affiliate link and receive a reward for every transaction your referrals make. It's that simple.</p>
-               <a href="{% url 'partners' %}" class="kw-button kw-button--green referral-program__header-button">Start Earning Today</a>
+               <a href="{% url 'earn_letworkbdone' %}" target="_blank" class="kw-button kw-button--green referral-program__header-button">Start Learning Today</a>
             </div>
          </div>
       </div>
@@ -20,14 +20,18 @@
             <div class="referral-program__action-container">
                <div class="referral-program__action-columns">
                   <div class="referral-program__action-generate" data-editable-demo="" data-name="page__heading1">
-                     <p class="kw-header--h4">Generate Your Affiliate Link</p>
+                     <p class="kw-header--h4">Your Affiliate Link</p>
                      <div id="referral-program-link" class="referral-program__action-form-wrapper">
                         <div class="referral-program__action-form">
-                           <input type="text" placeholder="Paste URL" class="referral-program__action-form-field"> <button class="kw-button kw-button--green kw-button--size-40 kw-button--no-padding referral-program__action-form-button disabled">
-                           Generate
+                           <input type="text" placeholder="Paste URL" id="affiliate_link" class="referral-program__action-form-field" disabled value="{{ url}}/{{userDetails.affiliate_code}} "> <button class="kw-button kw-button--green kw-button--size-40 kw-button--no-padding referral-program__action-form-button" onclick="return cos_click()">
+                           Copy
                            </button> <!---->
                         </div>
                      </div>
+                  </div>
+                  <div class="referral-program__action-generate mt-4" data-editable-demo="" data-name="page__heading1">
+                     <p class="kw-header--h4">My Referrals</p>
+                     <div class="referral-program__action-referrals-stats">{{referral_count}} Referral<span class="referral-program__action-referrals-stats-separator"><span class="m-hidden"> / </span></span>Earnings: <span class="nowrap"><span class="funds-currency">$</span>{{userDetails.referrals_earnings}}</span></div>
                   </div>
                </div>
             </div>
@@ -144,7 +148,7 @@
       <div class="referral-program__footer">
          <div class="referral-program__container" data-editable-demo="" data-name="page__heading1">
             <p class="referral-program__footer-text">Join the Letworkbedone Affiliate Program and start earning today!</p>
-            <a href="{% url 'partners' %}"class="kw-button kw-button--green kw-button--size-40 kw-button--no-padding referral-program__footer-button">Start Earning</a>
+            <a href="{% url 'faq' %}" target="_blank" class="kw-button kw-button--green kw-button--size-40 kw-button--no-padding referral-program__footer-button">Know More About Letworkbedone</a>
          </div>
       </div>
    </div>
@@ -190,5 +194,27 @@
        });
     }
    });
+
+   function cos_click() { 
+      var pageLink1 = $("#affiliate_link").val();
+         navigator.clipboard.writeText(pageLink1).then(
+           function() {
+             window.alert('Url Copied!') 
+           }, 
+           function() {
+             window.alert('Opps! Your browser does not support the Clipboard API')
+           }
+         )
+      return false; }
 </script>
+<style>
+   .kw-button--green, .kw-button--green:hover
+   {
+      color:white;
+   }
+   body.en-lang .referral-program__footer-button
+   {
+      width: 250px;
+   }
+</style>
 {% endblock %}

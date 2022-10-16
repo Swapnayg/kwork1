@@ -21,7 +21,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Referral_Users,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -213,7 +213,14 @@ class term_serviceView(View):
 class for_freelancerView(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'for_freelancer.html')
+        userdata= []
+        subcategory= SubCategories.objects.all()
+        for sub_cat in subcategory:
+            u_profile = UserProfileDetails.objects.filter(sub_category=sub_cat).first()
+            if(u_profile != None):
+                if(len(userdata) <= 8):
+                    userdata.append({"username":u_profile.user_id.username, "profession":u_profile.sub_category.sub_category_Name,"joined_dt":u_profile.user_id.created_at,"profile_img":u_profile.user_id.avatar})
+        return render(request , 'for_freelancer.html',{"user_details":userdata})
 
 class earn_letorkbdoneView(View):
     return_url = None
@@ -235,12 +242,30 @@ class categoriesView(View):
 class affiliate_programView(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'affiliate_program.html')
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try: 
+                userDetails = User.objects.get(username=str(request.user.username).strip())
+                base_url = request.build_absolute_uri('/ref')
+                referral_count = Referral_Users.objects.filter(user_id=userDetails).exclude(refferal_user__isnull=False).count()
+                return render(request , 'affiliate_program.html',{'userDetails':userDetails,"url": base_url,"referral_count":referral_count})                 
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
 
 class reviews_View(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'reviews.html')
+        categories = Categories.objects.all()
+        buyer_reviews = Buyer_Reviews.objects.all()
+        buyer_count = 0
+        for b_review in buyer_reviews:
+            buyer_count = buyer_count + int(b_review.rating_val)
+        try:
+            buyer_count = round(buyer_count/len(buyer_reviews),1)
+        except:
+            buyer_count = 0    
+        return render(request , 'reviews.html',{"categories":categories,"no_reviews":len(buyer_reviews), "aver_count":buyer_count})
 
 class prohibited_service_View(View):
     return_url = None
@@ -661,7 +686,7 @@ class dashboard_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try:   
+            try:
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)            
                 truefactor = ''
                 try:
@@ -1592,3 +1617,46 @@ def post_search_key_view(request):
         search_term.save()
         return HttpResponse("sucess")
 
+
+
+def get_buyer_reviews_view(request):
+    if request.method == 'GET':
+        sub_category = request.GET['sub_category']
+        sub_category_inst = SubSubCategories.objects.get(sub_sub_category_Name= sub_category)
+        all_gigs = UserGigs.objects.filter(gig_sub_category=sub_category_inst)
+        data = []
+        for g in all_gigs:
+            buyer_revs = Buyer_Reviews.objects.filter(package_gig_name=g)
+            review_date = ''
+            for buyer_r in buyer_revs:
+                start_date = datetime.strptime(str(buyer_r.review_date), "%Y-%m-%d %H:%M:%S")
+                end_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+                diff = relativedelta.relativedelta(end_date, start_date)
+                if(diff.years == 0 and diff.months == 0):
+                    if(diff.days == 0):
+                        review_date = 'today'
+                    else:
+                        review_date = str(diff.days) + ' days'
+                elif(diff.months != 0 and diff.years == 0):
+                    if(diff.months == 1):
+                        review_date = str(diff.months) + ' month'
+                    else:
+                        review_date = str(diff.months) + ' months'
+                elif(diff.years != 0):
+                    if(diff.years == 1):
+                        review_date = str(diff.years) + ' year'
+                    else:
+                        review_date = str(diff.years) + ' years'
+                data.append({"message":buyer_r.review_message,"review_date":review_date,"rev_username":buyer_r.b_review_from.username,"user_profile":buyer_r.b_review_from.avatar}) 
+        return JsonResponse(data,safe=False)
+    
+@csrf_exempt     
+def add_referral_link_view(request):
+    if request.method == 'GET':
+        affiliate_code = request.GET['affiliate_code']
+        userDetails = User.objects.get(affiliate_code=affiliate_code)
+        ip_address = str(whatismyip.whatismyip())
+        if(Referral_Users.objects.filter(affiliate_code=affiliate_code,ip_address=ip_address,refferal_user=None).exists() == False):
+            referral_user = Referral_Users(affiliate_code=affiliate_code,ip_address=ip_address,user_id=userDetails)
+            referral_user.save() 
+        return HttpResponse('sucess')

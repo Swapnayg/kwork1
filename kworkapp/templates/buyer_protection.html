@@ -98,6 +98,13 @@
 <a class="protection__content-footer-btn" href="{% url 'contact_support' %}" target="_blank">Contact Support</a></div>
 </div>
 {% include  'footer.html' %}
+<style>
+
+    .protection__content-footer-btn:hover
+    {
+        color:white;
+    }
+</style>
 <script>
     $(document).ready(function(){
      value_user = '{{request.user.username}}'

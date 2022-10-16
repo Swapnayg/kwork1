@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'notifications',
     'taggit',
     'django_countries',
+    'django.contrib.humanize',
 ]
 
 AUTH_USER_MODEL = 'kworkapp.User'

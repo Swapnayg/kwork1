@@ -43,6 +43,7 @@ urlpatterns  = [
 	path("subcategories_for_category/",views.subcategories_for_category_view,name = 'subcategories_for_category'),
 	path("post_increase_count/",views.post_increase_count_view,name = 'post_increase_count'),
 	path("register",signup_view.as_view(),name = 'register'),
+ 	path("ref/<str:username>",signup_view.as_view(),name = 'reference'),
 	path("login",login_view.as_view(),name = 'login'),
 	path("user/profile/<str:username>",profile_view.as_view(),name = 'profile'),
  	path("search/<str:keyword>",search_gig_view.as_view(),name = 'profile'),
@@ -89,4 +90,6 @@ urlpatterns  = [
     path("post_make_fav/",views.post_make_fav_view,name = 'post_make_fav'),
     path("post_make_unfav/",views.post_make_unfav_view,name = 'post_make_unfav'),
     path("post_search_key/",views.post_search_key_view,name = 'post_search_key'),
+    path("get_buyer_reviews/",views.get_buyer_reviews_view,name = 'get_buyer_reviews'),
+    path("add_referral_link/",views.add_referral_link_view,name = 'add_referral_link'),
 ]
