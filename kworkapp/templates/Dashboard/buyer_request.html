@@ -2,6 +2,7 @@
 {% load static %}
 {% block contentarea%}
 <title>Letworkbedone - {{request.user.username}} / Buyer Request</title>
+<link rel="stylesheet" href="{% static 'assets/css/frontend/buyer_request.css' %}" type="text/css" />
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -32,74 +33,109 @@
 
                             <div class="db-new-main-table align-top js-db-table">
                                 <table>
-                                   <thead>
-                                      <tr class="header-filter">
-                                         <td colspan="2" class="js-filter-title">Buyer requests</td>
-                                         <td colspan="4" class="sort-by">
+                                    <thead>
+                                       <tr class="header-filter">
+                                          <td colspan="2" class="js-filter-title">Buyer requests</td>
+                                          <td colspan="4" class="sort-by">
                                             <div class="js-sort-by">
-                                               <div class="dropdown js-ddown-sub-cats">
-                                                  <div class="filter-select cf ">
-                                                     <div class="fake-dropdown" style="visibility: visible;">
-                                                        <a class="dropdown-toggle no-uppercase" data-toggle="dropdown" style="width: 156px;">
-                                                        All Subcategories
-                                                        </a>
-                                                        <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;">
-                                                           <li class="initial">
-                                                              <a data-val="-1">
-                                                              <span class="text">All Subcategories</span>
-                                                              </a>
-                                                           </li>
-                                                           <li>
-                                                              <a data-val="163">
-                                                              <span class="text-inner">Articles &amp; Blog Posts</span>
-                                                              </a>
-                                                           </li>
-                                                           <li>
-                                                              <a data-val="138">
-                                                              <span class="text-inner">Website Builders &amp; CMS</span>
-                                                              </a>
-                                                           </li>
-                                                           <li>
-                                                              <a data-val="140">
-                                                              <span class="text-inner">Web Programming</span>
-                                                              </a>
-                                                           </li>
-                                                        </ul>
-                                                     </div>
-                                                  </div>
-                                               </div>
-                                            </div>
-                                         </td>
-                                      </tr>
-                                      <tr class="js-header-titles">
-                                         <td>
-                                            date
-                                         </td>
-                                         <td>
-                                            buyer
-                                         </td>
-                                         <td>
-                                            request
-                                         </td>
-                                         <td>
-                                            offers
-                                         </td>
-                                         <td>
-                                            Duration
-                                         </td>
-                                         <td>
-                                            Budget
-                                         </td>
-                                      </tr>
-                                   </thead>
-                                   <tbody>
-                                      <tr>
-                                         <td colspan="6">
-                                            <span>No requests found.</span>
-                                         </td>
-                                      </tr>
-                                   </tbody>
-                                </table>
+                                                <div class="dropdown js-ddown-sub-cats">
+                                                   <div class="filter-select cf ">
+                                                      <div class="fake-dropdown" style="visibility: visible;">
+                                                         <a class="dropdown-toggle no-uppercase" data-toggle="dropdown" style="width: 156px;">All Subcategories</a>
+                                                         <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;">
+                                                            <li class="initial">
+                                                               <a data-val="-1">
+                                                               <span class="text">All Subcategories</span>
+                                                               </a>
+                                                            </li>
+                                                            <li>
+                                                               <a data-val="163">
+                                                               <span class="text-inner">Articles &amp; Blog Posts</span>
+                                                               </a>
+                                                            </li>
+                                                            <li>
+                                                               <a data-val="138">
+                                                               <span class="text-inner">Website Builders &amp; CMS</span>
+                                                               </a>
+                                                            </li>
+                                                            <li>
+                                                               <a data-val="140">
+                                                               <span class="text-inner">Web Programming</span>
+                                                               </a>
+                                                            </li>
+                                                         </ul>
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                       <tr class="js-header-titles">
+                                          <td>
+                                             date
+                                          </td>
+                                          <td>
+                                             buyer
+                                          </td>
+                                          <td>
+                                             request
+                                          </td>
+                                          <td>
+                                             offers
+                                          </td>
+                                          <td>
+                                             Duration
+                                          </td>
+                                          <td>
+                                             Budget
+                                          </td>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <tr data-id="634cc8c78182d4000cca0bb3">
+                                          <td class="date  ">
+                                             <span>Oct 17, 2022</span>
+                                          </td>
+                                          <td class="profile-40  height95">
+                                             <span class="user-pict-40">
+                                             <span class="missing-image-user ">c</span>
+                                             </span>
+                                             <span></span>
+                                          </td>
+                                          <td class="see-more">
+                                             <div class="text-wrap">
+                                                <span>I am looking for a python programmer who has web scraping experience (scrapy and selenium).  I need the developer to write some python scripts/functions that my program can call that will automatically login into a website and save an image or data once per day.  Please read the attached specification for more detailed information. I look forward to working with you.</span>
+                                                <a href="#" class="is-online btn-see-more js-see-more m-r-10">See more<i></i></a>
+                                             </div>
+                                             <span class="attachment">
+                                             <a href="https://www.fiverr.com/download/attachment/gig_request/634cc8c78182d4000cca0bb3/634cc6cc5c3e5b00224bb70f/Python3%20Scraping%20Spec%20Oct12.pdf?signature=e7a89137302a9dcca045d5ca75e6703aad039d5212b81b102683ae06d7e748af"><i class="fa fa-arrow-circle-down"></i>Python3 Scraping Spec Oct12.pdf</a>
+                                             <span>(687 KB)</span>
+                                             </span>
+                                          </td>
+                                          <td class="applications  t-a-center">
+                                             <span>0</span>
+                                          </td>
+                                          <td class="hidden-action t-a-center with-text">
+                                             <div class="hover-show">
+                                                <span class="duration">10 days</span>
+                                                <a href="#" class="remove-request">Remove Request</a>
+                                             </div>
+                                             <div class="hover-hide"  onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);">
+                                                <span>10 days</span>
+                                             </div>
+                                          </td>
+                                          <td class="hidden-action t-a-center with-text">
+                                             <div class="hover-show">
+                                                <span class="budget">₹21,633</span>
+                                                <a class="btn-standard btn-green-grad " onclick= "show_share_click();">Send Offer</a>
+                                             </div>
+                                             <div class="hover-hide" onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);">
+                                                <span>₹21,633</span>
+                                             </div>
+                                          </td>
+                                       </tr>
+                                    </tbody>
+                                 </table>
                              </div>
                         </div>
                         <div class="tab-pane" id="sentofferstab"> <div class="db-new-main-table align-top js-db-table">
@@ -205,421 +241,255 @@
        </div>
     </div>
  </div>
-{% include  'Dashboard/base_buyer.html' %}
-<style>
-.circle {
-    border-radius: 15px;
-    display: inline-block;
-    background-color: #bbb;
-    font-size: 11px;
-    font-weight: 700;
-    color: white;
-    padding: 2%;
-}
+{% include  'Dashboard/base_seller.html' %}
+<div class="modal fade" id="modal_send_offer" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+   <div class="modal-dialog  modal-lg" role="document">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h4>Select a Gig to Offer</h4>
+         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       </div>
+       <div class="modal-body">
+         <div class="row tab1" id="send_offer_div">
+            <div class="col-lg-11">
+               <div class="popup-content ">
+                  <div class="offer-request-summary js-offer-request-summary cf">
+                     <aside>
+                        <span class="user-pict-60">
+                        <img src="https://fiverr-res.cloudinary.com/image/upload/t_profile_small,q_auto,f_auto/v1/attachments/profile/photo/7c95c11ccd6e676ac9664371aab1f6b3-1605301607024/e7a4672f-31f7-4339-836f-a558a898cf9d.jpg" alt="paulherretch" width="100" height="100" data-reload="inprogress">
+                        </span>
+                     </aside>
+                     <p>Hello, I'm looking for someone to develop a Firefox plugin from a Chrome plugin I found (https://chrome.google.com/webstore/detail/email-hunter/mbindhfolmpijhodmgkloeeppmkhpmhc?hl=fr).
+                        This plugin should extract all email addresses from the current page and add them to all email addresses found. I want exactly the same plugin as the one found on Chrome (I HAVE THE SOURCE CODE OF THE CHROME PLUGIN, but I put it on Firefox it does not work). I will provide you with the source code as well as an efficient code for extracting the email addresses.
+                     </p>
+                  </div>
+                  <form method="post" action="/users/swap_soln_90/requests" id="model_gig_choose">
+                     
+                     <div class="js-offer-gigs-list">
+                        <div class="offer-gigs-list1 antiscroll-wrap1">
+                           <ul class="antiscroll-inner scroll-shadow">
+                              <li class="sel">
+                                 <label class="fake-radio-black radio-text">
+                                    <input type="radio" name="offer[gig_id]" data-cached-slug="build-an-awesome-website-applications-within-three-days" class="js-offered-gig" value="213090617" data-category="10" data-base-price="100" data-has-revisions="true">
+                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" class="" alt="build your web applications with no bound of limits welcome" data-reload="inprogress"></span>
+                                    <p>I will build your web applications with no bound of limits welcome</p>
+                                 </label>
+                                                               </li>
+                              <li class="sel">
+                                 <label class="fake-radio-black radio-text">
+                                    <input type="radio" name="offer[gig_id]" data-cached-slug="develop-your-web-application-within-no-time" class="js-offered-gig" value="228160561" data-category="10" data-base-price="100" data-has-revisions="true">
+                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/228160561/original/a52fa065abae16f9c8b003306b63de8dbed14356/develop-your-web-application-within-no-time.png" class="" alt="develop your web application within no time" data-reload="inprogress"></span>
+                                    <p>I will develop your web application within no time</p>
+                                 </label>
+                              </li>
+                              <li class="sel">
+                                 <label class="fake-radio-black radio-text">
+                                    <input type="radio" name="offer[gig_id]" data-cached-slug="provide-an-no-limit-content-for-you-within-one-hour" class="js-offered-gig" value="256040376" data-category="5" data-base-price="10" data-has-revisions="true">
+                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/256040376/original/8dce6616e94411b3612da6fdc8dee5af5093bed1/provide-an-no-limit-content-for-you-within-one-hour.jpg" class="" alt="provide an no limit content for you within one hour" data-reload="inprogress"></span>
+                                    <p>I will provide an no limit content for you within one hour</p>
+                                 </label>
+                              </li>
+                           </ul>
+                        </div>
+                     </div>
+                    
+                  </form>
+                  <div class="offer-extras-list conditions js-conditions">
+                     <ul class="antiscroll-inner scroll-shadow">
+                        <li class="sel selected-gig">
+                           <label class="fake-radio-black radio-text">
+                              <p>I will develop your web application within no time</p>
+                              <input type="radio" name="offer[gig_id]" data-cached-slug="develop-your-web-application-within-no-time" class="js-offered-gig" value="228160561" data-category="10" data-base-price="100" data-has-revisions="true">
+                              <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/228160561/original/a52fa065abae16f9c8b003306b63de8dbed14356/develop-your-web-application-within-no-time.png" class="" alt="develop your web application within no time" data-reload="inprogress"></span>
+                              <div class="js-personal-message offer-personal-message">
+                                 <div class="write-wrap cf">
+                                    <textarea name="offer[custom_offer][description]" maxlength="1500" placeholder="Describe Your Offer"></textarea>
+                                    <span class="char-count rf"><em>0</em> / 1500 Chars Max</span>
+                                    <div class="js-desc-error-text error-text p-t-0 p-b-0 hidden">Please provide a description.</div>
+                                 </div>
+                              </div>
+                           </label>
+                        </li>
+                       
+                     </ul>
+                     <ul>
+                        <li>
+                           <label>
+                              <small class="extra-text">Total Offer Amount</small>
+                              <div class="js-price-error-text error-text lf hidden">Define a price between ₹433-₹432401</div>
+                           </label>
+                           <div class="input-wrap">
+                              <small>$</small>
+                              <input type="text" name="offer[custom_offer][price]" class="js-custom-offer-price js-force-digits" maxlength="5" placeholder="5000 max." value="">
+                           </div>
+                        </li>
+                        <li>
+                           <label><small class="extra-text">Delivery Time</small></label>
+                           <select name="offer[custom_offer][duration]" class="js-ddown-delivery">
+                              <option value="1" selected="">1 day</option>
+                              <option value="2">2 days</option>
+                              <option value="3">3 days</option>
+                              <option value="4">4 days</option>
+                              <option value="5">5 days</option>
+                              <option value="6">6 days</option>
+                              <option value="7">7 days</option>
+                              <option value="8">8 days</option>
+                              <option value="9">9 days</option>
+                              <option value="10">10 days</option>
+                              <option value="11">11 days</option>
+                              <option value="12">12 days</option>
+                              <option value="13">13 days</option>
+                              <option value="14">14 days</option>
+                              <option value="15">15 days</option>
+                              <option value="16">16 days</option>
+                              <option value="17">17 days</option>
+                              <option value="18">18 days</option>
+                              <option value="19">19 days</option>
+                              <option value="20">20 days</option>
+                              <option value="21">21 days</option>
+                              <option value="22">22 days</option>
+                              <option value="23">23 days</option>
+                              <option value="24">24 days</option>
+                              <option value="25">25 days</option>
+                              <option value="26">26 days</option>
+                              <option value="27">27 days</option>
+                              <option value="28">28 days</option>
+                              <option value="29">29 days</option>
+                              <option value="30">30 days</option>
+                           </select>
+                        </li>
+                        <li class="js-revisions">
+                           <label><small class="extra-text">Number of Revisions (optional)</small></label>
+                           <select name="offer[num_of_revisions]" class="js-ddown-revisions">
+                              <option value="" selected="">Select</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="-1">unlimited</option>
+                           </select>
+                        </li>
+                        <li class="toggle-li">
+                           <div class="toggle-wrapper">
+                              <label>
+                                 <small class="extra-text">Ask for Gig Requirements</small>
+                                 <input type="checkbox" name="offer[ask_for_requirements]" class="sel" checked="">
+                                 <span class="fake-toggle"></span>
+                                 <p class="label-helper">
+                                    <i class="fa fa-exclamation-circle"></i>
+                                    The order will start immediately upon payment.<br>Make sure you have all of the required information to start working.
+                                 </p>
+                              </label>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+                  <div class="js-gig-items offer-gig-items show">
+                     <a href="#" class="expander js-gig-items-expander js-gtm-event-auto" data-gtm-category="offers-popup" data-gtm-action="click" data-gtm-label="extras-expander"><span class="arrow"></span><p>Define the Offer Scope:</p></a>
+                     <div class="offer-extras-list">
+                        <ul>
+                           <li class="js-extra-chkbox" data-gig-item-id="228160839">
+                              <label class="fake-check-black check-text">
+                              <input type="checkbox" name="offer[gig_pricing][extras][0][id]" value="228160839">
+                              <span class="chk-img"></span>
+                              <span class="extra-text">
+                              <small>Number of pages </small>
+                              </span>
+                              <input type="number" class="js-extra-quantity" min="1" name="offer[gig_pricing][extras][228160839][quantity]">
+                              </label>
+                           </li>
+                           <li class="js-extra-chkbox" data-gig-item-id="228160840">
+                              <label class="fake-check-black check-text">
+                              <input type="checkbox" name="offer[gig_pricing][extras][1][id]" value="228160840">
+                              <span class="chk-img"></span>
+                              <span class="extra-text">
+                              <small>Design customization </small>
+                              </span>
+                              </label>
+                           </li>
+                           <li class="js-extra-chkbox" data-gig-item-id="228160841">
+                              <label class="fake-check-black check-text">
+                              <input type="checkbox" name="offer[gig_pricing][extras][2][id]" value="228160841">
+                              <span class="chk-img"></span>
+                              <span class="extra-text">
+                              <small>Content upload </small>
+                              </span>
+                              </label>
+                           </li>
+                           <li class="js-extra-chkbox" data-gig-item-id="228160842">
+                              <label class="fake-check-black check-text">
+                              <input type="checkbox" name="offer[gig_pricing][extras][3][id]" value="228160842">
+                              <span class="chk-img"></span>
+                              <span class="extra-text">
+                              <small>Responsive design </small>
+                              </span>
+                              </label>
+                           </li>
+                           <li class="js-extra-chkbox" data-gig-item-id="228160843">
+                              <label class="fake-check-black check-text">
+                              <input type="checkbox" name="offer[gig_pricing][extras][4][id]" value="228160843">
+                              <span class="chk-img"></span>
+                              <span class="extra-text">
+                              <small>Include source code </small>
+                              </span>
+                              </label>
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <footer class="cf p-20 modal_footer">
+                     <div class="error-container hidden js-error-container">
+                        <p class="msg-error t-a-center">Something went wrong, please try again.</p>
+                     </div>
+                     <a href="#" class="btn-standard btn-green-grad js-fiverr-form-submit js-gtm-event-auto" data-gtm-category="offers-popup" data-gtm-action="click" data-gtm-label="submit">Submit Offer</a>
+                     <a href="#" class="btn-back lf m-t-10 p-r-20 js-btn-back">Back</a>
+                  </footer>
+               </div>
+            </div>
+           
+       </div>
+     </div>
+   </div>
+ </div>
 
-    .circle span{
-        line-height: 20px;
-        height: 20px;
-    }
-
-.offers-left {
-    color: #777;
-    font-size: 14px;
-    padding-left: 30px;
-    position: relative;
-    z-index: 1;
-    float: right;
-    margin-right: 2%;
-}
-
-.offers-left-tooltip {
-    position: absolute;
-    top: 35px;
-    width: 158px;
-    left: -88px;
-    text-align: left;
-    background: black;
-    color: white;
-    border-radius: 5%;
-}
-
-.offers-left-tooltip p{
-    padding: 6%;
-}
-.all_page
-{
-    margin-right: 2% !important;
-}
-.offers-left:before {
-    content: '';
-    background: transparent url(//assetsv2.fiverrcdn.com/assets/v2_globals/icn-master-small-0d599cc1fa10f04a40534565e4b8f4b1.png) no-repeat -200px -150px;
-    position: absolute;
-    z-index: 1;
-    display: block;
-    overflow: hidden;
-    width: 20px;
-    height: 18px;
-    left: 0;
-    top: -1px;
-}
-.offers-left-tooltip
-{
-    display: none;
-}
-.offers-left-tooltip-trigger {
-    position: relative;
-    font-size: 16px;
-    margin-left: 4px;
-}
-
-    #refferral_gigs,#refferral_gigs_card
-    {
-        background: #f7f7f7;
-    }
-    .nav-tabs li
-    {
-        width: 15%;
-    }
-    /* .nav-tabs li a.active{
-        color: #2E5DC5;
-        border-width: medium;
-        border-bottom: 3px solid #2E5DC5 !important;
-    }    */
-
-.nav-tabs li a {
-    display: block;
-    padding: 3px 5px 10px;
-    color: #999;
-    font-size: 14px;
-    line-height: 42px;
-    font-weight: 600;
-    text-decoration: none;
-    text-transform: uppercase;
-}
-
-    .db-manage-gigs .db-new-filters .btn-create-gig {
-        position: absolute;
-        right: 0;
-        top: 10px;
-    }
-    .btn-standard.btn-green {
-        background-color: #2E5DC5;
-        font-weight: 700;
-        color: #fff!important;
-        border: 1px solid transparent;
-        padding: 8px;
-        border-radius: 5px;
-        float: right;
-    }
-     h1.alt, .text-display-1.alt {
-        font-weight: 600;
-        display: inline-block;
-        float: left;
-        font-size: 35px;
-        padding-bottom: 1%;
-    }
-    .db-new-header {
-        padding-bottom: 20px;
-    }
-    .cf:before, .cf:after {
-        content: " ";
-        display: table;
-    }
-    .db-manage-gigs header .accept-requests {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-        flex-direction: row-reverse;
-    }
-    .toggle-wrapper:first-child {
-        margin-left: 0;
-    }
-    .db-manage-gigs header .accept-briefs {
-        margin-right: 24px;
-    }
-    .toggle-wrapper {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 30px;
-    }
-    .db-manage-gigs header .accept-requests .toggle-wrapper label {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-    .toggle-wrapper label {
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 14px;
-        color: #222325;
-        text-transform: capitalize;
-        cursor: pointer;
-    }
-    .hint--bottom-right:before, .hint--bottom-right:after {
-        top: 100%;
-        right: 50%;
-    }
-    .toggle-wrapper label input[type=checkbox] {
-        display: none;
-    }
-    .db-manage-gigs header .accept-requests .toggle-wrapper .fake-toggle {
-        margin: 0 8px;
-    }
-    .toggle-wrapper label .fake-toggle {
-        background-color: #fff;
-        width: 30px;
-        height: 20px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 7px;
-        position: relative;
-        box-shadow: inset 0 0 0 1px #ccc;
-        border-radius: 15px;
-    }
-    .hint--bottom-right:before, .hint--bottom-right:after {
-        top: 100%;
-        right: 50%;
-    }
-    .toggle-wrapper label .fake-toggle:before, .toggle-wrapper label .fake-toggle:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: 20px;
-        height: 20px;
-        border-radius: 15px;
-    }
-    .toggle-wrapper label .fake-toggle:before {
-        background-color: #2E5DC5;
-        -webkit-transition: width .2s ease-in-out,border-radius .2s ease-in-out;
-        transition: width .2s ease-in-out,border-radius .2s ease-in-out;
-    }
-    .db-manage-gigs header .accept-briefs .set-budget-cta {
-        background: 0 0;
-        border: none;
-        text-decoration: underline;
-        color: #404145;
-        margin-left: 4px;
-    }
-    .hint--top:before, .hint--top:after {
-        bottom: 100%;
-        left: 50%;
-    }
-    .hint--top:before {
-        margin-left: -5px;
-        margin-bottom: -12px;
-        border-top-color: #222325;
-    }
-    #manage_gigs, .nav, .tab-content .tab-pane,#manage_gigs ul li a, #manage_gigs_card
-    {
-        background: #f7f7f7;
-        border: none;
-    }
-    #manage_gigs
-    {
-        margin-left: 2%;
-        margin-right: 2%;
-    }
-    #manage_gigs ul li a
-    {
-        font-size: 14px;
-        color: #333;
-        font-weight: 600;
-        padding: 20px;
-        line-height: 30px;
-        height: 30px;
-        text-decoration: none;
-    }
-    .tab-content
-    {
-        padding-top: 2%;
-    }
-
-    .db-new-main-table table {
-        width: 100%;
-        border-collapse: collapse;
-    }
-    .db-new-main-table table thead tr {
-        background-color: #fff;
-        border: 1px #e5e5e5 solid;
-    }
-    .db-new-main-table table td {
-        padding: 15px 15px 15px 0;
-        font-size: 14px;
-        line-height: 20px;
-        color: #555;
-        vertical-align: middle;
-        white-space: nowrap;
-    }
-    .db-new-main-table table thead td {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: #999;
-        line-height: 33px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .db-new-main-table table td:first-child {
-        padding-left: 20px;
-    }
-    .db-new-main-table table thead tr.header-filter td {
-        font-size: 14px;
-        line-height: 17px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        color: #0e0e0f;
-    }
-    .db-new-main-table table thead tr.header-filter td.sort-by {
-        text-align: right;
-        font-weight: 400;
-        color: #777;
-    }
-    .db-new-main-table table thead tr.header-filter td {
-        font-size: 14px;
-        line-height: 17px;
-        padding-top: 15px;
-        padding-bottom: 15px;
-        color: #0e0e0f;
-    }
-    .db-new-main-table table td:last-child {
-        padding-right: 20px;
-    }
-    .db-requests .db-new-main-table table div.js-sort-by {
-        display: inline-block;
-        vertical-align: top;
-    }
-    .hidden {
-        display: none!important;
-        visibility: hidden!important;
-    }
-    .db-new-main-table table thead tr.header-filter .dropdown {
-        display: inline-block;
-    }
-    .fake-dropdown {
-        position: relative;
-        visibility: hidden;
-    }
-    .db-new-main-table table thead td a {
-        color: #999;
-    }
-    .fake-dropdown .dropdown-toggle {
-        background-color: #fff;
-        display: inline-block;
-        position: relative;
-        font: 400 12px macan,helvetica neue,Helvetica,Arial,sans-serif;
-        color: #777;
-        text-decoration: none;
-        text-align: left;
-        border: 1px #b2b2b2 solid;
-        padding: 7px 30px 7px 10px;
-        text-transform: uppercase;
-        margin: 0;
-        white-space: nowrap;
-        cursor: pointer;
-        border-radius: 3px;
-    }
-    .db-new-main-table table td .dropdown-toggle, .db-new-main-table table td .dropdown-toggle.no-content {
-        border-color: #e5e5e5;
-    }
-    .fake-dropdown .dropdown-toggle.no-uppercase {
-        text-transform: none;
-    }
-    .db-requests .db-new-main-table table div.js-sort-by .dropdown-toggle {
-        box-sizing: border-box;
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        height: 42px;
-        width: auto!important;
-        min-width: 100px;
-        font-size: 16px;
-        font-weight: 400;
-    }
-    .db-new-main-table table thead tr.header-filter .dropdown .dropdown-toggle {
-        border-color: #e5e5e5;
-    }
-
-    .dropdown-menu {
-        background-color: #fff;
-        background-clip: padding-box;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        z-index: 1000;
-        display: none;
-        float: left;
-        min-width: 160px;
-        padding: 5px 0;
-        margin: 2px 0 0;
-        list-style: none;
-        border: 1px #ccc solid;
-        border-radius: 3px;
-        box-shadow: 0 2px 3px rgba(0,0,0,.1);
-    }
-    .db-new-main-table table thead tr {
-        background-color: #fff;
-        border: 1px #e5e5e5 solid;
-    }
-    .db-new-main-table table td {
-        padding: 15px 15px 15px 0;
-        font-size: 14px;
-        line-height: 20px;
-        color: #555;
-        vertical-align: middle;
-        white-space: nowrap;
-    }
-    .db-new-main-table table thead td {
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        color: #999;
-        line-height: 33px;
-        padding-top: 0;
-        padding-bottom: 0;
-    }
-    .db-new-main-table table td:first-child {
-        padding-left: 20px;
-    }
-    .db-new-main-table table td.text-wide {
-        max-width: 300px;
-        white-space: normal;
-        padding-right: 15px;
-        word-wrap: break-word;
-    }
-    .db-new-main-table table td:first-child {
-        padding-left: 20px;
-    }
-    .db-new-main-table.align-top table tbody td {
-        vertical-align: top;
-    }
-    .db-new-main-table table td.text-simple {
-        max-width: 200px;
-        white-space: normal;
-        padding-right: 15px;
-        word-wrap: break-word;
-    }
-    .db-new-main-table table td.profile-sml {
-        width: 32px;
-        padding-right: 15px;
-    }
-</style>
 <script>
     $(document).ready(function(){
         $('.offers-left').hover(function (e) {
             $('.offers-left-tooltip').toggle();
         });
     });
+    function hoverhideaddclick(ev)
+    {
+        $(ev).prev().addClass("show_menu");
+        $(ev).hide();
+    }
+    function hoverhideremoveclick(ev)
+    {
+        setInterval(function () {
+            $(ev).prev().removeClass("show_menu");
+            $(ev).show();
+        }, 5000);
+       
+    }
+    function show_share_click()
+    {
+      $("#modal_send_offer").modal("show");
+    }
 </script>
 {% endblock %}

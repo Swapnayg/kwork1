@@ -713,6 +713,7 @@ class Referral_Users(models.Model):
 
 
 class Request_Offers(models.Model):
+    BOOL_CHOICES_TYPES =[('custom', 'Custom'),('request', 'Request')]
     gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     buyer_request = models.ForeignKey(Buyer_Post_Request, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
@@ -722,6 +723,7 @@ class Request_Offers(models.Model):
     no_revisions = models.CharField(max_length=300,blank=True,default="",null=True)
     ask_requirements =  models.BooleanField(default=False)
     extra_parameters =  models.TextField()
+    offer_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="all",null=True)
     
     class Meta:
         verbose_name = _("Request Offer")

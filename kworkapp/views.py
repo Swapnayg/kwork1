@@ -3,7 +3,6 @@ from email.mime.text import MIMEText
 from re import sub
 import smtplib
 from datetime import datetime, timedelta
-import datetime
 from dateutil import relativedelta
 from tabnanny import verbose
 from django.views import View
@@ -918,9 +917,9 @@ class dashboard_view(View):
                     request.session['userpage'] =	"seller"
                     return render(request , 'Dashboard/account_settings.html',{"Countrylist":countrylist,"languages":languages,"profile_Details":userProfileDetails,"userlanguages":userlang,"title_char":title_char,"overview_char":overview_char,"UserDetails":userDetails,"Categories":categories,'userlangs':json.dumps(userlang),"english_prof":english_profi,"current_url":str(str(url1.scheme) +"://"  + str(url1.netloc) )})
                 elif(userDetails.profile_type== "Buyer"):
-                    redirect('buyer')
+                    return redirect('buyer')
                 elif(userDetails.profile_type== "Seller"):
-                    redirect('seller_main')
+                    return redirect('seller')
                 else:
                     return render(request , 'register.html')
             except:
@@ -1930,4 +1929,4 @@ def post_pause_request_view(request):
         return HttpResponse("sucess")
   
 def update_seller_offers():
-    print("i am running at 9 pm")
+    print("i am running at 7 pm")

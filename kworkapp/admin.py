@@ -243,7 +243,7 @@ admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
 
 
 class AdminRequest_Offers(admin.ModelAdmin):
-    list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters']
+    list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters','offer_type']
 
 admin.site.register(Request_Offers, AdminRequest_Offers)
 
