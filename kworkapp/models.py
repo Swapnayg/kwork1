@@ -26,6 +26,7 @@ class SellerLevels(models.Model):
     BOOL_CHOICES =[('level1', 'New or higher'),('level2', 'Advanced or higher'),('level3', 'Professional')]
     level_name =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
     No_of_gigs = models.CharField(max_length=200,blank=True,default="0",null=True)
+    No_of_offers = models.CharField(max_length=200,blank=True,default="0",null=True)
     
     class Meta:
         verbose_name = _("Seller Level")
@@ -78,15 +79,16 @@ class User(AbstractBaseUser):
     name =models.CharField(max_length=200,blank=True,default="",null=True)
     country =  CountryField(blank=True,default="",null=True)
     avatar = models.CharField(max_length=500, blank=True,default="",null=True)
-    avg_respons = models.CharField(max_length=500, blank=True,default="",null=True)
+    avg_respons = models.CharField(max_length=500, blank=True,default="1",null=True)
     last_delivery = models.CharField(max_length=500, blank=True,default="1",null=True)
-    ordersin_progress = models.CharField(max_length=500, blank=True,default="",null=True)
-    avg_delivery_time = models.CharField(max_length=500, blank=True,default="1",null=True)
+    ordersin_progress = models.CharField(max_length=500, blank=True,default="0",null=True)
+    avg_delivery_time = models.CharField(max_length=500, blank=True,default="Within 24 Hours",null=True)
     seller_level =  models.CharField(max_length=200,choices=BOOL_CHOICES_Levels,blank=True,default="level1",null=True)
     profile_type = models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="",null=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     code = models.IntegerField(default=False)
+    offers_left = models.IntegerField(default="0")
     is_staff = models.BooleanField(default=False)
     terms = models.BooleanField(default=False)
     updated_at = models.DateTimeField(default=timezone.now, blank=True)
@@ -452,7 +454,7 @@ class UserGigsImpressions(models.Model):
     ip_address = models.CharField(max_length=500,blank=True,default="",null=True)
     impress_type=  models.CharField(max_length=200,choices=BOOL_CHOICES,default="draft",blank=True,null=True)
     gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True,default="")
     impress_date =  models.DateTimeField(default=timezone.now, blank=True)
     
     class Meta:
@@ -497,6 +499,7 @@ class UserSearchTerms(models.Model):
     search_words = models.CharField(max_length=1000,blank=True,default="",null=True)
     ip_address=  models.CharField(max_length=1000,blank=True,default="",null=True)
     search_types =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=True,blank=True,default="")
     
     class Meta:
         verbose_name = _("User Search Term")
@@ -665,8 +668,10 @@ class Buyer_Reviews(models.Model):
 class Buyer_Post_Request(models.Model):
     BOOL_CHOICES =[('24hours', '24 Hours'),('3days', '3 Days'),('7days', '7 Days'),('other', 'Others')]
     BOOL_CHOICES_TYPES =[('individual', 'Individual'),('all', 'All')]
+    BOOL_CHOICES_STATUS =[('active', 'Active'),('paused', 'Paused'),('pending', 'Pending'),('rejected', 'Rejected')]
     service_desc = models.TextField()
     service_images = models.TextField()
+    buyer_request_id = ShortUUIDField(length=6,max_length=10,alphabet="123456",blank=True, editable=True, default=shortuuid.uuid,null=True)
     service_category =  models.ForeignKey(Categories, on_delete=models.CASCADE,related_name="Post_Category_Name",null=False,blank=False)
     service_sub_category =  models.ForeignKey(SubSubCategories, on_delete=models.CASCADE,related_name="Post_SubCategory_Name",null=False,blank=False)
     service_time = models.CharField(max_length=300,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
@@ -674,7 +679,8 @@ class Buyer_Post_Request(models.Model):
     service_date = models.DateTimeField(default=timezone.now, blank=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
     send_to = models.ForeignKey(User, on_delete=models.CASCADE,related_name="post_send_to",null=True,blank=True,default="")
-    service_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="Basic",null=True)
+    service_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="all",null=True)
+    service_status = models.CharField(max_length=300,choices=BOOL_CHOICES_STATUS,blank=True,default="pending",null=True)
     
     class Meta:
         verbose_name = _("Post Request")
@@ -704,6 +710,25 @@ class Referral_Users(models.Model):
 
     def __str__(self):
         return str(self.affiliate_code)
+
+
+class Request_Offers(models.Model):
+    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    buyer_request = models.ForeignKey(Buyer_Post_Request, on_delete=models.CASCADE,null=False,blank=False)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    offer_desc =  models.TextField()
+    offer_budget = models.CharField(max_length=300,blank=True,default="",null=True)
+    offer_time = models.CharField(max_length=300,blank=True,default="",null=True)
+    no_revisions = models.CharField(max_length=300,blank=True,default="",null=True)
+    ask_requirements =  models.BooleanField(default=False)
+    extra_parameters =  models.TextField()
+    
+    class Meta:
+        verbose_name = _("Request Offer")
+        verbose_name_plural = _("Request Offers")
+        
+    def __str__(self):
+        return str(self.gig_name)
 
 
 

@@ -8,7 +8,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_save
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Request_Offers,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -24,17 +24,17 @@ class UserAdmin(BaseUserAdmin):
     form = UserChangeForm
     add_form = UserCreationForm
 
-    list_display = ('email', 'username','first_name','seller_level','last_name', 'name', 'is_admin', 'is_staff', 'is_active','avatar','country',"profile_type",'terms','affiliate_code','referrals_earnings')
+    list_display = ('email', 'username','first_name','seller_level','last_name', 'name', 'is_admin', 'is_staff', 'is_active','avatar','country',"profile_type",'terms','affiliate_code','referrals_earnings','offers_left')
     list_filter = ('is_admin', 'is_staff', 'is_active')
     fieldsets = (
-        (None, {'fields': ('email', 'username','seller_level', 'name', 'password','country',"profile_type",'terms',"affiliate_code")}),
+        (None, {'fields': ('email', 'username','seller_level', 'name', 'password','country',"profile_type",'terms',"avg_delivery_time","ordersin_progress",'offers_left')}),
         ('Permissions', {'fields': ('is_admin', 'is_staff', 'is_active')}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'password1', 'password2','country',"profile_type",'terms',"affiliate_code")}
+            'fields': ('email', 'username', 'password1', 'password2','country',"profile_type",'terms',"avg_delivery_time",'ordersin_progress','offers_left')}
         ),
     )
     search_fields = ('email', 'username', 'name')
@@ -68,7 +68,7 @@ admin.site.register(PageEditor, AdminPageEditor)
 
 
 class AdminSellerLevels(admin.ModelAdmin):
-    list_display = ['level_name','No_of_gigs']
+    list_display = ['level_name','No_of_gigs','No_of_offers']
     def has_add_permission(self, request, obj=None):
         return False
 
@@ -202,7 +202,7 @@ class AdminUserLanguages(admin.ModelAdmin):
 admin.site.register(UserLanguages, AdminUserLanguages)
 
 class AdminUserSearchTerms(admin.ModelAdmin):
-    list_display = ['search_words','ip_address','search_types']
+    list_display = ['search_words','ip_address','search_types','user_id']
 
 admin.site.register(UserSearchTerms, AdminUserSearchTerms)
 
@@ -226,7 +226,7 @@ admin.site.register(UserAvailable, AdminUserAvailable)
 
 
 class AdminBuyer_Post_Request(admin.ModelAdmin):
-    list_display = ['service_desc','service_images','service_category','send_to','service_type','service_sub_category','service_time','service_budget','service_date','user_id']
+    list_display = ['service_desc','service_images','service_category','send_to','service_type','buyer_request_id','service_sub_category','service_time','service_budget','service_date','user_id','service_status']
 
 admin.site.register(Buyer_Post_Request, AdminBuyer_Post_Request)
 
@@ -240,6 +240,12 @@ class AdminUserGigPackage_Extra(admin.ModelAdmin):
     list_display = ['package_data','package_gig_name','user_id']
 
 admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
+
+
+class AdminRequest_Offers(admin.ModelAdmin):
+    list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters']
+
+admin.site.register(Request_Offers, AdminRequest_Offers)
 
 
 class AdminUserGig_Extra_Delivery(admin.ModelAdmin):

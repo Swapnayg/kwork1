@@ -13,11 +13,11 @@
                     <h1 class="alt">Billing</h1>
                 </div>
                 <div class="col-md-12 db-manage-gigs">
-                    <small class="offers-left"><span class="js-offers-left">10</span> offers left today
+                    <small class="offers-left"><span class="js-offers-left">{{user_details.offers_left}}</span> offers left today
                         <div class="fa fa-question-circle offers-left-tooltip-trigger">
                             <aside class="offers-left-tooltip">
                                 <div class="offers-tooltip-triangle"></div>
-                                <p>As a Seller Plus member, you can send 20 offers instead of 10.</p>
+                                <p>You can send Maximum {{max_offers}} offers daily.</p>
                             </aside>
                         </div>
                 </small>
@@ -28,8 +28,176 @@
                         <li><a href="#sentofferstab" role="tab" data-toggle="tab">Sent Offers <div class="circle"><span>1000</span></div>  </a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane active" id="activerequesttab">Active Request</div>
-                        <div class="tab-pane" id="sentofferstab"> Sent Offers</div>
+                        <div class="tab-pane active" id="activerequesttab">
+
+                            <div class="db-new-main-table align-top js-db-table">
+                                <table>
+                                   <thead>
+                                      <tr class="header-filter">
+                                         <td colspan="2" class="js-filter-title">Buyer requests</td>
+                                         <td colspan="4" class="sort-by">
+                                            <div class="js-sort-by">
+                                               <div class="dropdown js-ddown-sub-cats">
+                                                  <div class="filter-select cf ">
+                                                     <div class="fake-dropdown" style="visibility: visible;">
+                                                        <a class="dropdown-toggle no-uppercase" data-toggle="dropdown" style="width: 156px;">
+                                                        All Subcategories
+                                                        </a>
+                                                        <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;">
+                                                           <li class="initial">
+                                                              <a data-val="-1">
+                                                              <span class="text">All Subcategories</span>
+                                                              </a>
+                                                           </li>
+                                                           <li>
+                                                              <a data-val="163">
+                                                              <span class="text-inner">Articles &amp; Blog Posts</span>
+                                                              </a>
+                                                           </li>
+                                                           <li>
+                                                              <a data-val="138">
+                                                              <span class="text-inner">Website Builders &amp; CMS</span>
+                                                              </a>
+                                                           </li>
+                                                           <li>
+                                                              <a data-val="140">
+                                                              <span class="text-inner">Web Programming</span>
+                                                              </a>
+                                                           </li>
+                                                        </ul>
+                                                     </div>
+                                                  </div>
+                                               </div>
+                                            </div>
+                                         </td>
+                                      </tr>
+                                      <tr class="js-header-titles">
+                                         <td>
+                                            date
+                                         </td>
+                                         <td>
+                                            buyer
+                                         </td>
+                                         <td>
+                                            request
+                                         </td>
+                                         <td>
+                                            offers
+                                         </td>
+                                         <td>
+                                            Duration
+                                         </td>
+                                         <td>
+                                            Budget
+                                         </td>
+                                      </tr>
+                                   </thead>
+                                   <tbody>
+                                      <tr>
+                                         <td colspan="6">
+                                            <span>No requests found.</span>
+                                         </td>
+                                      </tr>
+                                   </tbody>
+                                </table>
+                             </div>
+                        </div>
+                        <div class="tab-pane" id="sentofferstab"> <div class="db-new-main-table align-top js-db-table">
+                            <table>
+                               <thead>
+                                  <tr class="header-filter">
+                                     <td colspan="2" class="js-filter-title">Offers submitted for buyer requests</td>
+                                     <td colspan="4" class="sort-by">
+                                        <div class="js-sort-by hidden">
+                                           <div class="dropdown js-ddown-sub-cats">
+                                              <div class="filter-select cf ">
+                                                 <div class="fake-dropdown" style="visibility: visible;">
+                                                    <a class="dropdown-toggle no-uppercase" data-toggle="dropdown" style="width: 156px;">
+                                                    All Subcategories
+                                                    </a>
+                                                    <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;">
+                                                       <li class="initial">
+                                                          <a data-val="-1">
+                                                          <span class="text">All Subcategories</span>
+                                                          </a>
+                                                       </li>
+                                                       <li>
+                                                          <a data-val="163">
+                                                          <span class="text-inner">Articles &amp; Blog Posts</span>
+                                                          </a>
+                                                       </li>
+                                                       <li>
+                                                          <a data-val="138">
+                                                          <span class="text-inner">Website Builders &amp; CMS</span>
+                                                          </a>
+                                                       </li>
+                                                       <li>
+                                                          <a data-val="140">
+                                                          <span class="text-inner">Web Programming</span>
+                                                          </a>
+                                                       </li>
+                                                    </ul>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                        </div>
+                                     </td>
+                                  </tr>
+                                  <tr class="js-header-titles">
+                                     <td>
+                                        offer
+                                     </td>
+                                     <td>
+                                        Duration
+                                     </td>
+                                     <td>
+                                        Price
+                                     </td>
+                                     <td colspan="2">
+                                        request
+                                     </td>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <tr>
+                                     <td class="text-wide">
+                                        <h4>develop your web application within no time</h4>
+                                        <span>Hello, i am python full stack developer, i would like to help you with your requirement, 
+                                        Here are some of my previous works:
+                                        https://sehceducation.com/
+                                        https://rapidtags.io/
+                                        http://cesarz-consulting.de/
+                                        https://bookmypt.xyz/
+                                        https://ecommerce.techdivaa.com/
+                                        https://bitcointxn.xyz/
+                                        Skillyservices.com
+                                        http://choprasupplements.com
+                                        Techdivaa.in</span>
+                                     </td>
+                                     <td class="text-simple ">
+                                        <span>3 days</span>
+                                     </td>
+                                     <td class="text-simple ">
+                                        <span>$30</span>
+                                     </td>
+                                     <td class="profile-sml">
+                                        <span class="user-pict-24"><img src="https://fiverr-res.cloudinary.com/image/upload/t_profile_small,q_auto,f_auto/v1/attachments/profile/photo/4c19c8e18ac7d9f06be712fc0f781992-1589487531636/08835203-8f10-42a6-94f5-9d6294f3c176.png" alt="xringo" width="24" height="24"></span>
+                                        <span></span>
+                                     </td>
+                                     <td class="text-simple ">
+                                        <h4 class="txt-green">xringo</h4>
+                                        <span>Need a python/Django expert. I have a website built on Django/python and using PostgreSQL. The website is basically a Lead user who will have subordinates under them.  The lead does a touche base with all subordinates under them twice a month for each subordinate. I need to create a new function that will display the percentage completed for this month.  For example, the lead has 2 subordinates and only has done two touch bases for each subordinates. So the percentage should be displayed as 50% completed for this month. Then another lead has 4 subordinates and completed all touch base for this month and the percentage is being shown as 100%.  And for the next month, the percentage should be zero till the Lead fills out touchbases with its subronidates. 
+                                        I might also need another function where the Lead can see the subordinates completed percentage. Because some subordinates are leads to other subordinates. 
+                                        Budget 15-20 USD</span>
+                                        <div>
+                                           <div class="info-line">Delivery Time - 3 days</div>
+                                           <div class="info-line">Budget - <span>₹1,298</span></div>
+                                        </div>
+                                     </td>
+                                  </tr> 
+                               </tbody>
+                            </table>
+                         </div></div>
                     </div>
                 </div>     
              </div>
@@ -273,6 +441,178 @@
     .tab-content
     {
         padding-top: 2%;
+    }
+
+    .db-new-main-table table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .db-new-main-table table thead tr {
+        background-color: #fff;
+        border: 1px #e5e5e5 solid;
+    }
+    .db-new-main-table table td {
+        padding: 15px 15px 15px 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: #555;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .db-new-main-table table thead td {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #999;
+        line-height: 33px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .db-new-main-table table td:first-child {
+        padding-left: 20px;
+    }
+    .db-new-main-table table thead tr.header-filter td {
+        font-size: 14px;
+        line-height: 17px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: #0e0e0f;
+    }
+    .db-new-main-table table thead tr.header-filter td.sort-by {
+        text-align: right;
+        font-weight: 400;
+        color: #777;
+    }
+    .db-new-main-table table thead tr.header-filter td {
+        font-size: 14px;
+        line-height: 17px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+        color: #0e0e0f;
+    }
+    .db-new-main-table table td:last-child {
+        padding-right: 20px;
+    }
+    .db-requests .db-new-main-table table div.js-sort-by {
+        display: inline-block;
+        vertical-align: top;
+    }
+    .hidden {
+        display: none!important;
+        visibility: hidden!important;
+    }
+    .db-new-main-table table thead tr.header-filter .dropdown {
+        display: inline-block;
+    }
+    .fake-dropdown {
+        position: relative;
+        visibility: hidden;
+    }
+    .db-new-main-table table thead td a {
+        color: #999;
+    }
+    .fake-dropdown .dropdown-toggle {
+        background-color: #fff;
+        display: inline-block;
+        position: relative;
+        font: 400 12px macan,helvetica neue,Helvetica,Arial,sans-serif;
+        color: #777;
+        text-decoration: none;
+        text-align: left;
+        border: 1px #b2b2b2 solid;
+        padding: 7px 30px 7px 10px;
+        text-transform: uppercase;
+        margin: 0;
+        white-space: nowrap;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    .db-new-main-table table td .dropdown-toggle, .db-new-main-table table td .dropdown-toggle.no-content {
+        border-color: #e5e5e5;
+    }
+    .fake-dropdown .dropdown-toggle.no-uppercase {
+        text-transform: none;
+    }
+    .db-requests .db-new-main-table table div.js-sort-by .dropdown-toggle {
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        height: 42px;
+        width: auto!important;
+        min-width: 100px;
+        font-size: 16px;
+        font-weight: 400;
+    }
+    .db-new-main-table table thead tr.header-filter .dropdown .dropdown-toggle {
+        border-color: #e5e5e5;
+    }
+
+    .dropdown-menu {
+        background-color: #fff;
+        background-clip: padding-box;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        z-index: 1000;
+        display: none;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        list-style: none;
+        border: 1px #ccc solid;
+        border-radius: 3px;
+        box-shadow: 0 2px 3px rgba(0,0,0,.1);
+    }
+    .db-new-main-table table thead tr {
+        background-color: #fff;
+        border: 1px #e5e5e5 solid;
+    }
+    .db-new-main-table table td {
+        padding: 15px 15px 15px 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: #555;
+        vertical-align: middle;
+        white-space: nowrap;
+    }
+    .db-new-main-table table thead td {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        color: #999;
+        line-height: 33px;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .db-new-main-table table td:first-child {
+        padding-left: 20px;
+    }
+    .db-new-main-table table td.text-wide {
+        max-width: 300px;
+        white-space: normal;
+        padding-right: 15px;
+        word-wrap: break-word;
+    }
+    .db-new-main-table table td:first-child {
+        padding-left: 20px;
+    }
+    .db-new-main-table.align-top table tbody td {
+        vertical-align: top;
+    }
+    .db-new-main-table table td.text-simple {
+        max-width: 200px;
+        white-space: normal;
+        padding-right: 15px;
+        word-wrap: break-word;
+    }
+    .db-new-main-table table td.profile-sml {
+        width: 32px;
+        padding-right: 15px;
     }
 </style>
 <script>

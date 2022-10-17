@@ -48,9 +48,15 @@ INSTALLED_APPS = [
     'taggit',
     'django_countries',
     'django.contrib.humanize',
+    'django_apscheduler',
 ]
 
 AUTH_USER_MODEL = 'kworkapp.User'
+
+
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
+
+SCHEDULER_DEFAULT = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

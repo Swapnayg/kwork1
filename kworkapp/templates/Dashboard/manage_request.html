@@ -2,6 +2,7 @@
 {% load static %}
 {% block contentarea%}
 <title>Letworkbedone - {{request.user.username}} / Gig Suggestions</title>
+<link rel="stylesheet" href="{% static 'assets/css/frontend/manage_request.css' %}" type="text/css" />
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -13,20 +14,242 @@
                     <h1 class="alt">Manage Requests</h1>
                 </div>
                 <div class="col-md-12 db-manage-gigs">
-                    <a class="btn-standard btn-green btn-create-gig  " href="{% url 'create_gig' %}" id="btn-create-gig">Post a Request</a>
+                    <a class="btn-standard btn-green btn-create-gig  " href="/user/{{request.user.username}}/post_request" id="btn-create-gig">Post a Request</a>
                 </div>
                 <div class="col-md-12 mx-0">
                     <ul class="nav nav-tabs" role="tablist">
-                        <li><a href="#activetab" role="tab" data-toggle="tab">Active <div class="circle"><span>1</span></div></a></li>
-                        <li><a href="#pausedtab" role="tab" data-toggle="tab">Paused <div class="circle"><span>1</span></div></a></li>
-                        <li><a href="#pendingtab" role="tab" data-toggle="tab">Pending<div class="circle"><span>1</span></div></a></li>
-                        <li><a href="#unapprovedtab" role="tab" data-toggle="tab">UnApproved <div class="circle"><span>1</span></div></a></li>
+                        <li><a href="#activetab" role="tab" data-toggle="tab" class="active">Active <div class="circle"><span>{{active_request|length}}</span></div></a></li>
+                        <li><a href="#pausedtab" role="tab" data-toggle="tab">Paused <div class="circle"><span>{{paused_request|length}}</span></div></a></li>
+                        <li><a href="#pendingtab" role="tab" data-toggle="tab">Pending<div class="circle"><span>{{pending_request|length}}</span></div></a></li>
+                        <li><a href="#unapprovedtab" role="tab" data-toggle="tab">UnApproved <div class="circle"><span>{{rejected_request|length}}</span></div></a></li>
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane" id="activetab">Active tab</div>
-                        <div class="tab-pane active" id="pausedtab">Paused tab</div>
-                        <div class="tab-pane" id="pendingtab">Pending tab</div>
-                        <div class="tab-pane" id="unapprovedtab">Unapproved tab</div>
+                        <div class="tab-pane active" id="activetab">
+                            <div class="db-new-main-table js-db-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Request</td>
+                                            <td class="p-l-15">
+                                                    Offers
+                                            </td>
+                                            <td class="t-a-right">Action</td>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                    {% for a_req in active_request %}
+                                    <tr data-id="62f7395fed8cc60012e1559e">
+                                        <td class="date  height95">
+                                           <span> {{a_req.service_date|date:"M d, Y"}}</span>
+                                        </td>
+                                        <td class="text-wide">
+                                           <span>{{a_req.service_desc}}.</span>
+                                           <div>
+                                            <div class="info-line">Delivery Time - {{a_req.service_time}}<s/div>
+                                              <div class="info-line">Budget - <span>$ {{a_req.service_budget}} </span></div>
+                                           </div>
+                                        </td>
+                                        <td class="applications ">
+                                           <a href="/users/{{request.user.username}}/manage_requests/{{a_req.buyer_req_id}}" target="_blank" class="btn-standard "><em>
+                                           <span>{{a_req.offers_count}}</span>
+                                           </em> Review Offers</a>
+                                        </td>
+                                        <td class="dropdown">
+                                           <div class="js-manage-request-actions">
+                                              <div class="filter-select  ">
+                                                 <div class="fake-dropdown" style="visibility: visible;">
+                                                    <a class="dropdown-toggle no-content no-uppercase" onclick="dropdownclick(this);"></a>
+                                                    <ul class="dropdown-menu no-uppercase pull-right " role="menu" style="top: -2px;">
+                                                       <li>
+                                                          <a class="anchor_actions" onclick="pause_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Pause</span>
+                                                          </a>
+                                                       </li>
+                                                       <li>
+                                                          <a class="anchor_actions" onclick="delete_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Delete</span>
+                                                          </a>
+                                                       </li>
+                                                    </ul>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                           <span></span>
+                                        </td>
+                                     </tr>
+                                     {% endfor %}
+                                   </tbody>
+                                </table>
+                             </div>
+                        </div>
+                        <div class="tab-pane" id="pausedtab">
+                            <div class="db-new-main-table js-db-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Request</td>
+                                            <td class="p-l-15">
+                                                    Offers
+                                            </td>
+                                            <td class="t-a-right">Action</td>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                    {% for a_req in paused_request %}
+                                    <tr data-id="62f7395fed8cc60012e1559e">
+                                        <td class="date  height95">
+                                           <span> {{a_req.service_date|date:"M d, Y"}}</span>
+                                        </td>
+                                        <td class="text-wide">
+                                           <span>{{a_req.service_desc}}.</span>
+                                           <div>
+                                            <div class="info-line">Delivery Time - {{a_req.service_time}}<s/div>
+                                              <div class="info-line">Budget - <span>$ {{a_req.service_budget}} </span></div>
+                                           </div>
+                                        </td>
+                                        <td class="applications ">
+                                           <a href="/users/{{request.user.username}}/manage_requests/{{a_req.buyer_req_id}}" target="_blank" class="btn-standard "><em>
+                                           <span>{{a_req.offers_count}}</span>
+                                           </em> Review Offers</a>
+                                        </td>
+                                        <td class="dropdown">
+                                           <div class="js-manage-request-actions">
+                                              <div class="filter-select  ">
+                                                 <div class="fake-dropdown" style="visibility: visible;">
+                                                    <a class="dropdown-toggle no-content no-uppercase" onclick="dropdownclick(this);"></a>
+                                                    <ul class="dropdown-menu no-uppercase pull-right " role="menu" style="top: -2px;">
+                                                       <li>
+                                                          <a class="anchor_actions"  onclick="active_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Active</span>
+                                                          </a>
+                                                       </li>
+                                                       <li>
+                                                          <a class="anchor_actions"  onclick="delete_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Delete</span>
+                                                          </a>
+                                                       </li>
+                                                    </ul>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                           <span></span>
+                                        </td>
+                                     </tr>
+                                     {% endfor %}
+                                   </tbody>
+                                </table>
+                             </div>
+                           </div>
+                        <div class="tab-pane" id="pendingtab">
+                            <div class="db-new-main-table js-db-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Request</td>
+                                            <td class="p-l-15">
+                                                    Offers
+                                            </td>
+                                            <td class="t-a-right">Action</td>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                    {% for a_req in pending_request %}
+                                    <tr data-id="62f7395fed8cc60012e1559e">
+                                        <td class="date  height95">
+                                           <span> {{a_req.service_date|date:"M d, Y"}}</span>
+                                        </td>
+                                        <td class="text-wide">
+                                           <span>{{a_req.service_desc}}.</span>
+                                           <div>
+                                            <div class="info-line">Delivery Time - {{a_req.service_time}}<s/div>
+                                              <div class="info-line">Budget - <span>$ {{a_req.service_budget}} </span></div>
+                                           </div>
+                                        </td>
+                                        <td class="applications ">
+                                           <a href="/users/{{request.user.username}}/manage_requests/{{a_req.buyer_req_id}}" target="_blank" class="btn-standard "><em>
+                                           <span>{{a_req.offers_count}}</span>
+                                           </em> Review Offers</a>
+                                        </td>
+                                        <td class="dropdown">
+                                           <div class="js-manage-request-actions">
+                                              <div class="filter-select  ">
+                                                 <div class="fake-dropdown" style="visibility: visible;">
+                                                    <a class="dropdown-toggle no-content no-uppercase" onclick="dropdownclick(this);"></a>
+                                                    <ul class="dropdown-menu no-uppercase pull-right " role="menu" style="top: -2px;">
+                                                       <li>
+                                                          <a class="anchor_actions"  onclick="delete_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Delete</span>
+                                                          </a>
+                                                       </li>
+                                                    </ul>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                           <span></span>
+                                        </td>
+                                     </tr>
+                                     {% endfor %}
+                                   </tbody>
+                                </table>
+                             </div>
+                           </div>
+                        <div class="tab-pane" id="unapprovedtab">
+                            <div class="db-new-main-table js-db-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>Date</td>
+                                            <td>Request</td>
+                                            <td class="p-l-15">
+                                                    Offers
+                                            </td>
+                                            <td class="t-a-right">Action</td>
+                                        </tr>
+                                    </thead>
+                                   <tbody>
+                                    {% for a_req in rejected_request %}
+                                    <tr data-id="62f7395fed8cc60012e1559e">
+                                        <td class="date  height95">
+                                           <span> {{a_req.service_date|date:"M d, Y"}}</span>
+                                        </td>
+                                        <td class="text-wide">
+                                           <span>{{a_req.service_desc}}.</span>
+                                           <div>
+                                            <div class="info-line">Delivery Time - {{a_req.service_time}}<s/div>
+                                              <div class="info-line">Budget - <span>$ {{a_req.service_budget}} </span></div>
+                                           </div>
+                                        </td>
+                                        <td class="applications ">
+                                           <a href="/users/{{request.user.username}}/manage_requests/{{a_req.buyer_req_id}}" target="_blank" class="btn-standard "><em>
+                                           <span>{{a_req.offers_count}}</span>
+                                           </em> Review Offers</a>
+                                        </td>
+                                        <td class="dropdown">
+                                           <div class="js-manage-request-actions">
+                                              <div class="filter-select  ">
+                                                 <div class="fake-dropdown" style="visibility: visible;">
+                                                    <a class="dropdown-toggle no-content no-uppercase" onclick="dropdownclick(this);"></a>
+                                                    <ul class="dropdown-menu no-uppercase pull-right " role="menu" style="top: -2px;">
+                                                       <li>
+                                                          <a class="anchor_actions" onclick="delete_request('{{a_req.req_id}}');">
+                                                          <span class="text-inner">Delete</span>
+                                                          </a>
+                                                       </li>
+                                                    </ul>
+                                                 </div>
+                                              </div>
+                                           </div>
+                                           <span></span>
+                                        </td>
+                                     </tr>
+                                     {% endfor %}
+                                   </tbody>
+                                </table>
+                             </div>
+                           </div>
                     </div>
                 </div>     
              </div>
@@ -36,174 +259,56 @@
  </div>
 {% include  'Dashboard/base_buyer.html' %}
 
-<style>
-    .nav-tabs li{
-        width: 14%;
-    }
-    .db-manage-gigs .db-new-filters .btn-create-gig {
-        position: absolute;
-        right: 0;
-        top: 10px;
-    }
-    .btn-standard.btn-green {
-        background-color: #2E5DC5;
-        font-weight: 700;
-        color: #fff!important;
-        border: 1px solid transparent;
-        padding: 8px;
-        border-radius: 5px;
-        float: right;
-    }
-     h1.alt, .text-display-1.alt {
-        font-weight: 600;
-        display: inline-block;
-        float: left;
-        font-size: 35px;
-        padding-bottom: 1%;
-    }
-    .db-new-header {
-        padding-bottom: 20px;
-    }
-    .cf:before, .cf:after {
-        content: " ";
-        display: table;
-    }
-    .db-manage-gigs header .accept-requests {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: reverse;
-        -ms-flex-direction: row-reverse;
-        flex-direction: row-reverse;
-    }
-    .toggle-wrapper:first-child {
-        margin-left: 0;
-    }
-    .db-manage-gigs header .accept-briefs {
-        margin-right: 24px;
-    }
-    .toggle-wrapper {
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 30px;
-    }
-    .db-manage-gigs header .accept-requests .toggle-wrapper label {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-    .toggle-wrapper label {
-        display: inline-block;
-        vertical-align: middle;
-        font-size: 14px;
-        color: #222325;
-        text-transform: capitalize;
-        cursor: pointer;
-    }
-    .hint--bottom-right:before, .hint--bottom-right:after {
-        top: 100%;
-        right: 50%;
-    }
-    .toggle-wrapper label input[type=checkbox] {
-        display: none;
-    }
-    .db-manage-gigs header .accept-requests .toggle-wrapper .fake-toggle {
-        margin: 0 8px;
-    }
-    .toggle-wrapper label .fake-toggle {
-        background-color: #fff;
-        width: 30px;
-        height: 20px;
-        display: inline-block;
-        vertical-align: middle;
-        margin-left: 7px;
-        position: relative;
-        box-shadow: inset 0 0 0 1px #ccc;
-        border-radius: 15px;
-    }
-    .hint--bottom-right:before, .hint--bottom-right:after {
-        top: 100%;
-        right: 50%;
-    }
-    .toggle-wrapper label .fake-toggle:before, .toggle-wrapper label .fake-toggle:after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: 1;
-        width: 20px;
-        height: 20px;
-        border-radius: 15px;
-    }
-    .toggle-wrapper label .fake-toggle:before {
-        background-color: #2E5DC5;
-        -webkit-transition: width .2s ease-in-out,border-radius .2s ease-in-out;
-        transition: width .2s ease-in-out,border-radius .2s ease-in-out;
-    }
-    .db-manage-gigs header .accept-briefs .set-budget-cta {
-        background: 0 0;
-        border: none;
-        text-decoration: underline;
-        color: #404145;
-        margin-left: 4px;
-    }
-    .hint--top:before, .hint--top:after {
-        bottom: 100%;
-        left: 50%;
-    }
-    .hint--top:before {
-        margin-left: -5px;
-        margin-bottom: -12px;
-        border-top-color: #222325;
-    }
-    #manage_gigs, .nav, .tab-content .tab-pane,#manage_gigs ul li a, #manage_gigs_card
+<script>
+    function dropdownclick(ev)
     {
-        background: #f7f7f7;
-        border: none;
+      $(ev).next().toggle();
     }
-    #manage_gigs
+
+    function pause_request(ev)
     {
-        margin-left: 2%;
-        margin-right: 2%;
+        $.ajax({
+            type:"POST",
+            url: "/post_pause_request/",
+            data: {'request_id': ev},
+            success: function(data)
+            {  
+                if(data== "sucess")
+                {
+                    location.reload();
+                }
+            }
+        });
     }
-    .circle
+    function active_request(ev)
     {
-        border-radius: 15px;
-        display: inline-block;
-        height: 20px;
-        width: 20px;
-        background-color: #bbb;
-        font-size: 11px;
-        font-weight: 700;
-        color: white;
-        margin-left: 2%;
+        $.ajax({
+            type:"POST",
+            url: "/post_active_request/",
+            data: {'request_id': ev},
+            success: function(data)
+            {  
+                if(data== "sucess")
+                {
+                    location.reload();
+                }
+            }
+        });
     }
-    .circle span{
-        line-height: 20px;
-        height: 20px;
-    }
-    #manage_gigs ul li a.active
+    function delete_request(ev)
     {
-        color:#2E5DC5 ;
+        $.ajax({
+            type:"POST",
+            url: "/post_delete_request/",
+            data: {'request_id': ev},
+            success: function(data)
+            {  
+                if(data== "sucess")
+                {
+                    location.reload();
+                }
+            }
+        });
     }
-    #manage_gigs ul li a
-    {
-        font-size: 14px;
-        color: #333;
-        font-weight: 600;
-        padding: 20px;
-        line-height: 30px;
-        height: 30px;
-        text-decoration: none;
-    }
-    .tab-content
-    {
-        padding-top: 2%;
-    }
-</style>
+</script>
 {% endblock %}

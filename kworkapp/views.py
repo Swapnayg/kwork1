@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from re import sub
 import smtplib
 from datetime import datetime, timedelta
+import datetime
 from dateutil import relativedelta
 from tabnanny import verbose
 from django.views import View
@@ -21,7 +22,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,Referral_Users,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Request_Offers,Referral_Users,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -88,118 +89,122 @@ class privacyView(View):
 class gig_View_View(View):
     return_url = None
     def get(self , request,username='',gig_title=''):
-        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try:    
-                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
-                languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
-                userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
-                userlang = []
-                english_profi = ''
-                userlanguages = UserLanguages.objects.filter(user_id=userDetails)
-                for lang in userlanguages:
-                    userlang.append({"name":lang.language_name.lng_Name,"proficiency":lang.lang_prof}) 
-                gig_details = UserGigs.objects.get(user_id=userDetails ,gig_title= gig_title)
-                gig_package_details = UserGigPackages.objects.filter(user_id=userDetails ,package_gig_name= gig_details)
-                gig_image_details = Usergig_image.objects.filter(user_id=userDetails ,package_gig_name= gig_details)
-                seller_reviews = Seller_Reviews.objects.filter(s_review_to=userDetails,package_gig_name= gig_details)
-                seller_all_reviews = Seller_Reviews.objects.filter(s_review_to=userDetails)
-                comm_count = 0
-                recc_count = 0
-                serv_count = 0
-                seller_count = 0
-                seller_all_count = 0
-                s_review_date = ''
-                seller_rev_data = []
-                for sa_review in seller_all_reviews:
-                    seller_all_count = seller_all_count + int(sa_review.average_val)
-                for s_review in seller_reviews:
-                    comm_count = comm_count + int(s_review.communication)
-                    recc_count = recc_count + int(s_review.recommendation)
-                    serv_count = serv_count + int(s_review.service)
-                    seller_count = seller_count + int(s_review.average_val)
-                    start_date = datetime.strptime(str(s_review.review_date), "%Y-%m-%d %H:%M:%S")
-                    s_res_start_date = datetime.strptime(str(s_review.buyer_resp_date), "%Y-%m-%d %H:%M:%S")
-                    end_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
-                    diff = relativedelta.relativedelta(end_date, start_date)
-                    diff1 = relativedelta.relativedelta(end_date, s_res_start_date)
-                    if(diff.years == 0 and diff.months == 0):
-                        if(diff.days == 0):
-                            s_review_date = 'today'
-                        else:
-                            s_review_date = str(diff.days) + ' days'
-                    elif(diff.months != 0 and diff.years == 0):
-                        if(diff.months == 1):
-                            s_review_date = str(diff.months) + ' month'
-                        else:
-                            s_review_date = str(diff.months) + ' months'
-                    elif(diff.years != 0):
-                        if(diff.years == 1):
-                            s_review_date = str(diff.years) + ' year'
-                        else:
-                            s_review_date = str(diff.years) + ' years'
-                    if(diff1.years == 0 and diff1.months == 0):
-                        if(diff1.days == 0):
-                            s_resp_date = 'today'
-                        else:
-                            s_resp_date = str(diff1.days) + ' days'
-                    elif(diff1.months != 0 and diff1.years == 0):
-                        if(diff1.months == 1):
-                            s_resp_date = str(diff1.months) + ' month'
-                        else:
-                            s_resp_date = str(diff1.months) + ' months'
-                    elif(diff1.years != 0):
-                        if(diff1.years == 1):
-                            s_resp_date = str(diff1.years) + ' year'
-                        else:
-                            s_resp_date = str(diff1.years) + ' years'
-                    country_flag_icon = '/static/assets/images/flags/'+ s_review.s_review_from.country.code.lower()+ '.svg'
-                    seller_rev_data.append({"message":s_review.review_message,"review":s_review.average_val,"sender":s_review.s_review_from,"review_date":s_review_date,"seller_resp_date":s_resp_date,"buyer_resp":s_review.buyer_response,"country_flag":country_flag_icon})                 
-                try:
-                    seller_count = round(seller_count/len(seller_reviews),1)
-                except:
-                    seller_count = 0
-                try:
-                    comm_count = round(comm_count/len(seller_reviews),1)
-                except:
-                    comm_count = 0
-                try:
-                    recc_count = round(recc_count/len(seller_reviews),1)
-                except:
-                    recc_count = 0
-                try:
-                    serv_count = round(serv_count/len(seller_reviews),1)
-                except:
-                    serv_count = 0
-                try:
-                    seller_all_count = round(seller_all_count/len(seller_all_reviews),1)
-                except:
-                    seller_all_count = 0
-                seller_levl= ''
-                if(userDetails.seller_level=="level1"):
-                    seller_levl = "New or higher"
-                elif(userDetails.seller_level=="level2"):
-                    seller_levl = "Advanced or higher"
-                elif(userDetails.seller_level=="level3"):
-                    seller_levl = "Professional"
-                active_gigs_details = UserGigs.objects.filter(user_id=userDetails, gig_status='active').exclude(gig_title=gig_details.gig_title)
-                active_gigs_data= []
-                for u_gig in active_gigs_details:
-                    gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
-                    if(gig_image != None):
-                        gig_image_url = gig_image.gig_image
-                    active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url})
-                    favourite_Count= Gig_favourites.objects.filter(gig_name=gig_details).count()
-                    curr_fav = ''
-                    if(Gig_favourites.objects.filter(gig_name=gig_details,user_id=userDetails).exists() == True):
-                        curr_fav = 'yes'
+        try:
+            userDetails = User.objects.get(username = username)
+            languages = Languages.objects.exclude(lng_slug= u'english').order_by('lng_Name')
+            userProfileDetails = UserProfileDetails.objects.get(user_id=userDetails)
+            userlang = []
+            english_profi = ''
+            userlanguages = UserLanguages.objects.filter(user_id=userDetails)
+            for lang in userlanguages:
+                userlang.append({"name":lang.language_name.lng_Name,"proficiency":lang.lang_prof}) 
+            gig_details = UserGigs.objects.get(user_id=userDetails ,gig_title= gig_title)
+            gig_package_details = UserGigPackages.objects.filter(user_id=userDetails ,package_gig_name= gig_details)
+            gig_image_details = Usergig_image.objects.filter(user_id=userDetails ,package_gig_name= gig_details)
+            seller_reviews = Seller_Reviews.objects.filter(s_review_to=userDetails,package_gig_name= gig_details)
+            seller_all_reviews = Seller_Reviews.objects.filter(s_review_to=userDetails)
+            comm_count = 0
+            recc_count = 0
+            serv_count = 0
+            seller_count = 0
+            seller_all_count = 0
+            s_review_date = ''
+            seller_rev_data = []
+            for sa_review in seller_all_reviews:
+                seller_all_count = seller_all_count + int(sa_review.average_val)
+            for s_review in seller_reviews:
+                comm_count = comm_count + int(s_review.communication)
+                recc_count = recc_count + int(s_review.recommendation)
+                serv_count = serv_count + int(s_review.service)
+                seller_count = seller_count + int(s_review.average_val)
+                start_date = datetime.strptime(str(s_review.review_date), "%Y-%m-%d %H:%M:%S")
+                s_res_start_date = datetime.strptime(str(s_review.buyer_resp_date), "%Y-%m-%d %H:%M:%S")
+                end_date = datetime.strptime(datetime.today().strftime('%Y-%m-%d %H:%M:%S'), '%Y-%m-%d %H:%M:%S')
+                diff = relativedelta.relativedelta(end_date, start_date)
+                diff1 = relativedelta.relativedelta(end_date, s_res_start_date)
+                if(diff.years == 0 and diff.months == 0):
+                    if(diff.days == 0):
+                        s_review_date = 'today'
                     else:
-                        curr_fav = 'no'
-                return render(request , 'Dashboard/view_gig.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"gig_details":gig_details,"gig_package_Details":gig_package_details,"gig_image_Details":gig_image_details,"gig_reviews":seller_rev_data,"seller_count":seller_count,"comm_count":comm_count,"recc_count":recc_count,"serv_count":serv_count,"seller_level":seller_levl,"seller_all_review":seller_all_reviews,"seller_all_count":seller_all_count,"Other_gigs":active_gigs_data,"fav_count":favourite_Count,"current_user_fav":curr_fav})                 
+                        s_review_date = str(diff.days) + ' days'
+                elif(diff.months != 0 and diff.years == 0):
+                    if(diff.months == 1):
+                        s_review_date = str(diff.months) + ' month'
+                    else:
+                        s_review_date = str(diff.months) + ' months'
+                elif(diff.years != 0):
+                    if(diff.years == 1):
+                        s_review_date = str(diff.years) + ' year'
+                    else:
+                        s_review_date = str(diff.years) + ' years'
+                if(diff1.years == 0 and diff1.months == 0):
+                    if(diff1.days == 0):
+                        s_resp_date = 'today'
+                    else:
+                        s_resp_date = str(diff1.days) + ' days'
+                elif(diff1.months != 0 and diff1.years == 0):
+                    if(diff1.months == 1):
+                        s_resp_date = str(diff1.months) + ' month'
+                    else:
+                        s_resp_date = str(diff1.months) + ' months'
+                elif(diff1.years != 0):
+                    if(diff1.years == 1):
+                        s_resp_date = str(diff1.years) + ' year'
+                    else:
+                        s_resp_date = str(diff1.years) + ' years'
+                country_flag_icon = '/static/assets/images/flags/'+ s_review.s_review_from.country.code.lower()+ '.svg'
+                seller_rev_data.append({"message":s_review.review_message,"review":s_review.average_val,"sender":s_review.s_review_from,"review_date":s_review_date,"seller_resp_date":s_resp_date,"buyer_resp":s_review.buyer_response,"country_flag":country_flag_icon})                 
+            try:
+                seller_count = round(seller_count/len(seller_reviews),1)
             except:
-                return render(request , 'register.html')
-        else:
+                seller_count = 0
+            try:
+                comm_count = round(comm_count/len(seller_reviews),1)
+            except:
+                comm_count = 0
+            try:
+                recc_count = round(recc_count/len(seller_reviews),1)
+            except:
+                recc_count = 0
+            try:
+                serv_count = round(serv_count/len(seller_reviews),1)
+            except:
+                serv_count = 0
+            try:
+                seller_all_count = round(seller_all_count/len(seller_all_reviews),1)
+            except:
+                seller_all_count = 0
+            seller_levl= ''
+            if(userDetails.seller_level=="level1"):
+                seller_levl = "New or higher"
+            elif(userDetails.seller_level=="level2"):
+                seller_levl = "Advanced or higher"
+            elif(userDetails.seller_level=="level3"):
+                seller_levl = "Professional"
+            active_gigs_details = UserGigs.objects.filter(user_id=userDetails, gig_status='active').exclude(gig_title=gig_details.gig_title)
+            active_gigs_data= []
+            for u_gig in active_gigs_details:
+                gig_image = Usergig_image.objects.filter(user_id=userDetails,package_gig_name=u_gig).first() 
+                if(gig_image != None):
+                    gig_image_url = gig_image.gig_image
+                active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url})
+                favourite_Count= Gig_favourites.objects.filter(gig_name=gig_details).count()
+                curr_fav = ''
+                if(Gig_favourites.objects.filter(gig_name=gig_details,user_id=userDetails).exists() == True):
+                    curr_fav = 'yes'
+                else:
+                    curr_fav = 'no'
+            if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                impressions = UserGigsImpressions(ip_address=str(whatismyip.whatismyip()),impress_type ="click" ,gig_name=gig_details, user_id=userDetails)
+                impressions.save()
+            else:   
+                impressions = UserGigsImpressions(ip_address=str(whatismyip.whatismyip()),impress_type ="click" ,gig_name=gig_details)
+                impressions.save()
+            return render(request , 'Dashboard/view_gig.html',{'userDetails':userDetails,"profile_Details":userProfileDetails,"userlanguages":userlang,"gig_details":gig_details,"gig_package_Details":gig_package_details,"gig_image_Details":gig_image_details,"gig_reviews":seller_rev_data,"seller_count":seller_count,"comm_count":comm_count,"recc_count":recc_count,"serv_count":serv_count,"seller_level":seller_levl,"seller_all_review":seller_all_reviews,"seller_all_count":seller_all_count,"Other_gigs":active_gigs_data,"fav_count":favourite_Count,"current_user_fav":curr_fav})                 
+        except:
             return render(request , 'register.html')
-
+            
 class buyer_protectionView(View):
     return_url = None
     def get(self , request,username=''):
@@ -431,13 +436,84 @@ class buyer_dashboard_view(View):
     return_url = None
     def get(self , request,username=''):
         request.session['userpage'] =	"buyer"
-        return render(request , 'Dashboard/buyer_dashboard.html')
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try: 
+                userDetails =  User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                active_gigs_details = UserGigs.objects.filter(gig_status='active')
+                active_gigs_data= []
+                category_list = []
+                categories = Categories.objects.all()
+                for c in categories:
+                    sub_cat = SubSubCategories.objects.filter(category_Name=c).first() 
+                    category_list.append({"cat_name":sub_cat.category_Name.category_Name,"subcat_name":sub_cat.sub_category_Name.sub_category_Name,"subsubcat_name":sub_cat.sub_sub_category_Name})
+                for u_gig in active_gigs_details:
+                    gig_image = Usergig_image.objects.filter(package_gig_name=u_gig).first() 
+                    if(gig_image != None):
+                        gig_image_url = gig_image.gig_image
+                    active_gigs_data.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_user":u_gig.user_id})
+                impression_gigs = UserGigsImpressions.objects.filter(user_id= userDetails).values("gig_name").distinct()
+                impression_data = []
+                for imp in impression_gigs:
+                    gig_data = UserGigs.objects.get(pk=imp["gig_name"])
+                    imp_gig_image_url = ''
+                    imp_gig_image = Usergig_image.objects.filter(package_gig_name=gig_data).first() 
+                    if(imp_gig_image != None):
+                        imp_gig_image_url = imp_gig_image.gig_image
+                    start_price = 0
+                    userpack= UserGigPackages.objects.filter(package_gig_name=gig_data, package_type= 'basic').first() 
+                    if(userpack != None):
+                        start_price = userpack.package_price
+                    else:
+                        start_price = 0 
+                    seller_reviews = Seller_Reviews.objects.filter(package_gig_name= gig_data)
+                    seller_count = 0
+                    for s_review in seller_reviews:
+                        seller_count = seller_count + int(s_review.average_val)
+                    try:
+                        seller_count = round(seller_count/len(seller_reviews),1)
+                    except:
+                        seller_count = 0   
+                    impression_data.append({"gig_title":gig_data.gig_title,"gig_img_url":imp_gig_image_url,"start_price":start_price,"seller_count":seller_count,"review_count":len(seller_reviews),"gig_username":gig_data.user_id.username, "gig_gig_img":gig_data.user_id.avatar})
+                search_term = UserSearchTerms.objects.filter(user_id=userDetails).values("search_words").distinct()
+                search_data = []
+                for search in search_term:
+                    subcate_inst = SubSubCategories.objects.get(sub_sub_category_Name= search["search_words"])
+                    sear_gig_data = UserGigs.objects.get(gig_sub_category=subcate_inst)
+                    search_gig_image_url = ''
+                    sea_gig_image = Usergig_image.objects.filter(package_gig_name=sear_gig_data).first() 
+                    if(sea_gig_image != None):
+                        search_gig_image_url = sea_gig_image.gig_image
+                    start_price = 0
+                    sear_userpack= UserGigPackages.objects.filter(package_gig_name=sear_gig_data, package_type= 'basic').first() 
+                    if(sear_userpack != None):
+                        search_start_price = sear_userpack.package_price
+                    else:
+                        search_start_price = 0 
+                    sear_seller_reviews = Seller_Reviews.objects.filter(package_gig_name= sear_gig_data)
+                    sea_seller_count = 0
+                    for ss_review in sear_seller_reviews:
+                        sea_seller_count = sea_seller_count + int(ss_review.average_val)
+                    try:
+                        sea_seller_count = round(sea_seller_count/len(sear_seller_reviews),1)
+                    except:
+                        sea_seller_count = 0   
+                    search_data.append({"gig_title":sear_gig_data.gig_title,"gig_img_url":search_gig_image_url,"start_price":search_start_price,"seller_count":sea_seller_count,"review_count":len(sear_seller_reviews),"gig_username":sear_gig_data.user_id.username, "gig_gig_img":sear_gig_data.user_id.avatar})
+                return render(request , 'Dashboard/buyer_dashboard.html',{"P_gig_details":active_gigs_data,"cat_list":category_list,"cat_list_json":json.dumps(category_list),"impression_gigs":impression_data,"search_data":search_data})               
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')       
 
 class search_gig_view(View):
     return_url = None
     def get(self , request,keyword=''):
-        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="keyword")
-        search_term.save()
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type)
+            search_term.save()
+        else:   
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type)
+            search_term.save()
         gig_category_details = Categories.objects.filter(category_Name__contains=keyword)
         gig_sub_category_details = SubSubCategories.objects.filter(sub_sub_category_Name__contains=keyword)
         if(len(gig_category_details)!=0):
@@ -458,8 +534,13 @@ class search_profile_view(View):
     return_url = None
     def get(self , request,keyword=''):
         user_details_li= []
-        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="user")
-        search_term.save()
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="user")
+            search_term.save()
+        else:   
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types="user")
+            search_term.save()
         user_details = User.objects.filter(username__contains=keyword)
         for u in user_details:
             country_flag_icon = '/static/assets/images/flags/'+ u.country.code.lower()+ '.svg'
@@ -471,21 +552,109 @@ def logout_social(request):
     logout(request)
     return redirect('index')
     
-class seller_dashboard_view(View):
-    return_url = None
-    def get(self , request,username=''):
-        request.session['userpage'] =	"seller"
-        return render(request , 'Dashboard/seller_dashboard.html')
 
 class seller_main_view(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'Dashboard/seller_dashboard.html')
+        request.session['userpage'] =	"seller"
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                return render(request , 'Dashboard/seller_dashboard.html')
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
+
+class offers_view(View):
+    return_url = None
+    def get(self , request,username='',req_id=''):
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                return render(request , 'Dashboard/offers.html')
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
+    
+class payments_view(View):
+    return_url = None
+    def get(self , request,username=''):
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                return render(request , 'Dashboard/payments.html')
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
+
 
 class Manage_request_view(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'Dashboard/manage_request.html')
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                active_request = []
+                pending_request = []
+                rejected_request = []
+                paused_request = []
+                active_request_obj = Buyer_Post_Request.objects.filter(service_status="active", user_id=userDetails)
+                pending_request_obj = Buyer_Post_Request.objects.filter(service_status="pending", user_id=userDetails)
+                paused_request_obj = Buyer_Post_Request.objects.filter(service_status="paused", user_id=userDetails)
+                rejected_request_obj = Buyer_Post_Request.objects.filter(service_status="rejected" , user_id=userDetails)
+                for a_req in active_request_obj:
+                    acti_offers_count = Request_Offers.objects.filter(buyer_request=a_req).count()
+                    service_time_str= ''
+                    if(a_req.service_time== "24hours"):
+                        service_time_str = "24 Hours"
+                    elif(a_req.service_time== "3days"):
+                        service_time_str = "3 Days"
+                    elif(a_req.service_time== "7days"):
+                        service_time_str = "7 Days"
+                    elif(a_req.service_time== "other"):
+                        service_time_str = "Other"
+                    active_request.append({"service_desc":a_req.service_desc,"service_images":a_req.service_images,"service_time":service_time_str,"service_budget":a_req.service_budget,"service_date":a_req.service_date,"service_date":a_req.service_date,"offers_count":acti_offers_count,"buyer_req_id":a_req.buyer_request_id,"req_id":a_req.pk})
+                for a_req in pending_request_obj:
+                    service_time_str= ''
+                    if(a_req.service_time== "24hours"):
+                        service_time_str = "24 Hours"
+                    elif(a_req.service_time== "3days"):
+                        service_time_str = "3 Days"
+                    elif(a_req.service_time== "7days"):
+                        service_time_str = "7 Days"
+                    elif(a_req.service_time== "other"):
+                        service_time_str = "Other"
+                    acti_offers_count = Request_Offers.objects.filter(buyer_request=a_req).count()
+                    pending_request.append({"service_desc":a_req.service_desc,"service_images":a_req.service_images,"service_time":service_time_str,"service_budget":a_req.service_budget,"service_date":a_req.service_date,"service_date":a_req.service_date,"offers_count":acti_offers_count,"buyer_req_id":a_req.buyer_request_id,"req_id":a_req.pk})
+                for a_req in paused_request_obj:
+                    service_time_str= ''
+                    if(a_req.service_time== "24hours"):
+                        service_time_str = "24 Hours"
+                    elif(a_req.service_time== "3days"):
+                        service_time_str = "3 Days"
+                    elif(a_req.service_time== "7days"):
+                        service_time_str = "7 Days"
+                    elif(a_req.service_time== "other"):
+                        service_time_str = "Other"
+                    acti_offers_count = Request_Offers.objects.filter(buyer_request=a_req).count()
+                    paused_request.append({"service_desc":a_req.service_desc,"service_images":a_req.service_images,"service_time":service_time_str,"service_budget":a_req.service_budget,"service_date":a_req.service_date,"service_date":a_req.service_date,"offers_count":acti_offers_count,"buyer_req_id":a_req.buyer_request_id,"req_id":a_req.pk})
+                for a_req in rejected_request_obj:
+                    service_time_str= ''
+                    if(a_req.service_time== "24hours"):
+                        service_time_str = "24 Hours"
+                    elif(a_req.service_time== "3days"):
+                        service_time_str = "3 Days"
+                    elif(a_req.service_time== "7days"):
+                        service_time_str = "7 Days"
+                    elif(a_req.service_time== "other"):
+                        service_time_str = "Other"
+                    acti_offers_count = Request_Offers.objects.filter(buyer_request=a_req).count()
+                    rejected_request.append({"service_desc":a_req.service_desc,"service_images":a_req.service_images,"service_time":service_time_str,"service_budget":a_req.service_budget,"service_date":a_req.service_date,"service_date":a_req.service_date,"offers_count":acti_offers_count,"buyer_req_id":a_req.buyer_request_id,"req_id":a_req.pk})
+                return render(request , 'Dashboard/manage_request.html',{"active_request":active_request,"pending_request":pending_request,"rejected_request":rejected_request,"paused_request":paused_request})
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
 
 
 class post_request_view(View):
@@ -525,7 +694,23 @@ class inbox_view(View):
 class favourites_view(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'Dashboard/favourites.html')
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                fav_lists = Gig_favourites.objects.filter(user_id=userDetails)
+                fav_lists_data = []
+                for gig in fav_lists:
+                    user_gig = UserGigs.objects.get(gig_title= str(gig.gig_name))
+                    gig_image_url = ''
+                    gig_image = Usergig_image.objects.filter(package_gig_name=user_gig).first() 
+                    if(gig_image != None):
+                        gig_image_url = gig_image.gig_image
+                    fav_lists_data.append({"gig_title":gig.gig_name.gig_title, "gig_image":gig_image_url})
+                return render(request , 'Dashboard/favourites.html',{"favourite_lists":fav_lists_data})
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
 
 class create_gig_view(View):
     return_url = None
@@ -584,13 +769,22 @@ class seller_manage_orders_view(View):
 class buyer_request_view(View):
     return_url = None
     def get(self , request,username=''):
-        return render(request , 'Dashboard/buyer_request.html')
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try: 
+                seller_level_offer = 0
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id) 
+                seller_lvel = SellerLevels.objects.get(level_name= userDetails.seller_level)
+                return render(request , 'Dashboard/buyer_request.html',{"user_details":userDetails,"max_offers":seller_lvel.No_of_offers})
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html') 
 
 class manage_gigs_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            # try:    
+            try:    
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
                 activegigs = []
                 pendinggigs = []
@@ -626,8 +820,8 @@ class manage_gigs_view(View):
                     elif(u_gig.gig_status == "paused"):
                         pausedgigs.append({"gig_id":u_gig.pk,"gig_Name":u_gig.gig_title,"gig_Image":gig_image_url,"gig_impressions":ugig_impressions,"gig_orders":user_order_details,"gig_cancel_rate":cancel_perc})
                 return render(request , 'Dashboard/manage_gigs.html',{"active_gigs":activegigs,"pending_gigs":pendinggigs,"require_modif":modifgigs,"draft_gigs":drafgigs,"denied_gigs":deniedgigs,"paused_gigs":pausedgigs})
-            # except:
-            #     return render(request , 'register.html')
+            except:
+                return render(request , 'register.html')
         else:
             return render(request , 'register.html')
 
@@ -724,11 +918,9 @@ class dashboard_view(View):
                     request.session['userpage'] =	"seller"
                     return render(request , 'Dashboard/account_settings.html',{"Countrylist":countrylist,"languages":languages,"profile_Details":userProfileDetails,"userlanguages":userlang,"title_char":title_char,"overview_char":overview_char,"UserDetails":userDetails,"Categories":categories,'userlangs':json.dumps(userlang),"english_prof":english_profi,"current_url":str(str(url1.scheme) +"://"  + str(url1.netloc) )})
                 elif(userDetails.profile_type== "Buyer"):
-                    request.session['userpage'] =	"buyer"
-                    return render(request , 'Dashboard/buyer_dashboard.html')
+                    redirect('buyer')
                 elif(userDetails.profile_type== "Seller"):
-                    request.session['userpage'] =	"seller"
-                    return render(request , 'Dashboard/seller_dashboard.html')
+                    redirect('seller_main')
                 else:
                     return render(request , 'register.html')
             except:
@@ -1613,8 +1805,13 @@ def post_search_key_view(request):
     if request.method == 'POST':
         keyword = request.POST.get("keyword")
         keyword_type = request.POST.get("keyword_type")
-        search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type)
-        search_term.save()
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type,user_id = userDetails )
+            search_term.save()
+        else:   
+            search_term= UserSearchTerms(search_words=keyword,ip_address = str(whatismyip.whatismyip()),search_types=keyword_type)
+            search_term.save()
         return HttpResponse("sucess")
 
 
@@ -1660,3 +1857,77 @@ def add_referral_link_view(request):
             referral_user = Referral_Users(affiliate_code=affiliate_code,ip_address=ip_address,user_id=userDetails)
             referral_user.save() 
         return HttpResponse('sucess')
+    
+def get_filter_gigs_details_view(request):
+    if request.method == 'GET':
+        category_name = request.GET['category_name']
+        gig_data= []
+        sub_Cat_Name = request.GET['sub_Cat_Name']
+        category = SubCategories.objects.get(pk= category_name)
+        if(len(sub_Cat_Name.strip()) !=0):
+            subcat_inst = SubSubCategories.objects.get(sub_sub_category_Name= sub_Cat_Name)
+            gig_details = UserGigs.objects.filter(gig_sub_category= subcat_inst)
+        else:
+            cat_int = Categories.objects.get(category_Name=category.category_Name)
+            gig_details = UserGigs.objects.filter(gig_category= cat_int)
+        for g in gig_details:
+            seller_reviews = Seller_Reviews.objects.filter(package_gig_name= g)
+            seller_count = 0
+            for s_review in seller_reviews:
+                seller_count = seller_count + int(s_review.average_val)
+            try:
+                seller_count = round(seller_count/len(seller_reviews),1)
+            except:
+                seller_count = 0   
+            userpack= UserGigPackages.objects.filter(package_gig_name=g, package_type= 'basic').first() 
+            if(userpack != None):
+                start_price = userpack.package_price
+            else:
+                start_price = 0 
+            gig_image = Usergig_image.objects.filter(package_gig_name=g).first() 
+            if(gig_image != None):
+                gig_image_url = gig_image.gig_image
+            user_tags = UserGigsTags.objects.filter(gig_name=g).values("gig_tag_name")
+            user_tags_str= ''
+            for tg in user_tags:
+                user_tags_str = user_tags_str + ","+ tg["gig_tag_name"];
+            seller_levl= ''
+            if(g.user_id.seller_level=="level1"):
+                seller_levl = "New or higher"
+            elif(g.user_id.seller_level=="level2"):
+                seller_levl = "Advanced or higher"
+            elif(g.user_id.seller_level=="level3"):
+                seller_levl = "Professional"
+            gig_data.append({"gig_title":g.gig_title,"gig_img":gig_image_url,"gig_user_name":g.user_id.username,"gig_user_img":g.user_id.avatar,"start_price":start_price,"no_reviews":len(seller_reviews),"review_count":seller_count,"seller_level":seller_levl,"order_in_progress":g.user_id.ordersin_progress,"delivery_time":g.user_id.avg_delivery_time,"tags":user_tags_str})
+        return JsonResponse(gig_data,safe=False)
+
+
+@csrf_exempt
+def post_delete_request_view(request):
+    if request.method == 'POST':
+        request_id = request.POST.get("request_id")
+        Buyer_Post_Request.objects.filter(pk=request_id).delete()
+        return HttpResponse("sucess")
+    
+    
+@csrf_exempt
+def post_active_request_view(request):
+    if request.method == 'POST':
+        request_id = request.POST.get("request_id")
+        b_request = Buyer_Post_Request.objects.get(pk=request_id)
+        b_request.service_status= "active"
+        b_request.save()
+        return HttpResponse("sucess")
+
+
+@csrf_exempt
+def post_pause_request_view(request):
+    if request.method == 'POST':
+        request_id = request.POST.get("request_id")
+        b_request = Buyer_Post_Request.objects.get(pk=request_id)
+        b_request.service_status= "paused"
+        b_request.save()
+        return HttpResponse("sucess")
+  
+def update_seller_offers():
+    print("i am running at 9 pm")

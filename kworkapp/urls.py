@@ -1,16 +1,18 @@
 from django.urls import include, path
 from . import views
-from . views import indexView,aboutView,privacyView,resolution_view,search_gig_view,search_profile_view,manage_gigs_view,seller_manage_orders_view,earnings_view,gig_View_View,order_activities_view,buyer_request_view,buyer_manage_orders_view,seller_manage_orders_view,favourites_view,refer_program_view,inbox_view,billing_view,post_request_view,Manage_request_view,seller_main_view,create_gig_view,menu_pageView,all_gigs_pageView,signup_view,account_settings_view,dashboard_view,buyer_dashboard_view,seller_dashboard_view,login_view,profile_view,partners_View,approval_process_View,buyer_protectionView,faq_View,contact_support_View,prohibited_service_View,term_serviceView,for_freelancerView,reviews_View,earn_letorkbdoneView,categoriesView,affiliate_programView
+from . views import indexView,aboutView,privacyView,resolution_view,payments_view,offers_view,search_gig_view,search_profile_view,manage_gigs_view,seller_manage_orders_view,earnings_view,gig_View_View,order_activities_view,buyer_request_view,buyer_manage_orders_view,seller_manage_orders_view,favourites_view,refer_program_view,inbox_view,billing_view,post_request_view,Manage_request_view,seller_main_view,create_gig_view,menu_pageView,all_gigs_pageView,signup_view,account_settings_view,dashboard_view,buyer_dashboard_view,login_view,profile_view,partners_View,approval_process_View,buyer_protectionView,faq_View,contact_support_View,prohibited_service_View,term_serviceView,for_freelancerView,reviews_View,earn_letorkbdoneView,categoriesView,affiliate_programView
 urlpatterns  = [
 	path('', indexView.as_view(), name='index' ),
 	path('about', aboutView.as_view(), name='about' ),
 	path('privacy', privacyView.as_view(), name='privacy' ),
 	path('buyer_protection', buyer_protectionView.as_view(), name='buyer_protection' ),
 	path("user/<str:username>/seller_dashboard",seller_main_view.as_view(),name = 'seller_main'),
+ 	path("seller",seller_main_view.as_view(),name = 'seller'),
 	path('user/<str:username>/manage_request', Manage_request_view.as_view(), name='manage_request' ),
 	path('user/<str:username>/post_request', post_request_view.as_view(), name='post_request' ),
 	path('gigs/<str:username>/<str:gig_title>', gig_View_View.as_view(), name='gig_view'),
 	path('buyer_request', buyer_request_view.as_view(), name='buyer_request' ),
+ 	path('payments', payments_view.as_view(), name='payments' ),
 	path('user/<str:username>/manage_gigs', manage_gigs_view.as_view(), name='manage_gigs' ),
 	path('user/<str:username>/balance', earnings_view.as_view(), name='balance'),
  	path('user/<str:username>/manage_orders/<str:orderid>/resolution', resolution_view.as_view(), name='activities'),
@@ -49,8 +51,8 @@ urlpatterns  = [
  	path("search/<str:keyword>",search_gig_view.as_view(),name = 'profile'),
   	path("search/user/<str:keyword>",search_profile_view.as_view(),name = 'profile'),
 	path("buyer",buyer_dashboard_view.as_view(),name = 'buyer'),
-	path("seller",seller_dashboard_view.as_view(),name = 'seller'),
 	path("dashboard",dashboard_view.as_view(),name = 'dashboard'),
+ 	path("users/<str:username>/manage_requests/<str:req_id>",offers_view.as_view(),name = 'offers_view'),
 	path("account_settings",account_settings_view.as_view(),name = 'account_settings'),
 	path("user/<str:username>/create_gig/<str:gigid>",create_gig_view.as_view(),name = 'create_gig'),
  	path("user/<str:username>/edit_gig/<str:gigid>",create_gig_view.as_view(),name = 'edit_gig'),
@@ -92,4 +94,9 @@ urlpatterns  = [
     path("post_search_key/",views.post_search_key_view,name = 'post_search_key'),
     path("get_buyer_reviews/",views.get_buyer_reviews_view,name = 'get_buyer_reviews'),
     path("add_referral_link/",views.add_referral_link_view,name = 'add_referral_link'),
+    path("get_filter_gigs_details/",views.get_filter_gigs_details_view,name = 'get_filter_gigs_details'),
+    
+    path("post_delete_request/",views.post_delete_request_view,name = 'post_delete_request'),
+    path("post_active_request/",views.post_active_request_view,name = 'post_active_request'),
+    path("post_pause_request/",views.post_pause_request_view,name = 'post_pause_request'),
 ]
