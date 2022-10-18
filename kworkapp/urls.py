@@ -95,8 +95,10 @@ urlpatterns  = [
     path("get_buyer_reviews/",views.get_buyer_reviews_view,name = 'get_buyer_reviews'),
     path("add_referral_link/",views.add_referral_link_view,name = 'add_referral_link'),
     path("get_filter_gigs_details/",views.get_filter_gigs_details_view,name = 'get_filter_gigs_details'),
-    
     path("post_delete_request/",views.post_delete_request_view,name = 'post_delete_request'),
     path("post_active_request/",views.post_active_request_view,name = 'post_active_request'),
     path("post_pause_request/",views.post_pause_request_view,name = 'post_pause_request'),
+    path("get_buyer_request/",views.get_buyer_request_view,name = 'get_buyer_request'),
+    path("get_modal_show_request_details/",views.get_modal_show_request_details_view,name = 'get_modal_show_request_details'),
+    path("get_gig_parameters/",views.get_gig_parameters_view,name = 'get_gig_parameters'),
 ]

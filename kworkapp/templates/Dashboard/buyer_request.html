@@ -3,6 +3,7 @@
 {% block contentarea%}
 <title>Letworkbedone - {{request.user.username}} / Buyer Request</title>
 <link rel="stylesheet" href="{% static 'assets/css/frontend/buyer_request.css' %}" type="text/css" />
+<script src="{% static 'assets/js/moment.min.js' %}"></script>
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -32,7 +33,7 @@
                         <div class="tab-pane active" id="activerequesttab">
 
                             <div class="db-new-main-table align-top js-db-table">
-                                <table>
+                                <table id="tbl_buyer_req">
                                     <thead>
                                        <tr class="header-filter">
                                           <td colspan="2" class="js-filter-title">Buyer requests</td>
@@ -42,27 +43,19 @@
                                                    <div class="filter-select cf ">
                                                       <div class="fake-dropdown" style="visibility: visible;">
                                                          <a class="dropdown-toggle no-uppercase" data-toggle="dropdown" style="width: 156px;">All Subcategories</a>
-                                                         <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;">
-                                                            <li class="initial">
+                                                         <ul class="dropdown-menu no-uppercase  " role="menu" style="top: -2px; width: 196px;" id="cat_dropdown">
+                                                            <li class="initial" onclick="refresh_buyer_list('All Subcategories');">
                                                                <a data-val="-1">
                                                                <span class="text">All Subcategories</span>
                                                                </a>
                                                             </li>
-                                                            <li>
-                                                               <a data-val="163">
-                                                               <span class="text-inner">Articles &amp; Blog Posts</span>
-                                                               </a>
-                                                            </li>
-                                                            <li>
-                                                               <a data-val="138">
-                                                               <span class="text-inner">Website Builders &amp; CMS</span>
-                                                               </a>
-                                                            </li>
-                                                            <li>
-                                                               <a data-val="140">
-                                                               <span class="text-inner">Web Programming</span>
-                                                               </a>
-                                                            </li>
+                                                            {% for cat in all_categories %}
+                                                               <li onclick="refresh_buyer_list('{{cat.cat_Name}}');">
+                                                                  <a data-val="163">
+                                                                  <span class="text-inner" >{{cat.cat_Name}}</span>
+                                                                  </a>
+                                                               </li>  
+                                                            {% endfor %}                                                                                            
                                                          </ul>
                                                       </div>
                                                    </div>
@@ -92,48 +85,7 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <tr data-id="634cc8c78182d4000cca0bb3">
-                                          <td class="date  ">
-                                             <span>Oct 17, 2022</span>
-                                          </td>
-                                          <td class="profile-40  height95">
-                                             <span class="user-pict-40">
-                                             <span class="missing-image-user ">c</span>
-                                             </span>
-                                             <span></span>
-                                          </td>
-                                          <td class="see-more">
-                                             <div class="text-wrap">
-                                                <span>I am looking for a python programmer who has web scraping experience (scrapy and selenium).  I need the developer to write some python scripts/functions that my program can call that will automatically login into a website and save an image or data once per day.  Please read the attached specification for more detailed information. I look forward to working with you.</span>
-                                                <a href="#" class="is-online btn-see-more js-see-more m-r-10">See more<i></i></a>
-                                             </div>
-                                             <span class="attachment">
-                                             <a href="https://www.fiverr.com/download/attachment/gig_request/634cc8c78182d4000cca0bb3/634cc6cc5c3e5b00224bb70f/Python3%20Scraping%20Spec%20Oct12.pdf?signature=e7a89137302a9dcca045d5ca75e6703aad039d5212b81b102683ae06d7e748af"><i class="fa fa-arrow-circle-down"></i>Python3 Scraping Spec Oct12.pdf</a>
-                                             <span>(687 KB)</span>
-                                             </span>
-                                          </td>
-                                          <td class="applications  t-a-center">
-                                             <span>0</span>
-                                          </td>
-                                          <td class="hidden-action t-a-center with-text">
-                                             <div class="hover-show">
-                                                <span class="duration">10 days</span>
-                                                <a href="#" class="remove-request">Remove Request</a>
-                                             </div>
-                                             <div class="hover-hide"  onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);">
-                                                <span>10 days</span>
-                                             </div>
-                                          </td>
-                                          <td class="hidden-action t-a-center with-text">
-                                             <div class="hover-show">
-                                                <span class="budget">₹21,633</span>
-                                                <a class="btn-standard btn-green-grad " onclick= "show_share_click();">Send Offer</a>
-                                             </div>
-                                             <div class="hover-hide" onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);">
-                                                <span>₹21,633</span>
-                                             </div>
-                                          </td>
-                                       </tr>
+                                      
                                     </tbody>
                                  </table>
                              </div>
@@ -256,61 +208,36 @@
                   <div class="offer-request-summary js-offer-request-summary cf">
                      <aside>
                         <span class="user-pict-60">
-                        <img src="https://fiverr-res.cloudinary.com/image/upload/t_profile_small,q_auto,f_auto/v1/attachments/profile/photo/7c95c11ccd6e676ac9664371aab1f6b3-1605301607024/e7a4672f-31f7-4339-836f-a558a898cf9d.jpg" alt="paulherretch" width="100" height="100" data-reload="inprogress">
+                        <img src="" alt="paulherretch" width="100" height="100" id="gig_user_img">
                         </span>
                      </aside>
-                     <p>Hello, I'm looking for someone to develop a Firefox plugin from a Chrome plugin I found (https://chrome.google.com/webstore/detail/email-hunter/mbindhfolmpijhodmgkloeeppmkhpmhc?hl=fr).
-                        This plugin should extract all email addresses from the current page and add them to all email addresses found. I want exactly the same plugin as the one found on Chrome (I HAVE THE SOURCE CODE OF THE CHROME PLUGIN, but I put it on Firefox it does not work). I will provide you with the source code as well as an efficient code for extracting the email addresses.
+                     <p id= "gig_user_mssg">
                      </p>
                   </div>
-                  <form method="post" action="/users/swap_soln_90/requests" id="model_gig_choose">
-                     
+                  <div id="model_gig_choose">
                      <div class="js-offer-gigs-list">
                         <div class="offer-gigs-list1 antiscroll-wrap1">
-                           <ul class="antiscroll-inner scroll-shadow">
-                              <li class="sel">
-                                 <label class="fake-radio-black radio-text">
-                                    <input type="radio" name="offer[gig_id]" data-cached-slug="build-an-awesome-website-applications-within-three-days" class="js-offered-gig" value="213090617" data-category="10" data-base-price="100" data-has-revisions="true">
-                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/213090617/original/ee5f15bd13e8fcaf802a0d164d5158c8055f8431/build-an-awesome-website-applications-within-three-days.png" class="" alt="build your web applications with no bound of limits welcome" data-reload="inprogress"></span>
-                                    <p>I will build your web applications with no bound of limits welcome</p>
-                                 </label>
-                                                               </li>
-                              <li class="sel">
-                                 <label class="fake-radio-black radio-text">
-                                    <input type="radio" name="offer[gig_id]" data-cached-slug="develop-your-web-application-within-no-time" class="js-offered-gig" value="228160561" data-category="10" data-base-price="100" data-has-revisions="true">
-                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/228160561/original/a52fa065abae16f9c8b003306b63de8dbed14356/develop-your-web-application-within-no-time.png" class="" alt="develop your web application within no time" data-reload="inprogress"></span>
-                                    <p>I will develop your web application within no time</p>
-                                 </label>
-                              </li>
-                              <li class="sel">
-                                 <label class="fake-radio-black radio-text">
-                                    <input type="radio" name="offer[gig_id]" data-cached-slug="provide-an-no-limit-content-for-you-within-one-hour" class="js-offered-gig" value="256040376" data-category="5" data-base-price="10" data-has-revisions="true">
-                                    <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/256040376/original/8dce6616e94411b3612da6fdc8dee5af5093bed1/provide-an-no-limit-content-for-you-within-one-hour.jpg" class="" alt="provide an no limit content for you within one hour" data-reload="inprogress"></span>
-                                    <p>I will provide an no limit content for you within one hour</p>
-                                 </label>
-                              </li>
+                           <ul class="antiscroll-inner scroll-shadow" id="gig_ul_li">
                            </ul>
                         </div>
                      </div>
-                    
-                  </form>
-                  <div class="offer-extras-list conditions js-conditions">
+                  </div>
+                  <form id="offer_gig_req_form">
+                  <div class="offer-extras-list conditions js-conditions" id="gig_details">
                      <ul class="antiscroll-inner scroll-shadow">
                         <li class="sel selected-gig">
                            <label class="fake-radio-black radio-text">
-                              <p>I will develop your web application within no time</p>
-                              <input type="radio" name="offer[gig_id]" data-cached-slug="develop-your-web-application-within-no-time" class="js-offered-gig" value="228160561" data-category="10" data-base-price="100" data-has-revisions="true">
-                              <span class="gig-pict-74"><img src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/228160561/original/a52fa065abae16f9c8b003306b63de8dbed14356/develop-your-web-application-within-no-time.png" class="" alt="develop your web application within no time" data-reload="inprogress"></span>
+                              <p id="sel_gig_title"></p>
+                              <span class="gig-pict-74"><img src="" class="" id="sel_gig_img" ></span>
                               <div class="js-personal-message offer-personal-message">
                                  <div class="write-wrap cf">
-                                    <textarea name="offer[custom_offer][description]" maxlength="1500" placeholder="Describe Your Offer"></textarea>
-                                    <span class="char-count rf"><em>0</em> / 1500 Chars Max</span>
+                                    <textarea name="offer[custom_offer][description]" required maxlength="{{offer_description}}" placeholder="Describe Your Offer" id="text_offer_desc"></textarea>
+                                    <span class="char-count rf"><em>0</em> / {{offer_description}} Chars Max</span>
                                     <div class="js-desc-error-text error-text p-t-0 p-b-0 hidden">Please provide a description.</div>
                                  </div>
                               </div>
                            </label>
-                        </li>
-                       
+                        </li> 
                      </ul>
                      <ul>
                         <li>
@@ -320,146 +247,62 @@
                            </label>
                            <div class="input-wrap">
                               <small>$</small>
-                              <input type="text" name="offer[custom_offer][price]" class="js-custom-offer-price js-force-digits" maxlength="5" placeholder="5000 max." value="">
+                              <input type="text" name="offer[custom_offer][price]" required class="js-custom-offer-price js-force-digits" maxlength="5" placeholder="5000 max." value="">
                            </div>
                         </li>
                         <li>
                            <label><small class="extra-text">Delivery Time</small></label>
-                           <select name="offer[custom_offer][duration]" class="js-ddown-delivery">
-                              <option value="1" selected="">1 day</option>
-                              <option value="2">2 days</option>
-                              <option value="3">3 days</option>
-                              <option value="4">4 days</option>
-                              <option value="5">5 days</option>
-                              <option value="6">6 days</option>
-                              <option value="7">7 days</option>
-                              <option value="8">8 days</option>
-                              <option value="9">9 days</option>
-                              <option value="10">10 days</option>
-                              <option value="11">11 days</option>
-                              <option value="12">12 days</option>
-                              <option value="13">13 days</option>
-                              <option value="14">14 days</option>
-                              <option value="15">15 days</option>
-                              <option value="16">16 days</option>
-                              <option value="17">17 days</option>
-                              <option value="18">18 days</option>
-                              <option value="19">19 days</option>
-                              <option value="20">20 days</option>
-                              <option value="21">21 days</option>
-                              <option value="22">22 days</option>
-                              <option value="23">23 days</option>
-                              <option value="24">24 days</option>
-                              <option value="25">25 days</option>
-                              <option value="26">26 days</option>
-                              <option value="27">27 days</option>
-                              <option value="28">28 days</option>
-                              <option value="29">29 days</option>
-                              <option value="30">30 days</option>
+                           <select name="offer[custom_offer][duration]" class="js-ddown-delivery" id="delivery_time" required>
+                              {% for del in delivery_time %}
+                                 {% if forloop.first %}
+                                    <option value="{{del.parameter_value}}" selected="">{{del.parameter_value}}</option>
+                                 {% else %}
+                                    <option value="{{del.parameter_value}}">{{del.parameter_value}}</option>
+                                 {% endif %}
+                              {% endfor %}
                            </select>
                         </li>
                         <li class="js-revisions">
                            <label><small class="extra-text">Number of Revisions (optional)</small></label>
-                           <select name="offer[num_of_revisions]" class="js-ddown-revisions">
+                           <select name="offer[num_of_revisions]" class="js-ddown-revisions" id="no_revisions" required>
                               <option value="" selected="">Select</option>
-                              <option value="1">1</option>
-                              <option value="2">2</option>
-                              <option value="3">3</option>
-                              <option value="4">4</option>
-                              <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
-                              <option value="11">11</option>
-                              <option value="12">12</option>
-                              <option value="13">13</option>
-                              <option value="14">14</option>
-                              <option value="15">15</option>
-                              <option value="16">16</option>
-                              <option value="17">17</option>
-                              <option value="18">18</option>
-                              <option value="19">19</option>
-                              <option value="20">20</option>
-                              <option value="-1">unlimited</option>
+                              {% for rev in no_revisions %}
+                                    <option value="{{rev.parameter_value}}">{{rev.parameter_value}}</option>
+                              {% endfor %}
                            </select>
                         </li>
                         <li class="toggle-li">
                            <div class="toggle-wrapper">
-                              <label>
+                              <label class="switch" for="req_gig">
                                  <small class="extra-text">Ask for Gig Requirements</small>
-                                 <input type="checkbox" name="offer[ask_for_requirements]" class="sel" checked="">
-                                 <span class="fake-toggle"></span>
-                                 <p class="label-helper">
-                                    <i class="fa fa-exclamation-circle"></i>
-                                    The order will start immediately upon payment.<br>Make sure you have all of the required information to start working.
-                                 </p>
+                                 <input type="checkbox" checked name="req_gig" id="req_gig" class="sel">
+                                 <span class="slider round"></span>
                               </label>
                            </div>
                         </li>
                      </ul>
                   </div>
-                  <div class="js-gig-items offer-gig-items show">
-                     <a href="#" class="expander js-gig-items-expander js-gtm-event-auto" data-gtm-category="offers-popup" data-gtm-action="click" data-gtm-label="extras-expander"><span class="arrow"></span><p>Define the Offer Scope:</p></a>
+                  <div class="js-gig-items offer-gig-items show" id="gig_offer_scopes">
+                     <a href="#" class="expander js-gig-items-expander js-gtm-event-auto" data-gtm-category="offers-popup" data-gtm-action="click" data-gtm-label="extras-expander"><p>Define the Offer Scope:</p></a>
                      <div class="offer-extras-list">
-                        <ul>
-                           <li class="js-extra-chkbox" data-gig-item-id="228160839">
-                              <label class="fake-check-black check-text">
-                              <input type="checkbox" name="offer[gig_pricing][extras][0][id]" value="228160839">
-                              <span class="chk-img"></span>
-                              <span class="extra-text">
-                              <small>Number of pages </small>
-                              </span>
-                              <input type="number" class="js-extra-quantity" min="1" name="offer[gig_pricing][extras][228160839][quantity]">
-                              </label>
-                           </li>
-                           <li class="js-extra-chkbox" data-gig-item-id="228160840">
-                              <label class="fake-check-black check-text">
-                              <input type="checkbox" name="offer[gig_pricing][extras][1][id]" value="228160840">
-                              <span class="chk-img"></span>
-                              <span class="extra-text">
-                              <small>Design customization </small>
-                              </span>
-                              </label>
-                           </li>
-                           <li class="js-extra-chkbox" data-gig-item-id="228160841">
-                              <label class="fake-check-black check-text">
-                              <input type="checkbox" name="offer[gig_pricing][extras][2][id]" value="228160841">
-                              <span class="chk-img"></span>
-                              <span class="extra-text">
-                              <small>Content upload </small>
-                              </span>
-                              </label>
-                           </li>
-                           <li class="js-extra-chkbox" data-gig-item-id="228160842">
-                              <label class="fake-check-black check-text">
-                              <input type="checkbox" name="offer[gig_pricing][extras][3][id]" value="228160842">
-                              <span class="chk-img"></span>
-                              <span class="extra-text">
-                              <small>Responsive design </small>
-                              </span>
-                              </label>
-                           </li>
-                           <li class="js-extra-chkbox" data-gig-item-id="228160843">
-                              <label class="fake-check-black check-text">
-                              <input type="checkbox" name="offer[gig_pricing][extras][4][id]" value="228160843">
-                              <span class="chk-img"></span>
-                              <span class="extra-text">
-                              <small>Include source code </small>
-                              </span>
-                              </label>
-                           </li>
+                        <ul id="offer_extra_li">
+
                         </ul>
                      </div>
+                     <p class="label-helper">
+                        <i class="fa fa-exclamation-circle"></i>
+                        The order will start immediately upon payment.<br><span>Make sure you have all of the required information to start working.</span>
+                     </p>
                   </div>
+                 
                   <footer class="cf p-20 modal_footer">
                      <div class="error-container hidden js-error-container">
                         <p class="msg-error t-a-center">Something went wrong, please try again.</p>
                      </div>
-                     <a href="#" class="btn-standard btn-green-grad js-fiverr-form-submit js-gtm-event-auto" data-gtm-category="offers-popup" data-gtm-action="click" data-gtm-label="submit">Submit Offer</a>
-                     <a href="#" class="btn-back lf m-t-10 p-r-20 js-btn-back">Back</a>
+                     <input type="submit" class="btn-standard btn-green-grad js-fiverr-form-submit js-gtm-event-auto" value="Submit Offer"  />
+                     <a onclick="gig_back_click();" class="btn-back lf m-t-10 p-r-20 js-btn-back">Back</a>
                   </footer>
+                  </form>
                </div>
             </div>
            
@@ -473,6 +316,19 @@
         $('.offers-left').hover(function (e) {
             $('.offers-left-tooltip').toggle();
         });
+        $("#cat_dropdown").find('li:first').trigger("click");
+
+        $('#text_offer_desc').keyup(function() { 
+         var thisChars = this.value.replace(/{.*}/g, '').length; 
+         var maxlength = $(this).attr("maxlength");
+         if(thisChars > maxlength) 
+         {
+            var CharsToDel = (thisChars-maxlength); 
+            this.value = this.value.substring(0,this.value.length-CharsToDel); 
+         }else{
+            $(".char-count").text( maxlength - thisChars + " /"+maxlength  +" Chars Max" ); 
+         }
+      });
     });
     function hoverhideaddclick(ev)
     {
@@ -487,9 +343,111 @@
         }, 5000);
        
     }
-    function show_share_click()
+    function show_share_click(ev)
     {
-      $("#modal_send_offer").modal("show");
+      $.ajax({
+         type:"GET",
+         url: "/get_modal_show_request_details/",
+         data: {'buyer_request': ev, "user_id":'{{request.user.id}}'},
+         success: function(data)
+         {
+            jsonObject = JSON.parse(data);
+            $("#gig_user_img").attr("src",jsonObject.buyer_details[0].buyer_img);
+            $("#gig_user_mssg").text(jsonObject.buyer_details[0].buyer_mssg);
+            $("#gig_details").hide();
+            $("#gig_offer_scopes").hide();
+            $("#gig_ul_li").empty();
+            $.each(jsonObject.user_gig_details, function(i, vvv2) {
+               $("#gig_ul_li").append('<li class="sel"> <label class="fake-radio-black radio-text"> <input type="radio" name="offer[gig_id]" onclick="gig_onclick(this);" class="js-offered-gig" value="'+vvv2.gig_id+'" data-label="'+vvv2.gig_image+'" data-title="'+vvv2.gig_title+'"> <span class="gig-pict-74"><img src="'+vvv2.gig_image+'" class="" alt="'+vvv2.gig_title+'" data-reload="inprogress"></span> <p>'+vvv2.gig_title+'</p> </label> </li>');
+            });
+            $("#modal_send_offer").modal("show");
+         }
+      }); 
+    }
+
+    function refresh_buyer_list(ev)
+    {
+      $.ajax({
+         type:"GET",
+         url: "/get_buyer_request/",
+         data: {'category_name': ev, "user_id":'{{request.user.id}}'},
+         success: function(data)
+         {
+            jsonObject = JSON.parse(data);
+            $("#tbl_buyer_req tbody").empty();
+            $.each(jsonObject, function(i, v) {
+               attach_url = ''
+               attachments = v.buyer_attachments.split(",");
+               $.each(attachments, function(ii, vv) {
+                  if(vv.trim().length != 0)
+                  {
+                     attach_url = attach_url + '  <a href="'+vv.trim()+'" download><i class="fa fa-arrow-circle-down" ></i>'+vv.split('/').pop()+'</a>';
+                  }
+               });
+               var offer_text = ''
+               if(v.Offer_status == "sent")
+               {
+                  offer_text = '<a class="btn-standard btn-gray-grad ">Offer Sent</a> ';
+               }
+               else{
+                  offer_text = '<a class="btn-standard btn-green-grad " onclick="show_share_click('+v.req_id+');" >Send Offer</a> ';
+               }
+               see_more_text = '';
+               var sentences =  v.buyer_mssg.split('.');
+               if(sentences.length > 4)
+               {
+                  see_more_text = '<div class="text-wrap see_less"> <span>'+ sentences[0]+ "." + sentences[1]+ "."+ sentences[2]+ "." + sentences[3] + '</span><a class="is-online btn-see-more js-see-more m-r-10" onclick="see_moreclick(this);">See more<i></i></a> </div><div class="text-wrap see_more"> <span> '+v.buyer_mssg+ ' </div>';
+               }
+               else{
+                  see_more_text = '<div class="text-wrap see_less"> <span> '+v.buyer_mssg+ ' </div>';
+               }
+               $("#tbl_buyer_req tbody").append('<tr> <td class="date "> <span>'+moment(v.serv_date).format('MMM DD, YYYY')+'</span> </td> <td class="profile-40 height95"> <span class="user-pict-40"> <img class="missing-image-user " src="'+v.buyer_img+'"></img> </span> <span></span> </td> <td class="see-more"> '+see_more_text+' <span class="attachment">'+attach_url+' </span> </td> <td class="applications t-a-center"> <span>'+v.no_offers+'</span> </td> <td class="hidden-action t-a-center with-text"> <div class="hover-show"> <span class="duration">'+v.service_time+'</span> <a onclick="remove_request_click('+v.req_id+');" href="#" class="remove-request">Remove Request</a> </div> <div class="hover-hide" onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);"> <span>'+v.service_time+'</span> </div> </td> <td class="hidden-action t-a-center with-text"> <div class="hover-show"> <span class="budget">$ '+v.service_price+'</span> '+offer_text+'</div> <div class="hover-hide" onmouseover="hoverhideaddclick(this);" onmouseout="hoverhideremoveclick(this);"> <span>$ '+v.service_price+'</span> </div> </td> </tr>');
+            });
+         }
+      });
+    }
+    function see_moreclick(ev)
+    {
+      $(ev).parent().hide();
+      $(ev).parent().next().show();
+    }
+    function gig_onclick(ev)
+    {
+      gig_id = $(ev).val();
+      $.ajax({
+         type:"GET",
+         url: "/get_gig_parameters/",
+         data: {'gig_id': gig_id, "user_id":'{{request.user.id}}'},
+         success: function(data)
+         {
+            var intRegex = /^\d+$/;
+            img_url = $(ev).attr("data-label");
+            gig_title = $(ev).attr("data-title");
+            $("#sel_gig_title").text(gig_title);
+            $("#sel_gig_img").attr("src",img_url);
+            jsonObject = JSON.parse(data);
+            json_parse1 =  eval(jsonObject[0]["data"]);
+            $("#offer_extra_li").empty();
+            $.each(json_parse1, function(i, v5) {
+               if(intRegex.test(v5.value.toString()))
+               {
+                  $("#offer_extra_li").append('<li class="js-extra-chkbox"> <label class="fake-check-black check-text"> <input type="checkbox" > <span class="chk-img"></span> <span class="extra-text"> <small>'+v5.name+'</small> </span> <input type="number" class="js-extra-quantity" min="1"  value="0"> </label> </li>');
+               }
+               else{
+                  $("#offer_extra_li").append(' <li class="js-extra-chkbox"> <label class="fake-check-black check-text"> <input type="checkbox" > <span class="chk-img"></span> <span class="extra-text"> <small>'+v5.name+'</small> </span> </label> </li>')
+               }
+            });
+            $("#model_gig_choose").hide();
+            $("#gig_details").show();
+            $("#gig_offer_scopes").show();
+         }
+      });
+    }
+    function gig_back_click()
+    {
+      $("#model_gig_choose").show();
+      $("#gig_details").hide();
+      $("#gig_offer_scopes").hide();
     }
 </script>
 {% endblock %}

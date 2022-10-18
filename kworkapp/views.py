@@ -769,11 +769,25 @@ class buyer_request_view(View):
     return_url = None
     def get(self , request,username=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
-            try: 
+            try:
+                all_categories = []
                 seller_level_offer = 0
                 userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id) 
                 seller_lvel = SellerLevels.objects.get(level_name= userDetails.seller_level)
-                return render(request , 'Dashboard/buyer_request.html',{"user_details":userDetails,"max_offers":seller_lvel.No_of_offers})
+                UserGigCategory = UserGigs.objects.filter(user_id= userDetails).values("gig_category").distinct()
+                for g_c in UserGigCategory:
+                    category_d = Categories.objects.get(id = g_c["gig_category"])
+                    all_categories.append({"cat_Name":category_d.category_Name})
+                delivery_time = []
+                no_revisions = []
+                delivery_time = Parameter.objects.filter(Q(parameter_name="delivery_time"))
+                no_revisions = Parameter.objects.filter(Q(parameter_name="no_revisions"))
+                offer_description = 0
+                charcterlimits = CharacterLimit.objects.filter(Q(Char_category_Name="offer_description"))
+                for c in charcterlimits:
+                    if(c.Char_category_Name == "offer_description"):
+                        offer_description = c.Max_No_of_char_allowed
+                return render(request , 'Dashboard/buyer_request.html',{"user_details":userDetails,"max_offers":seller_lvel.No_of_offers,"all_categories":all_categories,"delivery_time":delivery_time, "no_revisions":no_revisions,"offer_description":offer_description})
             except:
                 return render(request , 'register.html')
         else:
@@ -1930,3 +1944,90 @@ def post_pause_request_view(request):
   
 def update_seller_offers():
     print("i am running at 7 pm")
+    
+    
+def get_buyer_request_view(request):
+    if request.method == 'GET':
+        category_name = request.GET['category_name']
+        user_id = request.GET['user_id']
+        userDetails = User.objects.get(pk=user_id)
+        buyer_requests_list = []
+        if(category_name == "All Subcategories"):
+            UserGigCategory = UserGigs.objects.filter(user_id= userDetails).values("gig_category").distinct()
+            for g_c in UserGigCategory:
+                category_d = Categories.objects.get(id = g_c["gig_category"])
+                buyer_requests = Buyer_Post_Request.objects.filter(service_category= category_d).exclude(user_id= userDetails)
+                for b in buyer_requests:
+                    offer_data = Request_Offers.objects.filter(user_id = userDetails).count()
+                    offer_status = ''
+                    if(offer_data ==0):
+                        offer_status = "not sent"
+                    else:
+                        offer_status = "sent"
+                    service_time_str = ''
+                    no_of_offers = Request_Offers.objects.filter(buyer_request=b).count()
+                    if(b.service_time== "24hours"):
+                        service_time_str = "24 Hours"
+                    elif(b.service_time== "3days"):
+                        service_time_str = "3 Days"
+                    elif(b.service_time== "7days"):
+                        service_time_str = "7 Days"
+                    elif(b.service_time== "other"):
+                        service_time_str = "Other"
+                    no_of_offers = Request_Offers.objects.filter(buyer_request=b).count()
+                    buyer_requests_list.append({"serv_date":str(b.service_date),"buyer_img":b.user_id.avatar,"buyer_username":b.user_id.username,"buyer_mssg":b.service_desc,"buyer_attachments":b.service_images,"buyer_attachments":b.service_images,"no_offers":no_of_offers,"service_time":service_time_str,"service_price":b.service_budget,"req_id":b.id, "req_buyer_number":b.buyer_request_id,"Offer_status":offer_status})
+        else:
+            category_d = Categories.objects.get(category_Name =category_name)
+            buyer_requests = Buyer_Post_Request.objects.filter(service_category= category_d).exclude(user_id= userDetails)
+            for b in buyer_requests:
+                offer_data = Request_Offers.objects.filter(user_id = userDetails).count()
+                offer_status = ''
+                if(offer_data ==0):
+                    offer_status = "not sent"
+                else:
+                    offer_status = "sent"
+                service_time_str = ''
+                no_of_offers = Request_Offers.objects.filter(buyer_request=b).count()
+                if(b.service_time== "24hours"):
+                    service_time_str = "24 Hours"
+                elif(b.service_time== "3days"):
+                    service_time_str = "3 Days"
+                elif(b.service_time== "7days"):
+                    service_time_str = "7 Days"
+                elif(b.service_time== "other"):
+                    service_time_str = "Other"
+                buyer_requests_list.append({"serv_date":str(b.service_date),"buyer_img":b.user_id.avatar,"buyer_username":b.user_id.username,"buyer_mssg":b.service_desc,"buyer_attachments":b.service_images,"buyer_attachments":b.service_images,"no_offers":no_of_offers,"service_time":service_time_str,"service_price":b.service_budget,"req_id":b.id, "req_buyer_number":b.buyer_request_id,"Offer_status":offer_status})
+        return JsonResponse(json.dumps(buyer_requests_list),safe=False)
+    
+    
+def get_modal_show_request_details_view(request):
+    if request.method == 'GET':
+        buyer_request_id = request.GET['buyer_request']
+        user_id = request.GET['user_id']
+        userDetails = User.objects.get(pk=user_id)
+        buyer_request_data = []
+        user_gig_details = []
+        buyer_requests = Buyer_Post_Request.objects.get(id= buyer_request_id)
+        buyer_request_data.append({"buyer_img":buyer_requests.user_id.avatar,"buyer_username":buyer_requests.user_id.username,"buyer_mssg":buyer_requests.service_desc})
+        gigs_details = UserGigs.objects.filter(gig_status='active',user_id= userDetails)
+        for u_gig in gigs_details:
+            gig_image = Usergig_image.objects.filter(package_gig_name=u_gig).first() 
+            gig_image_url = ''
+            if(gig_image != None):
+                gig_image_url = gig_image.gig_image
+            user_gig_details.append({"gig_id":u_gig.id,"gig_image":gig_image_url,"gig_title":u_gig.gig_title})
+        response_data = {"buyer_details":buyer_request_data,"user_gig_details":user_gig_details}
+        return JsonResponse(json.dumps(response_data),safe=False)
+    
+def get_gig_parameters_view(request):
+    if request.method == 'GET':
+        gig_id = request.GET['gig_id']
+        user_id = request.GET['user_id']
+        userDetails = User.objects.get(pk=user_id)
+        gig_Parameters = []
+        gigs_details = UserGigs.objects.get(id=gig_id)
+        userpack= UserGigPackages.objects.filter(package_gig_name=gigs_details, package_type= 'basic').first() 
+        if(userpack != None):
+            start_price = userpack.package_price
+            gig_Parameters.append({"data":userpack.package_data})
+        return JsonResponse(json.dumps(gig_Parameters),safe=False)
