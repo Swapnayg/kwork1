@@ -714,6 +714,7 @@ class Referral_Users(models.Model):
 
 class Request_Offers(models.Model):
     BOOL_CHOICES_TYPES =[('custom', 'Custom'),('request', 'Request')]
+    BOOL_CHOICES_STATUS = [('active', 'Active'),('deleted', 'Removed')]
     gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
     buyer_request = models.ForeignKey(Buyer_Post_Request, on_delete=models.CASCADE,null=False,blank=False)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
@@ -724,6 +725,8 @@ class Request_Offers(models.Model):
     ask_requirements =  models.BooleanField(default=False)
     extra_parameters =  models.TextField()
     offer_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="all",null=True)
+    offer_date = models.DateTimeField(default=timezone.now, blank=True)
+    offer_status_by_buyer = models.CharField(max_length=300,choices=BOOL_CHOICES_STATUS,blank=True,default="active",null=True)
     
     class Meta:
         verbose_name = _("Request Offer")

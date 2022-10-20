@@ -69,8 +69,8 @@ admin.site.register(PageEditor, AdminPageEditor)
 
 class AdminSellerLevels(admin.ModelAdmin):
     list_display = ['level_name','No_of_gigs','No_of_offers']
-    def has_add_permission(self, request, obj=None):
-        return False
+    #def has_add_permission(self, request, obj=None):
+        #return False
 
     # def has_change_permission(self, request, obj=None):
     #     return False
@@ -185,6 +185,8 @@ admin.site.register(CharacterLimit, AdminCharacterLimit)
 
 class AdminUserProfileDetails(admin.ModelAdmin):
     list_display = ['main_category','sub_category','profile_title','profess_overview','user_id']
+    class Media:
+        css = {'all': ('assets/css/frontend/admin_post_request.css', )} 
     
     class Media:
         js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js','assets/js/sub_sub_category1.js')
@@ -209,6 +211,8 @@ admin.site.register(UserSearchTerms, AdminUserSearchTerms)
 
 class AdminUserGigs(admin.ModelAdmin):
     list_display = ['gig_title','gig_category','gig_sub_category','gig_description','gig_status','user_id']
+    class Media:
+        css = {'all': ('assets/css/frontend/admin_post_request.css', )} 
 
 admin.site.register(UserGigs, AdminUserGigs)
 
@@ -227,6 +231,8 @@ admin.site.register(UserAvailable, AdminUserAvailable)
 
 class AdminBuyer_Post_Request(admin.ModelAdmin):
     list_display = ['service_desc','service_images','service_category','send_to','service_type','buyer_request_id','service_sub_category','service_time','service_budget','service_date','user_id','service_status']
+    class Media:
+        css = {'all': ('assets/css/frontend/admin_post_request.css', )} 
 
 admin.site.register(Buyer_Post_Request, AdminBuyer_Post_Request)
 
@@ -243,8 +249,9 @@ admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
 
 
 class AdminRequest_Offers(admin.ModelAdmin):
-    list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters','offer_type']
-
+    list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters','offer_type','offer_date','offer_status_by_buyer']
+    class Media:
+        css = {'all': ('assets/css/frontend/admin_post_request.css', )}
 admin.site.register(Request_Offers, AdminRequest_Offers)
 
 

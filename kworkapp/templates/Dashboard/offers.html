@@ -14,39 +14,39 @@
                   <h1 class="alt">
                      View offers 
                      <span class="js-offers-count">(
-                     15 Offers
+                     {{offers|length}} Offers
                      )</span>
                   </h1>
-                  <a href="/users/swap_soln_90/manage_requests">Back to Manage Requests</a>
+                  <a href="/user/{{request.user.username}}/manage_request">Back to Manage Requests</a>
                </header>
                <aside class="cf">
-                  <span class="user-pict-80"><img src="https://fiverr-res.cloudinary.com/image/upload/t_profile_small,q_auto,f_auto/v1/attachments/profile/photo/919e8583145a237d89a306439b8944c3-1624448516805/8d75b586-ee3a-4e24-bc4f-8c6b3e21046e.jpg" alt="swap_soln_90" width="80" height="80"></span>
+                  <span class="user-pict-80"><img src="{{buyer_request.user_id.avatar}}" alt="swap_soln_90" width="80" height="80"></span>
                   <h2 class="fs-18">My Request</h2>
-                  <p>i am looking for an testing circuit diagram and the pcb diagram. for my device. 
-                     that must store and send the data via api.
+                  <p>{{buyer_request.service_desc}}.
                   </p>
                   <ul>
-                     <li class="request-item"><i class="fa fa-clock-o"></i>2
-                        days
-                        Delivery
-                     </li>
-                     <li><i class="fa fa-usd"></i>Budget: ₹433</li>
+                     {% if buyer_request.service_time == "24hours" %}
+                        <li class="request-item"><i class="fa fa-clock-o"></i>24 Hours Delivery </li>
+                     {% elif buyer_request.service_time == "3days" %}
+                        <li class="request-item"><i class="fa fa-clock-o"></i>3 Days Delivery </li>
+                     {% elif buyer_request.service_time == "7days" %}
+                        <li class="request-item"><i class="fa fa-clock-o"></i>7 Days Delivery </li>
+                     {% elif buyer_request.service_time == "other" %}
+                        <li class="request-item"><i class="fa fa-clock-o"></i>Other Delivery </li>
+                     {% endif %}
+                     
+                     <li><i class="fa fa-usd"></i>Budget: $ {{buyer_request.service_budget }}</li>
                   </ul>
                </aside>
                <div class="offers-sort cf js-offers-sort ">
                   <span class="js-sort-dropdown">
                      <div class="filter-select cf ">
                         <div class="fake-dropdown" style="visibility: visible;">
-                           <a class="dropdown-toggle" data-toggle="dropdown" >recommended</a>
-                           <ul class="dropdown-menu  " role="menu" style="top: -2px; width: 138px;">
+                           <a class="dropdown-toggle" data-toggle="dropdown" id="order_val" >default</a>
+                           <ul class="dropdown-menu  " role="menu" style="top: -2px; width: 138px;" id="Order_values_lists">
                               <li>
-                                 <a data-val="recommended">
-                                 <span class="text-inner">recommended</span>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a data-val="date">
-                                 <span class="text-inner">date</span>
+                                 <a data-val="default">
+                                 <span class="text-inner">default</span>
                                  </a>
                               </li>
                               <li>
@@ -64,16 +64,6 @@
                                  <span class="text-inner">rating</span>
                                  </a>
                               </li>
-                              <li>
-                                 <a data-val="reviews_count">
-                                 <span class="text-inner">reviews</span>
-                                 </a>
-                              </li>
-                              <li>
-                                 <a data-val="online_status">
-                                 <span class="text-inner">seller online</span>
-                                 </a>
-                              </li>
                            </ul>
                         </div>
                      </div>
@@ -82,131 +72,86 @@
                   Sort offers by
                   </span>
                </div>
-               <ul class="js-offers-list">
+               <ul class="js-offers-list" id="users_offers_lists">
+                  {% for off in offers %}
                   <li>
-                     <a href="/the_progettista/design-pcb-with-gerber-files-and-bom" target="_blank" class="photos f-slider js-offer-photos-slider" data-anchor="62ff22041f8c9d000177ebb9">
+                     <a href="/gigs/{{off.buyer_username}}/{{off.gig_title}}" target="_blank" class="photos f-slider js-offer-photos-slider" data-anchor="62ff22041f8c9d000177ebb9">
                         <div class="slider-box">
                            <div class="slider-hider" style="transition-duration: 400ms;">
-                              <div class="slide"><img src="https://fiverr-res.cloudinary.com/images/t_offer_list,q_auto,f_auto/gigs/128638453/original/c1b9d98a61b563a8af865a2d8fb2cdabd71aa545/design-pcb-with-gerber-files-and-bom.png" class="gig-photo" alt=""></div>
+                              <div class="slide"><img src="{{off.gig_image}}" class="gig-photo" alt=""></div>
                            </div>
                         </div>
-                        <span class="rating-wrap">
-                        <span class="star-rating-s9 rate-10"></span>
-                        (62)
-                        </span>
                      </a>
                      <div class="details-wrap">
                         <div class="price">
-                           $5
+                           $ {{off.offer_price}}
                         </div>
                         <div class="seller cf">
-                           <span class="user-badge-round-tiny level_two_seller"></span>
+                           <span class="level_two_seller"></span>
                            <span class="user-pict-50">
-                           <span class="missing-image-user">t</span>
+                           <img class="missing-image-user" src="{{off.buyer_image}}"></img>
                            </span>
-                           <b><a href="/the_progettista" class="name js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Seller">the_progettista</a></b>
-                           <br><a href="/conversations/the_progettista?gig_request_id=62f7395fed8cc60012e1559e" class="contact js-seller-contact js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Contact"><i class="fa fa-envelope"></i>Contact me</a>
+                           <b><a href="/user/profile/{{off.buyer_username}}" class="name js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Seller">{{off.buyer_username}} ({{off.seller_level}}) |  <span class="star-rating-s9 rate-10" title="rating">({{off.seller_reviews}})</span> </a></b>
+                           <br><a href="/inbox/{{off.buyer_username}}/" class="contact js-seller-contact js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Contact"><i class="fa fa-envelope"></i>Contact me</a>
                         </div>
                         <div class="details">
-                           <h6><a href="/the_progettista/design-pcb-with-gerber-files-and-bom" class="js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Gig Name">do pcb designing with gerber bom and 3d model</a></h6>
+                           <h6><a href="/gigs/{{off.buyer_username}}/{{off.gig_title}}" class="js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Gig Name">{{off.gig_title}}</a></h6>
                            <p class="description js-offer-desc">
-                              <span class="short-desc js-short-desc">
-                              Hello,
-                              We are a team of state university engineers with more than five yrs of experience in the PCB designing and manufacturing field. we are able to...
-                              <a href="#" class="js-offer-see-more desc-see-more">See More</a>
-                              </span>
-                              <span class="long-desc js-long-desc">Hello,
-                              We are a team of state university engineers with more than five yrs of experience in the PCB designing and manufacturing field. we are able to do your job and would like to discuss more
-                              waiting for your reply!
-                              thank you and have a great day
-                              the_Progettista</span>
+                              <span class="long-desc js-long-desc">  {{off.offer_desc}}</span>
                            </p>
                            <ul>
-                              <li>
-                                 <i class="fa fa-clock-o"></i>4
-                                 days
-                                 Delivery
+                              <li><i class="fa fa-clock-o"></i>{{off.offer_time}} Days Delivery
                               </li>
                            </ul>
                         </div>
-                        <a href="#" class="link-blue link-remove js-remove-offer js-gtm-event-auto" data-offer-id="62ff22041f8c9d000177ebb9" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Remove offer">Remove Offer</a>
-                        <form method="post" action="/payments">
-                           <input name="payment_funnel_source" type="hidden" value="custom_package_from_buyer_request">
-                           <input name="package_type" type="hidden" value="custom_package">
-                           <input name="package_id" type="hidden" value="62ff22048b1db6001236063f">
-                           <input name="gig_id" type="hidden" value="128638453">
-                           <input type="hidden" name="authenticity_token" value="1667198110.nOVBJwYAFW0nyL6pFHI7GaTVpKIna2k9NRKSR+wg4oc=">
-                           <input type="submit" class="btn-standard btn-green-grad js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Order custom package offer" value="Order Now">
-                        </form>
+                        <a onclick="remove_request('{{off.offer_id}}');" class="link-blue link-remove js-remove-offer js-gtm-event-auto" >Remove Offer</a>
+                       
+                        <a class="btn-standard btn-green-grad js-gtm-event-auto" href="/payments/{{buyer_request.buyer_request_id}}/{{off.offer_id}}"> Order Now</a>
                      </div>
-                  </li>    
-                  <li>
-                     <a href="/the_progettista/design-pcb-with-gerber-files-and-bom" target="_blank" class="photos f-slider js-offer-photos-slider" data-anchor="62ff22041f8c9d000177ebb9">
-                        <div class="slider-box">
-                           <div class="slider-hider" style="transition-duration: 400ms;">
-                              <div class="slide"><img src="https://fiverr-res.cloudinary.com/images/t_offer_list,q_auto,f_auto/gigs/128638453/original/c1b9d98a61b563a8af865a2d8fb2cdabd71aa545/design-pcb-with-gerber-files-and-bom.png" class="gig-photo" alt=""></div>
-                           </div>
-                        </div>
-                        <span class="rating-wrap">
-                        <span class="star-rating-s9 rate-10"></span>
-                        (62)
-                        </span>
-                     </a>
-                     <div class="details-wrap">
-                        <div class="price">
-                           $5
-                        </div>
-                        <div class="seller cf">
-                           <span class="user-badge-round-tiny level_two_seller"></span>
-                           <span class="user-pict-50">
-                           <span class="missing-image-user">t</span>
-                           </span>
-                           <b><a href="/the_progettista" class="name js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Seller">the_progettista</a></b>
-                           <br><a href="/conversations/the_progettista?gig_request_id=62f7395fed8cc60012e1559e" class="contact js-seller-contact js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Contact"><i class="fa fa-envelope"></i>Contact me</a>
-                        </div>
-                        <div class="details">
-                           <h6><a href="/the_progettista/design-pcb-with-gerber-files-and-bom" class="js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Gig Name">do pcb designing with gerber bom and 3d model</a></h6>
-                           <p class="description js-offer-desc">
-                              <span class="short-desc js-short-desc">
-                              Hello,
-                              We are a team of state university engineers with more than five yrs of experience in the PCB designing and manufacturing field. we are able to...
-                              <a href="#" class="js-offer-see-more desc-see-more">See More</a>
-                              </span>
-                              <span class="long-desc js-long-desc">Hello,
-                              We are a team of state university engineers with more than five yrs of experience in the PCB designing and manufacturing field. we are able to do your job and would like to discuss more
-                              waiting for your reply!
-                              thank you and have a great day
-                              the_Progettista</span>
-                           </p>
-                           <ul>
-                              <li>
-                                 <i class="fa fa-clock-o"></i>4
-                                 days
-                                 Delivery
-                              </li>
-                           </ul>
-                        </div>
-                        <a href="#" class="link-blue link-remove js-remove-offer js-gtm-event-auto" data-offer-id="62ff22041f8c9d000177ebb9" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Remove offer">Remove Offer</a>
-                        <form method="post" action="/payments">
-                           <input name="payment_funnel_source" type="hidden" value="custom_package_from_buyer_request">
-                           <input name="package_type" type="hidden" value="custom_package">
-                           <input name="package_id" type="hidden" value="62ff22048b1db6001236063f">
-                           <input name="gig_id" type="hidden" value="128638453">
-                           <input type="hidden" name="authenticity_token" value="1667198110.nOVBJwYAFW0nyL6pFHI7GaTVpKIna2k9NRKSR+wg4oc=">
-                           <input type="submit" class="btn-standard btn-green-grad js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Order custom package offer" value="Order Now">
-                        </form>
-                     </div>
-                  </li>             
+                  </li> 
+                  {% endfor %}      
                </ul>
-               <section class="js-no-offers no-offers t-a-center m-t-50 cf hidden">
-                  <h3 class="alt">You have no relevant offers<br>at the moment.</h3>
-                  <p>Once you receive new offers,<br>we will let you know.</p>
-                  <a href="/categories/programming-tech/electronics-engineering" class="btn-standard btn-green-grad">Explore More Services</a>
-               </section>
             </article>
          </div>
       </section>
     </div>
  </div>
 {% include  'Dashboard/base_buyer.html' %}
+<script>
+   $(document).ready(function(){
+      $("#Order_values_lists li a").on('click', function(e) {
+         sorted_val = $(this).text().trim();
+         $.ajax({
+            type:"GET",
+            url: "/get_sorted_offers/",
+            data: {'sort_val': sorted_val,"buyer_id":'{{buyer_request.buyer_request_id}}'},
+            success: function(data)
+            {  
+               jsonObj = JSON.parse(data);
+               $("#order_val").text(sorted_val);
+               $("#users_offers_lists").empty();
+               $.each(jsonObj, function(i, v) {
+                  $("#users_offers_lists").append('<li> <a href="/gigs/'+ v.buyer_username+'/'+ v.gig_title+'" target="_blank" class="photos f-slider js-offer-photos-slider" data-anchor="62ff22041f8c9d000177ebb9"> <div class="slider-box"> <div class="slider-hider" style="transition-duration: 400ms;"> <div class="slide"><img src="'+ v.gig_image+'" class="gig-photo" alt=""></div> </div> </div> </a> <div class="details-wrap"> <div class="price"> $ '+ v.offer_price+' </div> <div class="seller cf"> <span class="level_two_seller"></span> <span class="user-pict-50"> <img class="missing-image-user" src="'+ v.buyer_image+' "></img> </span> <b><a href="/user/profile/'+ v.buyer_username+'" class="name js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Seller">'+ v.buyer_username +'('+v.seller_level+') | <span class="star-rating-s9 rate-10" title="rating">('+v.seller_reviews+')</span> </a></b> <br><a href="/inbox/'+v.buyer_username+'/" class="contact js-seller-contact js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Contact"><i class="fa fa-envelope"></i>Contact me</a> </div> <div class="details"> <h6><a href="/gigs/'+v.buyer_username+'/'+v.gig_title+'" class="js-gtm-event-auto" data-gtm-category="Request Offers" data-gtm-action="Click" data-gtm-label="Gig Name">'+v.gig_title+'</a></h6> <p class="description js-offer-desc"> <span class="long-desc js-long-desc"> '+v.offer_desc+'</span> </p> <ul> <li><i class="fa fa-clock-o"></i>'+v.offer_time+' Days Delivery </li> </ul> </div> <a onclick="remove_request('+v.offer_id+');" class="link-blue link-remove js-remove-offer js-gtm-event-auto" >Remove Offer</a> <a class="btn-standard btn-green-grad js-gtm-event-auto" href="/payments/{{buyer_request.buyer_request_id}}/'+v.offer_id+'"> Order Now</a> </div> </li> ');
+               });
+            }
+         });
+      });
+   });
+
+   function remove_request(ev)
+   {
+      $.ajax({
+         type:"GET",
+         url: "/post_remove_b_offer_req/",
+         data: {"offer_id":ev},
+         success: function(data)
+         {  
+            if(data == "sucess")
+            {
+               $("#Order_values_lists li:first a").trigger("click");
+            }
+         }
+      });
+   }
+</script>
 {% endblock %}

@@ -1011,6 +1011,7 @@ list-style: none;
    top: 13%;
    right: 5%;
    color: red;
+   display: none;
 }
 .pkg-revision-container
 {

@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+TIME_ZONE ="UTC"
+
 INSTALLED_APPS = [
     'jazzmin',
     'kworkapp',
@@ -49,12 +51,15 @@ INSTALLED_APPS = [
     'django_countries',
     'django.contrib.humanize',
     'django_apscheduler',
+    #'django_celery_beat',
 ]
+
+
 
 AUTH_USER_MODEL = 'kworkapp.User'
 
 
-APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
+# APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default
 
 SCHEDULER_DEFAULT = True
 
@@ -69,6 +74,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social_django.middleware.SocialAuthExceptionMiddleware', # <-- Here
 ]
+
+
+
+TIME_ZONE = 'UTC'
 
 ROOT_URLCONF = 'mainKwork.urls'
 
