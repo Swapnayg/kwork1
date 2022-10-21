@@ -34,6 +34,13 @@ six==1.16.0
 social-auth-app-django==5.0.0
 social-auth-core==4.3.0
 WhatIsMyIP==2022.7.10
-whitenoise==6.2.0
+Twisted==20.3.0
+txaio==20.4.1
+uvicorn==0.13.3
+uvloop==0.14.0
+watchgod==0.6
+websockets==8.1
+whitenoise==5.2.0
+zope.interface==5.2.0
 gunicorn
 django_crontab
