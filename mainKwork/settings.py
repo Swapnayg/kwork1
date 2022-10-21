@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zcjh89a_b@njx_3u5&z_xfp2@kf0^z5-)^56!kwfr6mfcn-pqn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.letworkbedone1.herokuapp.com','letworkbedone1.herokuapp.com']
+ALLOWED_HOSTS = ['www.kworkclone.herokuapp.com','kworkclone.herokuapp.com']
 
 TIME_ZONE ="UTC"
 
@@ -112,17 +112,17 @@ WSGI_APPLICATION = 'mainKwork.wsgi.application'
 DATABASES = {   
      "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'davgchcmt07otb', 
-        'USER': 'uiqkhxciirocnt', 
-        'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+        'NAME': 'd5d74m1d4o1c7b', 
+        'USER': 'nhqjfuleidgiof', 
+        'PASSWORD': '4f236a835955197986223617b4bbe49374b79210a2fb4538c877b368142d7d6b',
         'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
         'PORT': '5432',
     },
     'channels_postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'davgchcmt07otb', 
-        'USER': 'uiqkhxciirocnt', 
-        'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+        'NAME': 'd5d74m1d4o1c7b', 
+        'USER': 'nhqjfuleidgiof', 
+        'PASSWORD': '4f236a835955197986223617b4bbe49374b79210a2fb4538c877b368142d7d6b',
         'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
         'PORT': '5432',
 	}
@@ -172,9 +172,9 @@ CHANNEL_LAYERS = {
          'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
          'CONFIG': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'davgchcmt07otb', 
-            'USER': 'uiqkhxciirocnt', 
-            'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+            'NAME': 'd5d74m1d4o1c7b', 
+            'USER': 'nhqjfuleidgiof', 
+            'PASSWORD': '4f236a835955197986223617b4bbe49374b79210a2fb4538c877b368142d7d6b',
             'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
             'PORT': '5432',
          },
