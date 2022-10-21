@@ -32,7 +32,6 @@ django-apscheduler==0.6.2
 django-cleanup==6.0.0
 django-compat==1.0.15
 django-countries==7.3.2
-django-crontab==0.7.1
 django-import-export==2.9.0
 django-jazzmin==2.5.0
 django-model-utils==4.2.0
