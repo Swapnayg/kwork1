@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zcjh89a_b@njx_3u5&z_xfp2@kf0^z5-)^56!kwfr6mfcn-pqn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.kworkclone.herokuapp.com','kworkclone.herokuapp.com']
 
 TIME_ZONE ="UTC"
 
@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'django_countries',
     'django.contrib.humanize',
     'django_apscheduler',
-    #'django_celery_beat',
 ]
 
 
@@ -111,21 +110,21 @@ WSGI_APPLICATION = 'mainKwork.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {   
-    'default': {
+     "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kworkDB', 
-        'USER': 'postgres', 
-        'PASSWORD': 'swapna234',
-        'HOST': '127.0.0.1', 
+        'NAME': 'ddn4gqonn7cq98', 
+        'USER': 'dttmqqhdrdgrny', 
+        'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
+        'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
         'PORT': '5432',
     },
     'channels_postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'kworkDB',
-        'USER': 'postgres',
-        'PASSWORD': 'swapna234',
-	 	'HOST': '127.0.0.1',
-	 	'PORT': '5432',
+        'NAME': 'ddn4gqonn7cq98', 
+        'USER': 'dttmqqhdrdgrny', 
+        'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
+        'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
+        'PORT': '5432',
 	}
 }
 
@@ -172,12 +171,12 @@ CHANNEL_LAYERS = {
      'default': {
          'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
          'CONFIG': {
-             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-             'NAME': 'kworkDB',
-             'USER': 'postgres',
-             'PASSWORD': 'swapna234',
-             'HOST': '127.0.0.1',
-             'PORT': '5432',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'ddn4gqonn7cq98', 
+            'USER': 'dttmqqhdrdgrny', 
+            'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
+            'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
+            'PORT': '5432',
          },
      },
  }
