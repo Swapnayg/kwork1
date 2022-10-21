@@ -181,12 +181,15 @@ CHANNEL_LAYERS = {
      },
  }
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
+
+STATIC_ROOT = "static"
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = "media"
+
+MEDIA_URL = "/media/"
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 SUMMERNOTE_THEME = 'bs4'
