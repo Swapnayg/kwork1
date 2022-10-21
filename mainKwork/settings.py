@@ -32,7 +32,7 @@ TIME_ZONE ="UTC"
 
 INSTALLED_APPS = [
     'jazzmin',
-    'kworkapp',
+    "kworkapp.apps.kworkAppConfig",
     'django_summernote',
     'django_cleanup.apps.CleanupConfig',
     'social_django',
