@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-zcjh89a_b@njx_3u5&z_xfp2@kf0^z5-)^56!kwfr6mfcn-pqn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['www.kworkclone.herokuapp.com','kworkclone.herokuapp.com']
+ALLOWED_HOSTS = ['www.letworkbedone1.herokuapp.com','letworkbedone1.herokuapp.com']
 
 TIME_ZONE ="UTC"
 
@@ -112,18 +112,18 @@ WSGI_APPLICATION = 'mainKwork.wsgi.application'
 DATABASES = {   
      "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd3d10l35ij7ecm', 
-        'USER': 'tacuauskuotupq', 
-        'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
-        'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
+        'NAME': 'davgchcmt07otb', 
+        'USER': 'uiqkhxciirocnt', 
+        'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+        'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
         'PORT': '5432',
     },
     'channels_postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd3d10l35ij7ecm', 
-        'USER': 'tacuauskuotupq', 
-        'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
-        'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
+        'NAME': 'davgchcmt07otb', 
+        'USER': 'uiqkhxciirocnt', 
+        'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+        'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
         'PORT': '5432',
 	}
 }
@@ -172,10 +172,10 @@ CHANNEL_LAYERS = {
          'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
          'CONFIG': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'd3d10l35ij7ecm', 
-            'USER': 'tacuauskuotupq', 
-            'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
-            'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
+            'NAME': 'davgchcmt07otb', 
+            'USER': 'uiqkhxciirocnt', 
+            'PASSWORD': '88e0b2488323614e80ee82cf987f75b742ff45c8818885a3e741a3b5a155ba63',
+            'HOST': 'ec2-44-199-9-102.compute-1.amazonaws.com', 
             'PORT': '5432',
          },
      },
