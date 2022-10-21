@@ -36,3 +36,4 @@ social-auth-core==4.3.0
 WhatIsMyIP==2022.7.10
 whitenoise==6.2.0
 gunicorn
+django_crontab
