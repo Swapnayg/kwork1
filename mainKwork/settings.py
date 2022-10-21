@@ -112,18 +112,18 @@ WSGI_APPLICATION = 'mainKwork.wsgi.application'
 DATABASES = {   
      "default": {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddn4gqonn7cq98', 
-        'USER': 'dttmqqhdrdgrny', 
-        'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
-        'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
+        'NAME': 'd3d10l35ij7ecm', 
+        'USER': 'tacuauskuotupq', 
+        'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
+        'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
         'PORT': '5432',
     },
     'channels_postgres': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ddn4gqonn7cq98', 
-        'USER': 'dttmqqhdrdgrny', 
-        'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
-        'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
+        'NAME': 'd3d10l35ij7ecm', 
+        'USER': 'tacuauskuotupq', 
+        'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
+        'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
         'PORT': '5432',
 	}
 }
@@ -172,10 +172,10 @@ CHANNEL_LAYERS = {
          'BACKEND': 'channels_postgres.core.PostgresChannelLayer',
          'CONFIG': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'ddn4gqonn7cq98', 
-            'USER': 'dttmqqhdrdgrny', 
-            'PASSWORD': 'b0f8206a969bf05a465ab85188f0229d9e11682cf16e7331cf36e35ea8645c4d',
-            'HOST': 'ec2-44-197-128-108.compute-1.amazonaws.com', 
+            'NAME': 'd3d10l35ij7ecm', 
+            'USER': 'tacuauskuotupq', 
+            'PASSWORD': '2bf0368637e6fde5d9ac8a2d44307cc7876591a6a91668f78d66b41b82eb8429',
+            'HOST': 'ec2-54-147-36-107.compute-1.amazonaws.com', 
             'PORT': '5432',
          },
      },
