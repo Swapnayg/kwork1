@@ -255,13 +255,18 @@ border: none;
 .order-details-container .order-details-general .order-details-general-title {
 color: #62646a;
 }
+button:focus, button:hover
+{
+    outline: none;
+    border: none;
+}
 
 .order-details-container .order-details-general .quantity-price-container {
 display: -webkit-box;
 display: -ms-flexbox;
 display: flex;
 -ms-flex-preferred-size: 40%;
-flex-basis: 40%;
+flex-basis: 10%;
 -webkit-box-pack: justify;
 -ms-flex-pack: justify;
 justify-content: space-between;

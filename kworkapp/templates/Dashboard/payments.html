@@ -3,6 +3,7 @@
 {% block contentarea%}
 <title>Letworkbedone - Secure Checkout</title>
 <link rel="stylesheet" href="{% static 'assets/css/frontend/payments.css' %}" type="text/css" />
+<script src="https://www.paypal.com/sdk/js?client-id=AW-FHqM7mF3sp-BfzARq-tPwp4k7uQV0kLtobOD5DuKvjaAf_g2K4Nw3ZINXxAasjmj88LnUWo2quBRN&currency=USD&disable-funding=credit,card"></script>
 <div class="all_page page-flex__content pt0 m0">
     <div id="event_list" class="event-list js-event-list"></div>
     <div id="fox_notification_block"></div>
@@ -21,7 +22,7 @@
                                  <rect y="8" width="23" height="3" rx="1.5" fill="#555"></rect>
                               </svg>
                            </button>
-                           <a href="/?source=top_nav" class="site-logo">
+                           <a href="{% url 'index' %}" class="site-logo">
                               <svg width="89" height="27" viewBox="0 0 89 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                                  <g fill="#404145">
                                     <path d="m81.6 13.1h-3.1c-2 0-3.1 1.5-3.1 4.1v9.3h-6v-13.4h-2.5c-2 0-3.1 1.5-3.1 4.1v9.3h-6v-18.4h6v2.8c1-2.2 2.3-2.8 4.3-2.8h7.3v2.8c1-2.2 2.3-2.8 4.3-2.8h2zm-25.2 5.6h-12.4c.3 2.1 1.6 3.2 3.7 3.2 1.6 0 2.7-.7 3.1-1.8l5.3 1.5c-1.3 3.2-4.5 5.1-8.4 5.1-6.5 0-9.5-5.1-9.5-9.5 0-4.3 2.6-9.4 9.1-9.4 6.9 0 9.2 5.2 9.2 9.1 0 .9 0 1.4-.1 1.8zm-5.7-3.5c-.1-1.6-1.3-3-3.3-3-1.9 0-3 .8-3.4 3zm-22.9 11.3h5.2l6.6-18.3h-6l-3.2 10.7-3.2-10.8h-6zm-24.4 0h5.9v-13.4h5.7v13.4h5.9v-18.4h-11.6v-1.1c0-1.2.9-2 2.2-2h3.5v-5h-4.4c-4.3 0-7.2 2.7-7.2 6.6v1.5h-3.4v5h3.4z"></path>
@@ -41,7 +42,7 @@
                                           </svg>
                                        </span>
                                     </span>
-                                    <span class="ag0oM9T TDl8u25 crumb-previous"><a>Order Details</a></span>
+                                    <span class="ag0oM9T TDl8u25 crumb-previous"><a href="/users/{{request.user.username}}/manage_requests/{{buyer_req_id}}">Order Details</a></span>
                                     <span class="Rda4W3h _9XGji4L ClMYTrX" style="width:12px;height:12px" aria-hidden="true">
                                        <svg width="8" height="16" viewBox="0 0 8 16" xmlns="http://www.w3.org/2000/svg">
                                           <path d="M0.772126 1.19065L0.153407 1.80934C0.00696973 1.95578 0.00696973 2.19322 0.153407 2.33969L5.80025 8L0.153407 13.6603C0.00696973 13.8067 0.00696973 14.0442 0.153407 14.1907L0.772126 14.8094C0.918563 14.9558 1.156 14.9558 1.30247 14.8094L7.84666 8.26519C7.99309 8.11875 7.99309 7.88131 7.84666 7.73484L1.30247 1.19065C1.156 1.04419 0.918563 1.04419 0.772126 1.19065Z"></path>
@@ -75,7 +76,7 @@
                                        <div class="payment-method-radio" id="fiverrpay">
                                           <div class="payment-method-radio-header">
                                              <label class="fit-radio">
-                                                <input type="radio" name="paymentMethods" value="634d26fafe5d290022998e2f" checked=""><span class="fit-radio-circle"></span>
+                                                <input type="radio" name="paymentMethods" value="634d26fafe5d290022998e2f"  id="flutter_wave" onchange="paymentmode_click(this);"><span class="fit-radio-circle"></span>
                                                 <div class="payment-method-header text-body-7">
                                                    <div class="fiverrpay-header">
                                                       <span class="cc-title">Credit &amp; Debit Cards</span>
@@ -193,7 +194,7 @@
                                        <div class="payment-method-radio" id="paypal_express_payment_ecbt">
                                           <div class="payment-method-radio-header">
                                              <label class="fit-radio">
-                                                <input type="radio" name="paymentMethods" value="634d26fbfe5d290022998eb1"><span class="fit-radio-circle"></span>
+                                                <input type="radio" name="paymentMethods" value="634d26fbfe5d290022998eb1"  id="paypal_mode" onchange="paymentmode_click(this);"><span class="fit-radio-circle"></span>
                                                 <div class="payment-method-header text-body-7">
                                                    <svg width="73" height="20" viewBox="0 0 73 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                       <path fill-rule="evenodd" clip-rule="evenodd" d="M8.70598 0H3.06309C2.67689 0 2.34848 0.282581 2.28816 0.666648L0.00590303 15.2398C-0.0393954 15.5275 0.181781 15.7866 0.471368 15.7866H3.16524C3.55143 15.7866 3.87984 15.5042 3.94016 15.1195L4.55562 11.1887C4.61502 10.8039 4.94413 10.5214 5.32962 10.5214H7.11591C10.8329 10.5214 12.9781 8.70972 13.5386 5.11997C13.791 3.54925 13.5492 2.31535 12.8189 1.45108C12.0169 0.502081 10.5944 0 8.70598 0ZM9.35539 5.32323C9.04685 7.36251 7.49977 7.36251 6.004 7.36251H5.15234L5.74977 3.55396C5.78537 3.32375 5.9832 3.1543 6.21431 3.1543H6.60467C7.62365 3.1543 8.58486 3.1543 9.08152 3.73924C9.37781 4.08816 9.46841 4.60677 9.35539 5.32323Z" fill="#28356A"></path>
@@ -217,14 +218,14 @@
                                 <section class="order-details-container gig">
                                    <span class="gig">
                                       <header class="order-details-header">
-                                         <span class="image-container"><img class="order-image" src="https://fiverr-res.cloudinary.com/images/t_medium5,q_auto,f_auto/gigs/128638453/original/c1b9d98a61b563a8af865a2d8fb2cdabd71aa545/design-pcb-with-gerber-files-and-bom.png" alt="do pcb designing with gerber bom and 3d model"></span>
+                                         <span class="image-container"><img class="order-image" src="{{gig_details.0.gig_image}}" alt="{{gig_details.0.gig_title}}"></span>
                                          <div>
-                                            <h3 class="order-title text-display-7">I will do pcb designing with gerber bom and 3d model</h3>
+                                            <h3 class="order-title text-display-7">I will do {{gig_details.0.gig_title}}</h3>
                                          </div>
                                       </header>
                                       <article class="order-details-general">
-                                         <span class="order-details-general-title text-display-7">do pcb designing with gerber bom and 3d model</span>
-                                         <div class="quantity-price-container "><span class="order-details-general-quantity hide">1</span><span class="price order-details-general-price">₹432.40</span></div>
+                                         <span class="order-details-general-title text-display-7">{{gig_details.0.gig_title}}</span>
+                                         <div class="quantity-price-container "><span class="order-details-general-quantity hide">1</span><span class="price order-details-general-price">$ {{gig_details.0.offer_price}}</span></div>
                                       </article>
                                       <ul class="order-details-items-container">
                                          <li class="order-details-item">
@@ -234,7 +235,7 @@
                                                      <path d="M13.6202 2.6083L5.4001 10.8284L2.37973 7.80805C2.23329 7.66161 1.99585 7.66161 1.84939 7.80805L0.96551 8.69193C0.819073 8.83836 0.819073 9.0758 0.96551 9.22227L5.13492 13.3917C5.28135 13.5381 5.51879 13.5381 5.66526 13.3917L15.0344 4.02252C15.1809 3.87608 15.1809 3.63865 15.0344 3.49218L14.1505 2.6083C14.0041 2.46186 13.7667 2.46186 13.6202 2.6083Z"></path>
                                                   </svg>
                                                </span>
-                                               <span class="order-details-item-title">0 revisions</span>
+                                               <span class="order-details-item-title">{{gig_details.0.offer_revisions}} revisions</span>
                                             </span>
                                             <span class="item-details"></span>
                                          </li>
@@ -249,12 +250,12 @@
                                             Service fee
                                             <div class="fit-popover fit-popover-top fit-tooltip tooltip" data-position="top"><span class="fit-popover-content"><i class="fa fa-question-circle" content="[object Object]" position="top"></i></span></div>
                                          </span>
-                                         <span class="price">₹197.17</span>
+                                         <span class="price">$ {{gig_details.0.service_fees}}</span>
                                       </div>
                                    </div>
                                    <div class="summary-footer">
-                                      <div class="table-row total-price"><span class="row-title">Total</span><span class="price">₹629.57</span></div>
-                                      <div class="table-row delivery-date"><span class="row-title">Total Delivery Time</span><span class="date">4 days</span></div>
+                                      <div class="table-row total-price"><span class="row-title">Total</span><span class="price">$ {{gig_details.0.total_amount}}</span></div>
+                                      <div class="table-row delivery-date"><span class="row-title">Total Delivery Time</span><span class="date">{{gig_details.0.offer_revisions}} days</span></div>
                                    </div>
                                    <div class="pay-button-component">
                                       <div class="pay-button-component">
@@ -268,12 +269,27 @@
                                                </div>
                                             </div>
                                          </div>
-                                         <div class="pay-button-container"><button class="agqrXOY BvNepr1 r+NFCla co-white pay-button bg-co-green-700"><span class="button-message">Confirm &amp; Pay</span></button></div>
+                                         <div class="pay-button-container" id="paypal_button">
+                                          <div id="paypal-button-container"></div>
+                                          </div>
+                                          <div class="pay-button-container" id="flutter_button">
+                                             <form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+                                                <input type="hidden" name="public_key" value="FLWPUBK_TEST-33cfa089f0f447d4c9214981ed9396a5-X" />
+                                                <input type="hidden" name="customer[email]" value="{{gig_details.0.pay_to_user_email}}" />
+                                                <input type="hidden" name="customer[name]" value="{{gig_details.0.pay_to_user}}" />
+                                                <input type="hidden" name="tx_ref" value="{{gig_details.0.tax_ref_name}}" />
+                                                <input type="hidden" name="amount" value="{{gig_details.0.total_amount}}" />
+                                                <input type="hidden" name="currency" value="USD" />
+                                                <input type="hidden" name="meta[token]" value="{{gig_details.0.offer_id}}" />
+                                                <input type="hidden" name="redirect_url" value="{{base_url}}requirements/flutter/{{gig_details.0.offer_id}}/{{gig_details.0.offer_price}}/{{gig_details.0.total_amount}}/{{gig_details.0.service_fees}}" />
+                                                <button type="submit" id="start-payment-button" class="agqrXOY BvNepr1 r+NFCla co-white pay-button bg-co-green-700"><span class="button-message">Confirm &amp; Pay</span></button>
+                                              </form>
+                                          </div>
                                       </div>
                                       <div class="secure-payment"><i class="fa fa-lock"></i><span>SSL Secure Payment</span></div>
                                    </div>
                                    <section class="currency-section">
-                                      <div class="currency-message tbody-6">You will be charged<span class="price">₹629.57</span>. Total amount includes currency conversion fees.</div>
+                                      <div class="currency-message tbody-6">You will be charged<span class="price">$ {{gig_details.0.total_amount}} </span>. Total amount includes currency conversion fees.</div>
                                    </section>
                                 </section>
                              </aside>
@@ -294,6 +310,51 @@
 <script>
     $(document).ready(function(){
         $(".header_top").hide();
+        $("#paypal_button").hide();
+        $("#flutter_button").hide();
+        $("#flutter_wave").prop("checked", true);
+        $("#flutter_wave").trigger("change");
+        paypal.Buttons({
+         createOrder: function(data, actions) {
+             return actions.order.create({
+                 purchase_units: [{
+                     amount: {
+                         value: '{{gig_details.0.total_amount}}'
+                     }
+                 }]
+             });
+         },
+         onApprove: function(data, actions) {
+             return actions.order.capture().then(function(orderData) {
+                 var transaction = orderData.purchase_units[0].payments.captures[0];
+                 var payer_email = orderData.payer['email_address'];
+					  var payer_id = orderData.payer['payer_id'];
+                 var transaction_id =transaction.id;
+                 var transaction_status =transaction.status;
+                 base_price = '{{gig_details.0.offer_price}}'
+                 total_price = '{{gig_details.0.total_amount}}'
+                 fees = '{{gig_details.0.service_fees}}'
+                 location_href =  $(location).attr('href').split("/");
+                 window.location.href = location_href[0]+"//"+location_href[2] +"/requirements/paypal/{{gig_details.0.offer_id}}/"+payer_id+"/"+payer_email+"/"+transaction_id+"/"+transaction_status+"/"+base_price+"/"+ total_price +"/" + fees;
+             });
+         }
+     }).render('#paypal-button-container');
     });
+    function paymentmode_click(ev)
+    {
+      $(".fit-radio").parent().removeClass("selected");
+      $(ev).parent().addClass("selected");
+      event_id = $(ev).attr("id");
+      if(event_id == "flutter_wave")
+      {
+         $("#paypal_button").hide();
+         $("#flutter_button").show();
+      }
+      else if(event_id == "paypal_mode")
+      {
+         $("#paypal_button").show();
+         $("#flutter_button").hide();
+      }
+    }
 </script>
 {% endblock %}

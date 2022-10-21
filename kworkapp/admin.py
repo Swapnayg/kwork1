@@ -8,7 +8,7 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save,pre_save
 from django_summernote.admin import SummernoteModelAdmin
 from django.shortcuts import render
-from kworkapp.models import Categories,UserGigPackages,Gig_favourites,Request_Offers,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,Gig_favourites,User_Transactions,Payment_Parameters,Request_Offers,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages,Withdrawal_Parameters,Buyer_Requirements, UserProfileDetails, supportMapping, supportTopic
 from mainKwork import settings
 from django.core.files.base import ContentFile
 from .forms import UserChangeForm, UserCreationForm
@@ -120,7 +120,7 @@ admin.site.register(Parameter, AdminParameter)
 
 
 class AdminUser_orders(admin.ModelAdmin):
-    list_display = ['order_no','order_status','package_gig_name','user_id','order_date']
+    list_display = ['order_no','order_status','package_gig_name','order_date']
 
 admin.site.register(User_orders, AdminUser_orders)
 
@@ -247,6 +247,11 @@ class AdminUserGigPackage_Extra(admin.ModelAdmin):
 
 admin.site.register(UserGigPackage_Extra, AdminUserGigPackage_Extra)
 
+class AdminBuyer_Requirements(admin.ModelAdmin):
+    list_display = ['gig_name','requirement_ques','user_id','default_req','requirement_ans','req_documents']
+
+admin.site.register(Buyer_Requirements, AdminBuyer_Requirements)
+
 
 class AdminRequest_Offers(admin.ModelAdmin):
     list_display = ['gig_name','buyer_request','user_id','offer_desc','offer_budget','offer_time','no_revisions','ask_requirements','extra_parameters','offer_type','offer_date','offer_status_by_buyer']
@@ -295,6 +300,24 @@ class AdminReferral_Users(admin.ModelAdmin):
     list_display = ['affiliate_code','ip_address','user_id','refferal_user']
 
 admin.site.register(Referral_Users, AdminReferral_Users)
+
+
+class AdminWithdrawal_Parameters(admin.ModelAdmin):
+    list_display = ['parameter_name','no_of_days']
+
+admin.site.register(Withdrawal_Parameters, AdminWithdrawal_Parameters)
+
+
+class AdminUser_Transactions(admin.ModelAdmin):
+    list_display = ['gig_name','offer_id','payment_type','transaction_id','payment_status','paypal_id','paypal_email','flutter_account_id']
+
+admin.site.register(User_Transactions, AdminUser_Transactions)
+
+
+class AdminPayment_Parameters(admin.ModelAdmin):
+    list_display = ['parameter_name','service_amount','service_fees','fees_type']
+
+admin.site.register(Payment_Parameters, AdminPayment_Parameters)
 
 def get_admin_urls(urls):
     def get_urls():

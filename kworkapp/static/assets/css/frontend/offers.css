@@ -436,6 +436,7 @@ z-index: 1;
 bottom: 27px;
 right: 125px;
 font-size:15px;
+text-decoration: none;
 }
 .db-offers .offers-sort {
 font-size: 16px;
@@ -460,4 +461,5 @@ position: absolute;
 z-index: 1;
 bottom: 20px;
 right: 20px;
+text-decoration: none;
 }

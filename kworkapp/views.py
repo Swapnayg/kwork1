@@ -3,6 +3,7 @@ from email.mime.text import MIMEText
 from re import sub
 import smtplib
 from operator import itemgetter
+from python_flutterwave import payment
 from datetime import datetime, timedelta
 from dateutil import relativedelta
 from tabnanny import verbose
@@ -22,7 +23,7 @@ from bs4 import BeautifulSoup
 from html.parser import HTMLParser
 from django.core import serializers
 import json
-from kworkapp.models import Categories,UserGigPackages,Request_Offers,Referral_Users,Gig_favourites,Buyer_Post_Request,UserGigPackage_Extra,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
+from kworkapp.models import Categories,UserGigPackages,User_orders,Gig_favourites,Withdrawal_Parameters,Buyer_Requirements,User_Transactions,Payment_Parameters,Request_Offers,Referral_Users,UserGigPackage_Extra,Buyer_Post_Request,Seller_Reviews,Buyer_Reviews,UserGigsImpressions,User_orders,UserSearchTerms,UserGig_Extra_Delivery,UserExtra_gigs,Usergig_faq,Usergig_image,Usergig_requirement,Parameter,Category_package_Extra_Service,Category_package_Details, CharacterLimit,UserAvailable,UserGigs,UserGigsTags, SellerLevels,Contactus, Languages, LearnTopics, LearningTopicCounts, LearningTopicDetails, SubCategories, SubSubCategories, TopicDetails, User,PageEditor, UserLanguages, UserProfileDetails, supportMapping, supportTopic
 import operator
 
 
@@ -609,11 +610,87 @@ class payments_view(View):
     def get(self , request,req_id='',offer_id=''):
         if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
             try:
-                return render(request , 'Dashboard/payments.html')
+                gigdetails_list = []
+                buyer_req_details = Buyer_Post_Request.objects.get(buyer_request_id= req_id)
+                offer_details = Request_Offers.objects.get(pk= offer_id)
+                service_fees = 0
+                gig_details = UserGigs.objects.get(gig_title= offer_details.gig_name.gig_title)
+                imp_gig_image_url = ''
+                imp_gig_image = Usergig_image.objects.filter(package_gig_name=gig_details).first() 
+                if(imp_gig_image != None):
+                    imp_gig_image_url = imp_gig_image.gig_image 
+                service_fees_price = 0
+                if(int(offer_details.offer_budget) <=40):
+                    payment_parameters = Payment_Parameters.objects.filter(Q(parameter_name="Buyer service Fees", service_amount="40"))
+                    for p in payment_parameters:
+                        serv_fees_val = p.service_fees
+                        serv_fees_type = p.fees_type
+                        if(serv_fees_type == "flat"):
+                            service_fees_price =  int(serv_fees_val)
+                        else:
+                            perceof_budg = float((int(offer_details.offer_budget)* int(serv_fees_val))/100)
+                            service_fees_price = round(perceof_budg,2)
+                else:
+                    payment_parameters = Payment_Parameters.objects.filter(Q(parameter_name="Buyer service Fees", service_amount="41"))
+                    for p in payment_parameters:
+                        serv_fees_val = p.service_fees
+                        serv_fees_type = p.fees_type
+                        if(serv_fees_type == "flat"):
+                            service_fees_price =  int(serv_fees_val)
+                        else:
+                            perceof_budg = float((int(offer_details.offer_budget)* int(serv_fees_val))/100)
+                            service_fees_price = round(perceof_budg,2)
+                gigdetails_list.append({"gig_title":gig_details.gig_title,"gig_image":imp_gig_image_url,"offer_price": round(float(offer_details.offer_budget),2),"offer_revisions":offer_details.no_revisions,"service_fees":service_fees_price,"total_amount":round(float((int(offer_details.offer_budget)+ int(service_fees_price))),2),"tax_ref_name":gig_details.user_id.username + "_ref_user","pay_to_user":gig_details.user_id.username,"pay_to_user_email":gig_details.user_id.email,"offer_id":offer_details.id})
+                base_url = request.build_absolute_uri("/")
+                return render(request , 'Dashboard/payments.html',{"buyer_req_id":req_id,"gig_details":gigdetails_list,"base_url":base_url})
             except:
                 return render(request , 'register.html')
         else:
             return render(request , 'register.html')
+        
+    
+class requirements_p_view(View):
+    return_url = None
+    def get(self , request,offer_id="",pay_id="",pay_email="",trans_id="",pay_status="",base_price=0,total_price=0,service_fee=0):
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                offer_details = Request_Offers.objects.get(id= offer_id)
+                gig_details = UserGigs.objects.get(gig_title= offer_details.gig_name.gig_title)
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                gig_requirements = Usergig_requirement.objects.filter(package_gig_name=gig_details)
+                charcterlimits = CharacterLimit.objects.filter(Q(Char_category_Name= "gig_requirements_ans"))
+                gig_req_ans_char = 0
+                for c in charcterlimits:
+                    if(c.Char_category_Name == "gig_requirements_ans"):
+                        gig_req_ans_char = c.Max_No_of_char_allowed
+                already_submitted = Buyer_Requirements.objects.filter(user_id= userDetails,gig_name=gig_details).count()
+                return render(request , 'Dashboard/get_requirements_paypal.html',{"offer_id":offer_id,"gig_requirements":gig_requirements,"req_ans_char":gig_req_ans_char,"gig_id":gig_details.id,"submitted":already_submitted})
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
+
+class requirements_f_view(View):
+    return_url = None
+    def get(self , request,offer_id="",base_price=0,total_price=0,service_fee=0):
+        if((request.session.get('userEmail'))!=None or ((request.user!=None) and (len(str(request.user.username).strip())) != 0)):
+            try:
+                offer_details = Request_Offers.objects.get(id= offer_id)
+                gig_details = UserGigs.objects.get(gig_title= offer_details.gig_name.gig_title)
+                userDetails = User.objects.get(pk=request.session.get('userId')  if request.session.get('userId') !=None else request.user.id)
+                gig_requirements = Usergig_requirement.objects.filter(package_gig_name=gig_details)
+                charcterlimits = CharacterLimit.objects.filter(Q(Char_category_Name= "gig_requirements_ans"))
+                gig_req_ans_char = 0
+                for c in charcterlimits:
+                    if(c.Char_category_Name == "gig_requirements_ans"):
+                        gig_req_ans_char = c.Max_No_of_char_allowed
+                already_submitted = Buyer_Requirements.objects.filter(user_id= userDetails,gig_name=gig_details).count()
+                return render(request , 'Dashboard/get_requirements_flutter.html',{"offer_id":offer_id,"base_price":base_price,"total_price":total_price,"service_fee":service_fee,"gig_requirements":gig_requirements,"req_ans_char":gig_req_ans_char,"gig_id":gig_details.id,"submitted":already_submitted})
+            except:
+                return render(request , 'register.html')
+        else:
+            return render(request , 'register.html')
+
 
 
 class Manage_request_view(View):
@@ -708,11 +785,6 @@ class billing_view(View):
     return_url = None
     def get(self , request,username=''):
         return render(request , 'Dashboard/billing.html')
-
-class refer_program_view(View):
-    return_url = None
-    def get(self , request,username=''):
-        return render(request , 'refer_earn.html')
 
 class inbox_view(View):
     return_url = None
@@ -2190,3 +2262,105 @@ def get_sent_offers_view(request):
                 service_time_str = "Other"
             offers_sent_list.append({"gig_title":off.gig_name.gig_title,"offer_desc":off.offer_desc,"duration":off.offer_time,"price":off.offer_budget,"buyer_img":off.buyer_request.user_id.avatar,"buyer_name":off.buyer_request.user_id.username,"buyer_req_desc":off.buyer_request.service_desc,"buyer_delivery_time":service_time_str, "buyer_price":off.buyer_request.service_budget})
         return JsonResponse(json.dumps(offers_sent_list),safe=False)
+
+
+def post_flutterwave_transaction_view(request):
+    if request.method == 'GET':
+        u_offer_id = request.GET['u_offer_id']
+        u_user_id = request.GET['u_user_id']
+        u_status = request.GET['u_status']
+        u_trans_ref = request.GET['u_trans_ref']
+        u_trans_id = request.GET['u_trans_id']
+        pay_by_user = User.objects.get(pk = u_user_id)
+        offers_sent = Request_Offers.objects.get(pk= u_offer_id)
+        pay_to_user = User.objects.get(pk = offers_sent.user_id.id)
+        gig_details = UserGigs.objects.get(gig_title = offers_sent.gig_name.gig_title)
+        payment.token = 'FLWSECK_TEST-027992a01e7b87b0522d8b2141395a30-X'
+        details = payment.get_payment_details(u_trans_id)
+        flu_amout = details['data']['amount']
+        flu_app_fee = details['data']['app_fee']
+        flu_pay_type = details['data']['payment_type']
+        flu_accnt_id = details['data']['account_id']
+        u_base_price = request.GET['u_base_price']
+        u_total_price = request.GET['u_total_price']
+        u_service_fees = request.GET['u_service_fees']
+        data = []
+        if(User_Transactions.objects.filter(gig_name= gig_details,offer_id=offers_sent,paid_by=pay_by_user,paid_to=pay_to_user).exists() == False):
+            user_trans = User_Transactions(gig_name= gig_details,offer_id=offers_sent,payment_type='flutterwave',transaction_id=u_trans_id,payment_status=u_status,transaction_ref= u_trans_ref,payment_currency="USD",offer_amount=u_base_price,total_amount=u_total_price,processing_fees= u_service_fees,flutter_account_id=flu_accnt_id,flutter_app_fee=flu_app_fee,flutter_pay_type=flu_pay_type,paid_by=pay_by_user,paid_to=pay_to_user)
+            user_trans.save()
+            order_details = User_orders(order_status="active",package_gig_name=gig_details,offer_id=offers_sent,order_by=pay_by_user,order_to=pay_to_user)
+            order_details.save()
+            data.append({"order_no":str(order_details.order_no),"ordered_by":pay_by_user.username,"ordered_to":pay_to_user.username})
+        else:
+            order_details = User_orders.objects.get(package_gig_name= gig_details,offer_id=offers_sent,order_by=pay_by_user,order_to=pay_to_user)
+            data.append({"order_no":str(order_details.order_no),"ordered_by":pay_by_user.username,"ordered_to":pay_to_user.username})
+        return JsonResponse(json.dumps(data),safe=False)
+
+def post_paypal_transaction_view(request):
+    if request.method == 'GET':
+        u_offer_id = request.GET['u_offer_id']
+        u_user_id = request.GET['u_user_id']
+        u_paypal_id = request.GET['u_paypal_id']
+        u_paypal_email = request.GET['u_paypal_email']
+        u_trans_id = request.GET['u_trans_id']
+        u_trans_status = request.GET['u_trans_status']
+        u_base_price = request.GET['u_base_price']
+        u_total_price = request.GET['u_total_price']
+        u_service_fees = request.GET['u_service_fees']
+        pay_by_user = User.objects.get(pk = u_user_id)
+        offers_sent = Request_Offers.objects.get(pk= u_offer_id)
+        pay_to_user = User.objects.get(pk = offers_sent.user_id.id)
+        gig_details = UserGigs.objects.get(gig_title = offers_sent.gig_name.gig_title)
+        data = []
+        if(User_Transactions.objects.filter(gig_name= gig_details,offer_id=offers_sent,paid_by=pay_by_user,paid_to=pay_to_user).exists() == False):
+            user_trans = User_Transactions(gig_name= gig_details,offer_id=offers_sent,payment_type='paypal',transaction_id=u_trans_id,payment_status=u_trans_status,payment_currency="USD",offer_amount=u_base_price,total_amount=u_total_price,processing_fees= u_service_fees,paypal_id=u_paypal_id,paypal_email=u_paypal_email,paid_by=pay_by_user,paid_to=pay_to_user)
+            user_trans.save()
+            order_details = User_orders(order_status="active",package_gig_name=gig_details,offer_id=offers_sent,order_by=pay_by_user,order_to=pay_to_user)
+            order_details.save()
+            data.append({"order_no":str(order_details.order_no),"ordered_by":pay_by_user.username,"ordered_to":pay_to_user.username})
+        else:
+            order_details = User_orders.objects.get(package_gig_name= gig_details,offer_id=offers_sent,order_by=pay_by_user,order_to=pay_to_user)
+            data.append({"order_no":str(order_details.order_no),"ordered_by":pay_by_user.username,"ordered_to":pay_to_user.username})
+        return JsonResponse(json.dumps(data),safe=False)
+
+
+def post_mark_as_read_view(request):
+    if request.method == 'GET':
+        gig_id = request.GET['gig_id']
+        user_id = request.GET['user_id']
+        req_ques = request.GET['req_ques']
+        order_by_user = User.objects.get(username = user_id)
+        gig_details = UserGigs.objects.get(pk = gig_id)
+        b_reqs = Buyer_Requirements(gig_name=gig_details,requirement_ques=req_ques,user_id=order_by_user,default_req=True)
+        b_reqs.save()
+        return HttpResponse("sucess")
+    
+def post_buyer_requ_save_view(request):
+    if request.method == 'GET':
+        gig_id = request.GET['gig_id']
+        user_id = request.GET['user_id']
+        req_ques = request.GET['req_ques']
+        req_ans = request.GET['req_ans']
+        req_imgs = request.GET['req_imgs']
+        order_by_user = User.objects.get(username = user_id)
+        gig_details = UserGigs.objects.get(pk = gig_id)
+        b_reqs = Buyer_Requirements(gig_name=gig_details,requirement_ques=req_ques,user_id=order_by_user,default_req=False,requirement_ans=req_ans,req_documents=req_imgs)
+        b_reqs.save()
+        return HttpResponse("sucess")
+    
+@csrf_exempt
+def post_req_image_upload_view(request):
+    if request.method == 'POST':
+        files = request.FILES.getlist("files") 
+        urls = []
+        if len(files) != 0:
+            for file in files:
+                fs= FileSystemStorage(location= settings.MEDIA_ROOT +'/buyer_requirements/')
+                file_path=fs.save(file.name.replace(' ','_'),file) 
+                url = '/media/buyer_requirements/'+file_path
+                urls.append(url)
+        else:
+            print('No File') 
+        responseData = {'data':urls}
+        return JsonResponse(responseData,safe=False)
+    

@@ -608,62 +608,8 @@ class Usergig_requirement(models.Model):
         return str(self.gig_req_question)
     
     
-class User_orders(models.Model):
-    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
-    order_no =  ShortUUIDField(length=6,max_length=6,alphabet="123456",primary_key=True,)
-    order_status =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
-    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
-    order_date = models.DateTimeField(default=timezone.now, blank=True)
-    class Meta:
-        verbose_name = _("Order")
-        verbose_name_plural = _("Orders")
-
-    def __str__(self):
-        return str(self.order_no)
 
 
-class Seller_Reviews(models.Model):
-    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
-    communication = models.CharField(max_length=200,blank=True,default="",null=True)
-    recommendation = models.CharField(max_length=200,blank=True,default="",null=True)
-    service = models.CharField(max_length=200,blank=True,default="",null=True)
-    average_val = models.CharField(max_length=200,blank=True,default="",null=True)
-    buyer_response = models.TextField(blank=True,default="",null=True)
-    review_message = models.TextField()
-    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
-    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
-    s_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="s_review_from")
-    s_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False, related_name="s_review_to")
-    review_date = models.DateTimeField(default=timezone.now, blank=True)
-    buyer_resp_date = models.DateTimeField(default=timezone.now, blank=True)
-    
-    class Meta:
-        verbose_name = _("Seller Review")
-        verbose_name_plural = _("Seller Reviews")
-
-    def __str__(self):
-        return str(self.recommendation)
-
-class Buyer_Reviews(models.Model):
-    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
-    review_message = models.TextField()
-    seller_response = models.TextField(blank=True,default="",null=True)
-    rating_val = models.CharField(max_length=200,blank=True,default="",null=True)
-    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
-    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
-    b_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_from")
-    b_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_to")
-    review_date = models.DateTimeField(default=timezone.now, blank=True)
-    seller_resp_date = models.DateTimeField(default=timezone.now, blank=True)
-    
-    class Meta:
-        verbose_name = _("Buyer Review")
-        verbose_name_plural = _("Buyer Reviews")
-
-    def __str__(self):
-        return str(self.review_message)
-    
     
 class Buyer_Post_Request(models.Model):
     BOOL_CHOICES =[('24hours', '24 Hours'),('3days', '3 Days'),('7days', '7 Days'),('other', 'Others')]
@@ -736,5 +682,131 @@ class Request_Offers(models.Model):
         return str(self.gig_name)
 
 
+class User_Transactions(models.Model):
+    BOOL_CHOICES_TYPES = [('paypal', 'Paypal'),('flutterwave', 'Flutterwave')]
+    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    offer_id = models.ForeignKey(Request_Offers, on_delete=models.CASCADE,null=False,blank=False)
+    payment_type = models.CharField(max_length=300,choices=BOOL_CHOICES_TYPES,blank=True,default="",null=True)
+    transaction_id = models.CharField(max_length=300,blank=True,default="",null=True)
+    transaction_ref =models.CharField(max_length=300,blank=True,default="",null=True)
+    payment_status = models.CharField(max_length=300,blank=True,default="",null=True)
+    payment_currency = models.CharField(max_length=300,blank=True,default="",null=True)
+    offer_amount = models.CharField(max_length=300,blank=True,default="",null=True)
+    processing_fees = models.CharField(max_length=300,blank=True,default="",null=True)
+    total_amount = models.CharField(max_length=300,blank=True,default="",null=True)
+    paypal_id = models.CharField(max_length=500,blank=True,default="",null=True)
+    paypal_email = models.CharField(max_length=500,blank=True,default="",null=True)
+    flutter_account_id = models.CharField(max_length=500,blank=True,default="",null=True)
+    flutter_app_fee = models.CharField(max_length=500,blank=True,default="",null=True)
+    flutter_pay_type = models.CharField(max_length=500,blank=True,default="",null=True)
+    transaction_date = models.DateTimeField(default=timezone.now, blank=True)
+    paid_by = models.ForeignKey(User, on_delete=models.CASCADE,related_name="paid_by",null=True,blank=True)
+    paid_to = models.ForeignKey(User, on_delete=models.CASCADE,related_name="paid_to",null=True,blank=True)
+    
+    class Meta:
+        verbose_name = _("Transaction")
+        verbose_name_plural = _("Transactions")
+        
+    def __str__(self):
+        return str(self.payment_type)
+    
 
+class Buyer_Requirements(models.Model):
+    gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    requirement_ques = models.CharField(max_length=800,blank=True,default="",null=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False)
+    default_req = models.BooleanField(default=False)
+    requirement_ans = models.TextField(blank=True,default="",null=True)
+    req_documents = models.TextField(blank=True,default="",null=True)
+    
+    class Meta:
+        verbose_name = _("Buyer Requirement")
+        verbose_name_plural = _("Buyer Requirements")
+        
+    def __str__(self):
+        return str(self.requirement_ques)
+
+
+class Payment_Parameters(models.Model):
+    BOOL_CHOICES_TYPES =[('percent', 'Percentage'),('flat', 'Fixed Amount')]
+    parameter_name =   models.CharField(max_length=200,blank=True,null=True)
+    service_amount = models.CharField(max_length=500,blank=True,default="",null=True)
+    service_fees = models.CharField(max_length=500,blank=True,default="",null=True)
+    fees_type = models.CharField(max_length=500,choices=BOOL_CHOICES_TYPES,blank=True,default="",null=True)
+    
+    class Meta:
+        verbose_name = _("Payment Parameter")
+        verbose_name_plural = _("Payment Parameters")
+
+    def __str__(self):
+        return str(self.parameter_name)
+
+
+class Withdrawal_Parameters(models.Model):
+    parameter_name =   models.CharField(max_length=200,blank=True,null=True)
+    no_of_days = models.CharField(max_length=500,blank=True,default="",null=True)
+    
+    class Meta:
+        verbose_name = _("Withdrawal Parameter")
+        verbose_name_plural = _("Withdrawal Parameters")
+
+    def __str__(self):
+        return str(self.no_of_days)
+
+class User_orders(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    order_no =  ShortUUIDField(length=6,max_length=6,alphabet="123456",primary_key=True,)
+    order_status =  models.CharField(max_length=200,choices=BOOL_CHOICES,blank=True,default="Basic",null=True)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    order_date = models.DateTimeField(default=timezone.now, blank=True)
+    offer_id = models.ForeignKey(Request_Offers, on_delete=models.CASCADE,null=True,blank=True)
+    order_by = models.ForeignKey(User, on_delete=models.CASCADE,related_name="order_by",null=True,blank=True)
+    order_to = models.ForeignKey(User, on_delete=models.CASCADE,related_name="order_to",null=True,blank=True)
+    
+    class Meta:
+        verbose_name = _("Order")
+        verbose_name_plural = _("Orders")
+
+    def __str__(self):
+        return str(self.order_no)
+class Seller_Reviews(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    communication = models.CharField(max_length=200,blank=True,default="",null=True)
+    recommendation = models.CharField(max_length=200,blank=True,default="",null=True)
+    service = models.CharField(max_length=200,blank=True,default="",null=True)
+    average_val = models.CharField(max_length=200,blank=True,default="",null=True)
+    buyer_response = models.TextField(blank=True,default="",null=True)
+    review_message = models.TextField()
+    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    s_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="s_review_from")
+    s_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False, related_name="s_review_to")
+    review_date = models.DateTimeField(default=timezone.now, blank=True)
+    buyer_resp_date = models.DateTimeField(default=timezone.now, blank=True)
+    
+    class Meta:
+        verbose_name = _("Seller Review")
+        verbose_name_plural = _("Seller Reviews")
+
+    def __str__(self):
+        return str(self.recommendation)
+
+class Buyer_Reviews(models.Model):
+    BOOL_CHOICES =[('active', 'Active'),('cancel', 'Cancelled'),('completed', 'Completed')]
+    review_message = models.TextField()
+    seller_response = models.TextField(blank=True,default="",null=True)
+    rating_val = models.CharField(max_length=200,blank=True,default="",null=True)
+    order_no =   models.ForeignKey(User_orders, on_delete=models.CASCADE,null=False,blank=False)
+    package_gig_name = models.ForeignKey(UserGigs, on_delete=models.CASCADE,null=False,blank=False)
+    b_review_from = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_from")
+    b_review_to = models.ForeignKey(User, on_delete=models.CASCADE,null=False,blank=False,related_name="b_review_to")
+    review_date = models.DateTimeField(default=timezone.now, blank=True)
+    seller_resp_date = models.DateTimeField(default=timezone.now, blank=True)
+    
+    class Meta:
+        verbose_name = _("Buyer Review")
+        verbose_name_plural = _("Buyer Reviews")
+
+    def __str__(self):
+        return str(self.review_message)
     
