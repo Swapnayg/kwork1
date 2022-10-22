@@ -35,8 +35,9 @@ class indexView(View):
         category_list = []
         categories = Categories.objects.all()
         for c in categories:
-            sub_cat = SubSubCategories.objects.filter(category_Name=c).first() 
-            category_list.append({"cat_name":sub_cat.category_Name.category_Name,"subcat_name":sub_cat.sub_category_Name.sub_category_Name,"subsubcat_name":sub_cat.sub_sub_category_Name})
+            sub_cat = SubSubCategories.objects.filter(category_Name=c).first()
+            if(sub_cat != None):
+                category_list.append({"cat_name":sub_cat.category_Name.category_Name,"subcat_name":sub_cat.sub_category_Name.sub_category_Name,"subsubcat_name":sub_cat.sub_sub_category_Name})
         for u_gig in active_gigs_details:
             gig_image = Usergig_image.objects.filter(package_gig_name=u_gig).first() 
             if(gig_image != None):
