@@ -49,11 +49,7 @@ def add_user(sender, **kwargs):
             ip_address = str(whatismyip.whatismyip())   
             user_referral = Referral_Users.objects.get(ip_address=ip_address,refferal_user=None)
             user_referral.refferal_user = curr_user 
-<<<<<<< HEAD
             user_referral.save() 
-=======
-            user_referral.save()  
->>>>>>> 39e47bc551e5e2c810e5d2eb9b1b4096b5e1e81a
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
