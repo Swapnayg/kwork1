@@ -334,6 +334,5 @@ admin_urls = get_admin_urls(admin.site.get_urls())
 admin.site.get_urls = admin_urls
 
 def content_editView(request,Id=''):
-    print(Id+ ".html")
     return render(request , 'contents.html',{'templateName':Id+ ".html"})
 
