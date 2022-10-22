@@ -44,11 +44,12 @@ class UserAdmin(BaseUserAdmin):
 @receiver(post_save, sender=User)
 def add_user(sender, **kwargs):
     if kwargs['created']: 
-        curr_user = User.objects.get(id=kwargs.get('instance').id)
-        ip_address = str(whatismyip.whatismyip())   
-        user_referral = Referral_Users.objects.get(ip_address=ip_address,refferal_user=None)
-        user_referral.refferal_user = curr_user 
-        user_referral.save() 
+        if(kwargs.get('instance').is_admin == False):
+            curr_user = User.objects.get(id=kwargs.get('instance').id)
+            ip_address = str(whatismyip.whatismyip())   
+            user_referral = Referral_Users.objects.get(ip_address=ip_address,refferal_user=None)
+            user_referral.refferal_user = curr_user 
+            user_referral.save()  
 
 admin.site.register(User, UserAdmin)
 admin.site.unregister(Group)
