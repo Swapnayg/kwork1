@@ -75,7 +75,7 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware', # <-- Here
 ]
 
-
+CSRF_TRUSTED_ORIGINS = ['https://kworkclone.herokuapp.com']
 
 TIME_ZONE = 'UTC'
 
