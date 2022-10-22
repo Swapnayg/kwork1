@@ -172,7 +172,7 @@ class AdminSubSubCategories(admin.ModelAdmin):
     list_display = ['category_Name','sub_category_Name','sub_sub_category_Name','slug','Tags']
     
     class Media:
-        js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js','assets/js/sub_sub_category.js')
+        js = ('https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js','assets/js/sub_sub_category.js')
 
 admin.site.register(SubSubCategories, AdminSubSubCategories)
 
@@ -190,7 +190,7 @@ class AdminUserProfileDetails(admin.ModelAdmin):
         css = {'all': ('assets/css/frontend/admin_post_request.css', )} 
     
     class Media:
-        js = ('http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js','assets/js/sub_sub_category1.js')
+        js = ('https://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js','assets/js/sub_sub_category1.js')
         
 admin.site.register(UserProfileDetails, AdminUserProfileDetails)
 
